@@ -1,0 +1,151 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+@using System.Data
+@{
+    foreach (DataRow dr in ViewBag.Feeshead.Rows)
+    {
+    <div class="">
+                    <div class="">
+                        @*<div class="row">
+        <div class="col-sm-12">
+        <div class="">
+        <h3>Fees Submition</h3>
+        </div>
+        </div>
+        </div>*@
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card m-b-30">
+                                    <div class="card-header bg-primary">
+                                        <h4 style="color:white;">Define Fees</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="p-20">
+                                                    <div class="form-group">
+                                                        <label>Select Branch</label>
+                                                        <input type="hidden" id="txthdn" value="@dr["Id"]">
+                                                        <select id="ddlbranch" class="form-control" asp-for="@dr["Branch"]" required>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-4">
+                                                <div class="p-20">
+                                                    <div class="form-group">
+                                                        <label>Select Year</label>
+                                                        <select class="form-control" id="ddlyear" asp-for="@dr["_Year"]">
+                                                            <option value="1">First Year</option>
+                                                            <option value="2">Second Year</option>
+                                                            <option value="3">Third Year</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="p-20">
+                                                    <div class="form-group"><label>Amount</label> <input type="text" placeholder="Amount" value="@dr["Amount"]" class="form-control" id="amount"> </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" style="width: 12%; margin-left: 35px; margin-top: -17px;" class="btn btn-outline-primary waves-effect waves-light" id="submit">Save</button>
+                                        </div>
+
+                                        <!-- end row -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                    </div>
+    </div>
+    }
+}
+<script src="~/js/jquery.min.js"></script>
+<script src="~/dist/sweetalert2.all.min.js"></script>
+<script src="~/dist/sweetalert2.all.js"></script>
+<script>
+    $(document).ready(function() {
+        Bindbranchlist();
+        //var submit = () => {
+        //    debugger;
+        //    let data = {
+        //        Id:$('#txthdn).val(),
+        //        Branch:$('#ddlbranch option:selected').val(),
+        //        BranchCode:$('#ddlbranchco option:selected').val(),
+        //        Year:$('#ddlyear option:selected').val(),
+        //        Amount:$('#amount').val()
+        //    }
+        //    $.post('/AccountManagement/SaveFeesHead',data).done(function(result) {
+        //        if(result.statuscode == 1){
+        //            alert(result.msg);
+        //            window.location.replace('/AccountManagement/BranchFees');
+        //        }
+        //        if(result.statuscode == -1){
+        //            swal.fire({
+        //                title:"faile",
+        //                text:result.msg,
+        //                icon:"Error"
+        //            });
+        //            return false;
+        //            window.location.reload();
+        //        }
+        //    }).fail(function(xhr) {
+        //        console.log(xhr.responseText)
+        //    });
+        //}
+        $('#submit').click(function() {
+                    let data = {
+                        Id:$('#txthdn').val(),
+            Branch:$('#ddlbranch option:selected').val(),
+            BranchCode:$('#ddlbranchco option:selected').val(),
+            Year:$('#ddlyear option:selected').val(),
+            Amount:$('#amount').val()
+        }
+        $.post('/AccountManagement/SaveFeesHead',data).done(function(result) {
+            if(result.statuscode == 1){
+                swal.fire({
+                    title:"Success",
+                    text:result.msg,
+                    icon:"success",
+                    confirmButtonText: "GoBack"
+                }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            window.location.replace("/AccountManagement/BranchFees");
+                        } else if (result.isDenied) {
+                            //timer: 70000
+                             window.location.reload();
+                        }
+                    });
+                //alert(result.msg);
+                
+            }
+            if(result.statuscode == -1){
+                swal.fire({
+                    title:"faile",
+                    text:result.msg,
+                    icon:"Error"
+                });
+                return false; 
+                window.location.reload();
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+        });
+
+    });
+    var Bindbranchlist = () => {
+        $.post('/Admission/BindBranch').done(function(result) {
+            console.log(result);
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+</script>

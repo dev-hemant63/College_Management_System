@@ -1,0 +1,71 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+<div class="">
+    <div class="">
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-header bg-primary">
+                        <h4 style="color:white;">Notification Master</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="p-20">
+                                    <div class="form-group"><label>Notification Title</label> <input type="text" placeholder="Notification Title" class="form-control" id="NotificationTitle"> </div>
+                                    <small id="NotificationTitlesm" class="text-danger d-none">Please Enter Notification Title</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-20">
+                                    <div class="form-group">
+                                        <label>Notification Description</label>
+                                        <textarea placeholder="Notification Description" class="form-control" id="notiDesc"></textarea>
+                                        <small id="notiDescsm" class="text-danger d-none">Please Enter Notification Description</small>
+                                    </div>
+                                </div>
+                                <button type="button" style="display: flex; float: right;
+" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit()">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+var btnsubmit = () => {
+    let obj = {
+        Notificationtitle:$('#NotificationTitle').val(),
+        NotificationDescription:$('#notiDesc').val()
+    }
+    if (obj.Notificationtitle == '') {
+        $('#NotificationTitlesm').removeClass("d-none");
+        return false;
+    }
+    else{
+        $('#NotificationTitlesm').addClass("d-none");
+    }
+    if (obj.Notificationtitle == '') {
+        $('#notiDescsm').removeClass("d-none");
+        return false;
+    }
+    else{
+        $('#notiDescsm').addClass("d-none");
+    }
+    $.post('/Master/NotificationMaster', obj).done(function(result) {
+        if (result.statuscode == 1) {
+            alert(result.msg);
+            window.location.reload();
+        }
+        else {
+            alert(result.msg);
+        }
+    }).fail(function() {
+        alert('Server Error');
+    });
+}
+</script>

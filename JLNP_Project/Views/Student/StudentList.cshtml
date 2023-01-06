@@ -1,0 +1,81 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+<div class="">
+    <div class="">
+        <!-- Page-Title -->
+        @*<div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    Student Report
+                </div>
+            </div>
+        </div>*@
+        <!-- end page title end breadcrumb -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                            <h4 style="color:white;">Students</h4>
+                        </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <lable>From Date</lable>
+                                <input type="date" class="form-control" placeholder="From Date">
+                            </div>
+                            <div class="col-md-3">
+                                <lable>From Date</lable>
+                                <input type="date" class="form-control" placeholder="From Date">
+                            </div>
+                            <div class="col-md-3">
+                                <lable>Student Name</lable>
+                                <input type="text" class="form-control" placeholder="Student Name">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" onclick="getdata()" class="btn btn-outline-primary waves-effect waves-light" style="margin-top: 20px;" id="btnsearch">Search</button>
+                            </div>
+                            <!-- end col -->
+
+                        </div>
+                        <div class="table-responsive" style="margin-top: 13px;">
+                            <table class="table table-bordered" id="tblstudent">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Father Name</th>
+                                        <th>Email</th>
+                                        <th>Mobile</th>
+                                        <th>DOB</th>
+                                        <th>Registration</th>
+                                        <th>Branch</th>
+                                        <th>Address</th>
+                                        <th>Gender</th>
+                                        <th>Group</th>
+                                        <th>EntryDate</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        Loaddata();
+    });
+    var Loaddata = function() {
+        $.post('/Student/GetStudent').done(function(result) {
+            $('#tblstudent tbody').html(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+    }
+</script>

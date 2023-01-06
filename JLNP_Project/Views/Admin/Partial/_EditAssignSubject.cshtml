@@ -1,0 +1,62 @@
+﻿@model SubjectMaster
+<div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Branch Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <input type="hidden" id="hdnid" value="@Model.Id" />
+                        <label>Branch<span style="color:red;">*</span></label>
+                        <select class="form-control" id="ddlbranchlst" asp-for="@Model.BranchId">
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Year<span style="color:red;">*</span></label>
+                        <select class="form-control" id="ddlyearlst" asp-for="@Model._Year">
+                            <option value="1">First Year </option>
+                            <option value="2">Second Year</option>
+                            <option value="3">Final Year </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Select Subject<span style="color:red;">*</span></label>
+                        <select class="form-control" id="ddlsubjectlst" asp-for="@Model.SubjectId">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label>Select Teacher<span style="color:red;">*</span></label>
+                        <select class="form-control" id="ddlteacherlst" asp-for="@Model.TeacherId">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" onclick="Updatedata(@Model.Id)" id="btnsave">save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var Updatedata = (EditId) => {
+        let obj = {
+            Id: EditId,
+            BranchId: $('#ddlbranchlst option:selected').val(),
+            Year: $('#ddlyearlst option:selected').val(),
+            SubjectId: $('#ddlsubjectlst option:selected').val(),
+            TeacherId: $('#ddlteacherlst option:selected').val()
+        }
+        $.post('/Admin/SaveAssignSubject', obj).done(function(result) {
+            alert(result.msg);
+            window.location.reload();
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
+        });
+    }
+</script>

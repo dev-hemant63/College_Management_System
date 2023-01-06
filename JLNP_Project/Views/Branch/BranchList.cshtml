@@ -1,0 +1,93 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+<div class="">
+    <div class="">
+        <!-- Page-Title -->
+        @*<div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    
+                </div>
+            </div>
+        </div>*@
+        <!-- end page title end breadcrumb -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                     <div class="card-header bg-primary">
+                            <h4 style="color:white;">Branch List</h4>
+                        </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <lable>From Date</lable>
+                                <input type="date" class="form-control" placeholder="From Date">
+                            </div>
+                            <div class="col-md-3">
+                                <lable>From Date</lable>
+                                <input type="date" class="form-control" placeholder="From Date">
+                            </div>
+                            <div class="col-md-3">
+                                <lable>Branch Name</lable>
+                                <input type="text" class="form-control" placeholder="Branch Name">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" onclick="getdata()" class="btn btn-outline-primary waves-effect waves-light" style="margin-top:20px;" id="btnsearch">Search</button>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <div class="table-responsive table-bordered" style="margin-top:13px;">
+                            <table class="table mb-0" id="tblbranch">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Branch Name</th>
+                                        <th>Branch Code</th>
+                                        <th>EntryDate</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $.post('/Branch/GetBranchDetail').done(function(result) {
+        console.log(result);
+        $('#tblbranch tbody').html(result);
+    }).fail(function(xhr) {
+        console.log(xhr.responseText);
+    });
+});
+var EditBranch = function(){
+    let data = {
+        BranchId:$('#Branchid').val(),
+        BranchName:$('#Branchname').val(),
+        BranchCode:$('#Branchcode').val()
+    }
+    $.post('/Branch/_EditBranch',data).done(function(result) {
+        alert(result.msg);
+         window.location.reload("/Branch/BranchList");
+    }).fail(function(xhr) {
+        console.log(xhr.responseText);
+    });
+    
+}
+var DeleteBranch = function(BranchId){
+    $.post('/Branch/DeleteBranch', {BranchId:BranchId}).done(function(result) {
+        alert(result.msg);
+         window.location.reload("/Branch/BranchList");
+    }).fail(function(xhr) {
+        console.log(xhr.responseText);
+    });
+    
+}
+</script>

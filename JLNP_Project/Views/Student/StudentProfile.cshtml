@@ -1,0 +1,94 @@
+﻿@{
+    Layout = "_LayoutStudent";
+}
+@model StudentInfo
+<div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box bg-primary">
+                    <div class="float-right hide-phone">
+                    </div>
+                    <h4 class="page-title">Wellcome  @Model.Name</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4-xxxl col-12">
+                <div class="card dashboard-card-ten">
+                    <div class="card-body">
+                        <div class="student-info">
+                            <div class="media media-none--xs">
+                                <div class="item-img">
+                                    <img src="/Assessts3/images/userimg.png" width="72px" height="72px" class="media-img-auto" alt="student">
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="item-title">@Model.Name</h3>
+                                    <p>
+                                        Aliquam erat volutpat. Curabiene natis massa
+                                        sedde lacustiquen sodale word moun taiery.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="table-responsive info-table">
+                                <table class="table text-nowrap">
+                                    <tbody>
+                                        <tr>
+                                            <th>Name:</th>
+                                            <td class="font-medium text-dark-medium"><input type="text" class="form-control" value="@Model.Name" id="txtname"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Father Name:</th>
+                                            <td class="font-medium text-dark-medium"><input type="text" class="form-control" value="@Model.FatherName" id="txtfathername"/></td>
+                                        </tr>
+                                        @* <tr>
+                                        <td>Mother Name:</td>
+                                        <td class="font-medium text-dark-medium">@Model.MotherName</td>
+                                        </tr>*@
+                                        <tr>
+                                            <th>Date Of Birth:</th>
+                                            <td class="font-medium text-dark-medium"><input type="text" class="form-control" value="@Model.DOB" id="txtdob"/></td>
+                                        </tr>
+                                        @*<tr>
+                                        <td>Religion:</td>
+                                        <td class="font-medium text-dark-medium">@Model.Religion</td>
+                                        </tr>*@
+                                        @*<tr>
+                                        <td>Father Occupation:</td>
+                                        <td class="font-medium text-dark-medium">@Model.FatherOccupation</td>
+                                        </tr>*@
+                                        <tr>
+                                            <th>E-Mail:</th>
+                                            <td class="font-medium text-dark-medium"><input type="text" class="form-control" value="@Model.EMail" id="txtemail"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Branch:</th>
+                                            <td class="font-medium text-dark-medium"><input type="text" class="form-control" disabled value="@Model.Branch" id="txtBranch"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Year:</th>
+                                            <td class="font-medium text-dark-medium"><input type="text" class="form-control" disabled value="@Model.Year" id="txtYear"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Enrollment:</th>
+                                            <td class="font-medium text-dark-medium"><input type="text" class="form-control" disabled value="@Model.EnrollmentNO" id="txtenrol"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Adress:</th>
+                                            <td class="font-medium text-dark-medium"><input type="text" class="form-control"" value="@Model.Adress" id="txtaddess"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Phone:</td>
+                                            <td class="font-medium text-dark-medium"><input type="text" class="form-control" value="@Model.Phone" id="txtphone"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="notify"></div>
+        </div>
+    </div>
+</div>

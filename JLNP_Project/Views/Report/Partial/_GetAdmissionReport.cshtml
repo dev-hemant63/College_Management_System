@@ -1,0 +1,32 @@
+﻿@model List<AdmissionModel>
+@{
+    int i = 0;
+    @if (Model.Count>0) {
+        foreach (var item in Model)
+        {
+            i++;
+            <tr data-item-id="@item.Id">
+                <td>@i</td>
+                <td>@item.Name</td>
+                <td>@item.Fname</td>
+                <td>@item.Email</td>
+                <td>@item.Mobile</td>
+                <td>@item.DOB</td>
+                <td>@item.EntrolmentNo</td>
+                <td>@item.Branch</td>
+                <td>@item.Year</td>
+                <td>@item.Address</td>
+                <td>@item.Gender</td>
+                <td>@item.Group</td>
+                <td style="color:green">@item.FeesStatus</td>
+                <td>@item.AdmissionDate</td>
+            </tr>
+        }
+    }
+    else
+    {
+       <tr>
+         <td style="color:red;" colspan="12" class="text-center">Record Not Found</td>
+       </tr>
+    }
+}

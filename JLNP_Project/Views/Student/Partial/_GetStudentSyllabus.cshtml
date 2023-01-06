@@ -1,0 +1,22 @@
+﻿@model List<StudentSyllabus>
+@{
+    if (Model.Count > 0)
+    {
+        int i = 0;
+        foreach (var item in Model)
+        {
+            i++;
+            <tr>
+                <td>@i</td>
+                <td>@item.SubjectName<b><span>(@item.SubjectCode)</span></b></td>
+                <td><a href="@item.Path" target="_blank">View Syllabus</a></td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td class="text-danger text-center" colspan="3">Syllabus Not Found!</td>
+        </tr>
+    }
+}

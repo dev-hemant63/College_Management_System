@@ -1,0 +1,130 @@
+﻿@model JLNP_Project.Models.SubjectMaster
+@{
+    Layout = "_LayoutAdmin";
+}
+<div class="">
+    <div class="">
+        <!-- Page-Title -->
+        @*<div class="row">
+        <div class="col-sm-12">
+        <div class="">
+        <div class="row" style="justify-content: space-between;">
+        <div class="col-sm-5"><h3>Assignment</h3></div>
+        </div>
+        </div>
+        </div>
+        </div>*@
+        <!-- end page title end breadcrumb -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <h4 style="color:white;">Assignment</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input type="hidden" id="hdnid" value="@Model.Id"/>
+                                <label>Select Branch<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlbranch" onchange="BindSubject()">
+                                    @if(Model.BranchId != 0){
+                                        <option value="@Model.BranchId">@Model.Branch</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Select Year<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlyear" onchange="BindSubject()">
+                                    @if(Model.Year!=null){
+                                        <option value="@Model.Year">@Model._Year</option>
+                                    }
+                                    @if (Model.Year != "1")
+                                    {
+                                        <option value="1">First Year </option>
+                                    }
+                                    @if (Model.Year != "2")
+                                    {
+                                        <option value="2">Second Year</option>
+                                    }
+                                    @if (Model.Year != "3")
+                                    {
+                                        <option value="3">Final Year </option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Select Subject<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlsubject">
+                                    @if(Model.SubjectId>0){
+                                        <option value="@Model.SubjectId">@Model.SubjectName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Assignment<span style="color:red;">*</span></label>
+                                <input type="text" class="form-control" id="txtassignment" value="@Model.Assignment"/>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-outline-primary" onclick="btnsave()" style="margin-top: 29px;width: 43%;">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        Bindbranch();
+    });
+    var Bindbranch = () => {
+        $.post('/Admission/BindBranch').done(function(result) {
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var BindSubject = () => {
+        let obj = {
+            BranchId: $('#ddlbranch option:selected').val(),
+            Year: $('#ddlyear option:selected').val(),
+        }
+        $.post('/Admin/Bind_Subject', obj).done(function(result) {
+            console.log(result);
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlsubject').append('<option value="' + result[i].subjectId + '">' + result[i].subjectName + '</option>');
+            }
+        }).fail(function(xhr) {
+            alert("Server Error");
+        });
+    }
+    var btnsave = () => {
+        let obj = {
+            Id:$('#hdnid').val(),
+            BranchId: $('#ddlbranch option:selected').val(),
+            BranchYear: $('#ddlyear option:selected').val(),
+            SubjectId: $('#ddlsubject option:selected').val(),
+            Assignment: $('#txtassignment').val(),
+            Action: 'Add'
+        }
+        $.post('/Admin/SaveAssignment', obj).done(function(result) {
+            if (result.statusCode = 1) {
+                alert(result.msg);
+                window.location.replace("/Admin/Assignment");
+            }
+            else {
+                alert(result.msg);
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert("Server Error");
+        });
+    }
+
+</script>

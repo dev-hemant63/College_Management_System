@@ -1,0 +1,67 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+<div class="">
+    <div class="">
+        <!-- Page-Title -->
+        @*<div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    Student List
+                </div>
+            </div>
+        </div>*@
+        <!-- end page title end breadcrumb -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                            <h4 style="color:white;">Student Report</h4>
+                        </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <lable>From Date</lable>
+                                <input type="date" class="form-control" placeholder="From Date">
+                            </div>
+                            <div class="col-md-3">
+                                <lable>From Date</lable>
+                                <input type="date" class="form-control" placeholder="From Date">
+                            </div>
+                            <div class="col-md-3">
+                                <lable>Student Name</lable>
+                                <input type="text" class="form-control" placeholder="Student Name">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" onclick="getdata()" class="btn btn-outline-primary waves-effect waves-light" style="margin-top:20px;" id="btnsearch">Search</button>
+                            </div>
+                            <!-- end col -->
+
+                        </div>
+                        <div class="table-responsive table-bordered" style="margin-top:13px;">
+                            <table class="table mb-0" id="tblstudent">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Father Name</th>
+                                        <th>Email</th>
+                                        <th>Mobile</th>
+                                        <th>DOB</th>
+                                        <th>Entrolment Number</th>
+                                        <th>Branch</th>
+                                        <th>Address</th>
+                                        <th>Gender</th>
+                                        <th>Group</th>
+                                        <th>Admission Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

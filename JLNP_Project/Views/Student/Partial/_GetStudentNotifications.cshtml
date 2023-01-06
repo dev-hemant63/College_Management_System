@@ -1,0 +1,28 @@
+﻿@model List<NotificationMaster>
+<div class="col-4-xxxl col-12">
+    <div class="card dashboard-card-six">
+        <div class="card-body">
+            <div class="heading-layout1 mg-b-17">
+                <div class="item-title">
+                    <h3>Notifications</h3>
+                </div>
+            </div>
+            @{
+                foreach (var item in Model)
+                {
+                    <div class="notice-box-wrap">
+                        <div class="notice-list">
+                            <div class="post-date bg-skyblue">@item.EntryDate</div>
+                            <h6 class="notice-title">
+                                <a href="#">
+                                    @item.NotificationDescription
+                                </a>
+                            </h6>
+                            <div class="entry-meta"> @item.Notificationtitle / <span>@item.EntryDate</span></div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

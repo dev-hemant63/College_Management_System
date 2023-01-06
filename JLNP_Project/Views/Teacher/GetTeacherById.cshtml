@@ -1,0 +1,74 @@
+﻿@using System.Data
+@{
+    Layout = "_LayoutAdmin";
+}
+@{
+foreach(DataRow row in ViewBag.teacher.Rows){
+    <div class="">
+        <div class="">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card m-b-30">
+                     <div class="card-header bg-primary">
+                            <h4 style="color:white;">Edit Teacher</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="p-20">
+                                        <input type="hidden" id="hdnid" value="@row["TeacherId"]" />
+                                        <div class="form-group"><label>Name</label> <input type="text" value="@row["Name"]" class="form-control" id="name"> </div>
+                                        <div class="form-group"><label>Father Name</label> <input type="text" value="@row["FName"]" class="form-control" id="fname"> </div>
+                                        <div class="form-group"><label>Mobile</label> <input type="text" value="@row["Mobile"]" class="form-control" id="mobile"> </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-20">
+                                        <div class="form-group"><label>Eamil</label> <input type="text" value="@row["Email"]" class="form-control" id="email"> </div>
+                                        <div class="form-group"><label>DOB</label> <input type="date" value="@row["DOB"]"  class="form-control" id="dob"> </div>
+                                        <div class="form-group"><label>Address</label> <textarea class="form-control"  id="address">@row["Address"]</textarea></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-20">
+                                        <div class="form-group"><label>salary</label> <input type="number" value="@row["salary"]"  class="form-control" id="salary"> </div>
+                                        <div class="form-group"><label>Qualification</label> <input type="text" value="@row["Qualification"]" class="form-control" id="Qualification"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="btnsubmit">save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+}
+<script src="~/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#btnsubmit').click(function() {
+            var obj = {
+                TeacherId: $('#hdnid').val(),
+                Name: $('#name').val(),
+                Fname: $('#fname').val(),
+                Email: $('#email').val(),
+                Mobile: $('#mobile').val(),
+                DOB: $('#dob').val(),
+                salary: $('#salary').val(),
+                Qualification: $('#Qualification').val(),
+                Address: $('#address').val()
+            }
+            $.post('/Teacher/UpdateTeacher', obj).done(function(result) {
+                if (result.statuscode == "1") {
+                    alert(result.msg);
+                    window.location.replace("/Teacher/teacherlist");
+                }
+               window.location.replace("/Teacher/teacherlist");
+            }).fail(function(xhr) {
+                console.log(xhr.responseText);
+            });
+        });
+    });
+</script>

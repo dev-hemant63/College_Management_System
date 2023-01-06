@@ -1,0 +1,215 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+<div class="">
+    <div class="">
+        <!-- Page-Title -->
+        @*<div class="row bg-primary">
+            <div class="col-sm-12">
+                <div class="">
+                    <h3>Subject Master</h3>
+                </div>
+            </div>
+        </div>*@
+        <!-- end page title end breadcrumb -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                    <h3 style="color:white;">Subject Master</h3>
+                </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Select Branch<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlbranch">
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Select Year<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlyear">
+                                    <option value="">--Select Year--</option>
+                                    <option value="1">First Year</option>
+                                    <option value="2">Secound Year</option>
+                                    <option value="3">Third Year</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Subject Name<span style="color:red;">*</span></label>
+                                <input type="text" id="txtsubjectname" class="form-control" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Subject Code<span style="color:red;">*</span></label>
+                                <input type="text" id="txtsubjectCode" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Theory Marks<span style="color:red;">*</span></label>
+                                <input type="text" id="txttheoryMarks" class="form-control" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Subject Type<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlsubjecttype">
+                                    <option value="">-- Select Type --</option>
+                                    <option value="optional">Optional</option>
+                                    <option value="Conpalsary">Conpalsary</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Prectical Marks<span style="color:red;">*</span></label>
+                                <input type="text" id="txtsubjectMarks" class="form-control" />
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-outline-primary" onclick="submitdata()" style="margin-top: 29px;width: 43%;">Save</button>
+                            </div>
+                        </div>
+                        <div class="table-responsive" style="margin-top:13px;">
+                            <table class="table table-bordered" id="tblbranch">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Branch Name</th>
+                                        <th>Year</th>
+                                        <th>Subject</th>
+                                        <th>Subject Code</th>
+                                        <th>Subject Type</th>
+                                        <th>Theory Marks</th>
+                                        <th>Practical Marks</th>
+                                        <th>EntryDate</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/jquery.min.js"></script>
+<script src="~/dist/sweetalert2.all.min.js"></script>
+<script src="~/dist/sweetalert2.all.js"></script>
+<script>
+    $(document).ready(function() {
+        loaddata();
+        Bindbranch();
+    });
+
+    var submitdata = () => {
+        if ($('#ddlbranch option:selected').val() == '') {
+            alert('Please Select Branch');
+            $('#ddlbranch').focus();
+            return false;
+        }
+        if ($('#ddlyear option:selected').val() == '') {
+            alert('Please Select Year');
+            $('#ddlyear').focus();
+            return false;
+        }
+
+        if ($('#txtsubjectname').val() == '') {
+            alert('Please Enter Subject Name');
+            $('#txtsubjectname').focus();
+            return false;
+        }
+        if ($('#txtsubjectCode').val() == '') {
+            alert('Please Enter Subject Code');
+            $('#txtsubjectCode').focus();
+            return false;
+        }
+        if ($('#ddlsubjecttype option:selected').val() == '') {
+            alert('Please Select Type');
+            $('#ddlsubjecttype').focus();
+            return false;
+        }
+        if ($('#txttheoryMarks').val() == '') {
+            alert('Please Enter Theory Marks');
+            $('#txttheoryMarks').focus();
+            return false;
+        }
+        if ($('#txtsubjectMarks').val() == '') {
+            alert('Please Enter Practical Marks');
+            $('#txtsubjectMarks').focus();
+            return false;
+        }
+        let obj = {
+            Branch: $('#ddlbranch option:selected').val(),
+            BranchId: $('#ddlbranch option:selected').val(),
+            Year: $('#ddlyear option:selected').val(),
+            SubjectName: $('#txtsubjectname').val(),
+            SubjectCode: $('#txtsubjectCode').val(),
+            SubjectType: $('#ddlsubjecttype option:selected').val(),
+            TheoryMarks: $('#txttheoryMarks').val(),
+            PracticalMarks: $('#txtsubjectMarks').val()
+        }
+        $.post('/Master/SaveSubjectMaster', obj).done(function(result) {
+            alert(result.msg);
+            window.location.reload();
+        }).fail(function(xhr) {
+            alert("Server Error");
+        });
+    }
+    //var EditBranch = function(){
+    //    let data = {
+    //        BranchId:$('#Branchid').val(),
+    //        BranchName:$('#Branchname').val(),
+    //        BranchCode:$('#Branchcode').val()
+    //    }
+    //    $.post('/Branch/_EditBranch',data).done(function(result) {
+    //        alert(result.msg);
+    //         window.location.reload("/Branch/BranchList");
+    //    }).fail(function(xhr) {
+    //        console.log(xhr.responseText);
+    //    });
+
+    //}
+    //var DeleteBranch = function(BranchId){
+    //    $.post('/Branch/DeleteBranch', {BranchId:BranchId}).done(function(result) {
+    //        alert(result.msg);
+    //         window.location.reload("/Branch/BranchList");
+    //    }).fail(function(xhr) {
+    //        console.log(xhr.responseText);
+    //    });
+
+    //}
+    var Bindbranch = () => {
+        $.post('/AccountManagement/BindBranch').done(function(result) {
+            console.log(result);
+            $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var loaddata = () => {
+        $.post('/Master/GetSubjectMaster').done(function(result) {
+            $('#tblbranch tbody').html(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
+        });
+    }
+    //var editsubjectmaster = function(SubjectId) {
+    //    $.post('/Master/GetSubjectMaster_ById', { Id: SubjectId }).done(function() {
+           
+    //    }).fail(function(xhr) { 
+    //        console.log(xhr.responseText);
+    //        alert('Server Error');
+    //    });
+    //}
+    var DeleteSubject = () => {
+        $.post('/Master/DeleteSubject', { Id: SubjectId }).done(function(result) {
+            alert(result.msg);
+            window.location.reload();
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
+        });
+    }
+   
+</script>

@@ -1,0 +1,26 @@
+﻿@model List<NotificationMaster>
+@{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        i++;
+        <tr data-item-id = "@item.ID">
+            <td>@i</td>
+            <td>@item.Notificationtitle</td>
+            <td>@item.NotificationDescription</td>
+            <td>
+                <span class="switch switch-sm">
+                            <input type="checkbox" class="switch" onchange="UpdateType('@item.ID')" id="isact_@item.ID" @Html.Raw(item.IsActive ? "checked='checked'" : "")>
+                            <label for="isact_@item.ID"></label>
+                        </span>
+            </td>
+            <td>@item.EntryDate</td>
+            <td>
+                <div class="btn-group btn-group-sm" style="float: none;">
+                            <button class="tabledit-edit-button btn btn-sm btn-success btn_edit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="EditRecord(NotifyID=@item.ID)" style="float: none; margin: 4px;"><span class="ti-pencil"></span></button>
+                            <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;" onclick="DeleteRecord('@item.ID')"><span class="ti-trash"></span></button>
+                        </div>
+            </td>
+        </tr>
+    }
+}

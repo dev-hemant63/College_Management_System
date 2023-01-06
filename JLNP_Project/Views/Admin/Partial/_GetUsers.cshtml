@@ -1,0 +1,34 @@
+﻿@model List<SubjectMaster>
+@{
+    int i = 0;
+    @if (Model.Count > 0)
+    {
+        @foreach (var item in Model)
+        {
+            i++;
+            <tr>
+                <td>@i</td>
+                <td>@item.UserName</td>
+                <td>@item.LoginID</td>
+                <td>@item.UserEmail</td>
+                <td>@item.MobileNo</td>
+                <td>@item.Branch</td>
+                <td>@item.GroupName</td>
+                <td>@item.Role</td>
+                <td>@item.Password</td>
+                <td>
+                   <span class="switch switch-sm">
+                            <input type="checkbox" class="switch" onclick="UpdateStatus('@item.Id')" id="isact_@item.Id" @Html.Raw(@item.IsActive ? "checked='checked'" : "")>
+                            <label for="isact_@item.Id"></label>
+                        </span>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td class="taxt-danger text-center" colspan="11">Record Not Found</td>
+        </tr>
+    }
+}

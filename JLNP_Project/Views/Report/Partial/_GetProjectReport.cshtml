@@ -1,0 +1,27 @@
+﻿@model List<ProjectReport>
+@{
+    int i = 0;
+    if (Model.Count >0)
+    {
+        foreach (var item in Model)
+        {
+            i++;
+    <tr data-item-Id="@item.ProjectId">
+                    <td>@i</td>
+                    <td>@item.Enrollment</td>
+                    <td>@item.StudentName</td>
+                    <td>@item.Branch</td>
+                    <td>@item.Year</td>
+                    <td>@item.ProjectTitle</td>
+                    <td>@item.Techonology</td>
+                    <td>@item.Submitiondate</td>
+    </tr>
+        }
+    }
+    else
+    {
+    <tr>
+                <td style="color:red;" colspan="8">Record Not Found</td>
+    </tr>
+    }
+}

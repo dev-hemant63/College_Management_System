@@ -1,0 +1,222 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+    background-color: #fff;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url('../assessts3/images/loading-gif.gif');
+}
+.alert {
+    margin-bottom: .5rem;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border: 0;
+    padding: .75rem 1rem;
+    font-size: .8rem;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+}
+
+    .alert .alert-link {
+        color: #ffffff;
+        font-weight: 600;
+        margin-left: 5px;
+    }
+
+    .alert.alert-primary {
+        color: #ffffff;
+        background: #ee0000;
+    }
+
+        .alert.alert-primary hr {
+            border-top-color: #ff0808;
+        }
+
+    .alert.alert-secondary {
+        color: #ffffff;
+        background: #484848;
+    }
+
+        .alert.alert-secondary hr {
+            border-top-color: #555555;
+        }
+
+    .alert.alert-success {
+        background: #2f8a00;
+    }
+
+        .alert.alert-success hr {
+            border-top-color: #38a400;
+        }
+
+    .alert.alert-danger {
+        background: #ee0000;
+    }
+
+        .alert.alert-danger hr {
+            border-top-color: #ff0808;
+        }
+
+    .alert.alert-info {
+        background: #074694;
+    }
+
+        .alert.alert-info hr {
+            border-top-color: #0852ac;
+        }
+
+    .alert.alert-warning {
+        background: #ee6300;
+    }
+
+        .alert.alert-warning hr {
+            border-top-color: #ff6f08;
+        }
+
+    .alert i {
+        font-size: 1.1rem;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+    .alert .alert-link {
+        text-decoration: underline;
+        font-weight: 400;
+    }
+
+    .alert .alert-heading {
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .alert.alert-dismissible .close {
+        padding: .6rem 1rem;
+        font-weight: 600;
+    }
+
+        .alert.alert-dismissible .close:hover {
+            color: #ffffff;
+        }
+
+.badge {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    font-weight: 600;
+    padding: .35rem .7rem;
+    line-height: 100%;
+    vertical-align: middle;
+}
+
+    .badge.badge-primary {
+        background: #ee0000;
+    }
+
+        .badge.badge-primary:hover {
+            background: #ee0000;
+        }
+
+    .badge.badge-secondary {
+        background: #484848;
+    }
+
+        .badge.badge-secondary:hover {
+            background: #484848;
+        }
+
+    .badge.badge-success {
+        background: #2f8a00;
+    }
+
+        .badge.badge-success:hover {
+            background: #2f8a00;
+        }
+
+    .badge.badge-info {
+        background: #074694;
+    }
+
+        .badge.badge-info:hover {
+            background: #074694;
+        }
+
+    .badge.badge-danger {
+        background: #ee0000;
+    }
+
+        .badge.badge-danger:hover {
+            background: #ee0000;
+        }
+
+    .badge.badge-warning {
+        background: #ee6300;
+        color: #ffffff;
+    }
+
+        .badge.badge-warning:hover {
+            background: #ee6300;
+        }
+
+    .badge.badge-orange {
+        background: #f18024;
+        color: #ffffff;
+    }
+
+        .badge.badge-orange:hover {
+            background: #f18024;
+        }
+
+    .badge.badge-light {
+        background: #d0d0d0;
+    }
+
+        .badge.badge-light:hover {
+            background: #d0d0d0;
+        }
+
+    .badge.badge-dark {
+        background: #1b1b1b;
+    }
+
+        .badge.badge-dark:hover {
+            background: #1b1b1b;
+        }
+
+    .badge.badge-white {
+        background: #ffffff;
+        color: #333333;
+    }
+
+        .badge.badge-white:hover {
+            background: #ffffff;
+        }
+
+    .badge.badge-pill {
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+        border-radius: 50px;
+    }

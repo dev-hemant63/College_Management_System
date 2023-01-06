@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "_LayoutStudent";
+}
+@model LoginInfo
+<div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box bg-primary">
+                    <div class="float-right hide-phone">
+                    </div>
+                    <h4 class="page-title">Wellcome @Model.UserName</h4>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <section class="header">
+                    <div class="container">
+                        <header class="text-center mb-2 pb-2 text-white">
+                            <h3 class="display-4" style="color:black; font-size: 37px;">STUDENT SYLLABUS</h3>
+                            <p class="font-italic">
+                                <a class="text-white" href="">
+                                    <u></u>
+                                </a>
+                            </p>
+                        </header>
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-nowrap" id="tblsyllabus">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Subject</th>
+                                        <th>Syllabus</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        Loaddata();
+    });
+    var Loaddata = function() {
+        $.post('/Student/GetSyllabus').done(function(result) {
+            $('#tblsyllabus tbody').html(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+    }
+</script>

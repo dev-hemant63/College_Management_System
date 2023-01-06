@@ -1,0 +1,186 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+<div class="">
+    <div class="">
+        @*<div class="row">
+            <div class="col-sm-12">
+                <div>
+                    <h3>Admission Form</h3>
+                </div>
+            </div>
+        </div>*@
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-header bg-primary">
+                            <h4 style="color:white;">Admission Form</h4>
+                        </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="p-20">
+                                    <div class="form-group"><label>Registration Number</label> <input type="text" onfocusout="AdmissionDetails()" placeholder="Registration Number" class="form-control" id="txtresno"> </div>
+                                    <div class="form-group"><label>Eamil</label> <input type="text" placeholder="Eamil" class="form-control" id="email"> </div>
+                                    <div class="form-group">
+                                        <label>Gender</label> <select class="form-control" id="gender">
+                                            <option>--Select Gender--</option>
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group"><label>Mobile</label> <input type="text" placeholder="Mobile" class="form-control" id="mobile"> </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-20">
+                                    <div class="form-group"><label>Name</label> <input type="text" placeholder="Name" class="form-control" id="name"> </div>
+                                    <div class="form-group"><label>DOB</label> <input type="date" placeholder="dd-mm-yy" class="form-control" id="dob"> </div>
+                                    <div class="form-group">
+                                        <label>Branch</label> <select class="form-control" id="ddlbranch">
+                                            
+                                        </select>
+                                        <div class="form-group"><label>Address</label> <textarea class="form-control" placeholder="Address" id="address"></textarea></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-20">
+                                    <div class="form-group"><label>Father Name</label> <input type="text" placeholder="Father Name" class="form-control" id="fname"> </div>
+                                    <div class="form-group">
+                                        <label>Group</label>
+                                        <select class="form-control" id="group">
+                                            <option>--Select Group--</option>
+                                            <option>A</option>
+                                            <option>B</option>
+                                            <option>C</option>
+                                            <option>K</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group"><label>Year</label>
+                                      <select class="form-control" id="ddlyear">
+                                          <option value="">--Select Year--</option>
+                                          <option value="1">First Year</option>
+                                          <option value="2">Seccond Year</option>
+                                      </select>  
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end col -->
+                            <button type="button" style="width:12%; margin-left:33px;" class="btn btn-outline-primary waves-effect waves-light" id="btnsubmit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+    </div>
+</div>
+<script src="~/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#btnsubmit').click(function() {
+            if($('#name').val() == ''){
+                alert("Please Fill Requered Inpormation..");
+                $('#name').focus();
+                return false;
+            }
+            if($('#fname').val() == ''){
+                alert("Please Fill Requered Inpormation..");
+                $('#fname').focus();
+                return false;
+            }
+            if($('#email').val() == ''){
+                alert("Please Fill Requered Inpormation..");
+                $('#email').focus();
+                return false;
+            }
+            if($('#mobile').val() == ''){
+                alert("Please Fill Requered Inpormation..");
+                $('#mobile').focus();
+                return false;
+            }
+            if($('#dob').val() == ''){
+                alert("Please Fill Requered Inpormation..");
+                $('#dob').focus();
+                return false;
+            }
+            if($('#gender option:selected').val() == ''){
+                alert("Please Fill Requered Inpormation..");
+                $('#gender').focus();
+                return false;
+            }
+            if($('#ddlbranch option:selected').val() == ''){
+                alert("Please Fill Requered Inpormation..");
+                $('#ddlbranch').focus();
+                return false;
+            }
+            if($('#group option:selected').val() == ''){
+                alert("Please Fill Requered Inpormation..");
+                $('#group').focus();
+                return false;
+            }
+            if($('#address').val() == ''){
+                alert("Please Fill Requered Inpormation..");
+                $('#address').focus();
+                return false;
+            }
+            if($('#txtresno').val() == ''){
+                alert("Please Fill Requered Inpormation..");
+                $('#txtresno').focus();
+                return false;
+            }
+            var obj = {
+                Name: $('#name').val(),
+                Fname: $('#fname').val(),
+                Email: $('#email').val(),
+                Mobile: $('#mobile').val(),
+                DOB: $('#dob').val(),
+                Branch: $('#ddlbranch option:selected').val(),
+                Year: $('#ddlyear option:selected').val(),
+                Gender: $('#gender option:selected').val(),
+                Group: $('#group option:selected').val(),
+                Address: $('#address').val(),
+                RgistrationNo: $('#txtresno').val(),
+                //EntrolmentNo: "E" + 1 + Math.floor(Math.random() * 30000000000)
+            }
+            $.post('/Admission/Student_Admission', obj).done(function(result) {
+                if(result.statucode == -1){
+                    alert(result.msg);
+                }
+                alert(result.msg);
+                 window.location.reload();
+            }).fail(function(xhr) {
+                console.log(xhr.responseText);
+            });
+        });
+        Bindbranch();
+    });
+    var Bindbranch = () => {
+        $.post('/Admission/BindBranch').done(function(result) {
+            console.log(result);
+            $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
+                for (var i = 0; i < result.length; i++) {
+                    $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+                }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var AdmissionDetails = () =>{
+        let ResBo = $('#txtresno').val();
+        $.post('/Admission/StudentGetAdmissionDetails', {RegistrationNo:ResBo}).done(function(result) {
+            $('#name').val(result.name),
+             $('#fname').val(result.fname),
+              $('#email').val(result.email),
+              $('#mobile').val(result.mobile),
+              $('#dob').val(result.dob),
+              $('#address').val(result.address)
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
+        });
+    } 
+</script>

@@ -1,0 +1,135 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+<link href="~/dist/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+<link href="~/dist/sweetalert2.css" rel="stylesheet" type="text/css"/>
+<div class="">
+    <div class="">
+        @*<div class="row">
+            <div class="col-sm-12">
+                <div class="">
+                    <h3>Fees Submition</h3>
+                </div>
+            </div>
+        </div>*@
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-header bg-primary">
+                            <h4 style="color:white;">Define Fees</h4>
+                        </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="p-20">
+                                    <div class="form-group"><label>Select Branch</label> 
+                                        <select id="ddlbranch" class="form-control" required>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <div class="col-md-4">
+                                <div class="p-20">
+                                    <div class="form-group"><label>Select Year</label> 
+                                        <select id="ddlyear" class="form-control">
+                                            <option value="">--Select Year--</option>
+                                            <option value="1">1 Year</option>
+                                            <option value="2">2 Year</option>
+                                            <option value="3">3 Year</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-20">
+                                    <div class="form-group"><label>Amount</label> <input type="text" placeholder="Amount" class="form-control" id="amount" > </div>
+                                </div>
+                            </div>
+                            <button type="button" style="width: 12%; margin-left: 35px; margin-top: -17px;" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit()" >Save</button>
+                        </div>
+                        
+                        <!-- end row -->
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+    </div>
+</div>
+<script src="~/js/jquery.min.js"></script>
+<script src="~/dist/sweetalert2.all.min.js"></script>
+<script src="~/dist/sweetalert2.all.js"></script>
+<script>
+$(document).ready(function() {
+    Bindbranch();
+});
+    var btnsubmit = () => {
+        if($('#ddlbranch option:selected').val() == ''){
+                alert("Please Select Branch");
+                $('#ddlbranch').focus();
+                return false;
+        }
+        if($('#ddlbranchco option:selected').val() == ''){
+                alert("Please Select Branch Code");
+                $('#ddlbranchco').focus();
+                return false;
+        }
+        if($('#ddlyear option:selected').val() == ''){
+                alert("Please Select Year");
+                $('#ddlyear').focus();
+                return false;
+        }
+        if($('#amount').val() == ''){
+                alert("Please Enter Amount");
+                $('#amount').focus();
+                return false;
+        }
+        let data = {
+            Branch:$('#ddlbranch option:selected').val(),
+            BranchCode:$('#ddlbranchco option:selected').val(),
+            Year:$('#ddlyear option:selected').val(),
+            Amount:$('#amount').val()
+        }
+        $.post('/AccountManagement/FeesHead',data).done(function(result) {
+            if(result.statuscode == 1){
+                swal.fire({
+                    title:"Success",
+                    text:result.msg,
+                    icon:"success"
+                });
+                //alert(result.msg);
+                Branch:$('#ddlbranch option:selected').text('');
+                BranchCode: $('#ddlbranchco option:selected').text('');
+                Year: $('#ddlyear option:selected').text('');
+                Amount: $('#amount').val('');
+            }
+            if(result.statuscode == -1){
+                swal.fire({
+                    title:"faile",
+                    text:result.msg,
+                    icon:"Error"
+                });
+                return false; 
+                window.location.reload();
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var Bindbranch = () => {
+        $.post('/AccountManagement/BindBranch').done(function(result) {
+            console.log(result);
+            $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
+                for (var i = 0; i < result.length; i++) {
+                    $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+                }
+                $('#ddlbranchco').empty().append('<option value="">--Select Branch Code--</option>');
+                for (var i = 0; i < result.length; i++) {
+                    $('#ddlbranchco').append('<option value="' + result[i].branchCode + '">' + result[i].branchCode + '</option>')
+                }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+</script>

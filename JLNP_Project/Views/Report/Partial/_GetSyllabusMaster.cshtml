@@ -1,0 +1,31 @@
+﻿@model List<SyllabusMasterRespons>
+@{
+    if (Model.Count>0)
+    {
+         int i = 0;
+        foreach (var item in Model)
+        {
+            i++;
+            <tr data-item-Id="@item.ID">
+                <td>@i</td>
+                <td>@item.BranchName</td>
+                <td>@item.Year</td>
+                <td>@item.SubjecName</td>
+                <td>@item.EntryDate</td>
+                <td>
+                    <a href="@item.Filepath" target="_blank">View</a>
+                </td>
+                <td>
+                <button href="" class="tabledit-delete-button btn btn-sm btn-success" onclick="EditSyllabus(@item.ID)" style="float: none; margin: 4px;"><span class="ti-pencil"></span></button>
+                    <button href="" class="tabledit-delete-button btn btn-sm btn-danger" onclick="deletedata(@item.ID)" style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td class="text-danger text-center" colspan="7">Record Not Found</td>
+        </tr>
+    }
+}

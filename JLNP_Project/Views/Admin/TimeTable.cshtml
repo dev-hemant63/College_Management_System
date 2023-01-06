@@ -1,0 +1,178 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+<div class="">
+    <div class="">
+        <!-- Page-Title -->
+        @*<div class="row">
+        <div class="col-sm-12">
+        <div class="">
+        <div class="row" style="justify-content: space-between;">
+        <div class="col-sm-5">
+        <h3>Project Report</h3>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>*@
+        <!-- end page title end breadcrumb -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <h4 style="color:white;">Time Table</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Select Branch<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlbranch" onchange="BindSubject()">
+                                </select>
+                                <span class="text-danger d-none" id="ddlbranchsp">Please Select Branch</span>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Select Year<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlyear">
+                                    <option value="">-- Select Year --</option>
+                                    <option value="1">First Year </option>
+                                    <option value="2">Second Year</option>
+                                    <option value="3">Final Year </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Select Sunject<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlsubject">
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Select Days<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddldays">
+                                    <option value="">-- Select Days --</option>
+                                    <option value="Monday">Monday</option>
+                                    <option value="Tuseday">Tuseday</option>
+                                    <option value="Wednesday">Wednesday</option>
+                                    <option value="Thesday">Thesday</option>
+                                    <option value="Friday">Friday</option>
+                                    <option value="Suterday">Suterday</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Select Period<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlperiod">
+                                    <option value="">-- Select Period --</option>
+                                    <option value="1">Period 1</option>
+                                    <option value="2">Period 2</option>
+                                    <option value="3">Period 3</option>
+                                    <option value="4">Period 4</option>
+                                    <option value="5">Period 5</option>
+                                    <option value="6">Period 6</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-outline-primary" style="margin-top: 29px;width: 43%;" onclick="Submitdata()">Save</button>
+                            </div>
+                        </div>
+                        <div class="table-responsive" style="margin-top:13px;">
+                            <table class="table mb-0" id="tbltimetable">
+                                <thead class="bg-primary table-bordered">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Days</th>
+                                        <th>Branch</th>
+                                        <th>Year</th>
+                                        <th>Period 1</th>
+                                        <th>Period 2</th>
+                                        <th>Period 3</th>
+                                        <th>Period 4</th>
+                                        <th>Period 5</th>
+                                        <th>Period 6</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        loaddata();
+        Bindbranch();
+    });
+    var Submitdata = () => {
+        if ($('#ddlbranch option:selected').val() == '') {
+            $('#ddlbranchsp').removeClass('d-none');
+            return false;
+        }
+        if ($('#ddlyear option:selected').val() == '') {
+            alert("Please Select Year");
+            $('#ddlyear').focus();
+            return false;
+        }
+        if ($('#ddlsubject option:selected').val() == '') {
+            alert("Please Select Year");
+            $('#ddlsubject').focus();
+            return false;
+        }
+        if ($('#ddldays option:selected').val() == '') {
+            alert("Please Select Day");
+            $('#ddldays').focus();
+            return false;
+        }
+        if ($('#ddlperiod option:selected').val() == '') {
+            alert("Please Fill Requered Inpormation..");
+            $('#ddlperiod').focus();
+            return false;
+        }
+        let obj = {
+            Branch: $('#ddlbranch option:selected').val(),
+            Year: $('#ddlyear option:selected').val(),
+            SubjectId: $('#ddlsubject option:selected').val(),
+            Days: $('#ddldays option:selected').val(),
+            Period: $('#ddlperiod option:selected').val()
+        }
+        $.post('/Admin/SaveTimetable', obj).done(function(result) {
+            alert(result.msg);
+            window.location.reload();
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
+        });
+    }
+    var Bindbranch = () => {
+        $.post('/Admission/BindBranch').done(function(result) {
+            $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var BindSubject = () => {
+        $.post('/Admin/BindSubject', { BranchId: $('#ddlbranch option:selected').val() }).done(function(result) {
+            $('#ddlsubject').empty().append('<option value="">--Select Subject--</option>');
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlsubject').append('<option value="' + result[i].subjectId + '">' + result[i].subjectName + '</option>')
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var loaddata = () => {
+        $.post('/Admin/GetTimetable').done(function(result) {
+            $('#tbltimetable tbody').html(result);
+        }).fail(function(xhr) {
+            consoel.log(xhr.responseText);
+            alert("Server Error");
+        });
+    }
+</script>

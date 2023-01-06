@@ -1,0 +1,152 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+<div class="">
+    <div class="">
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-header bg-primary">
+                        <h4 style="color:white;">Syllabus Master</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <div class="form-group">
+                                        <label>Branch</label>
+                                        <select class="form-control" id="ddlbranch">
+                                            <option value="0">-- Select Branch --</option>
+                                        </select>
+                                    </div>
+                                    <small id="ddlbranchsm" class="text-danger d-none">Please Select Branch</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="">
+                                    <div class="form-group">
+                                        <label>Year</label>
+                                        <select class="form-control" id="ddlyear" onchange="BindSubject()">
+                                            <option value="0">-- Select Year --</option>
+                                            <option value="1">First Year</option>
+                                            <option value="2">Second Year</option>
+                                            <option value="3">Third Year</option>
+                                        </select>
+                                    </div>
+                                    <small id="ddlyearsm" class="text-danger d-none">Please Select Year</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="">
+                                    <div class="form-group">
+                                        <label>Subject</label>
+                                        <select class="form-control" id="ddlsubject">
+                                            <option value="0">-- Select Subject --</option>
+                                        </select>
+                                    </div>
+                                    <small id="ddlsubjectsm" class="text-danger d-none">Please Select Subject</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <div class="form-group">
+                                        <label>Upload</label>
+                                        <input type="file" class="form-control" placeholder="Upload" id="file" />
+                                    </div>
+                                    <small id="filesm" class="text-danger d-none">Please Upload File</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <button type="button" style="width:120px; margin-top: 22px;" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit()">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            Bindbranch();
+        });
+        var Bindbranch = () => {
+            $.post('/AccountManagement/BindBranch').done(function(result) {
+                console.log(result);
+                $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
+                for (var i = 0; i < result.length; i++) {
+                    $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+                }
+            }).fail(function(xhr) {
+                console.log(xhr.responseText)
+            });
+        }
+        var BindSubject = () => {
+            let obj = {
+                BranchId: $('#ddlbranch option:selected').val(),
+                Year: $('#ddlyear option:selected').val(),
+            }
+            $.post('/Admin/Bind_Subject', obj).done(function(result) {
+                for (var i = 0; i < result.length; i++) {
+                    $('#ddlsubject').append('<option value="' + result[i].subjectId + '">' + result[i].subjectName + '</option>');
+                }
+            }).fail(function(xhr) {
+                alert("Server Error");
+            });
+        }
+        var btnsubmit = () => {
+            let obj = {
+                Branch: $('#ddlbranch option:selected').val(),
+                Subject: $('#ddlsubject option:selected').val(),
+                Year: $('#ddlyear option:selected').val(),
+                Files: $('#file').prop('files')[0]
+            }
+            if (obj.Branch == '') {
+                $('#ddlbranchsm').removeClass('d-none');
+                return false;
+            }
+            else {
+                $('#ddlbranchsm').addClass('d-none');
+            }
+            if (obj.Subject == 0) {
+                $('#ddlsubjectsm').removeClass('d-none');
+                return false;
+            }
+            else {
+                $('#ddlsubjectsm').addClass('d-none');
+            }
+            if (obj.Year == 0) {
+                $('#ddlyearsm').removeClass('d-none');
+                return false;
+            }
+            else {
+                $('#ddlyearsm').addClass('d-none');
+            }
+            formData = new FormData();
+            formData.append("Files", obj.Files);
+            formData.append("Branch", obj.Branch);
+            formData.append("Subject", obj.Subject);
+            formData.append("Year", obj.Year);
+            $.ajax({
+                type: 'POST',
+                url: '/Master/SyllabusMaster',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(repo) {
+                    if (repo.statuscode == 1) {
+                        alert(repo.msg);
+                        window.location.reload();
+                    }
+                    else {
+                        alert(repo.msg);
+                    }
+                },
+                error: function() {
+                    alert("Server Error");
+                }
+            });
+        }
+    </script>
