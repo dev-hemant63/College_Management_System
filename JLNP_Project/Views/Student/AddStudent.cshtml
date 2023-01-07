@@ -69,13 +69,10 @@
         </div>
     </div>
 </div>
-<script src="~/js/jquery.min.js"></script>
-<script src="~/js/jquery.min.js"></script>
-<script src="~/dist/sweetalert2.all.min.js"></script>
-<script src="~/dist/sweetalert2.all.js"></script>
 <script>
     $(document).ready(function() {
         $('#btnsubmit').click(function() {
+            preloader.load();
             if ($('#name').val() == '') {
                 alert("Please Fill Requered Inpormation..");
                 $('#name').focus();
@@ -134,6 +131,7 @@
                 //Entrolment_No: 1 + Math.floor(Math.random() * 30000000000)
             }
             $.post('/Student/_AddStudent', obj).done(function(result) {
+                preloader.remove();
                 if (result.statuscode == 1) {
                     swal.fire({
                         title: "Success",

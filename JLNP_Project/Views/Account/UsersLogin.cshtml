@@ -8,6 +8,7 @@
 <link href="~/login/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
 <link href="~/login/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 <link href="~/login/assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet" />
+<link href="~/css/Custom.css" rel="stylesheet" type="text/css" id="app-stylesheet" />
 <div class="authentication-bg bg-primary authentication-bg-pattern d-flex align-items-center pb-0 vh-100">
     <div class="home-btn d-none d-sm-block">
     </div>
@@ -91,9 +92,11 @@
     </div>
 </div>
 <script src="~/js/jquery.min.js"></script>
+<script src="~/js/site.js"></script>
 <script>
     $(document).ready(function() {
         $('#login').click(function() {
+            preloader.load();
             if ($('#ddlusertype :selected').val() == '') {
                 alert('Please select Login Type');
                 $('#ddlusertype').focus();
@@ -115,7 +118,7 @@
                 Password: $('#password').val()
             }
             $.post('/Account/Login', obj).done(function(result) {
-                console.log(result);
+                preloader.remove();
                 if (result.loginTypeId == 1) {
                     window.location.replace("/Admin/Index");
                 }

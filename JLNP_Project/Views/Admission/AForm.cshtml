@@ -82,6 +82,7 @@
 <script>
     $(document).ready(function() {
         $('#btnsubmit').click(function() {
+            preloader.load();
             if($('#name').val() == ''){
                 alert("Please Fill Requered Inpormation..");
                 $('#name').focus();
@@ -147,11 +148,8 @@
                 //EntrolmentNo: "E" + 1 + Math.floor(Math.random() * 30000000000)
             }
             $.post('/Admission/Student_Admission', obj).done(function(result) {
-                if(result.statucode == -1){
-                    alert(result.msg);
-                }
-                alert(result.msg);
-                 window.location.reload();
+                preloader.remove();
+                alertnotify(result.statuscode,result.msg);
             }).fail(function(xhr) {
                 console.log(xhr.responseText);
             });
@@ -170,8 +168,10 @@
         });
     }
     var AdmissionDetails = () =>{
+        preloader.load();
         let ResBo = $('#txtresno').val();
         $.post('/Admission/StudentGetAdmissionDetails', {RegistrationNo:ResBo}).done(function(result) {
+            preloader.remove();
             $('#name').val(result.name),
              $('#fname').val(result.fname),
               $('#email').val(result.email),

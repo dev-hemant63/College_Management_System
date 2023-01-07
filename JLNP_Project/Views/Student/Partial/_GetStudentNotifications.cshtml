@@ -1,6 +1,6 @@
 ﻿@model List<NotificationMaster>
 <div class="col-4-xxxl col-12">
-    <div class="card dashboard-card-six">
+    <div class="card dashboard-card-six" style="background: #e5e5e5;">
         <div class="card-body">
             <div class="heading-layout1 mg-b-17">
                 <div class="item-title">
@@ -12,13 +12,16 @@
                 {
                     <div class="notice-box-wrap">
                         <div class="notice-list">
-                            <div class="post-date bg-skyblue">@item.EntryDate</div>
-                            <h6 class="notice-title">
-                                <a href="#">
-                                    @item.NotificationDescription
-                                </a>
-                            </h6>
-                            <div class="entry-meta"> @item.Notificationtitle / <span>@item.EntryDate</span></div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="notice-title">
+                                        <a href="#">
+                                            @item.NotificationDescription
+                                        </a>
+                                    </h6>
+                                    <div class="entry-meta" style="color:black"> @item.Notificationtitle / <span>@item.EntryDate</span></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 }

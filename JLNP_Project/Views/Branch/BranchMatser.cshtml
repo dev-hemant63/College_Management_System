@@ -35,6 +35,7 @@
 </div>
     <script>
         var btnsubmit = function() {
+            preloader.load();
             if ($('#name').val() == '') {
                 alert("Please Enter Branch");
                 $('#name').focus();
@@ -50,16 +51,8 @@
                 BranchCode: $('#code').val()
             }
             $.post('/Branch/_BranchMatser', data).done(function(result) {
-                if (result.statuscode == "1") {
-                    alert(result.msg);
-                    window.location.reload();
-                    return;
-                }
-                if (result.statuscode == "-1") {
-                    alert(result.msg);
-                    return false;
-                }
-                window.location.reload();
+                preloader.remove();
+                alertnotify(result.statuscode,result.msg);
             }).fail(function(xhr) {
                 console.log(xhr.responseText)
             });

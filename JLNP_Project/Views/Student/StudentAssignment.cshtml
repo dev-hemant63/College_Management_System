@@ -49,8 +49,10 @@
         Loaddata();
     });
     var Loaddata = function() {
+        preloader.load();
         $.post('/Student/GetStudentAssignment').done(function(result) {
             $('#tblstudentassignment tbody').html(result);
+            preloader.remove();
         }).fail(function(xhr) {
             console.log(xhr.responseText);
         });
