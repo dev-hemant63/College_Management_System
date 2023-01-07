@@ -3,15 +3,6 @@
 }
 <div class="">
     <div class="">
-        <!-- Page-Title -->
-        @*<div class="row bg-primary">
-            <div class="col-sm-12">
-                <div class="">
-                    <h3>Subject Master</h3>
-                </div>
-            </div>
-        </div>*@
-        <!-- end page title end breadcrumb -->
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -89,9 +80,6 @@
         </div>
     </div>
 </div>
-<script src="~/js/jquery.min.js"></script>
-<script src="~/dist/sweetalert2.all.min.js"></script>
-<script src="~/dist/sweetalert2.all.js"></script>
 <script>
     $(document).ready(function() {
         loaddata();
@@ -99,6 +87,7 @@
     });
 
     var submitdata = () => {
+        preloader.load();
         if ($('#ddlbranch option:selected').val() == '') {
             alert('Please Select Branch');
             $('#ddlbranch').focus();
@@ -146,35 +135,12 @@
             PracticalMarks: $('#txtsubjectMarks').val()
         }
         $.post('/Master/SaveSubjectMaster', obj).done(function(result) {
-            alert(result.msg);
-            window.location.reload();
+            preloader.remove();
+            alertnotify(result.statuscode,result.msg);
         }).fail(function(xhr) {
             alert("Server Error");
         });
     }
-    //var EditBranch = function(){
-    //    let data = {
-    //        BranchId:$('#Branchid').val(),
-    //        BranchName:$('#Branchname').val(),
-    //        BranchCode:$('#Branchcode').val()
-    //    }
-    //    $.post('/Branch/_EditBranch',data).done(function(result) {
-    //        alert(result.msg);
-    //         window.location.reload("/Branch/BranchList");
-    //    }).fail(function(xhr) {
-    //        console.log(xhr.responseText);
-    //    });
-
-    //}
-    //var DeleteBranch = function(BranchId){
-    //    $.post('/Branch/DeleteBranch', {BranchId:BranchId}).done(function(result) {
-    //        alert(result.msg);
-    //         window.location.reload("/Branch/BranchList");
-    //    }).fail(function(xhr) {
-    //        console.log(xhr.responseText);
-    //    });
-
-    //}
     var Bindbranch = () => {
         $.post('/AccountManagement/BindBranch').done(function(result) {
             console.log(result);
@@ -187,25 +153,20 @@
         });
     }
     var loaddata = () => {
+        preloader.load();
         $.post('/Master/GetSubjectMaster').done(function(result) {
             $('#tblbranch tbody').html(result);
+            preloader.remove();
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');
         });
     }
-    //var editsubjectmaster = function(SubjectId) {
-    //    $.post('/Master/GetSubjectMaster_ById', { Id: SubjectId }).done(function() {
-           
-    //    }).fail(function(xhr) { 
-    //        console.log(xhr.responseText);
-    //        alert('Server Error');
-    //    });
-    //}
     var DeleteSubject = () => {
+        preloader.load();
         $.post('/Master/DeleteSubject', { Id: SubjectId }).done(function(result) {
-            alert(result.msg);
-            window.location.reload();
+            preloader.remove();
+            alertnotify(result.statuscode, result.msg);
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');

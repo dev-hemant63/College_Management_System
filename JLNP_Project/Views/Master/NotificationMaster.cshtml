@@ -38,6 +38,7 @@
     </div>
 <script>
 var btnsubmit = () => {
+    preloader.load();
     let obj = {
         Notificationtitle:$('#NotificationTitle').val(),
         NotificationDescription:$('#notiDesc').val()
@@ -57,13 +58,8 @@ var btnsubmit = () => {
         $('#notiDescsm').addClass("d-none");
     }
     $.post('/Master/NotificationMaster', obj).done(function(result) {
-        if (result.statuscode == 1) {
-            alert(result.msg);
-            window.location.reload();
-        }
-        else {
-            alert(result.msg);
-        }
+        preloader.remove();
+        alertnotify(result.statuscode,result.msg);
     }).fail(function() {
         alert('Server Error');
     });

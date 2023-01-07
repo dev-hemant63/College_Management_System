@@ -48,8 +48,10 @@
         Loaddata();
     });
     var Loaddata = function() {
+        preloader.load();
         $.post('/Student/GetSyllabus').done(function(result) {
             $('#tblsyllabus tbody').html(result);
+            preloader.remove();
         }).fail(function(xhr) {
             console.log(xhr.responseText);
         });
