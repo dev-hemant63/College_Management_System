@@ -1,3 +1,154 @@
 ﻿@{
     Layout = "_LayoutAdmin";
 }
+<div class="">
+    <div class="">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <h4 style="color:white;">Video Lectures</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input type="hidden" id="hdnid" value="" />
+                                <label>Select Branch<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlbranch">
+                                </select>
+                                <span class="text-danger d-none" id="branchv">Please Select Branch</span>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Select Year<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlyear" onchange="BindSubject()">
+                                    <option value="">-- Select Year --</option>
+                                    <option value="1">First Year </option>
+                                    <option value="2">Second Year</option>
+                                    <option value="3">Final Year </option>
+                                </select>
+                                <span class="text-danger d-none" id="yearv">Please Select Year</span>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Select Subject<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlsubject">
+                                    <option value="">-- Select Subject --</option>
+
+                                </select>
+                                <span class="text-danger d-none" id="subjectv">Please Select Subject</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Video Lecture URL<span style="color:red;">*</span></label>
+                                <input type="text" class="form-control" id="txturl" placeholder="Video Url"/>
+                                <span class="text-danger d-none" id="txturlsm">Please Enter URL</span>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-outline-primary" id="btnsubmit" onclick="savedata()" style="margin-top: 29px;width: 43%;">Save</button>
+                            </div>
+                        </div>
+                        <div class="table-responsive table-bordered" style="margin-top:13px;">
+                            <table class="table mb-0" id="tblassignsub">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Branch</th>
+                                        <th>Year</th>
+                                        <th>Subject</th>
+                                        <th>Video Url</th>
+                                        <th>Assign Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        Bindbranch();
+    });
+    var Bindbranch = () => {
+        $.post('/Admission/BindBranch').done(function(result) {
+            console.log(result);
+            $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var BindSubject = () => {
+        let obj = {
+            BranchId: $('#ddlbranch option:selected').val(),
+            Year: $('#ddlyear option:selected').val(),
+        }
+        $.post('/Admin/Bind_Subject', obj).done(function(result) {
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlsubject').append('<option value="' + result[i].subjectId + '">' + result[i].subjectName + '</option>');
+            }
+        }).fail(function(xhr) {
+            alert("Server Error");
+        });
+    }
+    var Bindteacher = () => {
+        $.post('/Admin/Bind_teacher').done(function(result) {
+            console.log(result);
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlteacher').append('<option value="' + result[i].teacherId + '">' + result[i].teacherName + '</option>');
+            }
+        }).fail(function(xhr) {
+            alert("Server Error");
+        });
+    }
+    var savedata = () => {
+        let obj = {
+            Id: $('#hdnid').val(),
+            BranchId: $('#ddlbranch option:selected').val(),
+            Year: $('#ddlyear option:selected').val(),
+            SubjectId: $('#ddlsubject option:selected').val(),
+            VideoUrl:$('#txturl').val()
+        }
+        if (obj.BranchId == ''||obj.BranchId == undefined) {
+            $('#branchv').removeClass('d-none');
+            return false;
+        }
+        else {
+            $('#branchv').addClass('d-none');
+        }
+        if (obj.Year == '' || obj.Year == undefined) {
+            $('#yearv').removeClass('d-none');
+            return false;
+        }
+        else {
+            $('#yearv').addClass('d-none');
+        }
+        if (obj.subjectId == '' || obj.subjectId == undefined) {
+            $('#subjectv').removeClass('d-none');
+            return false;
+        }
+        else {
+            $('#subjectv').addClass('d-none');
+        }
+        if (obj.VideoUrl == '' || obj.VideoUrl == undefined) {
+            $('#txturlsm').removeClass('d-none');
+            return false;
+        }
+        else {
+            $('#txturlsm').addClass('d-none');
+        }
+        $.post('/Admin/SaveAssignSubject', obj).done(function(result) {
+            alert(result.msg);
+            window.location.reload();
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
+        });
+    }
+</script>

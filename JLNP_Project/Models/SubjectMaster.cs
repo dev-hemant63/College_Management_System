@@ -41,4 +41,12 @@
         public List<SubjectMaster> Assignlist { get; set; }
         public List<SubjectMaster> Bindlist { get; set; }
     }
+    public class CommanMasterReq:LoginInfo
+    {
+        public int Id { get; set; }
+        public int BranchId { get; set; }
+        public int SubjectId { get; set; }
+        public int Year { get; set; }
+        public int VideoUrl { get; set; }
+    }
 }

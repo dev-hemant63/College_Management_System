@@ -150,24 +150,29 @@
             SubjectId: $('#ddlsubject option:selected').val(),
             TeacherId: $('#ddlteacher option:selected').val()
         }
+        preloader.load();
         $.post('/Admin/SaveAssignSubject', obj).done(function(result) {
-            alert(result.msg);
-            window.location.reload();
+            preloader.remove();
+            alertnotify(result.statuscode,result.msg);
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');
         });
     }
     var loaddata = () => {
+        preloader.load();
         $.post('/Admin/Assignsubject_List').done(function(result) {
             $('#tblassignsub tbody').html(result);
+            preloader.remove();
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');
         });
     }
     var editassignsubject = function(Id) {
+        preloader.load();
         $.post('/Admin/Edit_Assignsubject', { Id: Id }).done(function(result) {
+            preloader.remove();
             $('body').append(result);
             BindSubjectlst();
             Bindbranchlst();
@@ -181,9 +186,10 @@
         });
     }
     var deleteassignsubject = function(Id) {
+        preloader.load();
         $.post('/Admin/Assignsubject_Edit', { Id: Id }).done(function(result) {
-            alert(result.msg);
-            window.location.reload();
+            preloader.remove();
+            alertnotify(result.statuscode,result.msg);
         }).fail(function(xhr) {
             console(xhr.responseText);
         });
