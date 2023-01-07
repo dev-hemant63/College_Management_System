@@ -283,6 +283,11 @@ namespace JLNP_Project.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult SaveAndVideoLecture()
+        {
+            return Json();
+        }
     }
 }
 
