@@ -1,0 +1,33 @@
+﻿@model List<CommanMasterResponse>
+@{
+    if (@Model.Count > 0)
+    {
+        int i = 0;
+        foreach (var item in Model)
+        {
+            i++;
+            <tr>
+                <td>@i</td>
+                <td>@item.Branch</td>
+                <td>@item.Year</td>
+                <td>@item.Subject</td>
+                <td>
+                    <iframe src="@item.VideoUrl" title="@item.Subject" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </td>
+                <td>@item.EntryDate</td>
+                <td>
+                    <div class="btn-group btn-group-sm" style="float: none;">
+                        <button class="tabledit-edit-button btn btn-sm btn-success btn_edit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="editVideoUrl()" style="float: none; margin: 4px;"><span class="ti-pencil"></span></button>
+                        <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;" onclick="DeleteVideoUrl()"><span class="ti-trash"></span></button>
+                    </div>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td style="color:red;" colspan="7" class="text-center">Record Not Found</td>
+        </tr>
+    }
+}

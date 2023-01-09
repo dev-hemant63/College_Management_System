@@ -40,22 +40,23 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <label>Video Lecture URL<span style="color:red;">*</span></label>
-                                <input type="text" class="form-control" id="txturl" placeholder="Video Url"/>
+                                <input type="text" class="form-control" id="txturl" placeholder="Video Url" />
                                 <span class="text-danger d-none" id="txturlsm">Please Enter URL</span>
+                                <span class="text-danger d-none" id="txturlsmv">Please Enter Valid URL</span>
                             </div>
                             <div class="col-sm-3">
                                 <button class="btn btn-outline-primary" id="btnsubmit" onclick="savedata()" style="margin-top: 29px;width: 43%;">Save</button>
                             </div>
                         </div>
                         <div class="table-responsive table-bordered" style="margin-top:13px;">
-                            <table class="table mb-0" id="tblassignsub">
+                            <table class="table mb-0" id="tblvideoUrl">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
                                         <th>Branch</th>
                                         <th>Year</th>
                                         <th>Subject</th>
-                                        <th>Video Url</th>
+                                        <th>Video</th>
                                         <th>Assign Date</th>
                                         <th>Action</th>
                                     </tr>
@@ -72,6 +73,7 @@
 <script>
     $(document).ready(function() {
         Bindbranch();
+        LoadData();
     });
     var Bindbranch = () => {
         $.post('/Admission/BindBranch').done(function(result) {
@@ -107,15 +109,27 @@
             alert("Server Error");
         });
     }
+    function isUrlValid(str) {
+        const pattern = new RegExp(
+            '^(https?:\\/\\/)?' + // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR IP (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+            '(\\#[-a-z\\d_]*)?$', // fragment locator
+            'i'
+        );
+        return pattern.test(str);
+    }
     var savedata = () => {
         let obj = {
             Id: $('#hdnid').val(),
             BranchId: $('#ddlbranch option:selected').val(),
             Year: $('#ddlyear option:selected').val(),
             SubjectId: $('#ddlsubject option:selected').val(),
-            VideoUrl:$('#txturl').val()
+            VideoUrl: $('#txturl').val()
         }
-        if (obj.BranchId == ''||obj.BranchId == undefined) {
+        if (obj.BranchId == '' || obj.BranchId == undefined) {
             $('#branchv').removeClass('d-none');
             return false;
         }
@@ -129,7 +143,7 @@
         else {
             $('#yearv').addClass('d-none');
         }
-        if (obj.subjectId == '' || obj.subjectId == undefined) {
+        if (obj.SubjectId == '' || obj.SubjectId == undefined) {
             $('#subjectv').removeClass('d-none');
             return false;
         }
@@ -143,9 +157,27 @@
         else {
             $('#txturlsm').addClass('d-none');
         }
-        $.post('/Admin/SaveAssignSubject', obj).done(function(result) {
-            alert(result.msg);
-            window.location.reload();
+        //if (!isUrlValid($('#txturl').val())) {
+        //    $('#txturlsmv').removeClass('d-none');
+        //    return false;
+        //}
+        //else {
+        //    $('#txturlsmv').addClass('d-none');
+        //}
+        preloader.load();
+        $.post('/Master/SaveAndVideoLecture', obj).done(function(result) {
+            preloader.remove();
+            alertnotify(result.statuscode, result.msg);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
+        });
+    }
+    var LoadData = function(){
+        preloader.load();
+        $.post('/Master/GetVideoLecture').done(function(result) {
+            preloader.remove();
+            $('#tblvideoUrl tbody').html(result);
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');

@@ -47,6 +47,15 @@
         public int BranchId { get; set; }
         public int SubjectId { get; set; }
         public int Year { get; set; }
-        public int VideoUrl { get; set; }
+        public string VideoUrl { get; set; }
+    }
+    public class CommanMasterResponse
+    {
+        public int Id { get; set; }
+        public string Branch { get; set; }
+        public string Subject { get; set; }
+        public int Year { get; set; }
+        public string VideoUrl { get; set; }
+        public string EntryDate { get; set; }
     }
 }
