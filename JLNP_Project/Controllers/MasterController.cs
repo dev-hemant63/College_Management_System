@@ -284,9 +284,20 @@ namespace JLNP_Project.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult SaveAndVideoLecture()
+        public IActionResult SaveAndVideoLecture(CommanMasterReq request)
         {
-            return Json();
+            IMasterML ml = new MasterML();
+            request.UserId = _lr.UserId;
+            var res = ml.SaveAndUpdateVideoUrl(request);
+            return Json(res);
+        }
+        [HttpPost]
+        public IActionResult GetVideoLecture()
+        {
+            IMasterML ml = new MasterML();
+            int Id = 0;
+            var res = ml.GetVideoUrl(Id);
+            return PartialView("Partial/_GetVideoLecture", res);
         }
     }
 }
