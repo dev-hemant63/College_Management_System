@@ -1,0 +1,32 @@
+﻿@model ProgramMaster
+<div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Program</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <label>Program<span style="color:red;">*</span></label>
+                <input type="text" class="form-control" id="Program" placeholder="Program" asp-for="@Model.Program" />
+                <label>Program Type<span style="color:red;">*</span></label>
+                <select class="form-control" id="ptype" asp-for="@Model.ProgramType">
+                    <option value="">-- Select Program Type --</option>
+                    <option value="YearWise">Year Wise</option>
+                    <option value="SemesterWise">Semester Wise</option>
+                </select>
+                <label>Select Program Duration<span style="color:red;">*</span></label>
+                <select class="form-control" id="pd" asp-for="@Model.ProgramDuration">
+                    <option value="">-- Select Duration --</option>
+                    <option value="1">1 Year/Semester</option>
+                    <option value="2">2 Year/Semester</option>
+                    <option value="3">3 Year/Semester</option>
+                    <option value="4">4 Year/Semester</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" onclick="EditData(@Model.Id)" id="btnsave">save</button>
+            </div>
+        </div>
+    </div>
+</div>

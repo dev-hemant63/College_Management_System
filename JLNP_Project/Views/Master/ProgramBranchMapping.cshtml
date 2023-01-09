@@ -1,0 +1,72 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+@model List<ProgramMaster>
+<div class="">
+    <div class="">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary">
+                        <h4 style="color:white;">Program & Branch Mapping</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Program<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlprogram">
+                                    <option value="">-- Select Program --</option>
+                                    @foreach (var item in Model)
+                                    {
+                                        <option value="@item.Id">@item.Program</option>
+                                    }
+                                </select>
+                                <span class="text-danger d-none" id="ddlprogramsp">Please Select Program</span>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Branch<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlbranch">
+                                    <option value="">-- Select Branch --</option>
+                                </select>
+                                <span class="text-danger d-none" id="ddlbranch">Please Select Branch</span>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-outline-primary" id="btnsubmit" onclick="savedata()" style="margin-top: 29px;width: 43%;">Save</button>
+                            </div>
+                        </div>
+                        <div class="table-responsive table-bordered" style="margin-top:13px;">
+                            <table class="table mb-0" id="tblvideoUrl">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Branch</th>
+                                        <th>Program</th>
+                                        <th>MappingDate</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        Bindbranch();
+    });
+    var Bindbranch = () => {
+        $.post('/Admission/BindBranch').done(function(result) {
+            console.log(result);
+            $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+</script>

@@ -299,6 +299,47 @@ namespace JLNP_Project.Controllers
             var res = ml.GetVideoUrl(Id);
             return PartialView("Partial/_GetVideoLecture", res);
         }
+        [HttpGet]
+        public IActionResult ProgramMaster()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddAndUpdateProgram(ProgramMaster programMaster)
+        {
+            IMasterML ml = new MasterML();
+            programMaster.UserId = _lr.UserId;
+            var res = ml.SaveAndUpdateProgram(programMaster);
+            return Json(res);
+        }
+        [HttpPost]
+        public IActionResult GetProgramMaster()
+        {
+            IMasterML ml = new MasterML();
+            var res = ml.GetProgram();
+            return PartialView("Partial/_GetProgramMaster", res);
+        }
+        [HttpPost]
+        public IActionResult DeleteProgramMaster(int Id)
+        {
+            IMasterML ml = new MasterML();
+            var res = ml.DeleteProgram(Id);
+            return Json(res);
+        }
+        [HttpPost]
+        public IActionResult EditProgramMaster(int Id)
+        {
+            IMasterML ml = new MasterML();
+            var res = ml.EditProgram(Id);
+            return PartialView("Partial/_EditProgram", res);
+        }
+        [HttpGet]
+        public IActionResult ProgramBranchMapping()
+        {
+            IMasterML ml = new MasterML();
+            var res = ml.GetProgram();
+            return View(res);
+        }
     }
 }
 

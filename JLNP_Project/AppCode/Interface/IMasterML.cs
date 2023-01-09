@@ -6,5 +6,9 @@ namespace JLNP_Project.AppCode.Interface
     {
         ResponseStatus SaveAndUpdateVideoUrl(CommanMasterReq commanMasterReq);
         List<CommanMasterResponse> GetVideoUrl(int Id);
+        ResponseStatus SaveAndUpdateProgram(ProgramMaster programMaster);
+        List<ProgramMaster> GetProgram();
+        ProgramMaster EditProgram(int Id);
+        ResponseStatus DeleteProgram(int Id);
     }
 }

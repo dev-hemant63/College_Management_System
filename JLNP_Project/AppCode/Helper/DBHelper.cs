@@ -85,5 +85,93 @@ namespace JLNP_Project.AppCode.Helper
             }
             return Is;
         }
+        public DataTable ExcQueryDT(string Command, SqlParameter[] prams)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Command, con);
+                cmd.CommandType = CommandType.Text;
+                for (int i = 0; i < prams.Length; i++)
+                {
+                    cmd.Parameters.Add(prams[i]);
+                }
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                sda.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                con.Close();
+            }
+            return dt;
+        }
+        public DataTable ExcProcWithoutParam(string Procname)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Procname, con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                sda.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                con.Close();
+            }
+            return dt;
+        }
+        public DataTable ExcQueryWithoutParam(string Procname)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Procname, con);
+                cmd.CommandType = CommandType.Text;
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                sda.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                con.Close();
+            }
+            return dt;
+        }
+        public DataSet ExcProcWithoutParamDS(string Procname)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(Procname, con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                sda.Fill(ds);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                con.Close();
+            }
+            return ds;
+        }
     }
 }

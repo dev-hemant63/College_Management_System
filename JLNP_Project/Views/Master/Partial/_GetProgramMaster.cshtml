@@ -1,0 +1,35 @@
+﻿@model List<ProgramMaster>
+@{
+    if (@Model.Count > 0)
+    {
+        int i = 0;
+        foreach (var item in Model)
+        {
+            i++;
+            <tr>
+                <td>@i</td>
+                <td>@item.Program</td>
+                <td>@item.ProgramType</td>
+                @if (@item.ProgramType == "SemesterWise")
+                {
+                    var semester = Convert.ToInt32(@item.ProgramDuration) * 2;
+                    <td>@item.ProgramDuration / Year & @semester / Semester</td>
+                }
+                else
+                {
+                    <td>@item.ProgramDuration / Year</td>
+                }
+                <td>@item.EntryDate</td>
+                <td>
+                    <div class="btn-group btn-group-sm" style="float: none;">
+                        <button class="tabledit-edit-button btn btn-sm btn-success btn_edit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="EditProgram('@item.Id')" style="float: none; margin: 4px;"><span class="ti-pencil"></span></button>
+                        <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;" onclick="DeleteProgram('@item.Id')"><span class="ti-trash"></span></button>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+
+    }
+}
