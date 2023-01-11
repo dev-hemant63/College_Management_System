@@ -1,0 +1,36 @@
+﻿@model ProgramBranchMappingViewModel
+<div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Program Branch Mapping</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <label>Program<span style="color:red;">*</span></label>
+                <select class="form-control" id="program" asp-for="@Model.data.ProgramId">
+                    <option value="0">-- Select Program --</option>
+                    @{
+                        foreach (var item in Model.program)
+                        {
+                            <option value="@item.Id">@item.Program</option>
+                        }
+                    }
+                </select>
+                <label>Select Branch<span style="color:red;">*</span></label>
+                <select class="form-control" id="branch" asp-for="@Model.data.BranchId">
+                    <option value="0">-- Select Branch --</option>
+                    @{
+                        foreach (var item2 in Model.branch)
+                        {
+                            <option value="@item2.BranchId">@item2.BranchName</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" onclick="UpdateRecord('@Model.data.Id')" id="btnsave">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

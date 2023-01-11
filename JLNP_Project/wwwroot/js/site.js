@@ -65,3 +65,10 @@ function isUrlValid(userInput) {
     }
     return false;
 }
+var showModel = function (result) {
+    $('body').append(result);
+    $('#myModalNew').modal('show');
+    $('[data-dismiss="modal"]').unbind().click(function () {
+        $('.modal,.modal-backdrop').remove();
+    })
+}
