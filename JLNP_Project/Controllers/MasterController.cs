@@ -340,6 +340,39 @@ namespace JLNP_Project.Controllers
             var res = ml.GetProgram();
             return View(res);
         }
+        [HttpPost]
+        public IActionResult SaveProgramBranchMapping(ProgramBranchMapping req)
+        {
+            IMasterML ml = new MasterML();
+            req.UserId = _lr.UserId;
+            var response = ml.SaveProgramBranchMapping(req);
+            return Json(response);
+        }
+        [HttpPost]
+        public IActionResult GetProgramBranchMapping()
+        {
+            IMasterML ml = new MasterML();
+            var response = ml.GetProgramBranchMapping();
+            return PartialView("Partial/_GetProgramBranchMapping", response);
+        }
+        [HttpPost]
+        public IActionResult EditProgramBranchMapping(int ID)
+        {
+            ProgramBranchMappingViewModel model = new ProgramBranchMappingViewModel();
+            IMasterML ml = new MasterML();
+            var midlelayar = new StudentML();
+            model.program = ml.GetProgram();
+            model.branch = midlelayar.BindBranch();
+            model.data= ml.EditProgramBranchMapping(ID);
+            return PartialView("Partial/_EditProgramBranchMapping", model);
+        }
+        [HttpPost]
+        public IActionResult DeleteProgramBranchMapping(int ID)
+        {
+            IMasterML ml = new MasterML();
+            var res = ml.DeleteProgramBranchMapping(ID);
+            return PartialView("Partial/_EditProgramBranchMapping", res);
+        }
     }
 }
 

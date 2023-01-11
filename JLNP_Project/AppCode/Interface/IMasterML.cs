@@ -10,5 +10,9 @@ namespace JLNP_Project.AppCode.Interface
         List<ProgramMaster> GetProgram();
         ProgramMaster EditProgram(int Id);
         ResponseStatus DeleteProgram(int Id);
+        ResponseStatus SaveProgramBranchMapping(ProgramBranchMapping commanMasterReq);
+        List<ProgramBranchMapping> GetProgramBranchMapping();
+        ProgramBranchMapping EditProgramBranchMapping(int Id);
+        ResponseStatus DeleteProgramBranchMapping(int Id);
     }
 }

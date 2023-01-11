@@ -191,5 +191,118 @@ namespace JLNP_Project.AppCode.DL
             }
             return res;
         }
+        public ResponseStatus ProcSaveProgramBranchMapping(ProgramBranchMapping req)
+        {
+            var res = new ResponseStatus
+            {
+                statuscode = -1,
+                Msg = "Temp Error!"
+            };
+            string ProcName = "ProcSaveProgramBranchMapping"; // Procedure name
+            SqlParameter[] param =
+            {
+                new SqlParameter("@Id",req.Id),
+                new SqlParameter("@ProgramId",req.ProgramId),
+                new SqlParameter("@BranchId",req.BranchId),
+                new SqlParameter("@LoginID",req.UserId)
+            };
+            try
+            {
+                var dt = _helper.ExcProc(ProcName, param);
+                if (dt.Rows.Count > 0)
+                {
+                    res.statuscode = Convert.ToInt32(dt.Rows[0]["Statuscode"]);
+                    res.Msg = Convert.ToString(dt.Rows[0]["Msg"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                res.Msg = ex.Message;
+            }
+            return res;
+        }
+        public List<ProgramBranchMapping> ProcGetProgramBranchMapping()
+        {
+            var res = new List<ProgramBranchMapping>();
+            string ProcName = "select tpb.Id,tb.Branch_Name,tp.Program,tpb.EntryDate from tbl_ProgramBranchMapping tpb inner join tbl_Program tp on tpb.ProgramId = tp.Id inner join tbl_Branch tb on tpb.BranchId = tb.BranchId order by Id Desc"; // Procedure name
+            try
+            {
+                var dt = _helper.ExcQueryWithoutParam(ProcName);
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        var model = new ProgramBranchMapping
+                        {
+                            ProgramId = Convert.ToInt32(dr["Id"]),
+                            ProgramName = Convert.ToString(dr["Program"]),
+                            BranchName = Convert.ToString(dr["Branch_Name"]),
+                            EntryDate = Convert.ToString(dr["EntryDate"])
+                        };
+                        res.Add(model);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return res;
+        }
+        public ProgramBranchMapping ProcEditProgramBranchMapping(int Id)
+        {
+            var res = new ProgramBranchMapping();
+            string ProcName = "select * from tbl_ProgramBranchMapping where Id = @ID"; // Procedure name
+            SqlParameter[] param =
+            {
+                new SqlParameter("@Id",Id)
+            };
+            try
+            {
+                var dt = _helper.ExcQueryDT(ProcName, param);
+                if (dt.Rows.Count > 0)
+                {
+                    var model = new ProgramBranchMapping
+                    {
+                        Id = Convert.ToInt32(dt.Rows[0]["Id"]),
+                        ProgramId = Convert.ToInt32(dt.Rows[0]["ProgramId"]),
+                        BranchId = Convert.ToInt32(dt.Rows[0]["BranchId"])
+                    };
+                    res = model;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return res;
+        }
+        public ResponseStatus ProcDeleteProgramBranchMapping(int Id)
+        {
+            var res = new ResponseStatus
+            {
+                statuscode = -1,
+                Msg = "Temp Error!"
+            };
+            string ProcName = "Delete from tbl_ProgramBranchMapping where Id = @ID;Select 1 Statuscode,'Record Save Succefully!' Msg"; // Procedure name
+            SqlParameter[] param =
+            {
+                new SqlParameter("@Id",Id)
+            };
+            try
+            {
+                var dt = _helper.ExcQueryDT(ProcName, param);
+                if (dt.Rows.Count > 0)
+                {
+                    res.statuscode = Convert.ToInt32(dt.Rows[0]["Statuscode"]);
+                    res.Msg = Convert.ToString(dt.Rows[0]["Msg"]);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return res;
+        }
     }
 }

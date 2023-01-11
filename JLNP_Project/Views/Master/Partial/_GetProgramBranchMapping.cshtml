@@ -1,0 +1,29 @@
+﻿@model List<ProgramBranchMapping>
+@{
+    if (@Model.Count > 0)
+    {
+        int counter = 0;
+        foreach (var item in Model)
+        {
+            counter++;
+            <tr>
+                <td>@counter</td>
+                <td>@item.ProgramName</td>
+                <td>@item.BranchName</td>
+                <td>@item.EntryDate</td>
+                <td>
+                    <div class="btn-group btn-group-sm" style="float: none;">
+                            <button class="tabledit-edit-button btn btn-sm btn-success btn_edit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="EditMapping(BranchId=@item.ProgramId)" style="float: none; margin: 4px;"><span class="ti-pencil"></span></button>
+                            <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;" onclick="DeleteMapping(BranchId=@item.ProgramId)"><span class="ti-trash"></span></button>
+                        </div>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td class="text-danger text-center" colspan="5">Record Not Found</td>
+        </tr>
+    }
+}

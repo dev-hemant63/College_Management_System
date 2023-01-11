@@ -37,5 +37,25 @@ namespace JLNP_Project.AppCode.Midlelayer
             var response = _proc.ProcDeleteProgram(Id);
             return response;
         }
+        public ResponseStatus SaveProgramBranchMapping(ProgramBranchMapping Req)
+        {
+            var response = _proc.ProcSaveProgramBranchMapping(Req);
+            return response;
+        }
+        public List<ProgramBranchMapping> GetProgramBranchMapping()
+        {
+            var response = _proc.ProcGetProgramBranchMapping();
+            return response;
+        }
+        public ProgramBranchMapping EditProgramBranchMapping(int Id)
+        {
+            var response = _proc.ProcEditProgramBranchMapping(Id);
+            return response;
+        }
+        public ResponseStatus DeleteProgramBranchMapping(int Id)
+        {
+            var response = _proc.ProcDeleteProgramBranchMapping(Id);
+            return response;
+        }
     }
 }
