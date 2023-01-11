@@ -58,4 +58,10 @@
         public string VideoUrl { get; set; }
         public string EntryDate { get; set; }
     }
+    public class EditVideoLectureViewModel
+    {
+        public CommanMasterReq data { get; set; }
+        public List<Branch> branch { get; set; }
+        public List<SubjectMaster> subject { get; set; }
+    }
 }

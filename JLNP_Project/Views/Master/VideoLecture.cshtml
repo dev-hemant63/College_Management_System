@@ -39,10 +39,10 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-4">
-                                <label>Video Lecture URL<span style="color:red;">*</span></label>
+                                <label>Video Lecture<span style="color:red;">*</span></label>
                                 <input type="text" class="form-control" id="txturl" placeholder="Video Url" />
                                 <span class="text-danger d-none" id="txturlsm">Please Enter URL</span>
-                                <span class="text-danger d-none" id="txturlsmv">Please Enter Valid URL</span>
+                                <span class="text-danger d-none" id="txturlsmv">Please Enter YouTube Embeded Code</span>
                             </div>
                             <div class="col-sm-3">
                                 <button class="btn btn-outline-primary" id="btnsubmit" onclick="savedata()" style="margin-top: 29px;width: 43%;">Save</button>
@@ -173,11 +173,21 @@
             alert('Server Error');
         });
     }
-    var LoadData = function(){
+    var LoadData = function() {
         preloader.load();
         $.post('/Master/GetVideoLecture').done(function(result) {
             preloader.remove();
             $('#tblvideoUrl tbody').html(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
+        });
+    }
+    var EditVideoUrl = function(id) {
+        preloader.load();
+        $.post('/Master/EditVideoLecture', {ID:id}).done(function(result) {
+            preloader.remove();
+            showModel(result);
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');

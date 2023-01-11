@@ -45,7 +45,6 @@
 <script>
     $(document).ready(function() {
         $('#btnsubmit').click(function() {
-            preloader.load();
             if($('#name').val() == ''){
                 alert("Please Fill Requered Inpormation..");
                 $('#name').focus();
@@ -96,6 +95,7 @@
                 Qualification: $('#Qualification').val(),
                 Address: $('#address').val()
             }
+            preloader.load();
             $.post('/Teacher/_AddTeacher', obj).done(function(result) {
                 preloader.remove();
                 window.location.replace("/Teacher/teacherlist");

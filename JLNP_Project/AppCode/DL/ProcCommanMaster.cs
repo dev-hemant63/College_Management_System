@@ -74,6 +74,32 @@ namespace JLNP_Project.AppCode.DL
             }
             return res;
         }
+        public CommanMasterReq ProcEditVideoUrl(int Id)
+        {
+            var res = new CommanMasterReq();
+            string ProcName = "ProcGetVideoUrl"; // Procedure name
+            SqlParameter[] param =
+            {
+                new SqlParameter("@Id",Id),
+            };
+            try
+            {
+                var dt = _helper.ExcProc(ProcName, param);
+                if (dt.Rows.Count > 0)
+                {
+                    res.Id = Convert.ToInt32(dt.Rows[0]["Id"]);
+                    res.BranchId = Convert.ToInt32(dt.Rows[0]["BranchId"]);
+                    res.SubjectId = Convert.ToInt32(dt.Rows[0]["SubjectId"]);
+                    res.Year = Convert.ToInt32(dt.Rows[0]["Year"]);
+                    res.VideoUrl = Convert.ToString(dt.Rows[0]["VideoUrl"]);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return res;
+        }
         public ResponseStatus ProcAddAndUpdateProgram(ProgramMaster req)
         {
             var res = new ResponseStatus
@@ -284,7 +310,7 @@ namespace JLNP_Project.AppCode.DL
                 statuscode = -1,
                 Msg = "Temp Error!"
             };
-            string ProcName = "Delete from tbl_ProgramBranchMapping where Id = @ID;Select 1 Statuscode,'Record Save Succefully!' Msg"; // Procedure name
+            string ProcName = "Delete from tbl_ProgramBranchMapping where Id = @Id;Select 1 Statuscode,'Record Deleted Succefully!' Msg"; // Procedure name
             SqlParameter[] param =
             {
                 new SqlParameter("@Id",Id)

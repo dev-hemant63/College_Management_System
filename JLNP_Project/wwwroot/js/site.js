@@ -72,3 +72,9 @@ var showModel = function (result) {
         $('.modal,.modal-backdrop').remove();
     })
 }
+var convertUrltoEmbeded = function (URL) {
+    var str = URL;
+    var res = str.split("=");
+    var embeddedUrl = "https://www.youtube.com/embed/" + res[1];
+    return embeddedUrl;
+}
