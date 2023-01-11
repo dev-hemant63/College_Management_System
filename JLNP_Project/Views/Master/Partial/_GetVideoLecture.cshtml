@@ -12,12 +12,12 @@
                 <td>@item.Year</td>
                 <td>@item.Subject</td>
                 <td>
-                    <iframe width="727" height="409" src="@item.VideoUrl" title="KINEMATICS 01 ||  Motion in a Straight Line || 1-D Motion ||  NEET Physics Crash Course" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <a href="@item.VideoUrl" target="_blank">Watch Video</a>
                 </td>
                 <td>@item.EntryDate</td>
                 <td>
                     <div class="btn-group btn-group-sm" style="float: none;">
-                        <button class="tabledit-edit-button btn btn-sm btn-success btn_edit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="editVideoUrl()" style="float: none; margin: 4px;"><span class="ti-pencil"></span></button>
+                        <button class="tabledit-edit-button btn btn-sm btn-success btn_edit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="EditVideoUrl('@item.Id')" style="float: none; margin: 4px;"><span class="ti-pencil"></span></button>
                         <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;" onclick="DeleteVideoUrl()"><span class="ti-trash"></span></button>
                     </div>
                 </td>

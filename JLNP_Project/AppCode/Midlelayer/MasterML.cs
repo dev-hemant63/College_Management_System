@@ -17,6 +17,11 @@ namespace JLNP_Project.AppCode.Midlelayer
             var response = _proc.ProcGetVideoUrl(Id);
             return response;
         }
+        public CommanMasterReq EditVideoUrl(int Id)
+        {
+            var response = _proc.ProcEditVideoUrl(Id);
+            return response;
+        }
         public ResponseStatus SaveAndUpdateProgram(ProgramMaster programMaster)
         {
             var response = _proc.ProcAddAndUpdateProgram(programMaster);

@@ -1,0 +1,45 @@
+﻿@model EditVideoLectureViewModel
+@{
+    <div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Video Lecture</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <label>Select Branch<span style="color:red;">*</span></label>
+                    <select class="form-control" id="branch" asp-for="@Model.data.BranchId">
+                        <option value="0">-- Select Branch --</option>
+                        @{
+                            foreach (var item in Model.branch)
+                            {
+                                <option value="@item.BranchId">@item.BranchName</option>
+                            }
+                        }
+                    </select>
+                    <label>Select Year<span style="color:red;">*</span></label>
+                    <select class="form-control" id="year" asp-for="@Model.data.Year">
+                        <option value="">-- Select Year --</option>
+                        <option value="1">First Year </option>
+                        <option value="2">Second Year</option>
+                        <option value="3">Final Year </option>
+                    </select>
+                    <label>Select Subject<span style="color:red;">*</span></label>
+                    <select class="form-control" id="subject" asp-for="@Model.data.SubjectId">
+                        <option value="">-- Select Subject --</option>
+                        @{
+                            foreach (var item in Model.subject)
+                            {
+                                <option value="@item.SubjectId">@item.SubjectName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" onclick="SaveRecord('@Model.data.Id')">save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

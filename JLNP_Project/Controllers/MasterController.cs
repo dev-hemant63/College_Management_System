@@ -215,7 +215,7 @@ namespace JLNP_Project.Controllers
             }
             return Json(res);
         }
-        
+
         [HttpPost]
         public IActionResult EditSyllabus(int ID)
         {
@@ -229,7 +229,7 @@ namespace JLNP_Project.Controllers
             return PartialView("Partial/_EditSyllabus", res);
         }
         [HttpPost]
-        public IActionResult UpdateSyllabusMaster(IFormFile Files, int Branch, int Subject, int Year,int ID)
+        public IActionResult UpdateSyllabusMaster(IFormFile Files, int Branch, int Subject, int Year, int ID)
         {
             var rse = new ResponseStatus
             {
@@ -299,6 +299,18 @@ namespace JLNP_Project.Controllers
             var res = ml.GetVideoUrl(Id);
             return PartialView("Partial/_GetVideoLecture", res);
         }
+        [HttpPost]
+        public IActionResult EditVideoLecture(int ID = 0)
+        {
+            EditVideoLectureViewModel model = new EditVideoLectureViewModel();
+            IMasterML ml = new MasterML();
+            var midlelayar = new StudentML();
+            Admin_BAL adbal = new Admin_BAL();
+            model.data = ml.EditVideoUrl(ID);
+            model.subject = adbal.BindSubject_Bal(model.data.BranchId);
+            model.branch = midlelayar.BindBranch();
+            return PartialView("Partial/_EditVideoLecture",model);
+        }
         [HttpGet]
         public IActionResult ProgramMaster()
         {
@@ -363,7 +375,7 @@ namespace JLNP_Project.Controllers
             var midlelayar = new StudentML();
             model.program = ml.GetProgram();
             model.branch = midlelayar.BindBranch();
-            model.data= ml.EditProgramBranchMapping(ID);
+            model.data = ml.EditProgramBranchMapping(ID);
             return PartialView("Partial/_EditProgramBranchMapping", model);
         }
         [HttpPost]
@@ -371,7 +383,7 @@ namespace JLNP_Project.Controllers
         {
             IMasterML ml = new MasterML();
             var res = ml.DeleteProgramBranchMapping(ID);
-            return PartialView("Partial/_EditProgramBranchMapping", res);
+            return Json(res);
         }
     }
 }

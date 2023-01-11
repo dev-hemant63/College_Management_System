@@ -35,7 +35,6 @@
 </div>
     <script>
         var btnsubmit = function() {
-            preloader.load();
             if ($('#name').val() == '') {
                 alert("Please Enter Branch");
                 $('#name').focus();
@@ -50,6 +49,7 @@
                 BranchName: $('#name').val(),
                 BranchCode: $('#code').val()
             }
+            preloader.load();
             $.post('/Branch/_BranchMatser', data).done(function(result) {
                 preloader.remove();
                 alertnotify(result.statuscode,result.msg);
