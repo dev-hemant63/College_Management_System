@@ -100,6 +100,33 @@ namespace JLNP_Project.AppCode.DL
             }
             return res;
         }
+        public ResponseStatus ProcDeleteVideoUrl(int Id)
+        {
+            var res = new ResponseStatus
+            {
+                statuscode = -1,
+                Msg = ""
+            };
+            string ProcName = "delete from tbl_VideoLectures where Id = @Id;Select 1 Statuscode,'Record Deleted Successfully!' Msg"; // Procedure name
+            SqlParameter[] param =
+            {
+                new SqlParameter("@Id",Id),
+            };
+            try
+            {
+                var dt = _helper.ExcQueryDT(ProcName, param);
+                if (dt.Rows.Count > 0)
+                {
+                    res.statuscode = Convert.ToInt32(dt.Rows[0]["Statuscode"]);
+                    res.Msg = Convert.ToString(dt.Rows[0]["Msg"]);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return res;
+        }
         public ResponseStatus ProcAddAndUpdateProgram(ProgramMaster req)
         {
             var res = new ResponseStatus

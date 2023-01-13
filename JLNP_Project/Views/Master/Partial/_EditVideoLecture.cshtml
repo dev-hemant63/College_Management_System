@@ -35,6 +35,8 @@
                             }
                         }
                     </select>
+                    <label>Video URL<span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" id="txtvurl" value="@Model.data.VideoUrl"/>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-primary" onclick="SaveRecord('@Model.data.Id')">save</button>

@@ -311,6 +311,13 @@ namespace JLNP_Project.Controllers
             model.branch = midlelayar.BindBranch();
             return PartialView("Partial/_EditVideoLecture",model);
         }
+        [HttpPost]
+        public IActionResult DeleteVideoLecture(int ID = 0)
+        {
+            IMasterML ml = new MasterML();
+            var res = ml.DeleteVideoUrl(ID);
+            return Json(res);
+        }
         [HttpGet]
         public IActionResult ProgramMaster()
         {
@@ -384,6 +391,11 @@ namespace JLNP_Project.Controllers
             IMasterML ml = new MasterML();
             var res = ml.DeleteProgramBranchMapping(ID);
             return Json(res);
+        }
+        [HttpGet]
+        public IActionResult BatchMaster()
+        {
+            return View();
         }
     }
 }
