@@ -176,8 +176,8 @@
                             <!-- end col -->
 
                         </div>
-                        <div class="table-responsive" style="margin-top: 13px;">
-                            <table class="table table-bordered" id="tblstudent">
+                        <div class="table-responsive calcHeight" style="margin-top: 13px;">
+                            <table class="table table-bordered table-striped table-condensed fixedHeader" id="tblstudent">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
@@ -222,13 +222,7 @@
             IsActive = true;
         }
         $.post('/Admin/UpdateUserStatus', { UserID: Id, IsActive: IsActive }).done(function(result) {
-            if (result.statuscode == 1) {
-                alert(result.msg);
-                window.location.reload();
-            }
-            else{
-                alert(result.msg);
-            }
+            alertnotify(result.statuscode,result.msg);
         }).fail(function(xhr) {
             console.log(xhr.responseText);
         });

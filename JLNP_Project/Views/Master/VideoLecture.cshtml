@@ -193,4 +193,38 @@
             alert('Server Error');
         });
     }
+    var SaveRecord = (ID) => {
+        let obj = {
+            Id: ID,
+            BranchId: $('#branch option:selected').val(),
+            Year: $('#year option:selected').val(),
+            SubjectId: $('#subject option:selected').val(),
+            VideoUrl: $('#txtvurl').val()
+        }
+        //if (!isUrlValid($('#txturl').val())) {
+        //    $('#txturlsmv').removeClass('d-none');
+        //    return false;
+        //}
+        //else {
+        //    $('#txturlsmv').addClass('d-none');
+        //}
+        preloader.load();
+        $.post('/Master/SaveAndVideoLecture', obj).done(function(result) {
+            preloader.remove();
+            alertnotify(result.statuscode, result.msg);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
+        });
+    }
+    var DeleteVideoUrl = function(id) {
+        preloader.load();
+        $.post('/Master/DeleteVideoLecture', {ID:id}).done(function(result) {
+            preloader.remove();
+            alertnotify(result.statuscode, result.msg);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
+        });
+    }
 </script>
