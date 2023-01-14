@@ -20,8 +20,10 @@ namespace JLNP_Project.AppCode.DAL
             cmd.Parameters.AddWithValue("@Address", student.Address);
             cmd.Parameters.AddWithValue("@Gender", student.Gender);
             cmd.Parameters.AddWithValue("@Group_Name", student.Group);
-            //cmd.Parameters.AddWithValue("@RegistrationNo", student.Entrolment_No);
             cmd.Parameters.AddWithValue("@DOB", student.DOB);
+            cmd.Parameters.AddWithValue("@FatherOccupation", student.FatherOccupation);
+            cmd.Parameters.AddWithValue("@MotherName", student.MotherName);
+            cmd.Parameters.AddWithValue("@Program", student.Program);
             cmd.Parameters.AddWithValue("@Action", student.Action);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -66,6 +68,9 @@ namespace JLNP_Project.AppCode.DAL
             cmd.Parameters.AddWithValue("@Gender", student.Gender);
             cmd.Parameters.AddWithValue("@Group_Name", student.Group);
             cmd.Parameters.AddWithValue("@DOB", student.DOB);
+            cmd.Parameters.AddWithValue("@FatherOccupation", student.FatherOccupation);
+            cmd.Parameters.AddWithValue("@MotherName", student.MotherName);
+            cmd.Parameters.AddWithValue("@Program", student.Program);
             cmd.Parameters.AddWithValue("@Action", student.Action);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();

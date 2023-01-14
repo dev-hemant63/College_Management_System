@@ -309,7 +309,7 @@ namespace JLNP_Project.Controllers
             model.data = ml.EditVideoUrl(ID);
             model.subject = adbal.BindSubject_Bal(model.data.BranchId);
             model.branch = midlelayar.BindBranch();
-            return PartialView("Partial/_EditVideoLecture",model);
+            return PartialView("Partial/_EditVideoLecture", model);
         }
         [HttpPost]
         public IActionResult DeleteVideoLecture(int ID = 0)
@@ -383,6 +383,7 @@ namespace JLNP_Project.Controllers
             model.program = ml.GetProgram();
             model.branch = midlelayar.BindBranch();
             model.data = ml.EditProgramBranchMapping(ID);
+            model.batch=ml.GetBatch();
             return PartialView("Partial/_EditProgramBranchMapping", model);
         }
         [HttpPost]
@@ -397,6 +398,40 @@ namespace JLNP_Project.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult AddBatchMaster(int Id = 0)
+        {
+            IMasterML ml = new MasterML();
+            var response = ml.GetBatchByID(Id);
+            return PartialView("Partial/_AddBatchMaster", response);
+        }
+        [HttpPost]
+        public IActionResult SaveAndBatchMaster(BatchMasterReqRes req)
+        {
+            IMasterML ml = new MasterML();
+            var response = ml.SaveAndUpdateBatch(req);
+            return Json(response);
+        }
+        [HttpPost]
+        public IActionResult GetBatchMaster()
+        {
+            IMasterML ml = new MasterML();
+            var response = ml.GetBatch();
+            return PartialView("Partial/_GetBatchMaster", response);
+        }
+        [HttpPost]
+        public IActionResult DeleteBatchMaster(int Id)
+        {
+            IMasterML ml = new MasterML();
+            var response = ml.DeleteBatch(Id);
+            return Json(response);
+        }
+        [HttpPost]
+        public IActionResult BindBatch()
+        {
+            IMasterML ml = new MasterML();
+            var res = ml.GetBatch();
+            return Json(res);
+        }
     }
 }
-

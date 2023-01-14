@@ -257,7 +257,8 @@ namespace JLNP_Project.AppCode.DL
                 new SqlParameter("@Id",req.Id),
                 new SqlParameter("@ProgramId",req.ProgramId),
                 new SqlParameter("@BranchId",req.BranchId),
-                new SqlParameter("@LoginID",req.UserId)
+                new SqlParameter("@LoginID",req.UserId),
+                new SqlParameter("@Batch",req.Batch)
             };
             try
             {
@@ -277,7 +278,7 @@ namespace JLNP_Project.AppCode.DL
         public List<ProgramBranchMapping> ProcGetProgramBranchMapping()
         {
             var res = new List<ProgramBranchMapping>();
-            string ProcName = "select tpb.Id,tb.Branch_Name,tp.Program,tpb.EntryDate from tbl_ProgramBranchMapping tpb inner join tbl_Program tp on tpb.ProgramId = tp.Id inner join tbl_Branch tb on tpb.BranchId = tb.BranchId order by Id Desc"; // Procedure name
+            string ProcName = "select tpb.Id,tb.Branch_Name,tp.Program,tpb.EntryDate,(Cast(tbm.FromYear as varchar)+' - '+Cast(tbm.ToYear as varchar)) as Batch from tbl_ProgramBranchMapping tpb inner join tbl_Program tp on tpb.ProgramId = tp.Id inner join tbl_Branch tb on tpb.BranchId = tb.BranchId inner join tbl_BatchMaster tbm on tpb.BatchId = tbm.Id order by Id Desc"; // Procedure name
             try
             {
                 var dt = _helper.ExcQueryWithoutParam(ProcName);
@@ -290,6 +291,7 @@ namespace JLNP_Project.AppCode.DL
                             ProgramId = Convert.ToInt32(dr["Id"]),
                             ProgramName = Convert.ToString(dr["Program"]),
                             BranchName = Convert.ToString(dr["Branch_Name"]),
+                            BatchName = Convert.ToString(dr["Batch"]),
                             EntryDate = Convert.ToString(dr["EntryDate"])
                         };
                         res.Add(model);
@@ -318,6 +320,7 @@ namespace JLNP_Project.AppCode.DL
                     var model = new ProgramBranchMapping
                     {
                         Id = Convert.ToInt32(dt.Rows[0]["Id"]),
+                        Batch = Convert.ToInt32(dt.Rows[0]["BatchId"]),
                         ProgramId = Convert.ToInt32(dt.Rows[0]["ProgramId"]),
                         BranchId = Convert.ToInt32(dt.Rows[0]["BranchId"])
                     };
@@ -338,6 +341,122 @@ namespace JLNP_Project.AppCode.DL
                 Msg = "Temp Error!"
             };
             string ProcName = "Delete from tbl_ProgramBranchMapping where Id = @Id;Select 1 Statuscode,'Record Deleted Succefully!' Msg"; // Procedure name
+            SqlParameter[] param =
+            {
+                new SqlParameter("@Id",Id)
+            };
+            try
+            {
+                var dt = _helper.ExcQueryDT(ProcName, param);
+                if (dt.Rows.Count > 0)
+                {
+                    res.statuscode = Convert.ToInt32(dt.Rows[0]["Statuscode"]);
+                    res.Msg = Convert.ToString(dt.Rows[0]["Msg"]);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return res;
+        }
+        public BatchMasterReqRes ProcGetBatchById(int Id)
+        {
+            var res = new BatchMasterReqRes();
+            string ProcName = "select * from tbl_BatchMaster where Id = @Id"; // Query
+            SqlParameter[] param =
+            {
+                new SqlParameter("@Id",Id)
+            };
+            try
+            {
+                var dt = _helper.ExcQueryDT(ProcName, param);
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        var model = new BatchMasterReqRes
+                        {
+                            Id = Convert.ToInt32(dr["Id"] is DBNull ? 0: Convert.ToInt32(dr["Id"])),
+                            FromYear = Convert.ToString(dr["FromYear"] is DBNull ? "" : dr["FromYear"].ToString()),
+                            ToYear = Convert.ToString(dr["ToYear"] is DBNull ? "" : dr["ToYear"].ToString()),
+                            Entrydate = Convert.ToString(dr["EntryDate"] is DBNull ? "" : dr["EntryDate"].ToString())
+                        };
+                        res = model;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return res;
+        }
+        public ResponseStatus ProcSaveAndUpdateBatch(BatchMasterReqRes Req)
+        {
+            var res = new ResponseStatus
+            {
+                statuscode = -1,
+                Msg = "Temp Error!"
+            };
+            string ProcName = "Proc_BatchMaster"; // Procedure name
+            SqlParameter[] param =
+            {
+                new SqlParameter("@Id",Req.Id),
+                new SqlParameter("@FromYear",Req.FromYear),
+                new SqlParameter("@ToYear",Req.ToYear)
+            };
+            try
+            {
+                var dt = _helper.ExcProc(ProcName, param);
+                if (dt.Rows.Count > 0)
+                {
+                    res.statuscode = Convert.ToInt32(dt.Rows[0]["Statuscode"]);
+                    res.Msg = Convert.ToString(dt.Rows[0]["Msg"]);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return res;
+        }
+        public List<BatchMasterReqRes> ProcGetBatch()
+        {
+            var res = new List<BatchMasterReqRes>();
+            string ProcName = "select * from tbl_BatchMaster order by Id desc"; // Query
+            try
+            {
+                var dt = _helper.ExcQueryWithoutParam(ProcName);
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        var model = new BatchMasterReqRes
+                        {
+                            Id = Convert.ToInt32(dr["Id"] is DBNull ? 0 : Convert.ToInt32(dr["Id"])),
+                            FromYear = Convert.ToString(dr["FromYear"] is DBNull ? "" : dr["FromYear"].ToString()),
+                            ToYear = Convert.ToString(dr["ToYear"] is DBNull ? "" : dr["ToYear"].ToString()),
+                            Entrydate = Convert.ToString(dr["EntryDate"] is DBNull ? "" : dr["EntryDate"].ToString())
+                        };
+                        res.Add(model);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return res;
+        }
+        public ResponseStatus ProcDeleteBatch(int Id)
+        {
+            var res = new ResponseStatus
+            {
+                statuscode = -1,
+                Msg = "Temp Error!"
+            };
+            string ProcName = "Delete from tbl_BatchMaster where Id = @Id;Select 1 Statuscode,'Record Deleted Succefully!' Msg"; // Procedure name
             SqlParameter[] param =
             {
                 new SqlParameter("@Id",Id)

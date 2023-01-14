@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\login\**" />
+    <Content Remove="wwwroot\login\**" />
+    <EmbeddedResource Remove="wwwroot\login\**" />
+    <None Remove="wwwroot\login\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Master\Partial\_EditSubjectMaster.cshtml" />
   </ItemGroup>
 
@@ -775,6 +782,9 @@
     <None Include="wwwroot\css\fonts\materialdesignicons-webfont9391.woff2" />
     <None Include="wwwroot\css\fonts\themify9f24.svg" />
     <None Include="wwwroot\css\fonts\typicons.svg" />
+    <None Include="wwwroot\logins\bootstrap.min.js" />
+    <None Include="wwwroot\logins\logo.svg" />
+    <None Include="wwwroot\logins\popper.min.js" />
   </ItemGroup>
 
 </Project>

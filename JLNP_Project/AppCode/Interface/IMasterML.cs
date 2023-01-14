@@ -16,5 +16,9 @@ namespace JLNP_Project.AppCode.Interface
         List<ProgramBranchMapping> GetProgramBranchMapping();
         ProgramBranchMapping EditProgramBranchMapping(int Id);
         ResponseStatus DeleteProgramBranchMapping(int Id);
+        BatchMasterReqRes GetBatchByID(int Id);
+        ResponseStatus SaveAndUpdateBatch(BatchMasterReqRes req);
+        List<BatchMasterReqRes> GetBatch();
+        ResponseStatus DeleteBatch(int Id);
     }
 }

@@ -12,16 +12,19 @@
                     <div class="card-body">
                         <div class="row" style="display:flex">
                             <div style="float:right">
-                                <button class="btn btn-outline-primary" id="btnsubmit" onclick="Savedata()" style="float: right;
-    width: 10%;">+ Add New</button>
+                                <button class="btn btn-outline-primary" id="btnsubmit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="AddNew()" style="float: right;
+    width: 10%;">
+                                    + Add New
+                                </button>
                             </div>
                         </div>
                         <div class="table-responsive table-bordered" style="margin-top:13px;">
-                            <table class="table mb-0" id="tblvideoUrl">
+                            <table class="table mb-0" id="tblbatch">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
-                                        <th>Batch</th>
+                                        <th>From Year</th>
+                                        <th>To Year</th>
                                         <th>EntryDate</th>
                                         <th>Action</th>
                                     </tr>
@@ -35,3 +38,76 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        Loaddata();
+    });
+    var Loaddata = function() {
+        preloader.load();
+        $.post('/Master/GetBatchMaster').done(function(result) {
+            preloader.remove();
+            $('#tblbatch tbody').html(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error!');
+        });
+    }
+    var AddNew = function(Id) {
+        preloader.load();
+        $.post('/Master/AddBatchMaster', { Id: Id }).done(function(result) {
+            preloader.remove();
+            showModel(result);
+            $("#txtfromyear").yearpicker({
+                year: 2023,
+                startYear: 2019,
+                endYear: 2050,
+            });
+            $("#txttoyear").yearpicker({
+                year: 2023,
+                startYear: 2019,
+                endYear: 2050,
+            });
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error!');
+        });
+    }
+    var SaveRecord = function(id) {
+        let obj = {
+            Id: id,
+            FromYear: $('#txtfromyear').val(),
+            ToYear: $('#txttoyear').val()
+        }
+        if (obj.FromYear == '' || obj.FromYear == undefined) {
+            $('#txtfromyearsp').removeClass("d-none");
+            return false;
+        }
+        else {
+            $('#txtfromyearsp').addClass("d-none");
+        }
+        if (obj.ToYear == '' || obj.ToYear == undefined) {
+            $('#txttoyearsp').removeClass("d-none");
+            return false;
+        }
+        else {
+            $('#txttoyearsp').addClass("d-none");
+        }
+        $.post('/Master/SaveAndBatchMaster', obj).done(function(result) {
+            preloader.remove();
+            alertnotify(result.statuscode, result.msg);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error!');
+        });
+    }
+    var DeleteRecord = function(Id) {
+        preloader.load();
+        $.post('/Master/DeleteBatchMaster', { Id: Id }).done(function(result) {
+            preloader.remove();
+            alertnotify(result.statuscode, result.msg);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error!');
+        });
+    }
+</script>
