@@ -60,7 +60,9 @@ namespace JLNP_Project.Controllers
         }
         public IActionResult AddStudent()
         {
-            return View();
+            IMasterML ml = new MasterML();
+            var res = ml.GetProgram();
+            return View(res);
         }
         [HttpPost]
         public IActionResult _AddStudent(Student student)
@@ -163,9 +165,14 @@ namespace JLNP_Project.Controllers
         }
         public IActionResult GetStudentById(Student student)
         {
+            EditStudentRegistration model = new EditStudentRegistration();
+            IMasterML ml = new MasterML();
+            var midlelayar = new StudentML();
+            model.program = ml.GetProgram();
+            model.branch = midlelayar.BindBranch();
             student.Action = "GetById";
-            ViewBag.Student = StBAL.GetStudentById_BAL(student);
-            return View();
+            model.data = StBAL.GetStudentById_BAL(student);
+            return View(model);
         }
         [HttpPost]
         public IActionResult _EditStudent(Student student)

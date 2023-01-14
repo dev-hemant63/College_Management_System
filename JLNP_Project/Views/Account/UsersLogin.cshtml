@@ -1,97 +1,54 @@
 ﻿@{
     Layout = null;
 }
-<!-- App favicon -->
 <title>Login | </title>
-<link rel="shortcut icon" href="~/login/assets/images/favicon.ico">
-<!-- App css -->
-<link href="~/login/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
-<link href="~/login/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-<link href="~/login/assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet" />
-<link href="~/css/Custom.css" rel="stylesheet" type="text/css" id="app-stylesheet" />
-<div class="authentication-bg bg-primary authentication-bg-pattern d-flex align-items-center pb-0 vh-100">
-    <div class="home-btn d-none d-sm-block">
-    </div>
-    <div class="account-pages w-100 mt-5 mb-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-6 col-xl-5">
-                    <div class="card mb-0">
-                        <div class="card-body p-4">
-                            <div class="account-box">
-                                <div class="account-logo-box">
-                                    <div class="text-center">
-                                        <a href="#">
-                                            <img src="~/login/assets/images/logo-dark.png" alt="" height="30">
-                                        </a>
-                                    </div>
-                                    @if (ViewBag.msg != null)
-                                    {
-                                        <h4 class="text-uppercase mb-1 mt-4 danger" style="color: red">@ViewBag.msg</h4>
-                                    }
-
-
-                                </div>
-                                <div class="account-content mt-4">
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <select class="form-control" id="ddlusertype">
-                                                <option value="1">Admin</option>
-                                                @* <option value="2">Teacher</option>*@
-                                                <option value="3">Student</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="emailaddress">Username</label>
-                                            <input class="form-control" id="UserId" type="text" placeholder="User Id" required="">
-                                        </div>
-                                        <div class="col-12">
-                                            <label for="password">Password</label>
-                                            <input class="form-control" id="password" type="password" placeholder="Password" required="">
-                                            <a href="#" class="text-muted float-right"><small>Forgot your password?</small></a>
-                                            <span class="text-danger" id="msg"></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row text-center mt-2">
-                                        <div class="col-12">
-                                            <button class="btn btn-md btn-block btn-primary waves-effect waves-light" type="submit" id="login">Sign In</button>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            @*<div class="text-center">
-                                            <button type="button" class="btn mr-1 btn-facebook waves-effect waves-light">
-                                            <i class="fab fa-facebook-f"></i>
-                                            </button>
-                                            <button type="button" class="btn mr-1 btn-googleplus waves-effect waves-light">
-                                            <i class="fab fa-google"></i>
-                                            </button>
-                                            <button type="button" class="btn mr-1 btn-twitter waves-effect waves-light">
-                                            <i class="fab fa-twitter"></i>
-                                            </button>
-                                            </div>*@
-                                        </div>
-                                    </div>
-                                    <div class="row mt-4 pt-2">
-                                        @*<div class="col-sm-12 text-center">
-                                        <p class="text-muted mb-0">Don't have an account? <a href="page-register.html" class="text-dark ml-1"><b>Sign Up</b></a></p>
-                                        </div>*@
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end card-body -->
+<link href="~/Logins/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Logins/fonts.css" rel="stylesheet" type="text/css" />
+<link href="~/Logins/login.css" rel="stylesheet" type="text/css" />
+<link href="~/Logins/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+<link href="~/css/Custom.css" rel="stylesheet" type="text/css">
+<main class="d-flex align-items-center min-vh-100">
+    <div class="container">
+        <div class="card login-card" style="height:500Px;">
+            <div class="row no-gutters">
+                <div class="col-md-5">
+                    <img src="~/Logins/loginimg.jpg" alt="login" class="login-card-img">
                 </div>
-                <!-- end card -->
+                <div class="col-md-7">
+                    <div class="card-body">
+                        <div class="brand-wrapper" style="margin-top: -22px;
+    margin-bottom: 10px;">
+                            <img src="~/Logins/logo.svg" alt="logo" class="logo">
+                        </div>
+                            <div class="form-group">
+                                <label for="ddlusertype">Login Type</label>
+                                <select class="form-control" id="ddlusertype">
+                                    <option value="1">Institute</option>
+                                    @* <option value="2">Teacher</option>*@
+                                    <option value="3">Student</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="UserId">UserName</label>
+                                <input class="form-control" id="UserId" type="text" placeholder="User Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input class="form-control" id="password" type="password" placeholder="Password" required>
+                                <span class="text-danger" id="msg"></span>
+                            </div>
+                            <button class="btn btn-block login-btn" type="submit" id="login" style="margin-top: 12px;">Sign In</button>
+                        <a href="#!" class="forgot-password-link">Forgot password?</a>
+                    </div>
+                </div>
             </div>
-            <!-- end row -->
         </div>
-        <!-- end container -->
     </div>
-</div>
+</main>
 <script src="~/js/jquery.min.js"></script>
+<script src="~/js/site.js"></script>
+<script src="~/logins/bootstrap.min.js"></script>
+<script src="~/logins/popper.min.js"></script>
 <script src="~/js/site.js"></script>
 <script>
     $(document).ready(function() {

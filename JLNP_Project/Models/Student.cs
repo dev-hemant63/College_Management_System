@@ -11,10 +11,14 @@
         public string DOB { get; set; }
         public string Entrolment_No { get; set; }
         public string Branch { get; set; }
+        public int BranchId { get; set; }
         public string Address { get; set; }
         public string Gender { get; set; }
         public string Group { get; set; }
         public string EntryDate { get; set; }
+        public string FatherOccupation { get; set; }
+        public string MotherName { get; set; }
+        public int Program { get; set; }
         public string Action { get; set; }
     }
     public class StudentFineMdl: Student
@@ -31,5 +35,11 @@
         public string Branch_Name { get; set; }
         public string Path { get; set; }
         public string SubjectCode { get; set; }
+    }
+    public class EditStudentRegistration
+    {
+        public Student data { get; set; }
+        public List<ProgramMaster> program { get; set; }
+        public List<Branch> branch { get; set; }
     }
 }

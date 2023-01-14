@@ -67,5 +67,25 @@ namespace JLNP_Project.AppCode.Midlelayer
             var response = _proc.ProcDeleteProgramBranchMapping(Id);
             return response;
         }
+        public BatchMasterReqRes GetBatchByID(int Id)
+        {
+            var response = _proc.ProcGetBatchById(Id);
+            return response;
+        }
+        public ResponseStatus SaveAndUpdateBatch(BatchMasterReqRes req)
+        {
+            var response = _proc.ProcSaveAndUpdateBatch(req);
+            return response;
+        }
+        public List<BatchMasterReqRes> GetBatch()
+        {
+            var response = _proc.ProcGetBatch();
+            return response;
+        }
+        public ResponseStatus DeleteBatch(int Id)
+        {
+            var response = _proc.ProcDeleteBatch(Id);
+            return response;
+        }
     }
 }

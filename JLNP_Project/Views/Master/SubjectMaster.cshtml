@@ -87,7 +87,6 @@
     });
 
     var submitdata = () => {
-        preloader.load();
         if ($('#ddlbranch option:selected').val() == '') {
             alert('Please Select Branch');
             $('#ddlbranch').focus();
@@ -134,6 +133,7 @@
             TheoryMarks: $('#txttheoryMarks').val(),
             PracticalMarks: $('#txtsubjectMarks').val()
         }
+        preloader.load();
         $.post('/Master/SaveSubjectMaster', obj).done(function(result) {
             preloader.remove();
             alertnotify(result.statuscode,result.msg);

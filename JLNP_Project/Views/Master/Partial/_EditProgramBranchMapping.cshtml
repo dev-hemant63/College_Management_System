@@ -27,6 +27,16 @@
                         }
                     }
                 </select>
+                <label>Select Batch<span style="color:red;">*</span></label>
+                <select class="form-control" id="batch" asp-for="@Model.data.Batch">
+                    <option value="0">-- Select Batch --</option>
+                    @{
+                        foreach (var item2 in Model.batch)
+                        { 
+                            <option value="@item2.Id">@item2.FromYear - @item2.ToYear</option>
+                        }
+                    }
+                </select>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-primary" onclick="UpdateRecord('@Model.data.Id')" id="btnsave">Save</button>
