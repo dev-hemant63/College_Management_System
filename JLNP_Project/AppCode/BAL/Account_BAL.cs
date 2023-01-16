@@ -18,10 +18,10 @@ namespace JLNP_Project.AppCode.BAL
             var dt = AC_DAL.Login_DAL_V1(account);
             return dt;
         }
-        public DataTable ChangePassword_BAL(Account account)
+        public ResponseStatus ChangePassword_BAL(Account account)
         {
             Account_DAL AC_DAL = new Account_DAL();
-            var dt = AC_DAL.ChangePassword_DAL(account);
+            var dt = AC_DAL.ChangePassword(account);
             return dt;
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace JLNP_Project.Models
 {
-    public class ResponseStatus
+    public class ResponseStatus:LoginInfo
     {
         public string Msg { get; set; }
         public int statuscode { get; set; }
