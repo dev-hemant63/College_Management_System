@@ -165,34 +165,6 @@ namespace JLNP_Project.Controllers
             var res = adbal.DeleteAssignment(Id);
             return Json(res);
         }
-        public IActionResult Sendmail(string EmailAddress)
-        {
-            try
-            {
-                string frommail = "jlnp.mmb222503@gmail.com";
-                string frompassword = "suebgqbqjhdkxnsp";
-
-                MailMessage massage = new MailMessage();
-                massage.From = new MailAddress(frommail);
-                massage.Subject = "Jawahar lal Neharu Polytechnic";
-                massage.To.Add(new MailAddress(EmailAddress));
-                massage.Body = "<html><body><h3>Student Registration Successfully</h3><br>Your From JLPN Testing</body></html>";
-                massage.IsBodyHtml = true;
-
-                var smtpclient = new SmtpClient("smtp.gmail.com")
-                {
-                    Port = 587,
-                    Credentials = new NetworkCredential(frommail, frompassword),
-                    EnableSsl = true
-                };
-                smtpclient.Send(massage);
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return Ok();
-        }
         public IActionResult GetUsers()
         {
             return View();

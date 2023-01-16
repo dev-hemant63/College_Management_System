@@ -1,10 +1,14 @@
 ﻿@using Newtonsoft.Json
+@{
+    int userid = Convert.ToInt32(@TempData["UserId"]);
+    TempData.Keep("UserId");
+}
 <!DOCTYPE html>
 <html lang="en">
 
 
 <head>
-    <meta charset = "utf-8" />
+    <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,7 +83,7 @@
                                             <p class="mb-0 font-roboto" id="loginIdValue"></p>
                                         </div>
                                     </li>
-                                    <li class="add-to-bookmark"><i class=' text-color-blue fas fa-user-secret text-info'></i> <a class="ml-2" id="changepass" href="javascript:void(0)">Change Password</a></li>
+                                    <li class="add-to-bookmark"><i class=' text-color-blue fas fa-user-secret text-info'></i> <a class="ml-2" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" href="javascript:void(0)" id="changePass" onclick="ChangePassword('@userid')">Change Password</a></li>
                                     <li class="add-to-bookmark"><i class=' text-color-blue fas fa-user text-info'></i> <a class="ml-2" id="changeprofile" href="javascript:void(0)">Change Profile</a></li>
 
                                     <hr class="border bg-success p-0 m-0" />
@@ -237,6 +241,13 @@
     <script src="~/js/yearpicker.js"></script>
     <script>
         var $$host = '@(ViewData["Host"])';
+        var ChangePassword = function(userid) {
+            $.post('/Account/_ChangePassword', { UserID: userid }).done(function(result) {
+                showModel(result);
+            }).fail(function(xhr) {
+                console.log(xhr.responseText);
+            });
+        }
     </script>
     @RenderSection("Scripts", required: false)
 

@@ -78,3 +78,10 @@ var convertUrltoEmbeded = function (URL) {
     var embeddedUrl = "https://www.youtube.com/embed/" + res[1];
     return embeddedUrl;
 }
+var ChangePassword = function () {
+    $.post('/Account/_ChangePassword').done(function (result) {
+        showModel(result);
+    }).fail(function (xhr) {
+        console.log(xhr.responseText);
+    });
+}
