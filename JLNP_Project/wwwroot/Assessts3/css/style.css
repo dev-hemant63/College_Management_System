@@ -5878,7 +5878,7 @@ table tbody .border-bottom-warning td {
 
             .page-main-header .main-header-right .toggle-sidebar svg {
                 width: 20px;
-                color: #17a2b6;
+                color: #232323;
             }
 
             .page-main-header .main-header-right .toggle-sidebar:hover {
@@ -7027,7 +7027,7 @@ table tbody .border-bottom-warning td {
         /*z-index: 8;*/
         height: 100%;
         line-height: inherit;
-        background: #1d2939;
+        background: #232323;
         border-right: 1px solid #e6edef;
         width: 265px;
         text-align: left;
@@ -7163,7 +7163,7 @@ table tbody .border-bottom-warning td {
             overflow-y: auto;
             color: rgba(0, 0, 0, 0);
             padding: 10px 15px 10px 0;
-            background: #1D2939;
+            background: #232323;
         }
 
             .page-wrapper.compact-wrapper .page-body-wrapper header.main-nav .main-navbar .nav-menu.custom-scrollbar::-webkit-scrollbar-track {
@@ -7429,10 +7429,11 @@ table tbody .border-bottom-warning td {
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
     align-items: center;
-    border-radius: 0 60px 60px 0;
+    /* border-radius: 0 60px 60px 0; */
     color: #E6E6E6;
     display: flex;
     font-size: 14px;
+    /* width: 100%; */
     font-weight: 400;
     margin: 2px 0;
     padding: 10px 20px;

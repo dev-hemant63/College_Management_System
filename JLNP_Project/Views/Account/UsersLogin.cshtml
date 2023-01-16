@@ -7,37 +7,62 @@
 <link href="~/Logins/login.css" rel="stylesheet" type="text/css" />
 <link href="~/Logins/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
 <link href="~/css/Custom.css" rel="stylesheet" type="text/css">
-<main class="d-flex align-items-center min-vh-100">
+<style>
+    .login-box .left-side-area .logo-box img,
+    .our-login.register-page .logo-box img {
+        width: 100px;
+    }
+
+    .our-login.register-page .logo-box {
+        margin-bottom: 20px;
+    }
+
+    .login-box .left-side-area .middle-content {
+        padding: 90px 0;
+    }
+
+        .login-box .left-side-area .middle-content p {
+            padding-left: 140px;
+        }
+
+        .login-box .left-side-area .middle-content h1 {
+            font-size: 24px;
+            text-transform: uppercase;
+            color: #fae607 !important;
+        }
+</style>
+<main class="d-flex align-items-center min-vh-100" style="background-image: -webkit-linear-gradient( 48deg, rgb(251, 254, 0) 0%, rgb(247, 148, 30) 100%)">
     <div class="container">
         <div class="card login-card" style="height:500Px;">
             <div class="row no-gutters">
-                <div class="col-md-5">
-                    <img src="~/Logins/loginimg.jpg" alt="login" class="login-card-img">
+                <div class="col-md-5" style="background-color: #f96f0a;
+    text-align: center;">
+                    
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-7" style="background-color: #fdf8d7;">
                     <div class="card-body">
                         <div class="brand-wrapper" style="margin-top: -22px;
     margin-bottom: 10px;">
                             <img src="~/Logins/logo.svg" alt="logo" class="logo">
                         </div>
-                            <div class="form-group">
-                                <label for="ddlusertype">Login Type</label>
-                                <select class="form-control" id="ddlusertype">
-                                    <option value="1">Institute</option>
-                                    @* <option value="2">Teacher</option>*@
-                                    <option value="3">Student</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="UserId">UserName</label>
-                                <input class="form-control" id="UserId" type="text" placeholder="User Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input class="form-control" id="password" type="password" placeholder="Password" required>
-                                <span class="text-danger" id="msg"></span>
-                            </div>
-                            <button class="btn btn-block login-btn" type="submit" id="login" style="margin-top: 12px;">Sign In</button>
+                        <div class="form-group">
+                            <label for="ddlusertype">Login Type</label>
+                            <select class="form-control" id="ddlusertype">
+                                <option value="1">Institute</option>
+                                @* <option value="2">Teacher</option>*@
+                                <option value="3">Student</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="UserId">UserName</label>
+                            <input class="form-control" id="UserId" type="text" placeholder="User Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input class="form-control" id="password" type="password" placeholder="Password" required>
+                            <span class="text-danger" id="msg"></span>
+                        </div>
+                        <button class="btn btn-block login-btn" type="submit" id="login" style="margin-top: 12px;">Sign In</button>
                         <a href="#!" class="forgot-password-link">Forgot password?</a>
                     </div>
                 </div>

@@ -158,3 +158,9 @@
         transform: rotate(360deg)
     }
 }
+.bgred {
+    background-color: #e92000 !important;
+}
+.page-title {
+    color: #ffffff;
+}
