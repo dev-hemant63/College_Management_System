@@ -34,8 +34,7 @@
 
 .page-wrapper.compact-wrapper .page-body-wrapper header.main-nav .main-navbar .nav-menu > li .nav-link.active, .page-wrapper.compact-wrapper .page-body-wrapper header.main-nav .main-navbar .nav-menu > li .nav-link:hover {
     /*background-color: #89153f !important;*/
-    background: rgb(28,175,154) !important;
-    background: linear-gradient(90deg, rgba(28,175,154,1) 0%, rgba(23,162,183,1) 100%) !important;
+    background-color: #ff8600;
 }
 
 .bg-success {
