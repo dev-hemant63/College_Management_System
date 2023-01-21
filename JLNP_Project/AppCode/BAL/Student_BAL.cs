@@ -27,6 +27,7 @@ namespace JLNP_Project.AppCode.BAL
             {
                 try
                 {
+                    model.Id = Convert.ToInt32(dt.Rows[0]["Id"] is DBNull ? 0 : Convert.ToInt32(dt.Rows[0]["Id"]));
                     model.Name = Convert.ToString(dt.Rows[0]["Name"]);
                     model.Email = Convert.ToString(dt.Rows[0]["Email"]);
                     model.Gender = Convert.ToString(dt.Rows[0]["Gender"]);
@@ -36,7 +37,7 @@ namespace JLNP_Project.AppCode.BAL
                     model.FatherOccupation = Convert.ToString(dt.Rows[0]["FatherOccupation"] is DBNull ? "" : dt.Rows[0]["FatherOccupation"].ToString());
                     model.DOB = Convert.ToString(dt.Rows[0]["DOB"]);
                     model.Mobile = Convert.ToString(dt.Rows[0]["Mobile"]);
-                    model.Program = Convert.ToInt32(dt.Rows[0]["Program"] is DBNull ? "" : dt.Rows[0]["Program"].ToString());
+                    model.Program = Convert.ToInt32(dt.Rows[0]["Program"] is DBNull ? 0 : Convert.ToInt32(dt.Rows[0]["Program"]));
                     model.BranchId = Convert.ToInt32(dt.Rows[0]["Branch"]);
                     model.Address = Convert.ToString(dt.Rows[0]["Address"]);
                 }

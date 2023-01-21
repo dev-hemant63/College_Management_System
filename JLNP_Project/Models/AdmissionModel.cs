@@ -1,6 +1,6 @@
 ﻿namespace JLNP_Project.Models
 {
-    public class AdmissionModel
+    public class AdmissionModel:SearchModel
     {
         public int Id { get; set; }
         public int IsAttand { get; set; }
@@ -9,6 +9,10 @@
         public int SubjectId { get; set; }
         public int BranchId { get; set; }
         public string Name { get; set; }
+        public string MotherName { get; set; }
+        public string FatherOccupation { get; set; }
+        public int Program { get; set; }
+        public string ProgramName { get; set; }
         public string SubjectName { get; set; }
         public string Date { get; set; }
         public string Fname { get; set; }
@@ -26,6 +30,7 @@
         public string Year { get; set; }
         public string Action { get; set; }
         public string Entrydate { get; set; }
+        public string Religion { get; set; }
         public List<AdmissionModel> lst { get; set; }
     }
 }

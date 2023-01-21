@@ -1,4 +1,6 @@
 ﻿using JLNP_Project.AppCode.BAL;
+using JLNP_Project.AppCode.Interface;
+using JLNP_Project.AppCode.Midlelayer;
 using JLNP_Project.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -14,13 +16,22 @@ namespace JLNP_Project.Controllers
         public AdmissionController(IHttpContextAccessor accessor)
         {
             _accessor = accessor;
-            _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString("Userdata"));
+            try
+            {
+                _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString("Userdata"));
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
         public IActionResult AForm()
         {
             if (Request.Cookies["UserName"] != null)
             {
-                return View();
+                IMasterML ml = new MasterML();
+                var res = ml.GetProgram();
+                return View(res);
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -70,6 +81,13 @@ namespace JLNP_Project.Controllers
         {
             Admission_BAL AdBal = new Admission_BAL();
             var res = AdBal.StudentAdmissionDetailse(RegistrationNo);
+            return Json(res);
+        }
+        [HttpPost]
+        public IActionResult BindProgramWiseBranch(int ProgramId)
+        {
+            IMasterML ml = new MasterML();
+            var res = ml.BindProgramWiseBranch(ProgramId);
             return Json(res);
         }
     }

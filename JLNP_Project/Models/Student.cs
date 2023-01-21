@@ -1,6 +1,6 @@
 ﻿namespace JLNP_Project.Models
 {
-    public class Student
+    public class Student: SearchModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -20,6 +20,7 @@
         public string MotherName { get; set; }
         public int Program { get; set; }
         public string Action { get; set; }
+        public string ProgramName { get; set; }
     }
     public class StudentFineMdl: Student
     {

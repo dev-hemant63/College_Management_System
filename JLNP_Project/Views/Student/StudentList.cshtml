@@ -3,40 +3,29 @@
 }
 <div class="">
     <div class="">
-        <!-- Page-Title -->
-        @*<div class="row">
-            <div class="col-sm-12">
-                <div class="page-title-box">
-                    Student Report
-                </div>
-            </div>
-        </div>*@
-        <!-- end page title end breadcrumb -->
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header bgred">
-                            <h4 style="color:white;">Students</h4>
-                        </div>
+                        <h4 style="color:white;">Students</h4>
+                    </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-3">
                                 <lable>From Date</lable>
-                                <input type="date" class="form-control" placeholder="From Date">
+                                <input type="text" id="txtfromdate" class="form-control" placeholder="From Date">
                             </div>
                             <div class="col-md-3">
-                                <lable>From Date</lable>
-                                <input type="date" class="form-control" placeholder="From Date">
+                                <lable>To Date</lable>
+                                <input type="text" id="txttodate" class="form-control" placeholder="From Date">
                             </div>
                             <div class="col-md-3">
-                                <lable>Student Name</lable>
-                                <input type="text" class="form-control" placeholder="Student Name">
+                                <lable>Registration Number</lable>
+                                <input type="text" class="form-control" id="registrationnumber" placeholder="Registration Numbe">
                             </div>
                             <div class="col-md-2">
-                                <button type="button" onclick="getdata()" class="btn btn-outline-primary waves-effect waves-light" style="margin-top: 20px;" id="btnsearch">Search</button>
+                                <button type="button" onclick="FilterData()" class="btn btn-outline-primary waves-effect waves-light" style="margin-top: 20px;" id="btnsearch">Search</button>
                             </div>
-                            <!-- end col -->
-
                         </div>
                         <div class="table-responsive" style="margin-top: 13px;">
                             <table class="table table-bordered" id="tblstudent">
@@ -45,10 +34,13 @@
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Father Name</th>
+                                        <th>Mother Name</th>
+                                        <th>Father Occupation</th>
                                         <th>Email</th>
                                         <th>Mobile</th>
                                         <th>DOB</th>
                                         <th>Registration</th>
+                                        <th>Program</th>
                                         <th>Branch</th>
                                         <th>Address</th>
                                         <th>Gender</th>
@@ -69,13 +61,43 @@
 <script src="~/js/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
+        LoadDate('txtfromdate', 'txttodate');
         Loaddata();
     });
-    var Loaddata = function() {
-        $.post('/Student/GetStudent').done(function(result) {
+    var FilterData = () => {
+        let obj = {
+            Entrolment_No: $('#registrationnumber').val(),
+            FromDate: $('#txtfromdate').val(),
+            ToDate: $('#txttodate').val(),
+        }
+        preloader.load();
+        $.post('/Student/GetStudent', obj).done(function(result) {
+            preloader.remove();
             $('#tblstudent tbody').html(result);
         }).fail(function(xhr) {
             console.log(xhr.responseText);
         });
+    }
+    var Loaddata = function() {
+        preloader.load();
+        $.post('/Student/GetStudent').done(function(result) {
+            preloader.remove();
+            $('#tblstudent tbody').html(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+    }
+    var LoadDate = (FromId, ToId) => {
+        setCurrentDate(FromId, ToId);
+        $("#" + FromId).datepicker();
+        $("#" + ToId).datepicker();
+    }
+    var setCurrentDate = function(textIdfrom, textIdto) {
+        var now = new Date();
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        var today = (day) + "-" + (month) + "-" + now.getFullYear();
+        $('#' + textIdfrom).val(today);
+        $('#' + textIdto).val(today);
     }
 </script>

@@ -85,3 +85,16 @@ var ChangePassword = function () {
         console.log(xhr.responseText);
     });
 }
+var setCurrentDate = function (textIdfrom, textIdto) {
+    var now = new Date();
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear() + "-" + (month) + "-" + (day);
+    $('#' + textIdfrom).val(today);
+    $('#' + textIdto).val(today);
+}
+var LoadDate = (FromId, ToId) => {
+    setCurrentDate(FromId, ToId);
+    $("#" + FromId).datepicker();
+    $("#" + ToId).datepicker();
+}

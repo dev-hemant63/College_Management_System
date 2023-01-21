@@ -21,6 +21,7 @@ namespace JLNP_Project.AppCode.DL
                 new SqlParameter("@ID",req.ID),
                 new SqlParameter("@LoginID",req.UserId),
                 new SqlParameter("@Branch",req.Branch),
+                new SqlParameter("@Program",req.Program),
                 new SqlParameter("@Subject",req.Subject),
                 new SqlParameter("@Year",req.Year),
                 new SqlParameter("@Path",req.Filepath)
@@ -61,6 +62,7 @@ namespace JLNP_Project.AppCode.DL
                         {
                             ID = Convert.ToInt32(dr["ID"] is DBNull ? 0 : Convert.ToInt32(dr["ID"])),
                             BranchName = Convert.ToString(dr["Branch_Name"] is DBNull ? 0 : Convert.ToString(dr["Branch_Name"])),
+                            ProgramName = Convert.ToString(dr["Program"] is DBNull ? 0 : Convert.ToString(dr["Program"])),
                             SubjecName = Convert.ToString(dr["SubjectName"] is DBNull ? 0 : Convert.ToString(dr["SubjectName"])),
                             EntryDate = Convert.ToString(dr["EntryDate"] is DBNull ? 0 : Convert.ToString(dr["EntryDate"])),
                             Year = Convert.ToInt32(dr["_Year"] is DBNull ? 0 : Convert.ToInt32(dr["_Year"])),
@@ -119,6 +121,7 @@ namespace JLNP_Project.AppCode.DL
                 {
                     response.ID = Convert.ToInt32(dt.Rows[0]["ID"] is DBNull ? 0 : Convert.ToInt32(dt.Rows[0]["ID"]));
                     response.Branch = Convert.ToInt32(dt.Rows[0]["BranchID"] is DBNull ? 0 : Convert.ToInt32(dt.Rows[0]["BranchID"]));
+                    response.Program = Convert.ToInt32(dt.Rows[0]["Program"] is DBNull ? 0 : Convert.ToInt32(dt.Rows[0]["Program"]));
                     response.Subject = Convert.ToInt32(dt.Rows[0]["SubjectID"] is DBNull ? 0 : Convert.ToInt32(dt.Rows[0]["SubjectID"]));
                     response.Year = Convert.ToInt32(dt.Rows[0]["_Year"] is DBNull ? 0 : Convert.ToInt32(dt.Rows[0]["_Year"]));
                     response.Filepath = Convert.ToString(dt.Rows[0]["_Path"] is DBNull ? "" : Convert.ToString(dt.Rows[0]["_Path"]));
@@ -143,6 +146,7 @@ namespace JLNP_Project.AppCode.DL
                 new SqlParameter("@ID",req.ID),
                 new SqlParameter("@LoginID",req.UserId),
                 new SqlParameter("@Branch",req.Branch),
+                new SqlParameter("@Program",req.Program),
                 new SqlParameter("@Subject",req.Subject),
                 new SqlParameter("@Year",req.Year),
                 new SqlParameter("@Path",req.Filepath)

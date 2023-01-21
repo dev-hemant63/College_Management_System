@@ -35,6 +35,9 @@ namespace JLNP_Project.AppCode.DAL
             SqlCommand cmd = new SqlCommand("proc_student_crud", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Action", student.Action);
+            cmd.Parameters.AddWithValue("@RegistrationNo", student.Entrolment_No);
+            cmd.Parameters.AddWithValue("@FromDate", student.FromDate);
+            cmd.Parameters.AddWithValue("@ToDate", student.ToDate);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);

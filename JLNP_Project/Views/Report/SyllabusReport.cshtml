@@ -22,11 +22,12 @@
                             </div>
                             <!-- end col -->
                         </div>
-                        <div class="table-responsive table-bordered" style="margin-top:13px;">
-                            <table class="table mb-0" id="tbldata">
+                        <div class="table-responsive" style="margin-top:13px;">
+                            <table class="table mb-0 table-bordered" id="tbldata">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th>Program</th>
                                         <th>Branch</th>
                                         <th>Year</th>
                                         <th>Subject</th>
@@ -69,8 +70,7 @@
     }
     var deletedata = (Id) => {
         $.post('/Master/DeleteSyllabus', { ID: Id }).done(function(result) {
-            alert(result.msg);
-            window.location.reload();
+            alertnotify(result.statuscode,result.msg);
         }).fail(function(xhr) {
             alert('Server Error');
             console.log(xhr.responseText);
@@ -92,6 +92,7 @@
         let obj = {
             ID: Id,
             Branch: $('#ddlbranch option:selected').val(),
+            Program: $('#ddlprogram option:selected').val(),
             Subject: $('#ddlsubject option:selected').val(),
             Year: $('#ddlyear option:selected').val(),
             Files: $('#file').prop('files')[0]
@@ -101,6 +102,7 @@
         formData.append("Branch", obj.Branch);
         formData.append("Subject", obj.Subject);
         formData.append("Year", obj.Year);
+        formData.append("Program", obj.Program);
         formData.append("ID", obj.ID);
         $.ajax({
             type: 'POST',
@@ -110,13 +112,7 @@
             contentType: false,
             processData: false,
             success: function(repo) {
-                if (repo.statuscode == 1) {
-                    alert(repo.msg);
-                    window.location.reload();
-                }
-                else {
-                    alert(repo.msg);
-                }
+                alertnotify(repo.statuscode,repo.msg);
             },
             error: function() {
                 alert("Server Error");

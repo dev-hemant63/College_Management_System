@@ -1,47 +1,69 @@
 ﻿@model EditVideoLectureViewModel
 @{
     <div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Video Lecture</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div>
-                <div class="modal-body">
-                    <label>Select Branch<span style="color:red;">*</span></label>
-                    <select class="form-control" id="branch" asp-for="@Model.data.BranchId">
-                        <option value="0">-- Select Branch --</option>
-                        @{
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Video Lecture</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <label>Select Program<span style="color:red;">*</span></label>
+                        <select class="form-control" id="program" asp-for="@Model.data.Program" onchange="Bindbranch()">
+                            <option value="0">-- Select Program --</option>
+                            @{
+                            foreach (var item in Model.program)
+                            {
+                                        <option value="@item.Id">@item.Program</option>
+                            }
+                            }
+                        </select>
+                        <label>Select Branch<span style="color:red;">*</span></label>
+                        <select class="form-control" id="branch" asp-for="@Model.data.BranchId">
+                            <option value="0">-- Select Branch --</option>
+                            @{
                             foreach (var item in Model.branch)
                             {
-                                <option value="@item.BranchId">@item.BranchName</option>
+                                        <option value="@item.BranchId">@item.BranchName</option>
                             }
-                        }
-                    </select>
-                    <label>Select Year<span style="color:red;">*</span></label>
-                    <select class="form-control" id="year" asp-for="@Model.data.Year">
-                        <option value="">-- Select Year --</option>
-                        <option value="1">First Year </option>
-                        <option value="2">Second Year</option>
-                        <option value="3">Final Year </option>
-                    </select>
-                    <label>Select Subject<span style="color:red;">*</span></label>
-                    <select class="form-control" id="subject" asp-for="@Model.data.SubjectId">
-                        <option value="">-- Select Subject --</option>
-                        @{
+                            }
+                        </select>
+                        <label>Select Year<span style="color:red;">*</span></label>
+                        <select class="form-control" id="year" asp-for="@Model.data.Year">
+                            <option value="">-- Select Year --</option>
+                            <option value="1">First Year </option>
+                            <option value="2">Second Year</option>
+                            <option value="3">Final Year </option>
+                        </select>
+                        <label>Select Subject<span style="color:red;">*</span></label>
+                        <select class="form-control" id="subject" asp-for="@Model.data.SubjectId">
+                            <option value="">-- Select Subject --</option>
+                            @{
                             foreach (var item in Model.subject)
                             {
-                                <option value="@item.SubjectId">@item.SubjectName</option>
+                                        <option value="@item.SubjectId">@item.SubjectName</option>
                             }
-                        }
-                    </select>
-                    <label>Video URL<span style="color:red;">*</span></label>
-                    <input type="text" class="form-control" id="txtvurl" value="@Model.data.VideoUrl"/>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary" onclick="SaveRecord('@Model.data.Id')">save</button>
+                            }
+                        </select>
+                        <label>Video URL<span style="color:red;">*</span></label>
+                        <input type="text" class="form-control" id="txtvurl" value="@Model.data.VideoUrl"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary" onclick="SaveRecord('@Model.data.Id')">save</button>
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
 }
+<script>
+    var Bindbranch = () => {
+        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#program option:selected').val() }).done(function(result) {
+            $('#branch').empty();
+            for (var i = 0; i < result.length; i++) {
+                $('#branch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+    }
+</script>

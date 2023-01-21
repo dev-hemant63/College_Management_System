@@ -23,7 +23,7 @@
                                 <div class="form-group"><label>Father Name</label> <input type="text" placeholder="Father Name" class="form-control" id="fname"> </div>
                                 <div class="form-group"><label>Father Occupation</label> <input type="text" placeholder="Father Occupation" class="form-control" id="txtfatheroccupation"> </div>
                                 <div class="form-group">
-                                    <label>Program</label> <select class="form-control" id="ddlProgram">
+                                    <label>Program</label> <select class="form-control" id="ddlProgram" onchange="Bindbranch()">
                                         <option value="">--Select Program--</option>
                                         @foreach (var item in Model)
                                         {
@@ -183,9 +183,8 @@
         Bindbranch();
     });
     var Bindbranch = () => {
-        $.post('/Student/BindBranch').done(function(result) {
-            console.log(result);
-            $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
+        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlProgram option:selected').val() }).done(function(result) {
+            $('#ddlbranch').empty();
             for (var i = 0; i < result.length; i++) {
                 $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
             }

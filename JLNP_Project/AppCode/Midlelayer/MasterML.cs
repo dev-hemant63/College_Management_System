@@ -87,5 +87,10 @@ namespace JLNP_Project.AppCode.Midlelayer
             var response = _proc.ProcDeleteBatch(Id);
             return response;
         }
+        public List<Branch> BindProgramWiseBranch(int ProgramId)
+        {
+            var response = _proc.ProcBindProgramWiseBranch(ProgramId);
+            return response;
+        }
     }
 }

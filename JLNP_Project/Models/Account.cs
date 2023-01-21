@@ -8,4 +8,9 @@
         public string OldPassword { get; set; }
         public string Password { get; set; }
     }
+    public class SearchModel
+    {
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
+    }
 }

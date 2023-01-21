@@ -27,7 +27,9 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                return View();
+                IMasterML ml = new MasterML();
+                var res = ml.GetProgram();
+                return View(res);
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -49,10 +51,13 @@ namespace JLNP_Project.Controllers
         }
         public IActionResult GetSubjectMaster_ById(SubjectMaster subjectMaster)
         {
-            Master_BAL msdal = new Master_BAL();
+            EditSubjectViewModel obj = new EditSubjectViewModel();
+            Master_BAL msdal = new Master_BAL(); 
+            IMasterML ml = new MasterML();
+            obj.programs = ml.GetProgram();
             subjectMaster.Action = "GetById";
-            var res = msdal.GetSubject_Bal_ById(subjectMaster);
-            return View(res);
+            obj.data = msdal.GetSubject_Bal_ById(subjectMaster);
+            return View(obj);
         }
         [HttpPost]
         public IActionResult EditSubjectMaster(SubjectMaster subjectMaster)
@@ -139,10 +144,12 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult SyllabusMaster()
         {
-            return View();
+            IMasterML ml = new MasterML();
+            var res = ml.GetProgram();
+            return View(res);
         }
         [HttpPost]
-        public IActionResult SyllabusMaster(IFormFile Files, int Branch, int Subject, int Year)
+        public IActionResult SyllabusMaster(IFormFile Files, int Branch, int Subject, int Year,int Program)
         {
             var rse = new ResponseStatus
             {
@@ -166,6 +173,7 @@ namespace JLNP_Project.Controllers
                     var req = new SyllabusMaster
                     {
                         Branch = Branch,
+                        Program = Program,
                         Subject = Subject,
                         Year = Year,
                         Filepath = @"\" + filepath + @"\" + Files.FileName,
@@ -223,13 +231,15 @@ namespace JLNP_Project.Controllers
             var midlelayar = new StudentML();
             Admin_BAL adbal = new Admin_BAL();
             IStudent ml = new StudentML();
+            IMasterML mll = new MasterML();
+            res.programlst = mll.GetProgram();
             res.Branch = midlelayar.BindBranch();
             res.SyllabusMaster = ml.GetSyllabusByID(ID);
             res.subjectMasters = adbal.Bind_Subjects_Bal();
             return PartialView("Partial/_EditSyllabus", res);
         }
         [HttpPost]
-        public IActionResult UpdateSyllabusMaster(IFormFile Files, int Branch, int Subject, int Year, int ID)
+        public IActionResult UpdateSyllabusMaster(IFormFile Files, int Branch, int Subject, int Year, int ID, int Program)
         {
             var rse = new ResponseStatus
             {
@@ -248,6 +258,7 @@ namespace JLNP_Project.Controllers
                     var req = new SyllabusMaster
                     {
                         Branch = Branch,
+                        Program = Program,
                         Subject = Subject,
                         Year = Year,
                         Filepath = @"\" + filepath + @"\" + Files.FileName,
@@ -281,10 +292,12 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult VideoLecture()
         {
-            return View();
+            IMasterML ml = new MasterML();
+            var res = ml.GetProgram();
+            return View(res);
         }
         [HttpPost]
-        public IActionResult SaveAndVideoLecture(CommanMasterReq request)
+        public IActionResult SaveAndUpdateVideoLecture(CommanMasterReq request)
         {
             IMasterML ml = new MasterML();
             request.UserId = _lr.UserId;
@@ -307,8 +320,9 @@ namespace JLNP_Project.Controllers
             var midlelayar = new StudentML();
             Admin_BAL adbal = new Admin_BAL();
             model.data = ml.EditVideoUrl(ID);
+            model.program = ml.GetProgram();
             model.subject = adbal.BindSubject_Bal(model.data.BranchId);
-            model.branch = midlelayar.BindBranch();
+            model.branch = ml.BindProgramWiseBranch(model.data.Program); ;
             return PartialView("Partial/_EditVideoLecture", model);
         }
         [HttpPost]

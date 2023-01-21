@@ -13,6 +13,8 @@ namespace JLNP_Project.AppCode.DAL
             SqlCommand cmd = new SqlCommand("Proc_SubjectMaster", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@BranchId", subjectMaster.BranchId);
+            cmd.Parameters.AddWithValue("@Program", subjectMaster.Program);
+            cmd.Parameters.AddWithValue("@PassingMarks", subjectMaster.PassingMarks);
             cmd.Parameters.AddWithValue("@Branch", subjectMaster.Branch);
             cmd.Parameters.AddWithValue("@_Year", subjectMaster.Year);
             cmd.Parameters.AddWithValue("@SubjectName", subjectMaster.SubjectName);
@@ -53,12 +55,15 @@ namespace JLNP_Project.AppCode.DAL
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Id", subjectMaster.Id);
             cmd.Parameters.AddWithValue("@Branch", subjectMaster.Branch);
+            cmd.Parameters.AddWithValue("@Program", subjectMaster.Program);
+            cmd.Parameters.AddWithValue("@BranchId", subjectMaster.BranchId);
             cmd.Parameters.AddWithValue("@_Year", subjectMaster.Year);
             cmd.Parameters.AddWithValue("@SubjectName", subjectMaster.SubjectName);
             cmd.Parameters.AddWithValue("@SubjectCode", subjectMaster.SubjectCode);
             cmd.Parameters.AddWithValue("@SubjectType", subjectMaster.SubjectType);
             cmd.Parameters.AddWithValue("@TheoryMarks", subjectMaster.TheoryMarks);
             cmd.Parameters.AddWithValue("@PracticalMarks", subjectMaster.PracticalMarks);
+            cmd.Parameters.AddWithValue("@PassingMarks", subjectMaster.PassingMarks);
             cmd.Parameters.AddWithValue("@Action", subjectMaster.Action);
             DataTable dt = new DataTable();
             SqlDataAdapter sda = new SqlDataAdapter(cmd);

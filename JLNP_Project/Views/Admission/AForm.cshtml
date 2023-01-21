@@ -1,27 +1,21 @@
-﻿@{
+﻿@model List<ProgramMaster>
+@{
     Layout = "_LayoutAdmin";
 }
 <div class="">
     <div class="">
-        @*<div class="row">
-            <div class="col-sm-12">
-                <div>
-                    <h3>Admission Form</h3>
-                </div>
-            </div>
-        </div>*@
         <div class="row">
             <div class="col-12">
-                <div class="card m-b-30">
+                <div class="card">
                     <div class="card-header bgred">
-                            <h4 style="color:white;">Admission Form</h4>
-                        </div>
+                        <h4 style="color:white;">Admission Form</h4>
+                    </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="p-20">
+                                <div class="">
                                     <div class="form-group"><label>Registration Number</label> <input type="text" onfocusout="AdmissionDetails()" placeholder="Registration Number" class="form-control" id="txtresno"> </div>
-                                    <div class="form-group"><label>Eamil</label> <input type="text" placeholder="Eamil" class="form-control" id="email"> </div>
+                                    <div class="form-group"><label>Mother Name</label> <input type="text" placeholder="Mother Name" class="form-control" id="mothername"> </div>
                                     <div class="form-group">
                                         <label>Gender</label> <select class="form-control" id="gender">
                                             <option>--Select Gender--</option>
@@ -30,46 +24,55 @@
                                             <option>Other</option>
                                         </select>
                                     </div>
-                                    <div class="form-group"><label>Mobile</label> <input type="text" placeholder="Mobile" class="form-control" id="mobile"> </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="p-20">
-                                    <div class="form-group"><label>Name</label> <input type="text" placeholder="Name" class="form-control" id="name"> </div>
-                                    <div class="form-group"><label>DOB</label> <input type="date" placeholder="dd-mm-yy" class="form-control" id="dob"> </div>
                                     <div class="form-group">
-                                        <label>Branch</label> <select class="form-control" id="ddlbranch">
-                                            
+                                        <label>Program</label> <select class="form-control" id="ddlprogram" onchange="Bindbranch()">
+                                            <option>--Select Program--</option>
+                                            @foreach (var item in Model)
+                                            {
+                                                <option value="@item.Id">@item.Program</option>
+                                            }
                                         </select>
-                                        <div class="form-group"><label>Address</label> <textarea class="form-control" placeholder="Address" id="address"></textarea></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Year</label>
+                                        <select class="form-control" id="ddlyear">
+                                            <option value="">--Select Year--</option>
+                                            <option value="1">First Year</option>
+                                            <option value="2">Seccond Year</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="p-20">
+                                <div class="">
+                                    <div class="form-group"><label>Name</label> <input type="text" placeholder="Name" class="form-control" id="name"> </div>
+                                    <div class="form-group"><label>Father Occupation</label> <input type="text" placeholder="Father Occupation" class="form-control" id="fatheroccupation"> </div>
+                                    <div class="form-group"><label>Mobile</label> <input type="text" placeholder="Mobile" class="form-control" id="mobile"> </div>
+                                    <div class="form-group">
+                                        <label>Branch</label> <select class="form-control" id="ddlbranch">
+                                            <option value="">--Select Branch--</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group"><label>Religion</label> <input type="text" placeholder="Religion" class="form-control" id="Religion"> </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="">
                                     <div class="form-group"><label>Father Name</label> <input type="text" placeholder="Father Name" class="form-control" id="fname"> </div>
+                                    <div class="form-group"><label>DOB</label> <input type="date" placeholder="dd-mm-yy" class="form-control" id="dob"> </div>
+                                    <div class="form-group"><label>Eamil</label> <input type="text" placeholder="Eamil" class="form-control" id="email"> </div>
                                     <div class="form-group">
                                         <label>Group</label>
                                         <select class="form-control" id="group">
                                             <option>--Select Group--</option>
                                             <option>A</option>
-                                            <option>B</option>
-                                            <option>C</option>
                                             <option>K</option>
                                         </select>
                                     </div>
-                                    <div class="form-group"><label>Year</label>
-                                      <select class="form-control" id="ddlyear">
-                                          <option value="">--Select Year--</option>
-                                          <option value="1">First Year</option>
-                                          <option value="2">Seccond Year</option>
-                                      </select>  
-                                    </div>
+                                    <div class="form-group"><label>Address</label> <textarea class="form-control" placeholder="Address" id="address"></textarea></div>
                                 </div>
                             </div>
-                            <!-- end col -->
-                            <button type="button" style="width:12%; margin-left:33px;" class="btn btn-outline-primary waves-effect waves-light" id="btnsubmit">Submit</button>
+                            <button type="button" style="width: 12%; margin-left: 12px; margin-top: -17px;" class="btn btn-outline-primary waves-effect waves-light" id="btnsubmit">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -78,109 +81,136 @@
         </div>
     </div>
 </div>
-<script src="~/js/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#btnsubmit').click(function() {
-            preloader.load();
-            if($('#name').val() == ''){
-                alert("Please Fill Requered Inpormation..");
+            if ($('#txtresno').val() == '') {
+                alert("Please Fill Requered Information..");
+                $('#txtresno').focus();
+                return false;
+            }
+            if ($('#name').val() == '') {
+                alert("Please Fill Requered Information..");
                 $('#name').focus();
                 return false;
             }
-            if($('#fname').val() == ''){
-                alert("Please Fill Requered Inpormation..");
+            if ($('#fname').val() == '') {
+                alert("Please Fill Requered Information..");
                 $('#fname').focus();
                 return false;
             }
-            if($('#email').val() == ''){
-                alert("Please Fill Requered Inpormation..");
-                $('#email').focus();
+            if ($('#mothername').val() == '') {
+                alert("Please Fill Requered Information..");
+                $('#mothername').focus();
                 return false;
             }
-            if($('#mobile').val() == ''){
-                alert("Please Fill Requered Inpormation..");
-                $('#mobile').focus();
+            if ($('#fatheroccupation').val() == '') {
+                alert("Please Fill Requered Information..");
+                $('#fatheroccupation').focus();
                 return false;
             }
-            if($('#dob').val() == ''){
-                alert("Please Fill Requered Inpormation..");
+            if ($('#dob').val() == '') {
+                alert("Please Fill Requered Information..");
                 $('#dob').focus();
                 return false;
             }
-            if($('#gender option:selected').val() == ''){
-                alert("Please Fill Requered Inpormation..");
+            if ($('#gender option:selected').val() == '') {
+                alert("Please Fill Requered Information..");
                 $('#gender').focus();
                 return false;
             }
-            if($('#ddlbranch option:selected').val() == ''){
-                alert("Please Fill Requered Inpormation..");
+            if ($('#mobile').val() == '') {
+                alert("Please Fill Requered Information..");
+                $('#mobile').focus();
+                return false;
+            }
+            if ($('#email').val() == '') {
+                alert("Please Fill Requered Information..");
+                $('#email').focus();
+                return false;
+            }
+            if ($('#ddlprogram option:selected').val() == '') {
+                alert("Please Fill Requered Information..");
+                $('#ddlprogram').focus();
+                return false;
+            }
+            if ($('#ddlbranch option:selected').val() == '') {
+                alert("Please Fill Requered Information..");
                 $('#ddlbranch').focus();
                 return false;
             }
-            if($('#group option:selected').val() == ''){
-                alert("Please Fill Requered Inpormation..");
+            if ($('#group option:selected').val() == '') {
+                alert("Please Fill Requered Information..");
                 $('#group').focus();
                 return false;
             }
-            if($('#address').val() == ''){
-                alert("Please Fill Requered Inpormation..");
-                $('#address').focus();
+            if ($('#ddlyear option:selected').val() == '') {
+                alert("Please Fill Requered Information..");
+                $('#ddlyear').focus();
                 return false;
             }
-            if($('#txtresno').val() == ''){
-                alert("Please Fill Requered Inpormation..");
-                $('#txtresno').focus();
+            if ($('#Religion').val() == '') {
+                alert("Please Fill Requered Information..");
+                $('#Religion').focus();
+                return false;
+            }
+            if ($('#address').val() == '') {
+                alert("Please Fill Requered Information..");
+                $('#address').focus();
                 return false;
             }
             var obj = {
                 Name: $('#name').val(),
                 Fname: $('#fname').val(),
+                MotherName: $('#mothername').val(),
+                FatherOccupation: $('#fatheroccupation').val(),
+                Religion: $('#Religion').val(),
                 Email: $('#email').val(),
                 Mobile: $('#mobile').val(),
                 DOB: $('#dob').val(),
                 Branch: $('#ddlbranch option:selected').val(),
+                Program: $('#ddlprogram option:selected').val(),
                 Year: $('#ddlyear option:selected').val(),
                 Gender: $('#gender option:selected').val(),
                 Group: $('#group option:selected').val(),
                 Address: $('#address').val(),
-                RgistrationNo: $('#txtresno').val(),
-                //EntrolmentNo: "E" + 1 + Math.floor(Math.random() * 30000000000)
+                RgistrationNo: $('#txtresno').val()
             }
+            preloader.load();
             $.post('/Admission/Student_Admission', obj).done(function(result) {
                 preloader.remove();
-                alertnotify(result.statuscode,result.msg);
+                alertnotify(result.statuscode, result.msg);
             }).fail(function(xhr) {
                 console.log(xhr.responseText);
             });
         });
-        Bindbranch();
     });
     var Bindbranch = () => {
-        $.post('/Admission/BindBranch').done(function(result) {
-            console.log(result);
-            $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
-                for (var i = 0; i < result.length; i++) {
-                    $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
-                }
+        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlprogram option:selected').val() }).done(function(result) {
+            $('#ddlbranch').empty();
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+            }
         }).fail(function(xhr) {
             console.log(xhr.responseText)
         });
     }
-    var AdmissionDetails = () =>{
+    var AdmissionDetails = () => {
         preloader.load();
         let ResBo = $('#txtresno').val();
-        $.post('/Admission/StudentGetAdmissionDetails', {RegistrationNo:ResBo}).done(function(result) {
+        $.post('/Admission/StudentGetAdmissionDetails', { RegistrationNo: ResBo }).done(function(result) {
             preloader.remove();
-            $('#name').val(result.name),
-             $('#fname').val(result.fname),
-              $('#email').val(result.email),
-              $('#mobile').val(result.mobile),
-              $('#dob').val(result.dob),
-              $('#address').val(result.address)
+            $('#name').val(result.name);
+            $('#fname').val(result.fname);
+            $('#email').val(result.email);
+            $('#mobile').val(result.mobile);
+            $('#dob').val(result.dob);
+            $('#address').val(result.address);
+            $('#fatheroccupation').val(result.fatherOccupation);
+            $('#mothername').val(result.motherName);
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');
         });
-    } 
+    }
 </script>

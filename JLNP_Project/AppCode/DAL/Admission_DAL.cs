@@ -24,8 +24,13 @@ namespace JLNP_Project.AppCode.DAL
             cmd.Parameters.AddWithValue("@Gender", admissionModel.Gender);
             cmd.Parameters.AddWithValue("@Group_Name", admissionModel.Group);
             cmd.Parameters.AddWithValue("@RegistrationNo", admissionModel.RgistrationNo);
-            //cmd.Parameters.AddWithValue("@EntrolmentNo", admissionModel.EntrolmentNo);
             cmd.Parameters.AddWithValue("@DOB", admissionModel.DOB);
+            cmd.Parameters.AddWithValue("@FromDate", admissionModel.FromDate);
+            cmd.Parameters.AddWithValue("@ToDate", admissionModel.ToDate);
+            cmd.Parameters.AddWithValue("@MotherName", admissionModel.MotherName);
+            cmd.Parameters.AddWithValue("@FatherOccupation", admissionModel.FatherOccupation);
+            cmd.Parameters.AddWithValue("@Program", admissionModel.Program);
+            cmd.Parameters.AddWithValue("@Religion", admissionModel.Religion);
             cmd.Parameters.AddWithValue("@Action", admissionModel.Action);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -65,6 +70,8 @@ namespace JLNP_Project.AppCode.DAL
                 res.Gender = Convert.ToString(dt.Rows[0]["Gender"].ToString());
                 res.Group = Convert.ToString(dt.Rows[0]["Group_Name"].ToString());
                 res.DOB = Convert.ToString(dt.Rows[0]["DOB"].ToString());
+                res.FatherOccupation = Convert.ToString(dt.Rows[0]["FatherOccupation"].ToString());
+                res.MotherName = Convert.ToString(dt.Rows[0]["MotherName"].ToString());
             }
             return res;
         }

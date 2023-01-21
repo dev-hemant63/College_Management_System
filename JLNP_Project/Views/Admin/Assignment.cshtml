@@ -4,17 +4,6 @@
 }
 <div class="">
     <div class="">
-        <!-- Page-Title -->
-        @*<div class="row">
-        <div class="col-sm-12">
-        <div class="">
-        <div class="row" style="justify-content: space-between;">
-        <div class="col-sm-5"><h3>Assignment</h3></div>
-        </div>
-        </div>
-        </div>
-        </div>*@
-        <!-- end page title end breadcrumb -->
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -55,8 +44,8 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="table-responsive table-bordered" style="margin-top:13px;">
-                                <table class="table mb-0" id="tblbranch">
+                            <div class="table-responsive" style="margin-top:13px;">
+                                <table class="table mb-0 table-bordered" id="tblbranch">
                                     <thead class="bg-primary">
                                         <tr>
                                             <th>#</th>
@@ -141,14 +130,10 @@
             Assignment: $('#txtassignment').val(),
             Action: 'Add'
         }
+        preloader.load();
         $.post('/Admin/SaveAssignment', obj).done(function(result) {
-            if (result.statusCode = 1) {
-                alert(result.msg);
-                window.location.reload();
-            }
-            else {
-                alert(result.msg);
-            }
+            preloader.remove();
+            alertnotify(result.statuscode,result.msg);
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert("Server Error");
@@ -173,8 +158,7 @@
     //}
     var Deleteassignment = (AsId) => {
         $.post('/Admin/DeleteAssignment', {Id:AsId}).done(function(result) {
-            alert(result.msg);
-           window.location.reload();
+            alertnotify(result.statuscode,result.msg);
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert("Server Error");
