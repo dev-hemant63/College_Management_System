@@ -34,6 +34,7 @@ namespace JLNP_Project.AppCode.BAL
                     SubjectMaster data = new SubjectMaster
                     {
                         Id = Convert.ToInt32(row["Id"]),
+                        ProgramName = Convert.ToString(row["Program"].ToString()),
                         Branch = Convert.ToString(row["Branch"].ToString()),
                         Year = Convert.ToString(row["_Year"].ToString()),
                         SubjectName = Convert.ToString(row["SubjectName"].ToString()),
@@ -41,6 +42,7 @@ namespace JLNP_Project.AppCode.BAL
                         SubjectType = Convert.ToString(row["SubjectType"].ToString()),
                         TheoryMarks = Convert.ToString(row["TheoryMarks"].ToString()),
                         PracticalMarks = Convert.ToString(row["PracticalMarks"].ToString()),
+                        PassingMarks = Convert.ToString(row["PassingMarks"].ToString()),
                         EntryDate = Convert.ToString(row["EntryDate"].ToString())
                     };
                     subjectlist.Add(data);
@@ -58,13 +60,15 @@ namespace JLNP_Project.AppCode.BAL
                 foreach (DataRow row in dt.Rows)
                 {
                     subjects.Id = Convert.ToInt32(row["Id"]);
-                        subjects.Branch = Convert.ToString(row["Branch"].ToString());
+                    subjects.Branch = Convert.ToString(row["Branch"].ToString());
+                    subjects.Program = Convert.ToInt32(row["Program"].ToString());
                     subjects.Year = Convert.ToString(row["_Year"].ToString());
                     subjects.SubjectName = Convert.ToString(row["SubjectName"].ToString());
                     subjects.SubjectCode = Convert.ToString(row["SubjectCode"].ToString());
                     subjects.SubjectType = Convert.ToString(row["SubjectType"].ToString());
                     subjects.TheoryMarks = Convert.ToString(row["TheoryMarks"].ToString());
                     subjects.PracticalMarks = Convert.ToString(row["PracticalMarks"].ToString());
+                    subjects.PassingMarks = Convert.ToString(row["PassingMarks"].ToString());
                     subjects.EntryDate = Convert.ToString(row["EntryDate"].ToString());
                 }
             }

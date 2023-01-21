@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<ProgramMaster>
+@{
     Layout = "_LayoutAdmin";
 }
 <div class="">
@@ -16,8 +17,19 @@
                                 <input class="form-control" id="txtsname" />
                             </div>
                             <div class="col-sm-3">
+                                <label>Select Program<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlprogram" onchange="Bindbranch()">
+                                    <option value="">-- Select Program --</option>
+                                    @foreach (var item in Model)
+                                    {
+                                        <option value="@item.Id">@item.Program</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
                                 <label>Select Branch<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlbranch" onchange="selectyear()">
+                                    <option value="">-- Select Branch --</option>
                                 </select>
                             </div>
                             <div class="col-sm-3">
@@ -29,17 +41,17 @@
                                     <option value="3">Final Year </option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-3">
                                 <label>Enrollment<span style="color:red;">*</span></label>
                                 <input class="form-control" id="txtenrolment" type="text" />
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <label>Project Title<span style="color:red;">*</span></label>
                                 <input class="form-control" id="txttitle" />
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <label>Techonolagy<span style="color:red;">*</span></label>
                                 <input class="form-control" id="txttecho" />
                             </div>
@@ -54,6 +66,7 @@
                                         <th>#</th>
                                         <th>Entrollment Number</th>
                                         <th>Name</th>
+                                        <th>Program</th>
                                         <th>Branch</th>
                                         <th>Year</th>
                                         <th>Project Title</th>
@@ -80,6 +93,11 @@
         if ($('#txtsname').val() == '') {
             alert("Please Enter Student Name");
             $('#txtsname').focus();
+            return false;
+        }
+        if ($('#ddlprogram option:selected').val() == '') {
+            alert("Please Select Program");
+            $('#ddlprogram').focus();
             return false;
         }
         if ($('#ddlbranch option:selected').val() == '') {
@@ -109,33 +127,37 @@
         }
         let obj = {
             StudentName: $('#txtsname').val(),
+            Program: $('#ddlprogram option:selected').val(),
             Branch: $('#ddlbranch option:selected').val(),
             Year: $('#ddlyear option:selected').val(),
             Enrollment: $('#txtenrolment').val(),
             ProjectTitle: $('#txttitle').val(),
             Techonology: $('#txttecho').val()
         }
-        console.log(obj);
+        preloader.load();
         $.post('/Report/SaveProjectReport', obj).done(function(result) {
-            alert(result.msg);
-            window.location.reload();
+            preloader.remove();
+            alertnotify(result.statuscode,result.msg);
         }).fail(function(xhr) {
-            console.log(xhr.responseText)
+            console.log(xhr.responseText);
+            alert("Server Error");
         });
     }
     var Bindbranch = () => {
-        $.post('/Admission/BindBranch').done(function(result) {
+        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlprogram option:selected').val() }).done(function(result) {
             console.log(result);
-            $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
+            $('#ddlbranch').empty();
             for (var i = 0; i < result.length; i++) {
                 $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
             }
         }).fail(function(xhr) {
-            console.log(xhr.responseText)
+            console.log(xhr.responseText);
         });
     }
     var Loaddata = () =>{
+        preloader.load();
         $.post('/Report/GetProjectReport').done(function(result){
+            preloader.remove();
             $('#tblpreport tbody').html(result);
         }).fail(function(xhr){
             console.log(xhr.responseText);

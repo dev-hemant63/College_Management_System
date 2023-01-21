@@ -1,16 +1,15 @@
 ﻿@{
     Layout = "_LayoutAdmin";
 }
+<style>
+    .badgecus{
+        margin-top: 7px;
+        border-radius: 14px;
+        font-size: 9px;
+    }
+</style>
 <div class="">
     <div class="">
-        @*<!-- Page-Title -->
-        <div class="row">
-        <div class="col-sm-12">
-        <div class="page-title-box">
-        Admission Report
-        </div>
-        </div>
-        </div>*@
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -21,18 +20,18 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <lable>From Date</lable>
-                                <input type="date" class="form-control" placeholder="From Date">
+                                <input type="text" class="form-control" id="fromdate" placeholder="From Date">
                             </div>
                             <div class="col-md-3">
                                 <lable>From Date</lable>
-                                <input type="date" class="form-control" placeholder="From Date">
+                                <input type="text" class="form-control" id="todate" placeholder="From Date">
                             </div>
                             <div class="col-md-3">
-                                <lable>Student Name</lable>
-                                <input type="text" class="form-control" placeholder="Student Name">
+                                <lable>Emrollment Number</lable>
+                                <input type="text" class="form-control" id="txtenrolnumber" placeholder="Emrollment Number">
                             </div>
                             <div class="col-md-2">
-                                <button type="button" onclick="getdata()" class="btn btn-outline-primary waves-effect waves-light" style="margin-top:20px;" id="btnsearch">Search</button>
+                                <button type="button" onclick="Filterdata()" class="btn btn-outline-primary waves-effect waves-light" style="margin-top:20px;" id="btnsearch">Search</button>
                             </div>
                             <!-- end col -->
 
@@ -44,10 +43,14 @@
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Father Name</th>
+                                        <th>Mother Name</th>
+                                        <th>Father Occupation</th>
+                                        <th>Religion</th>
                                         <th>Email</th>
                                         <th>Mobile</th>
                                         <th>DOB</th>
                                         <th>Enrollment Number</th>
+                                        <th>Program</th>
                                         <th>Branch</th>
                                         <th>Year</th>
                                         <th>Address</th>
@@ -67,13 +70,29 @@
         </div>
     </div>
 </div>
-<script src="~/js/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
+        LoadDate('fromdate', 'todate');
         Loaddata();
     });
     var Loaddata = function() {
+        preloader.load();
         $.post('/Report/_AdmissionReport').done(function(result) {
+            preloader.remove();
+            $('#tbladmission tbody').html(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+    }
+    var Filterdata = () => {
+        let obj = {
+            FromDate: $('#fromdate').val(),
+            ToDate: $('#todate').val(),
+            EntrolmentNo: $('#txtenrolnumber').val()
+        }
+        preloader.load();
+        $.post('/Report/_AdmissionReport', obj).done(function(result) {
+            preloader.remove();
             $('#tbladmission tbody').html(result);
         }).fail(function(xhr) {
             console.log(xhr.responseText);

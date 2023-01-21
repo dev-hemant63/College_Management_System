@@ -60,6 +60,10 @@ namespace JLNP_Project.Controllers
                         Group = Convert.ToString(row["Group_Name"].ToString()),
                         AdmissionDate = Convert.ToString(row["AdmissionDate"].ToString()),
                         FeesStatus = Convert.ToString(row["Fess_Status"].ToString()),
+                        MotherName = Convert.ToString(row["MotherName"].ToString()),
+                        FatherOccupation = Convert.ToString(row["FatherOccupation"].ToString()),
+                        Religion = Convert.ToString(row["Religion"].ToString()),
+                        ProgramName = Convert.ToString(row["Program"].ToString()),
                     };
                     lt.Add(model);
                 }
@@ -70,7 +74,9 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                return View();
+                IMasterML ml = new MasterML();
+                var res = ml.GetProgram();
+                return View(res);
             }
             return RedirectToAction("UsersLogin", "Account");
         }

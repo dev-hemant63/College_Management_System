@@ -38,6 +38,9 @@
         public string GroupName { get; set; }
         public string Role { get; set; }
         public bool IsActive { get; set; }
+        public int Program { get; set; }
+        public string ProgramName { get; set; }
+        public string PassingMarks { get; set; }
         public List<SubjectMaster> Assignlist { get; set; }
         public List<SubjectMaster> Bindlist { get; set; }
     }
@@ -45,6 +48,7 @@
     {
         public int Id { get; set; }
         public int BranchId { get; set; }
+        public int Program { get; set; }
         public int SubjectId { get; set; }
         public int Year { get; set; }
         public string VideoUrl { get; set; }
@@ -53,6 +57,7 @@
     {
         public int Id { get; set; }
         public string Branch { get; set; }
+        public string ProgramName { get; set; }
         public string Subject { get; set; }
         public int Year { get; set; }
         public string VideoUrl { get; set; }
@@ -63,5 +68,11 @@
         public CommanMasterReq data { get; set; }
         public List<Branch> branch { get; set; }
         public List<SubjectMaster> subject { get; set; }
+        public List<ProgramMaster> program { get; set; }
+    }
+    public class EditSubjectViewModel
+    {
+        public SubjectMaster data { get; set; }
+        public List<ProgramMaster> programs { get; set; }
     }
 }

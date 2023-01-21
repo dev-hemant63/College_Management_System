@@ -72,6 +72,16 @@
             alert('Server Error!');
         });
     }
+    var EditbatchMaster = function(Id) {
+        preloader.load();
+        $.post('/Master/AddBatchMaster', { Id: Id }).done(function(result) {
+            preloader.remove();
+            showModel(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error!');
+        });
+    }
     var SaveRecord = function(id) {
         let obj = {
             Id: id,

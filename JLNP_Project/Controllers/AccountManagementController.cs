@@ -1,4 +1,6 @@
 ﻿using JLNP_Project.AppCode.BAL;
+using JLNP_Project.AppCode.Interface;
+using JLNP_Project.AppCode.Midlelayer;
 using JLNP_Project.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -10,13 +12,41 @@ namespace JLNP_Project.Controllers
     {
         private readonly IHttpContextAccessor _accessor;
         LoginInfo _lr = new LoginInfo();
+        AccountManagement_BAL _accountBAL = new AccountManagement_BAL();
 
         public AccountManagementController(IHttpContextAccessor accessor)
         {
             _accessor = accessor;
             _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString("Userdata"));
         }
-
+        public IActionResult DefineFeesStructur()
+        {
+            if (_lr.UserName != null)
+            {
+                IMasterML ml = new MasterML();
+                var res = ml.GetProgram();
+                return View(res);
+            }
+            return RedirectToAction("UsersLogin", "Account");
+        }
+        [HttpPost]
+        public IActionResult DefineFeesStructure(DefineFeesStructureReqRes req)
+        {
+            var res = _accountBAL.SaveFeesType(req);
+            return Json(res);
+        }
+        [HttpPost]
+        public IActionResult GetFeesType()
+        {
+            var res = _accountBAL.GetFeesType();
+            return PartialView("Partial/_GetFeesType", res);
+        }
+        [HttpPost]
+        public IActionResult EditFeesType(int Id)
+        {
+            var res = _accountBAL.GetFeesType(Id);
+            return PartialView("Partial/_EditFeesType", res);
+        }
         public IActionResult FeesHead()
         {
             if (_lr.UserName != null)

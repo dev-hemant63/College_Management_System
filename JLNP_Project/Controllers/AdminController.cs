@@ -14,7 +14,6 @@ namespace JLNP_Project.Controllers
         private readonly IHttpContextAccessor _accessor;
         LoginInfo _lr = new LoginInfo();
         Admin_BAL adbal = new Admin_BAL();
-
         public AdminController(IHttpContextAccessor accessor)
         {
             _accessor = accessor;

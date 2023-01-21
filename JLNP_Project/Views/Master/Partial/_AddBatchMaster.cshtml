@@ -18,10 +18,10 @@
                 </div>
                 <div class="modal-body">
                     <label>From Year<span style="color:red;">*</span></label>
-                    <input type="text" class="form-control" id="txtfromyear" placeholder="From Year" value="@Model.FromYear" />
+                    <input type="text" asp-for="@Model.FromYear" class="form-control" id="txtfromyear" placeholder="From Year"/>
                     <span class="text-danger d-none" id="txtfromyearsp">Enter From Year</span>
                     <label>To Year<span style="color:red;">*</span></label>
-                    <input type="text" class="form-control" id="txttoyear" placeholder="To Year" value="@Model.ToYear" />
+                    <input type="text" asp-for="@Model.ToYear" class="form-control" id="txttoyear" placeholder="To Year" />
                     <span class="text-danger d-none" id="txttoyearsp">Enter To Year</span>
                 </div>
                 <div class="modal-footer">

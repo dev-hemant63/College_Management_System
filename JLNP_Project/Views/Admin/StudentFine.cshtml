@@ -49,8 +49,8 @@
                             </div>
                             <input type="hidden" id="hdnid" value="@Model."
                         </div>
-                        <div class="table-responsive table-bordered" style="margin-top:13px;">
-                            <table class="table mb-0" id="tblbranch">
+                        <div class="table-responsive" style="margin-top:13px;">
+                            <table class="table mb-0 table-bordered" id="tblbranch">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
@@ -145,21 +145,18 @@
             FineResion: $('#txtresion').val(),
             Action: "Save"
         }
-        console.log(data);
+        preloader.load();
         $.post('/Student/SaveStudentFine', data).done(function(result) {
-            if (result.statuscode == 1) {
-                alert(result.msg);
-                window.location.reload();
-            }
-            if (result.statuscode == -1) {
-                alert(result.msg);
-            }
+            preloader.remove();
+            alertnotify(result.statuscode,result.msg);
         }).fail(function() {
             alert('Server Error');
         });
     }
     var EditRecord = (RecordId) => {
+        preloader.load();
         $.post('/Student/GetStudentFineById', { Id: RecordId }).done(function(result) {
+            preloader.remove();
             $('body').append(result);
             Bindbranchlist();
             $('#myModalNew').modal('show');
@@ -172,28 +169,20 @@
         });
     }
     var deletedata = (Fid) => {
+        preloader.load();
         $.post('/Student/DeleteStudentFine', { FineId: Fid }).done(function(result) {
-            if (result.statuscode == 1) {
-                alert(result.msg);
-                window.location.reload();
-            }
-            if (result.statuscode == -1) {
-                alert(result.msg);
-            }
+            preloader.remove();
+             alertnotify(result.statuscode,result.msg);
         }).fail(function() {
             alert('Server Error');
         });
     }
     var UpdateStatus = (FineId) => {
         let data = $('#ddlstatus option:selected').val()
+        preloader.load();
         $.post('/Student/UpdateFineStatus', { Status: data, FineId: FineId }).done(function(result) {
-            if (result.statuscode == 1) {
-                alert(result.msg);
-                window.location.reload();
-            }
-            if (result.statuscode == -1) {
-                alert(result.msg);
-            }
+            preloader.remove();
+            alertnotify(result.statuscode,result.msg);
         }).fail(function() {
             alert('Server Error');
         });

@@ -14,6 +14,9 @@ namespace JLNP_Project.AppCode.DAL
             SqlCommand cmd = new SqlCommand("proc_Admission", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Action", admissionModel.Action);
+            cmd.Parameters.AddWithValue("@FromDate", admissionModel.FromDate);
+            cmd.Parameters.AddWithValue("@ToDate", admissionModel.ToDate);
+            cmd.Parameters.AddWithValue("@EntrolmentNo", admissionModel.EntrolmentNo);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
@@ -31,6 +34,7 @@ namespace JLNP_Project.AppCode.DAL
             {
                 new SqlParameter("@Action",projectReport.Action),
                 new SqlParameter("@StudentName",projectReport.StudentName),
+                new SqlParameter("@Program",projectReport.Program),
                 new SqlParameter("@Branch",projectReport.Branch),
                 new SqlParameter("@Year",projectReport.Year),
                 new SqlParameter("@Enrollment",projectReport.Enrollment),
@@ -67,6 +71,7 @@ namespace JLNP_Project.AppCode.DAL
                         ProjectTitle = Convert.ToString(row["ProjectTitle"].ToString()),
                         Techonology = Convert.ToString(row["Techonology"].ToString()),
                         Submitiondate = Convert.ToString(row["Entrydate"].ToString()),
+                        ProgramName = Convert.ToString(row["Program"].ToString()),
                     };
                     projectlist.Add(projectreport);
                 }

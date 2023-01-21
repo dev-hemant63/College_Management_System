@@ -24,6 +24,7 @@ namespace JLNP_Project.AppCode.DL
                 new SqlParameter("@Year",req.Year),
                 new SqlParameter("@LoginID",req.UserId),
                 new SqlParameter("@VideoUrl",req.VideoUrl),
+                new SqlParameter("@Program",req.Program),
             };
             try
             {
@@ -59,6 +60,7 @@ namespace JLNP_Project.AppCode.DL
                         {
                             Id = Convert.ToInt32(dr["Id"]),
                             Branch = Convert.ToString(dr["Branch_Name"]),
+                            ProgramName = Convert.ToString(dr["Program"]),
                             Subject = Convert.ToString(dr["SubjectName"]),
                             EntryDate = Convert.ToString(dr["EntryDate"]),
                             Year = Convert.ToInt32(dr["Year"]),
@@ -89,6 +91,7 @@ namespace JLNP_Project.AppCode.DL
                 {
                     res.Id = Convert.ToInt32(dt.Rows[0]["Id"]);
                     res.BranchId = Convert.ToInt32(dt.Rows[0]["BranchId"]);
+                    res.Program = Convert.ToInt32(dt.Rows[0]["Program"]);
                     res.SubjectId = Convert.ToInt32(dt.Rows[0]["SubjectId"]);
                     res.Year = Convert.ToInt32(dt.Rows[0]["Year"]);
                     res.VideoUrl = Convert.ToString(dt.Rows[0]["VideoUrl"]);
@@ -468,6 +471,36 @@ namespace JLNP_Project.AppCode.DL
                 {
                     res.statuscode = Convert.ToInt32(dt.Rows[0]["Statuscode"]);
                     res.Msg = Convert.ToString(dt.Rows[0]["Msg"]);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return res;
+        }
+        public List<Branch> ProcBindProgramWiseBranch(int ProgranId)
+        {
+            var res = new List<Branch>();
+            string ProcName = "select tb.BranchId,tb.Branch_Name from tbl_ProgramBranchMapping tpm inner join tbl_Program tp on tpm.ProgramId = tp.Id inner join tbl_Branch tb on tpm.BranchId = tb.BranchId where tpm.ProgramId = @ProgranId"; // Query
+            SqlParameter[] param =
+            {
+                new SqlParameter("@ProgranId",ProgranId)
+            };
+            try
+            {
+                var dt = _helper.ExcQueryDT(ProcName, param);
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        var model = new Branch
+                        {
+                            BranchId = Convert.ToInt32(dr["BranchId"] is DBNull ? 0 : Convert.ToInt32(dr["BranchId"])),
+                            BranchName = Convert.ToString(dr["Branch_Name"] is DBNull ? "" : dr["Branch_Name"].ToString())
+                        };
+                        res.Add(model);
+                    }
                 }
             }
             catch (Exception ex)

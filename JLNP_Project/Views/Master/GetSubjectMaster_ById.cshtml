@@ -1,98 +1,119 @@
-﻿@model SubjectMaster
+﻿@model EditSubjectViewModel
 @{
     Layout = "_LayoutAdmin";
 }
-        <div class="">
-            <div class="">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div>
-                        </div>
-                    </div>
+<div class="">
+    <div class="">
+        <div class="row">
+            <div class="col-sm-12">
+                <div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header bgred">
-                                <h3 style="color:white;">Subject Master</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bgred">
+                        <h3 style="color:white;">Subject Master</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Select Program<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlprogram" asp-for="@Model.data.Program" onchange="Bindbranch()">
+                                    <option value="">-- Select Program --</option>
+                                    @foreach (var item in Model.programs)
+                                    {
+                                        <option value="@item.Id">@item.Program</option>
+                                    }
+                                </select>
                             </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                    <input type="hidden" id="txthdn" value="@Model.Id"/>
-                                        <label>Select Branch<span style="color:red;">*</span></label>
-                                        <select class="form-control" id="ddlbranchlst" asp-for="@Model.Branch">
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <label>Select Year<span style="color:red;">*</span></label>
-                                        <select class="form-control" id="ddlyear" asp-for="@Model._Year">
-                                            <option value="1" >First Year</option>
-                                            <option value="2">Second Year</option>
-                                            <option value="3">Third Year</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <label>Subject Name<span style="color:red;">*</span></label>
-                                        <input type="text" id="txtsubjectname" class="form-control" value="@Model.SubjectName" />
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <label>Subject Code<span style="color:red;">*</span></label>
-                                        <input type="text" id="txtsubjectCode" class="form-control" value="@Model.SubjectCode" />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <label>Theory Marks<span style="color:red;">*</span></label>
-                                        <input type="text" id="txttheoryMarks" class="form-control" value="@Model.TheoryMarks" />
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <label>Subject Type<span style="color:red;">*</span></label>
-                                        <select class="form-control" id="ddlsubjecttype" asp-for="@Model.SubjectType">
-                                            <option value="optional">Optional</option>
-                                            <option value="Conpalsary">Conpalsary</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <label>Prectical Marks<span style="color:red;">*</span></label>
-                                        <input type="text" id="txtsubjectMarks" class="form-control" value="@Model.PracticalMarks" />
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <button class="btn btn-outline-primary" onclick="submitdata()" style="margin-top: 29px;width: 43%;">Save</button>
-                                    </div>
-                                </div>
+                            <div class="col-sm-3">
+                                <input type="hidden" id="txthdn" value="@Model.data.Id" />
+                                <label>Select Branch<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlbranchlst" asp-for="@Model.data.Branch">
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Select Year<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlyear" asp-for="@Model.data._Year">
+                                    <option value="1">First Year</option>
+                                    <option value="2">Second Year</option>
+                                    <option value="3">Third Year</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Subject Name<span style="color:red;">*</span></label>
+                                <input type="text" id="txtsubjectname" class="form-control" value="@Model.data.SubjectName" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Subject Code<span style="color:red;">*</span></label>
+                                <input type="text" id="txtsubjectCode" class="form-control" value="@Model.data.SubjectCode" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Theory Marks<span style="color:red;">*</span></label>
+                                <input type="number" id="txttheoryMarks" class="form-control" value="@Model.data.TheoryMarks" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Prectical Marks<span style="color:red;">*</span></label>
+                                <input type="number" id="txtsubjectMarks" class="form-control" value="@Model.data.PracticalMarks" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Passing Marks<span style="color:red;">*</span></label>
+                                <input type="number" id="txtpassing" class="form-control" value="@Model.data.PassingMarks" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Subject Type<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlsubjecttype" asp-for="@Model.data.SubjectType">
+                                    <option value="optional">Optional</option>
+                                    <option value="Conpalsary">Conpalsary</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-outline-primary" onclick="submitdata()" style="margin-top: 29px;width: 43%;">Save</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-<script src="~/js/jquery.min.js"></script>
+    </div>
+</div>
 <script>
-$(document).ready(function() {
-    Bindbranchlst();
-});
-    var submitdata = () =>{
+    $(document).ready(function() {
+        Bindbranch();
+    });
+    var submitdata = () => {
         let obj = {
-            Id:$('#txthdn').val(),
-            Branch: $('#ddlbranchlst option:selected').val(),
+            Id: $('#txthdn').val(),
+            Program: $('#ddlprogram option:selected').val(),
+            Branch: $('#ddlbranch option:selected').val(),
+            BranchId: $('#ddlbranchlst option:selected').val(),
             Year: $('#ddlyear option:selected').val(),
             SubjectName: $('#txtsubjectname').val(),
             SubjectCode: $('#txtsubjectCode').val(),
             SubjectType: $('#ddlsubjecttype option:selected').val(),
             TheoryMarks: $('#txttheoryMarks').val(),
-            PracticalMarks: $('#txtsubjectMarks').val()
+            PracticalMarks: $('#txtsubjectMarks').val(),
+            PassingMarks: $('#txtpassing').val()
         }
         $.post('/Master/EditSubjectMaster', obj).done(function(result) {
-            alert(result.msg);
-            window.location.replace('/Master/SubjectMaster');
+             alertnotify(result.statuscode,result.msg);
+             if(result.statuscode == 1)
+             {
+                 window.location.href = '/Master/SubjectMaster';
+             }
         }).fail(function(xhr) {
             alert("Server Error");
         });
     }
-     var Bindbranchlst = () => {
-        $.post('/AccountManagement/BindBranch').done(function(result) {
-            console.log(result);
+    var Bindbranch = () => {
+        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlprogram option:selected').val() }).done(function(result) {
+            $('#ddlbranchlst').empty();
             for (var i = 0; i < result.length; i++) {
                 $('#ddlbranchlst').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
             }

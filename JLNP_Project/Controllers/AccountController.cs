@@ -32,6 +32,7 @@ namespace JLNP_Project.Controllers
                 {
                     if (sts == 1)
                     {
+                        string redirectURl = Url.Content("~/");
                         LoginInfo _lr = new LoginInfo();
                         CookieOptions options = new CookieOptions();
                         options.Expires = DateTime.Now.AddMinutes(30);

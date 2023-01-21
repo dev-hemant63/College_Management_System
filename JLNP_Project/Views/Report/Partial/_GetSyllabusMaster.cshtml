@@ -8,6 +8,7 @@
             i++;
             <tr data-item-Id="@item.ID">
                 <td>@i</td>
+                <td>@item.ProgramName</td>
                 <td>@item.BranchName</td>
                 <td>@item.Year</td>
                 <td>@item.SubjecName</td>
@@ -25,7 +26,7 @@
     else
     {
         <tr>
-            <td class="text-danger text-center" colspan="7">Record Not Found</td>
+            <td class="text-danger text-center" colspan="8">Record Not Found</td>
         </tr>
     }
 }

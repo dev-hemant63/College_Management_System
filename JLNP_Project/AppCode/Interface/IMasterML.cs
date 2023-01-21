@@ -20,5 +20,6 @@ namespace JLNP_Project.AppCode.Interface
         ResponseStatus SaveAndUpdateBatch(BatchMasterReqRes req);
         List<BatchMasterReqRes> GetBatch();
         ResponseStatus DeleteBatch(int Id);
+        List<Branch> BindProgramWiseBranch(int ProgramId);
     }
 }

@@ -9,16 +9,27 @@
                 <td>@i</td>
                 <td>@item.Name</td>
                 <td>@item.Fname</td>
+                <td>@item.MotherName</td>
+                <td>@item.FatherOccupation</td>
+                <td>@item.Religion</td>
                 <td>@item.Email</td>
                 <td>@item.Mobile</td>
                 <td>@item.DOB</td>
                 <td>@item.EntrolmentNo</td>
+                <td>@item.ProgramName</td>
                 <td>@item.Branch</td>
                 <td>@item.Year</td>
                 <td>@item.Address</td>
                 <td>@item.Gender</td>
                 <td>@item.Group</td>
-                <td style="color:green">@item.FeesStatus</td>
+                @if (@item.FeesStatus == "1")
+                {
+                    <td class="badge badge-secondary badgecus">PENDDING</td>
+                }
+                @if (@item.FeesStatus == "2")
+                {
+                    <td class="badge badge-success badgecus">SUCCESS</td>
+                }
                 <td>@item.AdmissionDate</td>
             </tr>
         }
@@ -26,7 +37,7 @@
     else
     {
        <tr>
-         <td style="color:red;" colspan="12" class="text-center">Record Not Found</td>
+         <td style="color:red;" colspan="18" class="text-center">Record Not Found</td>
        </tr>
     }
 }

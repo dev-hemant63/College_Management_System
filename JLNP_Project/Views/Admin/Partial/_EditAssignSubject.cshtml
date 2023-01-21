@@ -52,8 +52,7 @@
             TeacherId: $('#ddlteacherlst option:selected').val()
         }
         $.post('/Admin/SaveAssignSubject', obj).done(function(result) {
-            alert(result.msg);
-            window.location.reload();
+            alertnotify(result.statuscode,result.msg);
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');

@@ -6,6 +6,7 @@ namespace JLNP_Project.AppCode.BAL
 {
     public class AccountManagement_BAL
     {
+        AccountManagement_DAL _accountDAL = new AccountManagement_DAL();
         public DataTable FeesHead_BAL(AccountManagement accountManagement)
         {
             AccountManagement_DAL AmaDAL = new AccountManagement_DAL();
@@ -89,6 +90,16 @@ namespace JLNP_Project.AppCode.BAL
             AccountManagement_DAL AmaDAL = new AccountManagement_DAL();
             var dt = AmaDAL.FeesHeadDelete(accountManagement);
             return dt;
+        }
+        public ResponseStatus SaveFeesType(DefineFeesStructureReqRes req)
+        {
+            var res = _accountDAL.SaveAndUpdateFeesType(req);
+            return res;
+        }
+        public List<DefineFeesStructureReqRes> GetFeesType(int Id = 0)
+        {
+            var res = _accountDAL.GetFeesType(Id);
+            return res;
         }
     }
 }

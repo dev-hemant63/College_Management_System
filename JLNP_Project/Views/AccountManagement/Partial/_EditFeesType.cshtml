@@ -1,0 +1,20 @@
+﻿<div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Branch Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <label>Branch Name<span style="color:red;">*</span></label>
+                <input type="text" class="form-control" id="Branchname" value="@item.BranchName" />
+                <input type="hidden" class="form-control" id="Branchid" value="@item.BranchId" />
+                <label>Branch Code<span style="color:red;">*</span></label>
+                <input type="text" class="form-control" id="Branchcode" value="@item.BranchCode" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" onclick="EditBranch()" id="btnsave">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1628,7 +1628,7 @@ a:hover {
 /*======= Badge-color css end  ======= */
 /*======= Background-color css starts  ======= */
 .bg-primary {
-    background-color: #17a2b6 !important;
+    background-color: #232323 !important;
     color: #fff;
 }
 
@@ -1770,7 +1770,7 @@ a:hover {
     }
 
 .btn-danger {
-    background-color: #d22d3d !important;
+    background-color: #e92000 !important;
     border-color: #d22d3d !important;
 }
 
@@ -2980,6 +2980,7 @@ table tbody .border-bottom-warning td {
         .card .card-header h4 {
             font-size: 24px;
             font-weight: 500;
+            margin-bottom: 0;
         }
 
         .card .card-header h5 {
