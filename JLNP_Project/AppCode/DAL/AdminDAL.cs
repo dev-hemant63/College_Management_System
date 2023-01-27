@@ -412,7 +412,7 @@ namespace JLNP_Project.AppCode.DAL
             if (_Is)
             {
                 res.statuscode = 1;
-                res.Msg = IsActive == true ? "User Actived Successfully!" : "User DeActived Successfully!";
+                res.Msg = IsActive == true ? "User actived successfully!" : "User inactived successfully!";
             }
             return res;
         }

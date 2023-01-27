@@ -17,7 +17,15 @@ namespace JLNP_Project.Controllers
         public AccountManagementController(IHttpContextAccessor accessor)
         {
             _accessor = accessor;
-            _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString("Userdata"));
+            try
+            {
+                _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString("Userdata"));
+            }
+            catch (Exception  ex)
+            {
+
+                throw;
+            }
         }
         public IActionResult DefineFeesStructur()
         {
@@ -44,14 +52,25 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult EditFeesType(int Id)
         {
-            var res = _accountBAL.GetFeesType(Id);
+            DefineFeesStructureViewModel res = new DefineFeesStructureViewModel();
+            res.data = _accountBAL.GetFeesType(Id).FirstOrDefault();
+            IMasterML ml = new MasterML();
+            res.program = ml.GetProgram();
             return PartialView("Partial/_EditFeesType", res);
+        }
+        [HttpPost]
+        public IActionResult deleteFeesType(int Id)
+        {
+            var res = _accountBAL.DeleteFeesType(Id);
+            return Json(res);
         }
         public IActionResult FeesHead()
         {
             if (_lr.UserName != null)
             {
-                return View();
+                IMasterML ml = new MasterML();
+                var res = ml.GetProgram();
+                return View(res);
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -59,7 +78,6 @@ namespace JLNP_Project.Controllers
         public IActionResult FeesHead(AccountManagement accountManagement)
         {
             AccountManagement_BAL AmDAL = new AccountManagement_BAL();
-            accountManagement.Action = "Add";
             var dt = AmDAL.FeesHead_BAL(accountManagement);
             ResponseStatus res = new ResponseStatus
             {
@@ -72,6 +90,15 @@ namespace JLNP_Project.Controllers
                 res.Msg = Convert.ToString(dt.Rows[0]["Msg"].ToString());
             }
             return Json(res);
+        }
+        [HttpPost]
+        public IActionResult GetFeesHead()
+        {
+            AccountManagement accountManagement = new AccountManagement();
+            AccountManagement_BAL AmDAL = new AccountManagement_BAL();
+            accountManagement.Action = "Get";
+            var res = AmDAL.BranchFees_BAL(accountManagement);
+            return PartialView("Partial/_GetFeesHead",res);
         }
         [HttpPost]
         public IActionResult BindAmount(AccountManagement accountManagement)
@@ -153,24 +180,30 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                return View();
+                FeesStructure model = new FeesStructure();
+                AccountManagement accountManagement = new AccountManagement();
+                AccountManagement_BAL AmDAL = new AccountManagement_BAL();
+                accountManagement.Action = "Get";
+                model.FeesTypes = _accountBAL.BindFeesType();
+                model.Fees = AmDAL.BranchFees_BAL(accountManagement);
+                return View(model);
             }
             return RedirectToAction("UsersLogin", "Account");
         }
-        [HttpPost]
-        public IActionResult BranchFees(AccountManagement accountManagement)
+        [HttpGet]
+        public IActionResult GetFeesHeadById(int ID)
         {
+            AccountManagement accountManagement = new AccountManagement
+            {
+                Id = ID
+            };
             AccountManagement_BAL AmDAL = new AccountManagement_BAL();
-            accountManagement.Action = "Get";
-            var res = AmDAL.BranchFees_BAL(accountManagement);
-            return PartialView("Partial/_GetBranchFees", res);
-        }
-        public IActionResult GetFeesHeadById(AccountManagement accountManagement)
-        {
-            AccountManagement_BAL AmDAL = new AccountManagement_BAL();
+            EditFeesHead model = new EditFeesHead();
             accountManagement.Action = "GetById";
-            ViewBag.Feeshead = AmDAL.GetFeesHeadById_BAL(accountManagement);
-            return View();
+            IMasterML ml = new MasterML();
+            model.program = ml.GetProgram();
+            model.data= AmDAL.GetFeesHeadById_BAL(accountManagement);
+            return View(model);
         }
         [HttpPost]
         public IActionResult SaveFeesHead(AccountManagement accountManagement)
@@ -191,8 +224,12 @@ namespace JLNP_Project.Controllers
             return Json(res);
         }
         [HttpPost]
-        public IActionResult DeleteFeesHead(AccountManagement accountManagement)
+        public IActionResult DeleteFeesHead(int ID)
         {
+            AccountManagement accountManagement = new AccountManagement
+            {
+                Id = ID
+            };
             AccountManagement_BAL AmDAL = new AccountManagement_BAL();
             accountManagement.Action = "Delete";
             var dt = AmDAL.DeleteFeesHead_BAL(accountManagement);
@@ -206,6 +243,12 @@ namespace JLNP_Project.Controllers
                 res.statuscode = Convert.ToInt32(dt.Rows[0]["statuscode"]);
                 res.Msg = Convert.ToString(dt.Rows[0]["Msg"].ToString());
             }
+            return Json(res);
+        }
+        [HttpPost]
+        public IActionResult Bindfeestype(int Year,int ProgramId,int Branch)
+        {
+            var res = _accountBAL.BindFeesType(Year,ProgramId, Branch);
             return Json(res);
         }
     }

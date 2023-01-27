@@ -1,45 +1,88 @@
 ﻿@{
     Layout = "_LayoutAdmin";
 }
+@model List<ProgramMaster>
 <div class="">
     <div class="">
         <div class="row">
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-header bgred">
-                            <h4 style="color:white;">Define Fees</h4>
-                        </div>
+                        <h4 style="color:white;">Define Fees</h4>
+                    </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="p-20">
-                                    <div class="form-group"><label>Select Branch</label> 
-                                        <select id="ddlbranch" class="form-control" required>
-                                        </select>
-                                    </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Select Program</label>
+                                    <select id="ddlprogram" class="form-control" onchange="Bindbranch()">
+                                        <option value="">-- Select Program --</option>
+                                        @foreach (var item in Model)
+                                        {
+                                            <option value="@item.Id">@item.Program</option>
+                                        }
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="p-20">
-                                    <div class="form-group"><label>Select Year</label> 
-                                        <select id="ddlyear" class="form-control">
-                                            <option value="">--Select Year--</option>
-                                            <option value="1">1 Year</option>
-                                            <option value="2">2 Year</option>
-                                            <option value="3">3 Year</option>
-                                        </select>
-                                    </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Select Branch</label>
+                                    <select id="ddlbranch" class="form-control" onchange="Bindfeestype()">
+                                        <option value="">-- Select Branch --</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="p-20">
-                                    <div class="form-group"><label>Amount</label> <input type="text" placeholder="Amount" class="form-control" id="amount" > </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Select Year</label>
+                                    <select id="ddlyear" class="form-control" onchange="Bindfeestype()">
+                                        <option value="">--Select Year--</option>
+                                        <option value="1">1 Year</option>
+                                        <option value="2">2 Year</option>
+                                        <option value="3">3 Year</option>
+                                        <option value="4">4 Year</option>
+                                    </select>
                                 </div>
                             </div>
-                            <button type="button" style="width: 12%; margin-left: 35px; margin-top: -17px;" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit()" >Save</button>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Select Fees Type</label>
+                                    <select id="ddlfeestype" class="form-control">
+                                        <option value="">--Select Fees Type--</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <!-- end row -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Amount</label>
+                                    <input type="number" placeholder="Amount" class="form-control" id="amount">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <button type="button" style="width: 37%; margin-top: 24px;" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit()">Save</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="table-responsive" style="margin-top:12px;" id="branchwisefees">
+                                <table class="table mb-0 table-bordered" id="tblbranchfees">
+                                    <thead class="bg-primary">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Program</th>
+                                            <th>Branch</th>
+                                            <th>Year</th>
+                                            <th>Fees Type</th>
+                                            <th>Amount</th>
+                                            <th>EntryDate</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -48,75 +91,83 @@
     </div>
 </div>
 <script>
-$(document).ready(function() {
-    Bindbranch();
-});
+    $(document).ready(function() {
+        Loaddata();
+    });
     var btnsubmit = () => {
-        if($('#ddlbranch option:selected').val() == ''){
-                alert("Please Select Branch");
-                $('#ddlbranch').focus();
-                return false;
+        if ($('#ddlprogram option:selected').val() == '') {
+            alert("Please Select Program");
+            $('#ddlprogram').focus();
+            return false;
         }
-        if($('#ddlbranchco option:selected').val() == ''){
-                alert("Please Select Branch Code");
-                $('#ddlbranchco').focus();
-                return false;
+        if ($('#ddlbranch option:selected').val() == '') {
+            alert("Please Select Branch");
+            $('#ddlbranch').focus();
+            return false;
         }
-        if($('#ddlyear option:selected').val() == ''){
-                alert("Please Select Year");
-                $('#ddlyear').focus();
-                return false;
+        if ($('#ddlyear option:selected').val() == '') {
+            alert("Please Select Year");
+            $('#ddlyear').focus();
+            return false;
         }
-        if($('#amount').val() == ''){
-                alert("Please Enter Amount");
-                $('#amount').focus();
-                return false;
+        if ($('#amount').val() == '') {
+            alert("Please Enter Amount");
+            $('#amount').focus();
+            return false;
+        }
+        if ($('#ddlfeestype option:selected').val() == '') {
+            alert("Please Select Fees Type");
+            $('#ddlfeestype').focus();
+            return false;
         }
         let data = {
-            Branch:$('#ddlbranch option:selected').val(),
-            BranchCode:$('#ddlbranchco option:selected').val(),
-            Year:$('#ddlyear option:selected').val(),
-            Amount:$('#amount').val()
+            Action: "Add",
+            Program: $('#ddlprogram option:selected').val(),
+            Branch: $('#ddlbranch option:selected').val(),
+            Year: $('#ddlyear option:selected').val(),
+            FeesType: $('#ddlfeestype option:selected').val(),
+            Amount: $('#amount').val()
         }
-        $.post('/AccountManagement/FeesHead',data).done(function(result) {
-            if(result.statuscode == 1){
-                swal.fire({
-                    title:"Success",
-                    text:result.msg,
-                    icon:"success"
-                });
-                //alert(result.msg);
-                Branch:$('#ddlbranch option:selected').text('');
-                BranchCode: $('#ddlbranchco option:selected').text('');
-                Year: $('#ddlyear option:selected').text('');
-                Amount: $('#amount').val('');
-            }
-            if(result.statuscode == -1){
-                swal.fire({
-                    title:"faile",
-                    text:result.msg,
-                    icon:"Error"
-                });
-                return false; 
-                window.location.reload();
+        $.post('/AccountManagement/FeesHead', data).done(function(result) {
+            alertnotify(result.statuscode, result.msg);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var Loaddata = () => {
+        $.post('/AccountManagement/GetFeesHead').done(function(result) {
+            $('#tblbranchfees tbody').html(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
+        });
+    }
+    var Bindbranch = () => {
+        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlprogram option:selected').val() }).done(function(result) {
+            $('#ddlbranch').empty();
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
             }
         }).fail(function(xhr) {
             console.log(xhr.responseText)
         });
     }
-    var Bindbranch = () => {
-        $.post('/AccountManagement/BindBranch').done(function(result) {
-            console.log(result);
-            $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
-                for (var i = 0; i < result.length; i++) {
-                    $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
-                }
-                $('#ddlbranchco').empty().append('<option value="">--Select Branch Code--</option>');
-                for (var i = 0; i < result.length; i++) {
-                    $('#ddlbranchco').append('<option value="' + result[i].branchCode + '">' + result[i].branchCode + '</option>')
-                }
+    var Bindfeestype = () => {
+        $.post('/AccountManagement/Bindfeestype', { Year: $('#ddlyear option:selected').val(), ProgramId: $('#ddlprogram option:selected').val(), Branch: $('#ddlbranch option:selected').val() }).done(function(result) {
+            $('#ddlfeestype').empty();
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlfeestype').append('<option value="' + result[i].id + '">' + result[i].feesTypes + '</option>')
+            }
         }).fail(function(xhr) {
             console.log(xhr.responseText)
+        });
+    }
+    var deletedata = function(id) {
+        $.post('/AccountManagement/DeleteFeesHead', { ID: id }).done(function(result) {
+            alertnotify(result.statuscode, result.msg);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
         });
     }
 </script>
