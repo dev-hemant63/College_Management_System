@@ -62,22 +62,33 @@ namespace JLNP_Project.AppCode.BAL
                     AccountManagement data = new AccountManagement
                     {
                         Id = Convert.ToInt32(dr["Id"]),
+                        ProgramName = dr["Program"].ToString(),
                         Branch = dr["Branch_Name"].ToString(),
-                        BranchCode = dr["Branch_Code"].ToString(),
                         Year = dr["_Year"].ToString(),
-                        EntryDate = dr["EntryDate"].ToString(),
-                        Amount = dr["Amount"].ToString()
+                        FeesTypeName = dr["FeesType"].ToString(),
+                        Amount = dr["Amount"].ToString(),
+                        EntryDate = dr["EntryDate"].ToString()
                     };
                     lit.Add(data);
                 }
             }
             return lit;
         }
-        public DataTable GetFeesHeadById_BAL(AccountManagement accountManagement)
+        public AccountManagement GetFeesHeadById_BAL(AccountManagement accountManagement)
         {
             AccountManagement_DAL AmaDAL = new AccountManagement_DAL();
+            var res = new AccountManagement();
             var dt = AmaDAL.GetFeesHeadById_DAL(accountManagement);
-            return dt;
+            if (dt.Rows.Count > 0)
+            {
+                res.Id = Convert.ToInt32(dt.Rows[0]["Id"]);
+                res.Branch = Convert.ToString(dt.Rows[0]["Branch"]);
+                res.Year = Convert.ToString(dt.Rows[0]["_Year"]);
+                res.Amount = Convert.ToString(dt.Rows[0]["Amount"]);
+                res.Program = Convert.ToInt32(dt.Rows[0]["Program"]);
+                res.FeesType = Convert.ToInt32(dt.Rows[0]["FeesType"]);
+            }
+            return res;
         }
         public DataTable EditFeesHead_BAL(AccountManagement accountManagement)
         {
@@ -99,6 +110,16 @@ namespace JLNP_Project.AppCode.BAL
         public List<DefineFeesStructureReqRes> GetFeesType(int Id = 0)
         {
             var res = _accountDAL.GetFeesType(Id);
+            return res;
+        }
+        public ResponseStatus DeleteFeesType(int Id = 0)
+        {
+            var res = _accountDAL.Deletefeestype(Id);
+            return res;
+        }
+        public List<FeesType> BindFeesType(int Year=0, int ProgramId=0, int Branch = 0)
+        {
+            var res = _accountDAL.BindFeesType(Year, ProgramId, Branch);
             return res;
         }
     }

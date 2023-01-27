@@ -143,4 +143,40 @@
             alert('Server Error');
         });
     }
+    const EditFeesType = (id) => {
+        $.post('/AccountManagement/EditFeesType', {ID:id}).done(function(result) {
+            preloader.remove();
+            showModel(result);
+            bindbranch();
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
+        });
+    }
+    const DeleteFeesType = (id) => {
+        $.post('/AccountManagement/deleteFeesType', {Id:id}).done(function(result) {
+            preloader.remove();
+            alertnotify(result.statuscode, result.msg);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
+        });
+    }
+    const UpdateRecord = (id) => {
+        let obj = {
+            ID:id,
+            Program: $('#program option:selected').val(),
+            Branch: $('#branch option:selected').val(),
+            Year: $('#year option:selected').val(),
+            FeesType: $('#FeesType').val(),
+        }
+        preloader.load();
+        $.post('/AccountManagement/DefineFeesStructure', obj).done(function(result) {
+            preloader.remove();
+            alertnotify(result.statuscode, result.msg);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
+        });
+    }
 </script>

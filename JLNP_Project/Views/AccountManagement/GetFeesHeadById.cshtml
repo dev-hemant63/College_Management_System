@@ -1,148 +1,138 @@
 ﻿@{
     Layout = "_LayoutAdmin";
 }
-@using System.Data
-@{
-    foreach (DataRow dr in ViewBag.Feeshead.Rows)
-    {
+@model EditFeesHead
+<div class="">
     <div class="">
-                    <div class="">
-                        @*<div class="row">
-        <div class="col-sm-12">
-        <div class="">
-        <h3>Fees Submition</h3>
-        </div>
-        </div>
-        </div>*@
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-header bgred">
+                        <h4 style="color:white;">Edit Fees</h4>
+                    </div>
+                    <div class="card-body">
                         <div class="row">
-                            <div class="col-12">
-                                <div class="card m-b-30">
-                                    <div class="card-header bgred">
-                                        <h4 style="color:white;">Define Fees</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="p-20">
-                                                    <div class="form-group">
-                                                        <label>Select Branch</label>
-                                                        <input type="hidden" id="txthdn" value="@dr["Id"]">
-                                                        <select id="ddlbranch" class="form-control" asp-for="@dr["Branch"]" required>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-4">
-                                                <div class="p-20">
-                                                    <div class="form-group">
-                                                        <label>Select Year</label>
-                                                        <select class="form-control" id="ddlyear" asp-for="@dr["_Year"]">
-                                                            <option value="1">First Year</option>
-                                                            <option value="2">Second Year</option>
-                                                            <option value="3">Third Year</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="p-20">
-                                                    <div class="form-group"><label>Amount</label> <input type="text" placeholder="Amount" value="@dr["Amount"]" class="form-control" id="amount"> </div>
-                                                </div>
-                                            </div>
-                                            <button type="submit" style="width: 12%; margin-left: 35px; margin-top: -17px;" class="btn btn-outline-primary waves-effect waves-light" id="submit">Save</button>
-                                        </div>
-
-                                        <!-- end row -->
-                                    </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Select Program</label>
+                                    <select id="ddlprogram" class="form-control" asp-for="@Model.data.Program" onchange="Bindbranch()">
+                                        <option value="">-- Select Program --</option>
+                                        @foreach (var item in Model.program)
+                                        {
+                                            <option value="@item.Id">@item.Program</option>
+                                        }
+                                    </select>
                                 </div>
                             </div>
-                            <!-- end col -->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Select Branch</label>
+                                    <select id="ddlbranch" class="form-control" asp-for="@Model.data.Branch" onchange="Bindfeestype()">
+                                        <option value="">-- Select Branch --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Select Year</label>
+                                    <select id="ddlyear" class="form-control" asp-for="@Model.data.Year" onchange="Bindfeestype()">
+                                        <option value="">--Select Year--</option>
+                                        <option value="1">1 Year</option>
+                                        <option value="2">2 Year</option>
+                                        <option value="3">3 Year</option>
+                                        <option value="4">4 Year</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Select Fees Type</label>
+                                    <select id="ddlfeestype" class="form-control" asp-for="@Model.data.FeesType">
+                                        <option value="">--Select Fees Type--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Amount</label>
+                                    <input type="number" placeholder="Amount" class="form-control" asp-for="@Model.data.Amount" id="amount">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <button type="button" style="width: 37%; margin-top: 24px;" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit('@Model.data.Id')">Save</button>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
     </div>
-    }
-}
-<script src="~/js/jquery.min.js"></script>
-<script src="~/dist/sweetalert2.all.min.js"></script>
-<script src="~/dist/sweetalert2.all.js"></script>
+</div>
 <script>
     $(document).ready(function() {
-        Bindbranchlist();
-        //var submit = () => {
-        //    debugger;
-        //    let data = {
-        //        Id:$('#txthdn).val(),
-        //        Branch:$('#ddlbranch option:selected').val(),
-        //        BranchCode:$('#ddlbranchco option:selected').val(),
-        //        Year:$('#ddlyear option:selected').val(),
-        //        Amount:$('#amount').val()
-        //    }
-        //    $.post('/AccountManagement/SaveFeesHead',data).done(function(result) {
-        //        if(result.statuscode == 1){
-        //            alert(result.msg);
-        //            window.location.replace('/AccountManagement/BranchFees');
-        //        }
-        //        if(result.statuscode == -1){
-        //            swal.fire({
-        //                title:"faile",
-        //                text:result.msg,
-        //                icon:"Error"
-        //            });
-        //            return false;
-        //            window.location.reload();
-        //        }
-        //    }).fail(function(xhr) {
-        //        console.log(xhr.responseText)
-        //    });
-        //}
-        $('#submit').click(function() {
-                    let data = {
-                        Id:$('#txthdn').val(),
-            Branch:$('#ddlbranch option:selected').val(),
-            BranchCode:$('#ddlbranchco option:selected').val(),
-            Year:$('#ddlyear option:selected').val(),
-            Amount:$('#amount').val()
+        Bindbranch();
+    });
+    var btnsubmit = (id) => {
+        if ($('#ddlprogram option:selected').val() == '') {
+            alert("Please Select Program");
+            $('#ddlprogram').focus();
+            return false;
         }
-        $.post('/AccountManagement/SaveFeesHead',data).done(function(result) {
-            if(result.statuscode == 1){
-                swal.fire({
-                    title:"Success",
-                    text:result.msg,
-                    icon:"success",
-                    confirmButtonText: "GoBack"
-                }).then((result) => {
-                        /* Read more about isConfirmed, isDenied below */
-                        if (result.isConfirmed) {
-                            window.location.replace("/AccountManagement/BranchFees");
-                        } else if (result.isDenied) {
-                            //timer: 70000
-                             window.location.reload();
-                        }
-                    });
-                //alert(result.msg);
-                
-            }
-            if(result.statuscode == -1){
-                swal.fire({
-                    title:"faile",
-                    text:result.msg,
-                    icon:"Error"
-                });
-                return false; 
-                window.location.reload();
+        if ($('#ddlbranch option:selected').val() == '') {
+            alert("Please Select Branch");
+            $('#ddlbranch').focus();
+            return false;
+        }
+        if ($('#ddlyear option:selected').val() == '') {
+            alert("Please Select Year");
+            $('#ddlyear').focus();
+            return false;
+        }
+        if ($('#amount').val() == '') {
+            alert("Please Enter Amount");
+            $('#amount').focus();
+            return false;
+        }
+        if ($('#ddlfeestype option:selected').val() == '') {
+            alert("Please Select Fees Type");
+            $('#ddlfeestype').focus();
+            return false;
+        }
+        let data = {
+            Id: id,
+            Action: "Edit",
+            Program: $('#ddlprogram option:selected').val(),
+            Branch: $('#ddlbranch option:selected').val(),
+            Year: $('#ddlyear option:selected').val(),
+            FeesType: $('#ddlfeestype option:selected').val(),
+            Amount: $('#amount').val()
+        }
+        $.post('/AccountManagement/FeesHead', data).done(function(result) {
+            alertnotify(result.statuscode, result.msg);
+            if (result.statuscode == 1) {
+                window.location.href = '/AccountManagement/FeesHead';
             }
         }).fail(function(xhr) {
             console.log(xhr.responseText)
         });
-        });
-
-    });
-    var Bindbranchlist = () => {
-        $.post('/Admission/BindBranch').done(function(result) {
-            console.log(result);
+    }
+    var Bindbranch = () => {
+        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlprogram option:selected').val() }).done(function(result) {
+            $('#ddlbranch').empty();
             for (var i = 0; i < result.length; i++) {
                 $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+            }
+            Bindfeestype();
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var Bindfeestype = () => {
+        $.post('/AccountManagement/Bindfeestype', { Year: $('#ddlyear option:selected').val(), ProgramId: $('#ddlprogram option:selected').val(), Branch: $('#ddlbranch option:selected').val() }).done(function(result) {
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlfeestype').append('<option value="' + result[i].id + '">' + result[i].feesTypes + '</option>')
             }
         }).fail(function(xhr) {
             console.log(xhr.responseText)

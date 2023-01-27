@@ -1,55 +1,44 @@
 ﻿@{
     Layout = "_LayoutAdmin";
+    int i = 0;
 }
+@model FeesStructure
 <div class="">
     <div class="">
-        <!-- Page-Title -->
-        @*<div class="row">
-            <div class="col-sm-12">
-                <div class="page-title-box">
-                    <h3>Branch Wise Fees</h3>
-                </div>
-            </div>
-        </div>*@
-        <!-- end page title end breadcrumb -->
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header bgred">
-                    <h4 style="color:white;">Branch Wise Fees</h4>
-                </div>
+                        <h4 style="color:white;">Fees Structure</h4>
+                    </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <lable>From Date</lable>
-                                <input type="date" class="form-control" placeholder="From Date">
-                            </div>
-                            <div class="col-md-3">
-                                <lable>From Date</lable>
-                                <input type="date" class="form-control" placeholder="From Date">
-                            </div>
-                            <div class="col-md-3">
-                                <lable>Branch Name</lable>
-                                <input type="text" class="form-control" placeholder="Branch Name">
-                            </div>
-                            <div class="col-md-2">
-                                <button type="button" onclick="getdata()" class="btn btn-outline-primary waves-effect waves-light" style="margin-top:20px;" id="btnsearch">Search</button>
-                            </div>
-                            <!-- end col -->
-                        </div>
-                        <div class="table-responsive table-bordered" style="margin-top:12px;">
-                            <table class="table mb-0" id="tblbranchfees">
+                        <div class="table-responsive" style="margin-top:12px;">
+                            <table class="table table-bordered mb-0" id="tblbranchfees">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th>Program</th>
                                         <th>Branch</th>
                                         <th>Year</th>
-                                        <th>Fees</th>
-                                        <th>EntryDate</th>
-                                        <th>Action</th>
+                                        @foreach (var item1 in Model.FeesTypes)
+                                        {
+                                            <th>@item1.FeesTypes</th>
+                                        }
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    @foreach (var item2 in Model.Fees)
+                                    {
+                                        i++;
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@item2.ProgramName</td>
+                                            <td>@item2.Branch</td>
+                                            <td>@item2.Year</td>
+                                            <td>@item2.Amount</td>
+                                        </tr>
+                                    }
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -58,24 +47,3 @@
         </div>
     </div>
 </div>
-<script src="~/js/jquery.min.js"></script>
-<script>
-$(document).ready(function() {
-    loaddata();
-});
-    var loaddata = () => {
-        $.post('/AccountManagement/BranchFees').done(function(result) {
-            $('#tblbranchfees tbody').html(result);
-        }).fail(function(xhr) {
-            console.log(xhr.responseText)
-        });
-    }
-var deletedata = (FeesId) => {
-    $.post('/AccountManagement/DeleteFeesHead', {Id:FeesId}).done(function(result) {
-            alert(result.msg);
-        window.location.reload();
-        }).fail(function(xhr) {
-            console.log(xhr.responseText);
-        });
-}
-</script>

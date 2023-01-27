@@ -13,6 +13,10 @@
         public string EntryBy { get; set; }
         public string FeesSubmitionMode { get; set; }
         public string Action { get; set; }
+        public int Program { get; set; }
+        public string ProgramName { get; set; }
+        public int FeesType { get; set; }
+        public string FeesTypeName { get; set; }
     }
     public class DefineFeesStructureReqRes
     {
@@ -24,5 +28,25 @@
         public string FeesType { get; set; }
         public string EntryDate { get; set; }
         public int Branch { get; set; }
+    }
+    public class DefineFeesStructureViewModel
+    {
+        public DefineFeesStructureReqRes data { get; set; }
+        public List<ProgramMaster> program { get; set; }
+    }
+    public class FeesType
+    {
+        public int ID { get; set; }
+        public string FeesTypes { get; set; }
+    }
+    public class EditFeesHead
+    {
+        public AccountManagement data { get; set; }
+        public List<ProgramMaster> program { get; set; }
+    }
+    public class FeesStructure
+    {
+        public List<FeesType> FeesTypes { get; set; }
+        public List<AccountManagement> Fees { get; set; }
     }
 }
