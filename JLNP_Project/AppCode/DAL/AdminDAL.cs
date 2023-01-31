@@ -11,18 +11,18 @@ namespace JLNP_Project.AppCode.DAL
         SubjectMaster subjectMaster = new SubjectMaster();
         public SubjectMaster DashboardSummary(string Action)
         {
-            var procanme = "Proc_DashboardSummay";//Procedure name
+            var procanme = "Proc_DashboardSummay";//Procedure name''
             SqlParameter[] param = new SqlParameter[]
             {
                 new SqlParameter("@Action",Action)
             };
-            var ds = dbh.ExcProc_Dataset(procanme, param);
-            if (ds.Tables[0].Rows.Count > 0)
+            var ds = dbh.ExcProc(procanme, param);
+            if (ds.Rows.Count > 0)
             {
-                subjectMaster.TeacherCount = Convert.ToString(ds.Tables[0].Rows[0]["Teacher_Count"].ToString());
-                subjectMaster.BranchCount = Convert.ToString(ds.Tables[2].Rows[0]["Branch_Count"].ToString());
-                subjectMaster.RegistrationCount = Convert.ToString(ds.Tables[3].Rows[0]["Registration_Count"].ToString());
-                subjectMaster.AdmissionCount = Convert.ToString(ds.Tables[1].Rows[0]["Admission_Count"].ToString());
+                subjectMaster.TeacherCount = Convert.ToString(ds.Rows[0]["Teacher_Count"].ToString());
+                subjectMaster.BranchCount = Convert.ToString(ds.Rows[0]["Branch_Count"].ToString());
+                subjectMaster.RegistrationCount = Convert.ToString(ds.Rows[0]["Registration_Count"].ToString());
+                subjectMaster.AdmissionCount = Convert.ToString(ds.Rows[0]["Admission_Count"].ToString());
             }
             return subjectMaster;
         }

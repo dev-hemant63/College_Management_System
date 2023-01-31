@@ -1,8 +1,9 @@
-﻿@{
+﻿@using System.Data
+@{
     Layout = "_LayoutAdmin";
     int i = 0;
 }
-@model FeesStructure
+@model DataTable
 <div class="">
     <div class="">
         <div class="row">
@@ -13,29 +14,26 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive" style="margin-top:12px;">
+                            <div style="display: flex; float: right;" class="mb-3">
+                                <a class="btn btn-warning btn-sm" href="/BranchFeesPrint" >Print</a>
+                            </div>
                             <table class="table table-bordered mb-0" id="tblbranchfees">
                                 <thead class="bg-primary">
                                     <tr>
-                                        <th>#</th>
-                                        <th>Program</th>
-                                        <th>Branch</th>
-                                        <th>Year</th>
-                                        @foreach (var item1 in Model.FeesTypes)
+                                        @for (i = 0; i < Model.Columns.Count; i++)
                                         {
-                                            <th>@item1.FeesTypes</th>
+                                            <th>@Model.Columns[i]</th>
                                         }
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item2 in Model.Fees)
+                                    @for (i = 0; i < Model.Rows.Count; i++)
                                     {
-                                        i++;
                                         <tr>
-                                            <td>@i</td>
-                                            <td>@item2.ProgramName</td>
-                                            <td>@item2.Branch</td>
-                                            <td>@item2.Year</td>
-                                            <td>@item2.Amount</td>
+                                            @for (int j = 0; j < Model.Columns.Count; j++)
+                                            {
+                                                <td>@Model.Rows[i][j]</td>
+                                            }
                                         </tr>
                                     }
                                 </tbody>

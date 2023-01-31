@@ -153,7 +153,7 @@
         });
     }
     var Bindfeestype = () => {
-        $.post('/AccountManagement/Bindfeestype', { Year: $('#ddlyear option:selected').val(), ProgramId: $('#ddlprogram option:selected').val(), Branch: $('#ddlbranch option:selected').val() }).done(function(result) {
+        $.post('/AccountManagement/BindfeestypeByYear', { Year: $('#ddlyear option:selected').val(), ProgramId: $('#ddlprogram option:selected').val(), Branch: $('#ddlbranch option:selected').val() }).done(function(result) {
             $('#ddlfeestype').empty();
             for (var i = 0; i < result.length; i++) {
                 $('#ddlfeestype').append('<option value="' + result[i].id + '">' + result[i].feesTypes + '</option>')

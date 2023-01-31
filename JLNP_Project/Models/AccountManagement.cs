@@ -17,6 +17,10 @@
         public string ProgramName { get; set; }
         public int FeesType { get; set; }
         public string FeesTypeName { get; set; }
+        public string EnrollmentNo { get; set; }
+        public string CheckNumber { get; set; }
+        public int TransactionID { get; set; }
+        public decimal TotalAmount { get; set; }
     }
     public class DefineFeesStructureReqRes
     {
@@ -38,6 +42,8 @@
     {
         public int ID { get; set; }
         public string FeesTypes { get; set; }
+        public decimal TotalFees { get; set; }
+        public decimal Amount { get; set; }
     }
     public class EditFeesHead
     {
@@ -48,5 +54,42 @@
     {
         public List<FeesType> FeesTypes { get; set; }
         public List<AccountManagement> Fees { get; set; }
+    }
+    public class FeesSubmissionMode
+    {
+        public int ID { get; set; }
+        public string Mode { get; set; }
+    }
+    public class TransctionDetails
+    {
+        public string Name { get; set; }
+        public string EnrollmentNo { get; set; }
+        public string Program { get; set; }
+        public string Branch { get; set; }
+        public string EntryDate { get; set; }
+        public string Mode { get; set; }
+        public decimal TotalFees { get; set; }
+        public decimal SubmitedFees { get; set; }
+        public decimal DueFees { get; set; }
+    }
+    public class FeesReceipt
+    {
+        public string Name { get; set; }
+        public string EnrollmentNo { get; set; }
+        public string Program { get; set; }
+        public string Branch { get; set; }
+        public decimal TotalFees { get; set; }
+        public decimal SubmitedFees { get; set; }
+        public decimal DueFees { get; set; }
+        public string Mode { get; set; }
+        public string EntryDate { get; set; }
+        public string FeesReceiptNo { get; set; }
+        public string City { get; set; } = "Lucknow";
+        public string State { get; set; } = "Uttar Pradesh";
+        public string Pincode { get; set; } = "226010";
+        public string Country { get; set; } = "India";
+        public string Mobile { get; set; }
+        public string Year { get; set; }
+        public List<FeesType> feestype { get; set; }
     }
 }
