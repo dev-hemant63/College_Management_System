@@ -61,10 +61,12 @@
                         <div class="form-group">
                             <label for="UserId">UserName</label>
                             <input class="form-control" id="UserId" type="text" placeholder="User Name" required>
+                            <span class="d-none text-danger" id="UserIdsp">Enter UserName</span>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input class="form-control" id="password" type="password" placeholder="Password" required>
+                            <span class="d-none text-danger" id="passwordsp">Enter Password</span>
                             <span class="text-danger" id="msg"></span>
                         </div>
                         <button class="btn btn-block login-btn" type="submit" id="login" style="margin-top: 12px;">Sign In</button>
@@ -82,19 +84,18 @@
 <script>
     $(document).ready(function() {
         $('#login').click(function() {
-            preloader.load();
             if ($('#ddlusertype :selected').val() == '') {
                 alert('Please select Login Type');
                 $('#ddlusertype').focus();
                 return false;
             }
             if ($('#UserId').val() == '') {
-                alert('Please Enter Ueser Name');
+                $('#UserIdsp').removeClass('d-none');
                 $('#UserId').focus();
                 return false;
             }
             if ($('#password').val() == '') {
-                alert('Please Enter Password');
+                $('#passwordsp').removeClass('d-none');
                 $('#password').focus();
                 return false;
             }
@@ -103,6 +104,7 @@
                 UserId: $('#UserId').val(),
                 Password: $('#password').val()
             }
+            preloader.load();
             $.post('/Account/Login', obj).done(function(result) {
                 preloader.remove();
                 if (result.loginTypeId == 1) {

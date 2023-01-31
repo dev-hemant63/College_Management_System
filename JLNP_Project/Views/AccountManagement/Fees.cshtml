@@ -1,87 +1,165 @@
 ﻿@{
     Layout = "_LayoutAdmin";
 }
-<link href="~/dist/sweetalert2.min.css" rel="stylesheet" type="text/css" />
-<link href="~/dist/sweetalert2.css" rel="stylesheet" type="text/css" />
+@model List<ProgramMaster>
 <div class="">
     <div class="">
         <div class="row">
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-header bgred">
-                            <h4 style="color:white;">Fees Submition</h4>
-                        </div>
+                        <h4 style="color:white;">Student Fees Submition</h4>
+                    </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group"><label>Student Name</label> <input type="text" required placeholder="Student Name" class="form-control" id="name"> </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group"><label>Father Name</label> <input type="text" required placeholder="Father Name" class="form-control" id="fname"> </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Select Branch</label>
-                                    <select id="ddlbranch" class="form-control" required>
-                                        <option value="">--Select Branch--</option>
-                                        <option value="Civil">Civil</option>
-                                    </select>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Enrollment Number</label>
+                                            <input type="text" placeholder="Enrollment Number" class="form-control" value="" id="enrolmnt" onblur="Getstudentdetail()">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Program</label>
+                                            <select id="ddlprogram" class="form-control" onchange="Bindbranch()">
+                                                <option value="">--Select Program--</option>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <option value="@item.Id">@item.Program</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Branch</label>
+                                            <select id="ddlbranch" class="form-control">
+                                                <option value="">--Select Branch--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Select Year</label>
+                                            <select id="ddlyear" class="form-control" onchange="Bindfeestype()">
+                                                <option value="">--Select Year--</option>
+                                                <option value="1">1 Year</option>
+                                                <option value="2">2 Year</option>
+                                                <option value="3">3 Year</option>
+                                                <option value="4">4 Year</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Total Amount</label>
+                                            <input type="text" placeholder="Total Amount" class="form-control" value="" id="ttlamount" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Amount</label>
+                                            <input type="number" placeholder="Amount" class="form-control" value="" id="amount">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Student Name</label>
+                                            <input type="text" required placeholder="Student Name" class="form-control" id="name" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Father Name</label>
+                                            <input type="text" required placeholder="Father Name" class="form-control" id="fname" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Fees Submition Mode</label>
+                                            <select id="ddlMode" class="form-control" onchange="checknumber()">
+                                                <option value="">--Select Submition Mode--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 d-none" id="divcheck">
+                                        <div class="form-group">
+                                            <label>Check Number</label>
+                                            <input type="number" placeholder="Check Number" class="form-control" id="txtchecknumber">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button type="button" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" style="width: 50%; margin-top: 22px;" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit()">Submit</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Select Year</label>
-                                    <select id="ddlyear" class="form-control" onchange="BindAmount()">
-                                        <option value="">--Select Year--</option>
-                                        <option value="1">1 Year</option>
-                                        <option value="2">2 Year</option>
-                                        <option value="3">3 Year</option>
-                                    </select>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" style="border: 1px solid gray;" id="tblfees">
+                                            <thead class="bg-primary">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Fees Name</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="3" class="text-danger taxt-center">Record Not Found</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group"><label>Amount</label> <input type="text" placeholder="Amount" class="form-control" value="" id="amount" disabled> </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Fees Submition Mode</label>
-                                    <select id="ddlMode" class="form-control">
-                                        <option value="">--Select Submition Mode--</option>
-                                        <option value="Cash">Cash</option>
-                                        <option value="Online">Online</option>
-                                    </select>
-                                </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" style="border: 1px solid gray;" id="tblheastory">
+                                    <thead class="bg-primary">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Program</th>
+                                            <th>Total Fees</th>
+                                            <th>Paid Fees</th>
+                                            <th>Due Fees</th>
+                                            <th>EntryOn</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="row" style="justify-content: right;">
-                            <button type="button" style="width:12%;" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit()">Submit</button>
-                        </div>
-                        <!-- end row -->
                     </div>
                 </div>
             </div>
-            <!-- end col -->
         </div>
     </div>
 </div>
-<script src="~/js/jquery.min.js"></script>
-<script src="~/dist/sweetalert2.all.min.js"></script>
-<script src="~/dist/sweetalert2.all.js"></script>
 <script>
     $(document).ready(function() {
-        Bindbranch();
+        Bindfeesmode();
     });
     var btnsubmit = () => {
-        if ($('#name').val() == '') {
+        if ($('#enrolmnt').val() == '') {
             alert("Please Fill Requered Inpormation..");
-            $('#name').focus();
+            $('#enrolmnt').focus();
             return false;
         }
-        if ($('#fname').val() == '') {
-            alert("Please Fill Requered Inpormation..");
-            $('#fname').focus();
+        if ($('#ddlprogram option:selected').val() == '') {
+            alert("Please Select Program");
+            $('#ddlprogram').focus();
             return false;
         }
         if ($('#ddlbranch option:selected').val() == '') {
@@ -94,6 +172,11 @@
             $('#ddlyear').focus();
             return false;
         }
+        if ($('#ttlamount').val() == '') {
+            alert("Please Enter Amount");
+            $('#amount').focus();
+            return false;
+        }
         if ($('#amount').val() == '') {
             alert("Please Enter Amount");
             $('#amount').focus();
@@ -104,58 +187,112 @@
             $('#ddlMode').focus();
             return false;
         }
+        if ($('#ddlMode option:selected').val() == '2') {
+            if ($('#txtchecknumber').val() == '') {
+                alert("Please Enter Check Number");
+                $('#txtchecknumber').focus();
+                return false;
+            }
+        }
         let data = {
+            Program: $('#ddlprogram option:selected').val(),
+            //FeesType: $('#ddlfeestype option:selected').val(),
             StudentName: $('#name').val(),
             FatherName: $('#fname').val(),
             Branch: $('#ddlbranch option:selected').val(),
             Year: $('#ddlyear option:selected').val(),
+            TotalAmount: $('#ttlamount').val(),
             Amount: $('#amount').val(),
+            CheckNumber: $('#txtchecknumber').val(),
+            EnrollmentNo: $('#enrolmnt').val(),
             FeesSubmitionMode: $('#ddlMode option:selected').val()
         }
-        //console.log(data);
         $.post('/AccountManagement/Feessubmition', data).done(function(result) {
-            if (result.statuscode == "1") {
-                swal.fire({
-                    title: "Success",
-                    text: result.msg,
-                    icon: "success"
-                });
-                $('input').val();
-                $('#ddlbranch option:selected').text();
-                $('#ddlyear option:selected').text();
-                $('#ddlMode option:selected').text();
-                return;
+            if (result.statuscode == -1) {
+                alertnotify(result.statuscode, result.msg);
             }
-            if (result.statuscode == "-1") {
-                alert(result.msg);
-                return false;
+            else {
+                $('input').val('');
+                $('#ddlprogram').val('').text('');
+                $('#ddlfeestype').val('').text('');
+                $('#ddlbranch').val('').text('');
+                $('#ddlyear').val('').text('');
+                $('#ddlMode').val('').text('');
+                showModel(result);
             }
-            window.location.reload();
         }).fail(function(xhr) {
-            console.log(xhr.responseText)
+            console.log(xhr.responseText);
+            alert('Server Error');
         });
     }
     var BindAmount = () => {
         let obj = {
             Branch: $('#ddlbranch option:selected').val(),
             Year: $('#ddlyear option:selected').val(),
+            Program: $('#ddlprogram option:selected').val(),
+            FeesType: $('#ddlfeestype option:selected').val(),
         }
         $.post('/AccountManagement/BindAmount', obj).done(function(result) {
-            console.log(result)
             $('#amount').attr('value', result.amount);
         }).fail(function(xhr) {
             console.log(xhr.responseText)
         });
     }
     var Bindbranch = () => {
-        $.post('/AccountManagement/BindBranch').done(function(result) {
-            console.log(result);
-            $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
+        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlprogram option:selected').val() }).done(function(result) {
+            $('#ddlbranch').empty();
             for (var i = 0; i < result.length; i++) {
                 $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
             }
         }).fail(function(xhr) {
             console.log(xhr.responseText)
+        });
+    }
+    var Bindfeestype = () => {
+        $.post('/AccountManagement/Bindfeestype', { Year: $('#ddlyear option:selected').val(), ProgramId: $('#ddlprogram option:selected').val(), Branch: $('#ddlbranch option:selected').val() }).done(function(result) {
+            $('#tblfees tbody').empty();
+            for (var i = 0; i < result.length; i++) {
+                $('#tblfees tbody').append('<tr><td>*</td><td>' + result[i].feesTypes + '</td><td>' + result[i].amount + '</td></tr>')
+            }
+            $('#ttlamount').val(result[0].totalFees);
+            $('#tblfees tbody').append('<tr class="bg-primary"><td></td><td>Total</td><td>' + result[0].totalFees + '</td></tr>');
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var Bindfeesmode = () => {
+        $.post('/AccountManagement/BindFeesSubmissionMode').done(function(result) {
+            $('#ddlMode').empty();
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlMode').append('<option value="' + result[i].id + '">' + result[i].mode + '</option>')
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+    }
+    var checknumber = function() {
+        if ($('#ddlMode option:selected').val() == '2') {
+            $('#divcheck').removeClass('d-none');
+        }
+        else {
+            $('#divcheck').addClass('d-none');
+        }
+    }
+    var Getstudentdetail = () => {
+        $.post('/Getstudentdetail', { EnrollmentNo: $('#enrolmnt').val() }).done(function(result) {
+            $('#name').val(result.studentName);
+            $('#fname').val(result.fatherName);
+            GetTransctionHistory();
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+    }
+    var GetTransctionHistory = () => {
+        $.post('/AccountManagement/GetTransctionHistory', { EnrollmentNo: $('#enrolmnt').val() }).done(function(result) {
+            $('#tblheastory tbody').empty();
+            $('#tblheastory tbody').append(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
         });
     }
 </script>

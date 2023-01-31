@@ -111,11 +111,20 @@ namespace JLNP_Project.Controllers
             }
             return Json(accountManagement);
         }
+        [HttpPost]
+        public IActionResult BindFeesSubmissionMode()
+        {
+            var res = new AccountManagement_BAL();
+            var data = res.BindFeesSubmissionMode();
+            return Json(data);
+        }
         public IActionResult Fees()
         {
             if (_lr.UserName != null)
             {
-                return View();
+                IMasterML ml = new MasterML();
+                var res = ml.GetProgram();
+                return View(res);
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -146,19 +155,50 @@ namespace JLNP_Project.Controllers
         public IActionResult Feessubmition(AccountManagement accountManagement)
         {
             AccountManagement_BAL AmDAL = new AccountManagement_BAL();
-            accountManagement.Action = "Add";
-            var dt = AmDAL.FeesSubmition_BAL(accountManagement);
             ResponseStatus res = new ResponseStatus
             {
                 statuscode = -1,
                 Msg = "Temp Error"
             };
-            if (dt.Rows.Count > 0)
+            if (accountManagement.FeesSubmitionMode == "1" || accountManagement.FeesSubmitionMode == "2")
             {
-                res.statuscode = Convert.ToInt32(dt.Rows[0]["statuscode"]);
-                res.Msg = Convert.ToString(dt.Rows[0]["Msg"].ToString());
+                var dt = AmDAL.FeesSubmition_BAL(accountManagement);
+                if (dt.Rows.Count > 0)
+                {
+                    res.statuscode = Convert.ToInt32(dt.Rows[0]["statuscode"]);
+                    res.Msg = Convert.ToString(dt.Rows[0]["Msg"].ToString());
+                    if (res.statuscode == 1)
+                    {
+                        res.FeesReceiptNo = Convert.ToString(dt.Rows[0]["ReceiptNo"].ToString());
+                    }
+                }
+            }
+            else
+            {
+                res.statuscode = -1;
+                res.Msg = "Online payment is not integrated now.";
+            }
+            if (res.statuscode == 1)
+            {
+                var receipt = AmDAL.FeesReceipt(accountManagement.EnrollmentNo);
+                return PartialView("Partial/_FeesReceipt", receipt);
             }
             return Json(res);
+        }
+        [HttpPost]
+        [Route("Getstudentdetail")]
+        public IActionResult Getstudentdetail(string EnrollmentNo)
+        {
+            AccountManagement_BAL AmDAL = new AccountManagement_BAL();
+            var res = AmDAL.Getstudentdetail(EnrollmentNo);
+            return Json(res);
+        }
+        [HttpPost]
+        public IActionResult GetTransctionHistory(string EnrollmentNo)
+        {
+            AccountManagement_BAL AmDAL = new AccountManagement_BAL();
+            var res = AmDAL.GetTransctionHistory(EnrollmentNo);
+            return PartialView("Partial/_GetTransctionHistory", res);
         }
         public IActionResult StudentSubmitFees()
         {
@@ -180,13 +220,20 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                FeesStructure model = new FeesStructure();
-                AccountManagement accountManagement = new AccountManagement();
                 AccountManagement_BAL AmDAL = new AccountManagement_BAL();
-                accountManagement.Action = "Get";
-                model.FeesTypes = _accountBAL.BindFeesType();
-                model.Fees = AmDAL.BranchFees_BAL(accountManagement);
-                return View(model);
+                var dt = AmDAL.FeesStructure();
+                return View(dt);
+            }
+            return RedirectToAction("UsersLogin", "Account");
+        }
+        [Route("BranchFeesPrint")]
+        public IActionResult BranchFeesPrint()
+        {
+            if (_lr.UserName != null)
+            {
+                AccountManagement_BAL AmDAL = new AccountManagement_BAL();
+                var dt = AmDAL.FeesStructure();
+                return View(dt);
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -243,6 +290,12 @@ namespace JLNP_Project.Controllers
                 res.statuscode = Convert.ToInt32(dt.Rows[0]["statuscode"]);
                 res.Msg = Convert.ToString(dt.Rows[0]["Msg"].ToString());
             }
+            return Json(res);
+        }
+        [HttpPost]
+        public IActionResult BindfeestypeByYear(int Year, int ProgramId, int Branch)
+        {
+            var res = _accountBAL.BindFeesTypeByYear(Year, ProgramId, Branch);
             return Json(res);
         }
         [HttpPost]

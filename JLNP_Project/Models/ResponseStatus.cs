@@ -7,5 +7,6 @@
         public string UserName { get; set; }
         public int LoginTypeId { get; set; }
         public string RegistrationNo { get; set; }
+        public string FeesReceiptNo { get; set; }
     }
 }

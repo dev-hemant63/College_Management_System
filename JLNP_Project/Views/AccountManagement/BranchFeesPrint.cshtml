@@ -1,0 +1,48 @@
+﻿@using System.Data
+@{
+    Layout = null;
+    int i = 0;
+}
+@model DataTable
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="~/Assessts3/css/style.css">
+<link href="~/css/Custom.css" rel="stylesheet" type="text/css">
+<link href="~/css/yearpicker.css" rel="stylesheet" type="text/css">
+<link href="~/css/jquery-ui.css" rel="stylesheet" type="text/css">
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bgred">
+                <h4 style="color:white;">Fees Structure</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive" style="margin-top:12px;">
+                    <div style="display: flex; float: right;" class="mb-3">
+                        <button class="btn btn-warning" onclick="window.print()">Print</button>
+                    </div>
+                    <table class="table table-bordered mb-0" id="tblbranchfees">
+                        <thead class="bg-primary">
+                            <tr>
+                                @for (i = 0; i < Model.Columns.Count; i++)
+                                {
+                                    <th>@Model.Columns[i]</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (i = 0; i < Model.Rows.Count; i++)
+                            {
+                                <tr>
+                                    @for (int j = 0; j < Model.Columns.Count; j++)
+                                    {
+                                        <td>@Model.Rows[i][j]</td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

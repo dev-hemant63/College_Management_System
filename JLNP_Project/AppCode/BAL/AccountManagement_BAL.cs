@@ -21,8 +21,12 @@ namespace JLNP_Project.AppCode.BAL
         }
         public DataTable FeesSubmition_BAL(AccountManagement accountManagement)
         {
+            DataTable dt = new DataTable();
             AccountManagement_DAL AmaDAL = new AccountManagement_DAL();
-            var dt = AmaDAL.FeesSubmition_DAL(accountManagement);
+            if (accountManagement.FeesSubmitionMode == "1" || accountManagement.FeesSubmitionMode == "2")
+            {
+                dt = AmaDAL.FeesSubmition_DAL(accountManagement);
+            }
             return dt;
         }
         public List<AccountManagement> Student_Submit_Fees_BAL(AccountManagement accountManagement)
@@ -117,9 +121,39 @@ namespace JLNP_Project.AppCode.BAL
             var res = _accountDAL.Deletefeestype(Id);
             return res;
         }
-        public List<FeesType> BindFeesType(int Year=0, int ProgramId=0, int Branch = 0)
+        public List<FeesType> BindFeesType(int Year = 0, int ProgramId = 0, int Branch = 0)
         {
             var res = _accountDAL.BindFeesType(Year, ProgramId, Branch);
+            return res;
+        }
+        public List<FeesType> BindFeesTypeByYear(int Year = 0, int ProgramId = 0, int Branch = 0)
+        {
+            var res = _accountDAL.BindFeesTypeByYear(Year, ProgramId, Branch);
+            return res;
+        }
+        public DataTable FeesStructure()
+        {
+            var res = _accountDAL.GetFeesStructure();
+            return res;
+        }
+        public List<FeesSubmissionMode> BindFeesSubmissionMode()
+        {
+            var res = _accountDAL.BindFeesSubmissionMode();
+            return res;
+        }
+        public AccountManagement Getstudentdetail(string EnrollmentNo)
+        {
+            var res = _accountDAL.Getstudentdetail(EnrollmentNo);
+            return res;
+        }
+        public List<TransctionDetails> GetTransctionHistory(string EnrollmentNo = "")
+        {
+            var res = _accountDAL.GetTransctionHistory(EnrollmentNo);
+            return res;
+        }
+        public FeesReceipt FeesReceipt(string EnrollmentNo)
+        {
+            var res = _accountDAL.FeesReceipt(EnrollmentNo);
             return res;
         }
     }
