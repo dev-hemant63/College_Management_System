@@ -383,7 +383,8 @@ namespace JLNP_Project.AppCode.DAL
                     FeesReceiptNo = Convert.ToString(dt.Rows[0]["FeesReceiptNo"]),
                     Mode = Convert.ToString(dt.Rows[0]["Mode"].ToString()),
                     Mobile = Convert.ToString(dt.Rows[0]["Mobile"].ToString()),
-                    Year = Convert.ToString(dt.Rows[0]["_Year"].ToString())
+                    Year = Convert.ToString(dt.Rows[0]["_Year"].ToString()),
+                    Email = Convert.ToString(dt.Rows[0]["Email"].ToString()),
                 };
                 res = data;
             }

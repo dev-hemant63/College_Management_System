@@ -90,6 +90,7 @@
         public string Country { get; set; } = "India";
         public string Mobile { get; set; }
         public string Year { get; set; }
+        public string Email { get; set; }
         public List<FeesType> feestype { get; set; }
     }
 }

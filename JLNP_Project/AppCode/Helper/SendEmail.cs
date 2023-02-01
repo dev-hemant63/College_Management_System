@@ -22,7 +22,7 @@ namespace JLNP_Project.AppCode.Helper
                 massage.From = new MailAddress(frommail);
                 massage.Subject = "Jawahar lal Neharu Polytechnic";
                 massage.To.Add(new MailAddress(EmailAddress));
-                massage.Body = $"<html><body><h3>"+ title + "</h3><br>"+ Msg + "</body></html>";
+                massage.Body = Msg;
                 massage.IsBodyHtml = true;
 
                 var smtpclient = new SmtpClient("smtp.gmail.com")
@@ -37,7 +37,7 @@ namespace JLNP_Project.AppCode.Helper
             }
             catch (Exception ex)
             {
-
+                res.Msg = ex.Message;
             }
             return res;
         }

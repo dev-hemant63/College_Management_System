@@ -219,6 +219,7 @@
                 $('#ddlyear').val('').text('');
                 $('#ddlMode').val('').text('');
                 showModel(result);
+                SendReceipt(result);
             }
         }).fail(function(xhr) {
             console.log(xhr.responseText);
@@ -291,6 +292,18 @@
         $.post('/AccountManagement/GetTransctionHistory', { EnrollmentNo: $('#enrolmnt').val() }).done(function(result) {
             $('#tblheastory tbody').empty();
             $('#tblheastory tbody').append(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+    }
+    var SendReceipt = (res) => {
+        $.post('/AccountManagement/SendFeesReceipt', { Req:res,email:$('#hdnid').val()}).done(function(result) {
+            if (result.statuscode == 1) {
+
+            }
+            else {
+                alertnotify(result.statuscode,result.msg);
+            }
         }).fail(function(xhr) {
             console.log(xhr.responseText);
         });

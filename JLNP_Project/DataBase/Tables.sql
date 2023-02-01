@@ -1,6 +1,6 @@
 USE [DB_CollageManagement]
 GO
-/****** Object:  Table [dbo].[tbl_Assignment]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_Assignment]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19,7 +19,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_AssignSubject]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_AssignSubject]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -38,7 +38,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_BatchMaster]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_BatchMaster]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -55,7 +55,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_Branch]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_Branch]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -72,7 +72,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_FeesHead]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_FeesHead]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -94,7 +94,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_FeesSubmissionModes]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_FeesSubmissionModes]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -109,7 +109,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_Feessubmition]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_Feessubmition]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -135,7 +135,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_FeesType]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_FeesType]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -154,7 +154,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_login]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_login]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -174,7 +174,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_MasterRole]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_MasterRole]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -190,7 +190,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_Notifications]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_Notifications]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -210,7 +210,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_Program]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_Program]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -230,7 +230,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_ProgramBranchMapping]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_ProgramBranchMapping]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -250,7 +250,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_ProjectReport]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_ProjectReport]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -271,7 +271,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_student]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_student]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -298,7 +298,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_Student_Admission]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_Student_Admission]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -328,7 +328,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_StudentAttandance]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_StudentAttandance]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -343,7 +343,7 @@ CREATE TABLE [dbo].[tbl_StudentAttandance](
 	[IsAbsent] [int] NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_Studentfine]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_Studentfine]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -365,7 +365,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_StudentLedger]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_StudentLedger]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -385,7 +385,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_SubjectMaster]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_SubjectMaster]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -410,7 +410,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_Syllabus]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_Syllabus]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -432,7 +432,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_Teacher]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_Teacher]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -455,7 +455,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_TimeTable]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_TimeTable]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -480,7 +480,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbl_VideoLectures]    Script Date: 31-01-2023 18:53:02 ******/
+/****** Object:  Table [dbo].[tbl_VideoLectures]    Script Date: 01-02-2023 18:27:12 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -578,6 +578,12 @@ INSERT [dbo].[tbl_Feessubmition] ([Id], [StudentName], [FatherName], [Branch], [
 GO
 INSERT [dbo].[tbl_Feessubmition] ([Id], [StudentName], [FatherName], [Branch], [_Year], [Amount], [FeesSubmitionMode], [EntryDate], [Program], [FeesType], [CheckNumber], [TransctionID], [Enrollment], [FeesReceiptNo]) VALUES (14, N'Hemant', N'Ramlakhan nag', N'1010', N'1', N'5000', N'1', CAST(N'2023-01-31T17:36:46.380' AS DateTime), 5, 0, NULL, NULL, N'E202300000', N'202300000001')
 GO
+INSERT [dbo].[tbl_Feessubmition] ([Id], [StudentName], [FatherName], [Branch], [_Year], [Amount], [FeesSubmitionMode], [EntryDate], [Program], [FeesType], [CheckNumber], [TransctionID], [Enrollment], [FeesReceiptNo]) VALUES (15, N'Raj', N'Prakash Mishra', N'1020', N'1', N'5460', N'2', CAST(N'2023-02-01T10:42:26.420' AS DateTime), 6, 0, 123456, NULL, N'E202300001', N'202300000001')
+GO
+INSERT [dbo].[tbl_Feessubmition] ([Id], [StudentName], [FatherName], [Branch], [_Year], [Amount], [FeesSubmitionMode], [EntryDate], [Program], [FeesType], [CheckNumber], [TransctionID], [Enrollment], [FeesReceiptNo]) VALUES (16, N'Raj', N'Prakash Mishra', N'1020', N'1', N'20000', N'1', CAST(N'2023-02-01T11:31:53.037' AS DateTime), 6, 0, NULL, NULL, N'E202300001', N'202300000001')
+GO
+INSERT [dbo].[tbl_Feessubmition] ([Id], [StudentName], [FatherName], [Branch], [_Year], [Amount], [FeesSubmitionMode], [EntryDate], [Program], [FeesType], [CheckNumber], [TransctionID], [Enrollment], [FeesReceiptNo]) VALUES (17, N'Raj', N'Prakash Mishra', N'1020', N'1', N'10000', N'1', CAST(N'2023-02-01T11:37:16.173' AS DateTime), 6, 0, NULL, NULL, N'E202300001', N'202300000001')
+GO
 SET IDENTITY_INSERT [dbo].[tbl_Feessubmition] OFF
 GO
 SET IDENTITY_INSERT [dbo].[tbl_FeesType] ON 
@@ -600,7 +606,7 @@ INSERT [dbo].[tbl_FeesType] ([Id], [Program], [Branch], [Year], [FeesType], [Ent
 GO
 INSERT [dbo].[tbl_FeesType] ([Id], [Program], [Branch], [Year], [FeesType], [EntryDate], [ModifyDate]) VALUES (12, 6, 1020, 1, N'Registration Fees ', CAST(N'2023-01-31T17:42:31.420' AS DateTime), NULL)
 GO
-INSERT [dbo].[tbl_FeesType] ([Id], [Program], [Branch], [Year], [FeesType], [EntryDate], [ModifyDate]) VALUES (13, 6, 1020, 1, N'Stort Fees', CAST(N'2023-01-31T17:42:47.160' AS DateTime), NULL)
+INSERT [dbo].[tbl_FeesType] ([Id], [Program], [Branch], [Year], [FeesType], [EntryDate], [ModifyDate]) VALUES (13, 6, 1020, 1, N'Sport Fees', CAST(N'2023-01-31T17:42:47.160' AS DateTime), CAST(N'2023-02-01T11:43:30.463' AS DateTime))
 GO
 SET IDENTITY_INSERT [dbo].[tbl_FeesType] OFF
 GO
@@ -610,9 +616,7 @@ INSERT [dbo].[tbl_login] ([ID], [Name], [UserId], [LoginTypeId], [Password], [En
 GO
 INSERT [dbo].[tbl_login] ([ID], [Name], [UserId], [LoginTypeId], [Password], [EntryDate], [_UId], [IsActive]) VALUES (3, N'Hemant', N'E202300000', 3, N'6390749256', CAST(N'2023-01-06T16:47:27.900' AS DateTime), 2, 1)
 GO
-INSERT [dbo].[tbl_login] ([ID], [Name], [UserId], [LoginTypeId], [Password], [EntryDate], [_UId], [IsActive]) VALUES (10, N'Shivam Tiwari', N'E202300000', 3, N'8956784512', CAST(N'2023-01-23T14:30:36.177' AS DateTime), 3, 0)
-GO
-INSERT [dbo].[tbl_login] ([ID], [Name], [UserId], [LoginTypeId], [Password], [EntryDate], [_UId], [IsActive]) VALUES (11, N'Raj', N'E202300000', 3, N'8957180204', CAST(N'2023-01-31T18:21:56.720' AS DateTime), 4, NULL)
+INSERT [dbo].[tbl_login] ([ID], [Name], [UserId], [LoginTypeId], [Password], [EntryDate], [_UId], [IsActive]) VALUES (11, N'Raj', N'E202300001', 3, N'8957180204', CAST(N'2023-01-31T18:21:56.720' AS DateTime), 4, NULL)
 GO
 SET IDENTITY_INSERT [dbo].[tbl_login] OFF
 GO
@@ -709,6 +713,12 @@ GO
 INSERT [dbo].[tbl_StudentLedger] ([ID], [EnrollmentNo], [TotalFees], [TotalSubmitedFees], [Totalduefees], [EntryDate], [ModifyDate], [Mode]) VALUES (13, N'E202300000', CAST(25000.000000000 AS Numeric(18, 9)), CAST(20000.000000000 AS Numeric(18, 9)), CAST(5000.000000000 AS Numeric(18, 9)), CAST(N'2023-01-31T17:35:16.353' AS DateTime), NULL, 2)
 GO
 INSERT [dbo].[tbl_StudentLedger] ([ID], [EnrollmentNo], [TotalFees], [TotalSubmitedFees], [Totalduefees], [EntryDate], [ModifyDate], [Mode]) VALUES (14, N'E202300000', CAST(5000.000000000 AS Numeric(18, 9)), CAST(5000.000000000 AS Numeric(18, 9)), CAST(0.000000000 AS Numeric(18, 9)), CAST(N'2023-01-31T17:36:46.383' AS DateTime), NULL, 1)
+GO
+INSERT [dbo].[tbl_StudentLedger] ([ID], [EnrollmentNo], [TotalFees], [TotalSubmitedFees], [Totalduefees], [EntryDate], [ModifyDate], [Mode]) VALUES (15, N'E202300001', CAST(45460.000000000 AS Numeric(18, 9)), CAST(5460.000000000 AS Numeric(18, 9)), CAST(40000.000000000 AS Numeric(18, 9)), CAST(N'2023-02-01T10:42:26.420' AS DateTime), NULL, 2)
+GO
+INSERT [dbo].[tbl_StudentLedger] ([ID], [EnrollmentNo], [TotalFees], [TotalSubmitedFees], [Totalduefees], [EntryDate], [ModifyDate], [Mode]) VALUES (16, N'E202300001', CAST(40000.000000000 AS Numeric(18, 9)), CAST(20000.000000000 AS Numeric(18, 9)), CAST(20000.000000000 AS Numeric(18, 9)), CAST(N'2023-02-01T11:31:53.037' AS DateTime), NULL, 1)
+GO
+INSERT [dbo].[tbl_StudentLedger] ([ID], [EnrollmentNo], [TotalFees], [TotalSubmitedFees], [Totalduefees], [EntryDate], [ModifyDate], [Mode]) VALUES (17, N'E202300001', CAST(20000.000000000 AS Numeric(18, 9)), CAST(10000.000000000 AS Numeric(18, 9)), CAST(10000.000000000 AS Numeric(18, 9)), CAST(N'2023-02-01T11:37:16.173' AS DateTime), NULL, 1)
 GO
 SET IDENTITY_INSERT [dbo].[tbl_StudentLedger] OFF
 GO

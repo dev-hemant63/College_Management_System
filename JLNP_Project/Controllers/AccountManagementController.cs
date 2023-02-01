@@ -1,4 +1,5 @@
 ﻿using JLNP_Project.AppCode.BAL;
+using JLNP_Project.AppCode.Helper;
 using JLNP_Project.AppCode.Interface;
 using JLNP_Project.AppCode.Midlelayer;
 using JLNP_Project.Models;
@@ -183,6 +184,14 @@ namespace JLNP_Project.Controllers
                 var receipt = AmDAL.FeesReceipt(accountManagement.EnrollmentNo);
                 return PartialView("Partial/_FeesReceipt", receipt);
             }
+            return Json(res);
+        }
+        [HttpPost]
+        public IActionResult SendFeesReceipt(string Req,string email)
+        {
+            var ml = new SendEmail();
+            string title = $"Fees Receipt";
+            var res = ml.SendMail(email, title, Req);
             return Json(res);
         }
         [HttpPost]
