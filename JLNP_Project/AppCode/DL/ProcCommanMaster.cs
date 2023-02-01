@@ -482,7 +482,7 @@ namespace JLNP_Project.AppCode.DL
         public List<Branch> ProcBindProgramWiseBranch(int ProgranId)
         {
             var res = new List<Branch>();
-            string ProcName = "select tb.BranchId,tb.Branch_Name from tbl_ProgramBranchMapping tpm inner join tbl_Program tp on tpm.ProgramId = tp.Id inner join tbl_Branch tb on tpm.BranchId = tb.BranchId where tpm.ProgramId = @ProgranId"; // Query
+            string ProcName = "select tb.BranchId,tb.Branch_Name from tbl_ProgramBranchMapping tpm inner join tbl_Program tp on tpm.ProgramId = tp.Id inner join tbl_Branch tb on tpm.BranchId = tb.BranchId where tpm.ProgramId = @ProgranId group by tb.BranchId,tb.Branch_Name"; // Query
             SqlParameter[] param =
             {
                 new SqlParameter("@ProgranId",ProgranId)
