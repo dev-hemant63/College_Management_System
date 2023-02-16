@@ -136,5 +136,14 @@ namespace JLNP_Project.Controllers
             var response = ml.GetSyllabusMaster(ID, Path, BranchID);
             return PartialView("Partial/_GetSyllabusMaster", response);
         }
+        [HttpGet]
+        public IActionResult FeesTransctionReport()
+        {
+            if (_lr.UserName != null)
+            {
+                return View();
+            }
+            return RedirectToAction("UsersLogin", "Account");
+        }
     }
 }

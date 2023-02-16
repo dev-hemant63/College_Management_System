@@ -36,6 +36,7 @@ namespace JLNP_Project.AppCode.DAL
             cmd.Parameters.AddWithValue("@Year", Convert.ToInt32(accountManagement.Year));
             cmd.Parameters.AddWithValue("@Program", Convert.ToInt32(accountManagement.Program));
             cmd.Parameters.AddWithValue("@FeesType", Convert.ToInt32(accountManagement.FeesType));
+            cmd.Parameters.AddWithValue("@Enrollment", accountManagement.EnrollmentNo);
             DataTable dt = new DataTable();
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             sda.Fill(dt);
