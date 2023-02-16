@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Theme\" />
     <Folder Include="wwwroot\Content\" />
   </ItemGroup>
 
