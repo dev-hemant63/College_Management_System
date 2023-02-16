@@ -1,7 +1,14 @@
-﻿@{
-    Layout = "_LayoutAdmin";
+﻿@model FeesViewModel
+@{
+    if (@Model.RoleID == 1)
+    {
+        Layout = "_LayoutAdmin";
+    }
+    else
+    {
+        Layout = "_LayoutStudent";
+    }
 }
-@model List<ProgramMaster>
 <div class="">
     <div class="">
         <div class="row">
@@ -25,7 +32,7 @@
                                             <label>Program</label>
                                             <select id="ddlprogram" class="form-control" onchange="Bindbranch()">
                                                 <option value="">--Select Program--</option>
-                                                @foreach (var item in Model)
+                                                @foreach (var item in Model.program)
                                                 {
                                                     <option value="@item.Id">@item.Program</option>
                                                 }
@@ -83,9 +90,18 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Fees Submition Mode</label>
-                                            <select id="ddlMode" class="form-control" onchange="checknumber()">
-                                                <option value="">--Select Submition Mode--</option>
-                                            </select>
+                                            @if (Model.RoleID == 1)
+                                            {
+                                                <select id="ddlMode" class="form-control" onchange="checknumber()">
+                                                    <option value="">--Select Submition Mode--</option>
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                <select id="ddlMode" class="form-control" onchange="checknumber()" disabled>
+                                                    <option value="3">Online Payment</option>
+                                                </select>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -97,7 +113,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
-                                        <button type="button" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" style="width: 50%; margin-top: 22px;" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit()">Submit</button>
+                                        <button type="button" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit()">Submit</button>
                                     </div>
                                 </div>
                             </div>
@@ -232,9 +248,10 @@
             Year: $('#ddlyear option:selected').val(),
             Program: $('#ddlprogram option:selected').val(),
             FeesType: $('#ddlfeestype option:selected').val(),
+            EnrollmentNo: $('#enrolmnt').val()
         }
         $.post('/AccountManagement/BindAmount', obj).done(function(result) {
-            $('#amount').attr('value', result.amount);
+            $('#ttlamount').attr('value', result.amount);
         }).fail(function(xhr) {
             console.log(xhr.responseText)
         });
@@ -255,7 +272,6 @@
             for (var i = 0; i < result.length; i++) {
                 $('#tblfees tbody').append('<tr><td>*</td><td>' + result[i].feesTypes + '</td><td>' + result[i].amount + '</td></tr>')
             }
-            $('#ttlamount').val(result[0].totalFees);
             $('#tblfees tbody').append('<tr class="bg-primary"><td></td><td>Total</td><td>' + result[0].totalFees + '</td></tr>');
         }).fail(function(xhr) {
             console.log(xhr.responseText)
@@ -281,6 +297,7 @@
     }
     var Getstudentdetail = () => {
         $.post('/Getstudentdetail', { EnrollmentNo: $('#enrolmnt').val() }).done(function(result) {
+            BindAmount();
             $('#name').val(result.studentName);
             $('#fname').val(result.fatherName);
             GetTransctionHistory();
@@ -297,12 +314,12 @@
         });
     }
     var SendReceipt = (res) => {
-        $.post('/AccountManagement/SendFeesReceipt', { Req:res,email:$('#hdnid').val()}).done(function(result) {
+        $.post('/AccountManagement/SendFeesReceipt', { Req: res, email: $('#hdnid').val() }).done(function(result) {
             if (result.statuscode == 1) {
 
             }
             else {
-                alertnotify(result.statuscode,result.msg);
+                alertnotify(result.statuscode, result.msg);
             }
         }).fail(function(xhr) {
             console.log(xhr.responseText);

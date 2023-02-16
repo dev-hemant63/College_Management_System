@@ -22,6 +22,11 @@
         public int TransactionID { get; set; }
         public decimal TotalAmount { get; set; }
     }
+    public class FeesViewModel
+    {
+        public List<ProgramMaster> program { get; set; }
+        public int RoleID { get; set; }
+    }
     public class DefineFeesStructureReqRes
     {
         public int Id { get; set; }
@@ -92,5 +97,24 @@
         public string Year { get; set; }
         public string Email { get; set; }
         public List<FeesType> feestype { get; set; }
+    }
+    public class FeesReport
+    {
+        public string Name { get; set; }
+        public string Fathername { get; set; }
+        public string Program { get; set; }
+        public string _Year { get; set; }
+        public string Email { get; set; }
+        public int Fess_Status { get; set; }
+        public string Address { get; set; }
+        public string Branch_Name { get; set; }
+        public string EntrollmentNo { get; set; }
+        public string ReceiptNo { get; set; }
+        public string Mode { get; set; }
+        public decimal TotalbranchFees { get; set; }
+        public decimal TotalFees { get; set; }
+        public decimal SubmitedFees { get; set; }
+        public decimal DueFees { get; set; }
+        public string Entrydate { get; set; }
     }
 }

@@ -123,9 +123,11 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
+                FeesViewModel model = new FeesViewModel();
                 IMasterML ml = new MasterML();
-                var res = ml.GetProgram();
-                return View(res);
+                model.program = ml.GetProgram();
+                model.RoleID = _lr.UserId;
+                return View(model);
             }
             return RedirectToAction("UsersLogin", "Account");
         }
