@@ -17,6 +17,36 @@ namespace JLNP_Project.Controllers
         {
                 return View();
         }
+        [Route("teacher")]
+        public IActionResult teacher()
+        {
+            return View();
+        }
+        [Route("contact")]
+        public IActionResult Contact()
+        {
+            return View();
+        }
+        [Route("event-grid")]
+        public IActionResult eventgrid()
+        {
+            return View();
+        }
+        [Route("course-grid")]
+        public IActionResult coursegrid()
+        {
+            return View();
+        }
+        [Route("about")]
+        public IActionResult about()
+        {
+            return View();
+        }
+        [Route("gallery")]
+        public IActionResult gallery()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {
