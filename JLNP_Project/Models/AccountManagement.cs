@@ -16,11 +16,15 @@
         public int Program { get; set; }
         public string ProgramName { get; set; }
         public int FeesType { get; set; }
+        public int FeesStatus { get; set; }
         public string FeesTypeName { get; set; }
         public string EnrollmentNo { get; set; }
         public string CheckNumber { get; set; }
         public int TransactionID { get; set; }
         public decimal TotalAmount { get; set; }
+        public string Fromdate { get; set; }
+        public string Todate { get; set; }
+        public string Email { get; set; }
     }
     public class FeesViewModel
     {

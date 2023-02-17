@@ -65,9 +65,11 @@ namespace JLNP_Project.AppCode.DAL
         }
         public DataTable Student_Submit_Fees_DAL(AccountManagement accountManagement)
         {
-            SqlCommand cmd = new SqlCommand("proc_Feessubmition", con);
+            SqlCommand cmd = new SqlCommand("ProcFeesReport", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@Action", accountManagement.Action);
+            cmd.Parameters.AddWithValue("@FromDate", accountManagement.Fromdate);
+            cmd.Parameters.AddWithValue("@ToDate", accountManagement.Todate);
+            cmd.Parameters.AddWithValue("@EnrollmentNo", accountManagement.EnrollmentNo);
             DataTable dt = new DataTable();
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             sda.Fill(dt);

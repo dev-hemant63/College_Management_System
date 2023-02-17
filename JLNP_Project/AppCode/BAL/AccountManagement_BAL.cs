@@ -29,25 +29,32 @@ namespace JLNP_Project.AppCode.BAL
             }
             return dt;
         }
-        public List<AccountManagement> Student_Submit_Fees_BAL(AccountManagement accountManagement)
+        public List<FeesReport> Student_Submit_Fees_BAL(AccountManagement accountManagement)
         {
             AccountManagement_DAL AmaDAL = new AccountManagement_DAL();
-            var lst = new List<AccountManagement>();
+            var lst = new List<FeesReport>();
             var dt = AmaDAL.Student_Submit_Fees_DAL(accountManagement);
             if (dt.Rows.Count > 0)
             {
                 foreach (DataRow dr in dt.Rows)
                 {
-                    AccountManagement accountmanagement = new AccountManagement
+                    FeesReport accountmanagement = new FeesReport
                     {
-                        Id = Convert.ToInt32(dr["Id"]),
-                        StudentName = Convert.ToString(dr["StudentName"].ToString()),
-                        FatherName = Convert.ToString(dr["FatherName"].ToString()),
-                        Branch = Convert.ToString(dr["Branch"].ToString()),
-                        Year = Convert.ToString(dr["_Year"].ToString()),
-                        Amount = Convert.ToString(dr["Amount"].ToString()),
-                        FeesSubmitionMode = Convert.ToString(dr["FeesSubmitionMode"].ToString()),
-                        EntryDate = Convert.ToString(dr["EntryDate"].ToString()),
+                        Fess_Status = Convert.ToInt32(dr["Fess_Status"]),
+                        Name = Convert.ToString(dr["Name"].ToString()),
+                        Email = Convert.ToString(dr["Email"].ToString()),
+                        Address = Convert.ToString(dr["Address"].ToString()),
+                        Fathername = Convert.ToString(dr["Fname"].ToString()),
+                        EntrollmentNo = Convert.ToString(dr["EntrollmentNo"].ToString()),
+                        ReceiptNo = Convert.ToString(dr["ReceiptNo"].ToString()),
+                        Program = Convert.ToString(dr["Program"].ToString()),
+                        Branch_Name = Convert.ToString(dr["Branch"].ToString()),
+                        _Year = Convert.ToString(dr["_Year"].ToString()),
+                        TotalFees = Convert.ToDecimal(dr["TotalbranchFees"]),
+                        SubmitedFees = Convert.ToDecimal(dr["SubmitedFees"]),
+                        DueFees = Convert.ToDecimal(dr["DueFees"]),
+                        Mode = Convert.ToString(dr["Mode"].ToString()),
+                        Entrydate = Convert.ToString(dr["EntryDate"].ToString()),
                     };
                     lst.Add(accountmanagement);
                 }
