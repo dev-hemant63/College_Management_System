@@ -164,6 +164,7 @@ namespace JLNP_Project.AppCode.DAL
             {
                 new SqlParameter("@Id",req.Id),
                 new SqlParameter("@BranchId",req.BranchId),
+                new SqlParameter("@ProgramId",req.Program),
                 new SqlParameter("@Year",req.Year),
                 new SqlParameter("@SubjectId",req.SubjectId),
                 new SqlParameter("@TeacherId",req.TeacherId),
@@ -199,6 +200,7 @@ namespace JLNP_Project.AppCode.DAL
                         TeacherName = dr["Name"] is DBNull ? string.Empty : Convert.ToString(dr["Name"]),
                         Year = dr["Year"] is DBNull ? string.Empty : Convert.ToString(dr["Year"]),
                         EntryDate = dr["Entrydate"] is DBNull ? string.Empty : Convert.ToString(dr["Entrydate"]),
+                        ProgramName = dr["Program"] is DBNull ? string.Empty : Convert.ToString(dr["Program"]),
                     };
                     assignlst.Add(res);
                 }
@@ -222,10 +224,7 @@ namespace JLNP_Project.AppCode.DAL
                 data.Year = Convert.ToString(dt.Rows[0]["Year"].ToString());
                 data.SubjectId = Convert.ToInt32(dt.Rows[0]["SubjectId"]);
                 data.TeacherId = Convert.ToInt32(dt.Rows[0]["TeacherId"]);
-                data.Branch = Convert.ToString(dt.Rows[0]["Branch_Name"].ToString());
-                data.SubjectName = Convert.ToString(dt.Rows[0]["SubjectName"].ToString());
-                data.TeacherName = Convert.ToString(dt.Rows[0]["Name"].ToString());
-                data._Year = Convert.ToString(dt.Rows[0]["_Year"].ToString());
+                data.Program = Convert.ToInt32(dt.Rows[0]["ProgramId"]);
             }
             return data;
         }
