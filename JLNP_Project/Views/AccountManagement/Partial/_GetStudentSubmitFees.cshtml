@@ -1,19 +1,34 @@
-﻿@model List<AccountManagement>
+﻿@model List<FeesReport>
 @{
     int i = 0;
     @if (Model.Count>0) {
         foreach (var item in Model)
         {
             i++;
-            <tr data-Fees-Id="@item.Id">
+            <tr>
                 <td>@i</td>
-                <td>@item.StudentName</td>
-                <td>@item.FatherName</td>
-                <td>@item.Branch</td>
-                <td>@item.Year</td>
-                <td>@item.Amount</td>
-                <td>@item.FeesSubmitionMode</td>
-                <td>@item.EntryDate</td>
+                <td>@item.Name</td>
+                <td>@item.Fathername</td>
+                <td>@item.Program</td>
+                <td>@item.Branch_Name</td>
+                <td>@item._Year</td>
+                <td>
+                    @if(item.Fess_Status == 2){
+                        <span class="badge badge-success badgecus">SUCCESS</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-secondary badgecus">PENDING</span>
+                    }
+                </td>
+                <td>@item.Address</td>
+                <td>@item.EntrollmentNo</td>
+                <td>@item.ReceiptNo</td>
+                <td>@item.Mode</td>
+                <td>@item.TotalFees</td>
+                <td>@item.SubmitedFees</td>
+                <td>@item.DueFees</td>
+                <td>@item.Entrydate</td>
             </tr>
         } 
     }

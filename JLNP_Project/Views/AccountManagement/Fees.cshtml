@@ -251,7 +251,7 @@
             EnrollmentNo: $('#enrolmnt').val()
         }
         $.post('/AccountManagement/BindAmount', obj).done(function(result) {
-            $('#ttlamount').attr('value', result.amount);
+            $('#ttlamount').val(result.amount);
         }).fail(function(xhr) {
             console.log(xhr.responseText)
         });

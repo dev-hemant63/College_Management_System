@@ -13,18 +13,18 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <lable>From Date</lable>
-                                <input type="date" class="form-control" placeholder="From Date">
+                                <input type="text" class="form-control" placeholder="From Date" id="fromdate">
                             </div>
                             <div class="col-md-3">
-                                <lable>From Date</lable>
-                                <input type="date" class="form-control" placeholder="From Date">
+                                <lable>To Date</lable>
+                                <input type="text" class="form-control" placeholder="From Date" id="todate">
                             </div>
                             <div class="col-md-3">
-                                <lable>Student Name</lable>
-                                <input type="text" class="form-control" placeholder="Student Name">
+                                <lable>Enrollment Number</lable>
+                                <input type="text" class="form-control" placeholder="Enrollment" id="enrollemntnumber">
                             </div>
                             <div class="col-md-2">
-                                <button type="button" onclick="getdata()" class="btn btn-outline-primary waves-effect waves-light" style="margin-top:20px;" id="btnsearch">Search</button>
+                                <button type="button" onclick="Loaddata()" class="btn btn-outline-primary waves-effect waves-light" style="margin-top:20px;" id="btnsearch">Search</button>
                             </div>
                             <!-- end col -->
                         </div>
@@ -38,10 +38,14 @@
                                         <th>Program</th>
                                         <th>Branch</th>
                                         <th>Year</th>
+                                        <th>Fees Status</th>
+                                        <th>Address</th>
+                                        <th>Enrollment</th>
+                                        <th>RecieptNo</th>
+                                        <th>Mode</th>
                                         <th>Total Fees</th>
                                         <th>Submited Fees</th>
                                         <th>Due Fees</th>
-                                        <th>Mode</th>
                                         <th>Submition Date</th>
                                     </tr>
                                 </thead>
@@ -56,13 +60,22 @@
 </div>
 <script>
     $(document).ready(function() {
+        LoadDate('fromdate', 'todate');
         Loaddata();
     });
     var Loaddata = function() {
-        $.post('/AccountManagement/StudentSubmitFees').done(function(result) {
+        let obj = {
+            Fromdate:$('#fromdate').val(),
+            Todate:$('#todate').val(),
+            EnrollmentNo:$('#enrollemntnumber').val(),
+        }
+        $.post('/AccountManagement/StudentSubmitFees',obj).done(function(result) {
+            preloader.load();
             $('#tblstudent tbody').html(result);
+            preloader.remove();
         }).fail(function(xhr) {
             console.log(xhr.responseText);
+            alert('Server Error');
         });
     }
 </script>
