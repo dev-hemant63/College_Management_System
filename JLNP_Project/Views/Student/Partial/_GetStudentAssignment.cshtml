@@ -10,10 +10,18 @@
                 <td>@i</td>
                 <td>@item.Subject</td>
                 <td>@item.Assignment</td>
+                //
                 <td>
-                    <a href="#">TakeAssignment</a>
+                    //    <a href="#">TakeAssignment</a>
+                    //
                 </td>
             </tr>
         }
+    }
+    else
+    {
+        <tr>
+        <td colspan="3" class="text-center text-danger">Assignment not found</td>
+        </tr>
     }
 }

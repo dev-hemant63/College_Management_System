@@ -43,6 +43,13 @@ namespace JLNP_Project.Controllers
             }
             return RedirectToAction("UsersLogin", "Account");
         }
+        [Route("BindProgram")]
+        public IActionResult BindProgram()
+        {
+            IMasterML ml = new MasterML();
+            var res = ml.GetProgram();
+            return Json(res);
+        }
         public IActionResult AssignSubject()
         {
             if (_lr.UserName != null)
