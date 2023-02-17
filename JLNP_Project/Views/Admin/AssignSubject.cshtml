@@ -1,8 +1,7 @@
 ﻿@{
     Layout = "_LayoutAdmin";
 }
-<script src="~/js/jquery.min.js"></script>
-<script src="~/js/sitecus.js"></script>
+@model List<ProgramMaster>
 <div class="">
     <div class="">
         <div class="row">
@@ -14,9 +13,21 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-4">
+                                <label>Select Branch<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlprogram" onchange="Bindbranch()">
+                                    <option value="">-- Select Program --</option>
+                                    @foreach (var item in Model)
+                                    {
+                                        <option value="@item.Id">@item.Program</option>
+                                    }
+                                </select>
+                                <span class="text-danger d-none" id="programv">Please Select Program</span>
+                            </div>
+                            <div class="col-sm-4">
                                 <input type="hidden" id="hdnid" value="" />
                                 <label>Select Branch<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlbranch">
+                                    <option value="">-- Select Branch --</option>
                                 </select>
                                 <span class="text-danger d-none" id="branchv">Please Select Branch</span>
                             </div>
@@ -24,12 +35,15 @@
                                 <label>Select Year<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlyear" onchange="BindSubject()">
                                     <option value="">-- Select Year --</option>
-                                    <option value="1">First Year </option>
-                                    <option value="2">Second Year</option>
-                                    <option value="3">Final Year </option>
+                                    <option value="1">1 Year </option>
+                                    <option value="2">2 Year</option>
+                                    <option value="3">3 Year </option>
+                                    <option value="3">4 Year </option>
                                 </select>
                                 <span class="text-danger d-none" id="yearv">Please Select Year</span>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-4">
                                 <label>Select Subject<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlsubject">
@@ -38,8 +52,6 @@
                                 </select>
                                 <span class="text-danger d-none" id="subjectv">Please Select Subject</span>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-sm-4">
                                 <label>Select Teacher<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlteacher">
@@ -57,6 +69,7 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
+                                        <th>Program</th>
                                         <th>Branch</th>
                                         <th>Year</th>
                                         <th>Subject</th>
@@ -76,14 +89,23 @@
 </div>
 <script>
     $(document).ready(function() {
-        Bindbranch();
         Bindteacher();
         loaddata();
     });
+    //var Bindbranch = () => {
+    //    $.post('/Admission/BindBranch').done(function(result) {
+    //        console.log(result);
+    //        $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
+    //        for (var i = 0; i < result.length; i++) {
+    //            $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+    //        }
+    //    }).fail(function(xhr) {
+    //        console.log(xhr.responseText)
+    //    });
+    //}
     var Bindbranch = () => {
-        $.post('/Admission/BindBranch').done(function(result) {
-            console.log(result);
-            $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
+        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlprogram option:selected').val() }).done(function(result) {
+            $('#ddlbranch').empty();
             for (var i = 0; i < result.length; i++) {
                 $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
             }
@@ -93,6 +115,7 @@
     }
     var BindSubject = () => {
         let obj = {
+            Program: $('#ddlprogram option:selected').val(),
             BranchId: $('#ddlbranch option:selected').val(),
             Year: $('#ddlyear option:selected').val(),
         }
@@ -115,6 +138,13 @@
         });
     }
     var savedata = () => {
+        if ($('#ddlprogram option:selected').val() == '') {
+            $('#programv').removeClass('d-none');
+            return false;
+        }
+        else {
+            $('#programv').addClass('d-none');
+        }
         if ($('#ddlbranch option:selected').val() == '') {
             $('#branchv').removeClass('d-none');
             return false;
@@ -146,6 +176,7 @@
         let obj = {
             Id: $('#hdnid').val(),
             BranchId: $('#ddlbranch option:selected').val(),
+            Program: $('#ddlprogram option:selected').val(),
             Year: $('#ddlyear option:selected').val(),
             SubjectId: $('#ddlsubject option:selected').val(),
             TeacherId: $('#ddlteacher option:selected').val()

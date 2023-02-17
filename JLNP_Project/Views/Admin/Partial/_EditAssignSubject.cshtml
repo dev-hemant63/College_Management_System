@@ -9,6 +9,11 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-4">
+                        <label>Program<span style="color:red;">*</span></label>
+                        <select class="form-control" id="ddlprogramlst" asp-for="@Model.Program">
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
                         <input type="hidden" id="hdnid" value="@Model.Id" />
                         <label>Branch<span style="color:red;">*</span></label>
                         <select class="form-control" id="ddlbranchlst" asp-for="@Model.BranchId">
@@ -17,18 +22,20 @@
                     <div class="col-sm-4">
                         <label>Year<span style="color:red;">*</span></label>
                         <select class="form-control" id="ddlyearlst" asp-for="@Model._Year">
-                            <option value="1">First Year </option>
-                            <option value="2">Second Year</option>
-                            <option value="3">Final Year </option>
+                            <option value="1">1 Year </option>
+                            <option value="2">2 Year</option>
+                            <option value="3">3 Year </option>
+                            <option value="4">4 Year </option>
                         </select>
                     </div>
+                    
+                </div>
+                <div class="row">
                     <div class="col-sm-4">
                         <label>Select Subject<span style="color:red;">*</span></label>
                         <select class="form-control" id="ddlsubjectlst" asp-for="@Model.SubjectId">
                         </select>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-4">
                         <label>Select Teacher<span style="color:red;">*</span></label>
                         <select class="form-control" id="ddlteacherlst" asp-for="@Model.TeacherId">
@@ -47,6 +54,7 @@
         let obj = {
             Id: EditId,
             BranchId: $('#ddlbranchlst option:selected').val(),
+            Program: $('#ddlprogramlst option:selected').val(),
             Year: $('#ddlyearlst option:selected').val(),
             SubjectId: $('#ddlsubjectlst option:selected').val(),
             TeacherId: $('#ddlteacherlst option:selected').val()

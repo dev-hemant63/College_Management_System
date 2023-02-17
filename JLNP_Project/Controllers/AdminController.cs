@@ -47,7 +47,9 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                return View();
+                IMasterML ml = new MasterML();
+                var res = ml.GetProgram();
+                return View(res);
             }
             return RedirectToAction("UsersLogin", "Account");
         }
