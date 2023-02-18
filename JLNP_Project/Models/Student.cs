@@ -43,4 +43,9 @@
         public List<ProgramMaster> program { get; set; }
         public List<Branch> branch { get; set; }
     }
+    public class StudentVideolecture
+    {
+        public string UserName { get; set; }
+        public List<CommanMasterResponse> data { get; set; }
+    }
 }

@@ -142,5 +142,11 @@ namespace JLNP_Project.AppCode.Midlelayer
             var res = proc.Proc_GetStudentAssignment(LoginID);
             return res;
         }
+        public List<CommanMasterResponse> GetStudentVideolectures(int LoginID)
+        {
+            Proc_StudentAssignment proc = new Proc_StudentAssignment();
+            var res = proc.Proc_GetStudentvideolecture(LoginID);
+            return res;
+        }
     }
 }

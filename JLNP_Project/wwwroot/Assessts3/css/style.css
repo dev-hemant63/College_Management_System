@@ -3019,9 +3019,8 @@ table tbody .border-bottom-warning td {
 
     .card .card-body {
         padding: 30px;
-        background-color: transparent;
+        background-color: white;
     }
-
         .card .card-body p:last-child {
             margin-bottom: 0;
         }

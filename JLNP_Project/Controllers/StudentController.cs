@@ -275,6 +275,16 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult Videolecture()
         {
+            IStudent ml = new StudentML();
+            StudentVideolecture model = new StudentVideolecture();
+            model.data = ml.GetStudentVideolectures(_lr.UserId);
+            model.UserName = _lr.UserName;
+            return View(model);
+        }
+        [HttpGet]
+        [Route("StudentResult")]
+        public IActionResult StudentResult()
+        {
             LoginInfo model = new LoginInfo();
             model.UserName = _lr.UserName;
             return View(model);
