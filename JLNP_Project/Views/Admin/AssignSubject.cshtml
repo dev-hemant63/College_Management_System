@@ -208,6 +208,7 @@
             BindSubjectlst();
             Bindbranchlst();
             Bindteacherlst();
+            Bindprogramlst();
             $('#myModalNew').modal('show');
             $('[data-dismiss="modal"]').unbind().click(function() {
                 $('.modal,.modal-backdrop').remove();
@@ -240,6 +241,16 @@
         $.post('/Admin/Bind_Subjects').done(function(result) {
             for (var i = 0; i < result.length; i++) {
                 $('#ddlsubjectlst').append('<option value="' + result[i].subjectId + '">' + result[i].subjectName + '</option>');
+            }
+        }).fail(function(xhr) {
+            alert("Server Error");
+        });
+    }
+    var Bindprogramlst = () => {
+        
+        $.post('/BindProgram').done(function(result) {
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlprogramlst').append('<option value="' + result[i].id + '">' + result[i].program + '</option>');
             }
         }).fail(function(xhr) {
             alert("Server Error");

@@ -272,6 +272,13 @@ namespace JLNP_Project.Controllers
             model.UserName = _lr.UserName;
             return View(model);
         }
+        [HttpGet]
+        public IActionResult Videolecture()
+        {
+            LoginInfo model = new LoginInfo();
+            model.UserName = _lr.UserName;
+            return View(model);
+        }
         [HttpPost]
         public IActionResult GetStudentAssignment()
         {
