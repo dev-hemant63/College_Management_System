@@ -1,78 +1,78 @@
 ﻿@{
-    Layout = "_LayoutAdmin";
+    Layout = "_Layoutsiteadmin";
 }
+<style>
+    label{
+        margin-top: 10px;
+    }
+</style>
+<!--=========== Contact Info Section ========= -->
 @model List<ProgramMaster>
-<div class="">
-    <div class="">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="page-title-box">
-                </div>
-            </div>
+<section class="contact-info pt-120 pb-120">
+    <div class="container">
+        <div class="section-header section-center wow fadeInDown" data-wow-delay="0.3s">
+            <h3 class="section-title">
+                Registration
+            </h3>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="card m-b-30">
-                    <div class="card-header bgred">
-                        <h4 style="color:white;">Registration</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group"><label>Name</label> <input type="text" placeholder="Name" class="form-control" id="name"> </div>
-                                <div class="form-group"><label>Father Name</label> <input type="text" placeholder="Father Name" class="form-control" id="fname"> </div>
-                                <div class="form-group"><label>Father Occupation</label> <input type="text" placeholder="Father Occupation" class="form-control" id="txtfatheroccupation"> </div>
-                                <div class="form-group">
-                                    <label>Program</label> <select class="form-control" id="ddlProgram" onchange="Bindbranch()">
-                                        <option value="">--Select Program--</option>
-                                        @foreach (var item in Model)
-                                        {
-                                            <option value=@item.Id>@item.Program</option>
-                                        }
-                                    </select>
-                                </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="contact-right">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group"><label>Name</label> <input type="text" placeholder="Name" class="form-control" id="name"> </div>
+                            <div class="form-group"><label>Father Name</label> <input type="text" placeholder="Father Name" class="form-control" id="fname"> </div>
+                            <div class="form-group"><label>Father Occupation</label> <input type="text" placeholder="Father Occupation" class="form-control" id="txtfatheroccupation"> </div>
+                            <div class="form-group">
+                                <label>Program</label> <select class="form-control" id="ddlProgram" onchange="Bindbranch()">
+                                    <option value="">--Select Program--</option>
+                                    @foreach (var item in Model)
+                                    {
+                                        <option value=@item.Id>@item.Program</option>
+                                    }
+                                </select>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group"><label>Eamil</label> <input type="text" placeholder="Eamil" class="form-control" id="email"> </div>
-                                <div class="form-group"><label>Mother Name</label> <input type="text" placeholder="Mother Name" class="form-control" id="txtmother"> </div>
-                                <div class="form-group"><label>DOB</label> <input type="date" placeholder="dd-mm-yy" class="form-control" id="dob"> </div>
-                                <div class="form-group">
-                                    <label>Branch</label> <select class="form-control" id="ddlbranch">
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><label>Eamil</label> <input type="text" placeholder="Eamil" class="form-control" id="email"> </div>
+                            <div class="form-group"><label>Mother Name</label> <input type="text" placeholder="Mother Name" class="form-control" id="txtmother"> </div>
+                            <div class="form-group"><label>DOB</label> <input type="date" placeholder="dd-mm-yy" class="form-control" id="dob"> </div>
+                            <div class="form-group">
+                                <label>Branch</label> <select class="form-control" id="ddlbranch">
+                                    <option value="">--Select Branch--</option>
+                                </select>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Gender</label> <select class="form-control" id="gender">
-                                        <option value="">--Select Gender--</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Group</label>
-                                    <select class="form-control" id="group">
-                                        <option value="">--Select Group--</option>
-                                        <option value="A">A</option>
-                                        <option value="B">B</option>
-                                        <option value="C">C</option>
-                                        <option value="K">K</option>
-                                    </select>
-                                </div>
-                                <div class="form-group"><label>Mobile</label> <input type="text" placeholder="Mobile" class="form-control" id="mobile"> </div>
-                                <div class="form-group"><label>Address</label> <textarea class="form-control" placeholder="Address" id="address"></textarea></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Gender</label> <select class="form-control" id="gender">
+                                    <option value="">--Select Gender--</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Group</label>
+                                <select class="form-control" id="group">
+                                    <option value="">--Select Group--</option>
+                                    <option value="A">A</option>
+                                    <option value="K">K</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label>Mobile</label> <input type="text" placeholder="Mobile" class="form-control" id="mobile"> </div>
+                            <div class="form-group"><label>Address</label> <textarea class="form-control" placeholder="Address" id="address"></textarea></div>
+                        </div>
+                        <div class="col-sm-3">
                             <button type="button" style="margin-top: 11px;" class="btn btn-outline-primary waves-effect waves-light" id="btnsubmit">Registration</button>
                         </div>
-                        </div>
                     </div>
+                    <p class="form-message"></p>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 <script>
     $(document).ready(function() {
         $('#btnsubmit').click(function() {
@@ -151,7 +151,7 @@
                 Program: $('#ddlProgram option:selected').val()
             }
             preloader.load();
-            $.post('/Student/_AddStudent', obj).done(function(result) {
+            $.post('/studentregistration', obj).done(function(result) {
                 preloader.remove();
                 if (result.statuscode == 1) {
                     swal.fire({
@@ -185,7 +185,7 @@
         Bindbranch();
     });
     var Bindbranch = () => {
-        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlProgram option:selected').val() }).done(function(result) {
+        $.post('/ProgramWiseBranch', { ProgramId: $('#ddlProgram option:selected').val() }).done(function(result) {
             $('#ddlbranch').empty();
             for (var i = 0; i < result.length; i++) {
                 $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')

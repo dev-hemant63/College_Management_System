@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "_LayoutStudent";
 }
-@model LoginInfo
+@model StudentVideolecture
 <div>
     <div class="container-fluid">
         <div class="row">
@@ -32,10 +32,30 @@
                                         <th>#</th>
                                         <th>Subject</th>
                                         <th>Lectures</th>
-                                       @* <th>Action</th>*@
+                                        @* <th>Action</th>*@
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    @{
+                                        @if (Model.data.Count>0)
+                                        {
+                                            int i = 0;
+                                            @foreach (var item in Model.data)
+                                            {
+                                                i++;
+                                                <td>@i</td>
+                                            <td>@item.Subject</td>
+                                            <td><a href="@item.VideoUrl" target="_blank">View Lecture</a></td>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td colspan="4" class="text-center text-danger">Record not found</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
                             </table>
                         </div>
                     </div>
