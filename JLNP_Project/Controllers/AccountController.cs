@@ -72,7 +72,7 @@ namespace JLNP_Project.Controllers
         {
             LoginInfo lr = new LoginInfo();
             lr.UserId = UserID;
-            return PartialView("ChangePassoword", lr);
+            return PartialView("Partial/ChangePassoword", lr);
         }
         [HttpPost]
         public IActionResult ChangePassword(Account account)
@@ -86,6 +86,27 @@ namespace JLNP_Project.Controllers
                 var _ = _email.SendMail(res.UserEmail, title, Msg);
             }
             return Json(res);
+        }
+        [HttpPost]
+        public IActionResult ForgetPassword(string Enrollment, string Mobile = "")
+        {
+            if (!string.IsNullOrEmpty(Enrollment))
+            {
+                Account_BAL AC_BAL = new Account_BAL();
+                var res = AC_BAL.ForgetPassword_BAL(Enrollment, Mobile);
+                if (res.statuscode == 1)
+                {
+                    string title = "Jawahar lal neharu polytechnic";
+                    string Msg = "Dear Student" + "Your Password Is " + "<b>" + res.password;
+                    var _ = _email.SendMail(res.UserEmail, title, Msg);
+                }
+                return Json(res);
+            }
+            else
+            {
+                return PartialView("Partial/ForgetPassword");
+            }
+            return Ok();
         }
     }
 }

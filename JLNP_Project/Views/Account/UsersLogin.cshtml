@@ -41,7 +41,7 @@
                         <h3 style="font-weight: bolder;">WELCOME</h3>
                     </div>
                     <div class="">
-                        <a href="/"  style="color:White;">www.YourDomain.com</a>
+                        <a href="/" style="color:White;">www.YourDomain.com</a>
                     </div>
                 </div>
                 <div class="col-md-5" style="background-color: #fdf8d7;">
@@ -70,7 +70,7 @@
                             <span class="text-danger" id="msg"></span>
                         </div>
                         <button class="btn btn-block login-btn" type="submit" id="login" style="margin-top: 12px;">Sign In</button>
-                        <a href="#!" class="forgot-password-link">Forgot password?</a>
+                        <a href="javascript:void(0)" class="forgot-password-link" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="ForgetPassword()">Forgot password?</a>
                     </div>
                 </div>
             </div>
@@ -81,6 +81,8 @@
 <script src="~/logins/bootstrap.min.js"></script>
 <script src="~/logins/popper.min.js"></script>
 <script src="~/js/site.js"></script>
+<script src="~/dist/sweetalert2.all.min.js"></script>
+<script src="~/dist/sweetalert2.all.js"></script>
 <script>
     $(document).ready(function() {
         $('#login').click(function() {
@@ -133,4 +135,11 @@
             })
         });
     });
+    var ForgetPassword = function() {
+        $.post('/Account/ForgetPassword').done(function(result) {
+            showModel(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+    }
 </script>

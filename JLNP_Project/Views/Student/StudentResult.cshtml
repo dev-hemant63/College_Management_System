@@ -1,6 +1,17 @@
 ﻿@{
     Layout = "_LayoutStudent";
 }
+<style>
+    @@media (min-width:375px) and (max-width:667px) {
+        .css-cus {
+            display: none;
+        }
+    }
+
+    .black {
+        color: black;
+    }
+</style>
 @model LoginInfo
 <div class="row">
     <div class="col-sm-12">
@@ -8,6 +19,88 @@
             <div class="float-right hide-phone">
             </div>
             <h4 class="page-title">Wellcome @Model.UserName</h4>
+        </div>
+    </div>
+</div>
+<div class="container" style="background: white;">
+    <div class="row align-items-center">
+        <div class="col-md-2 css-cus">
+            <img src="~/siteadmin/images/logo/logo1.png" />
+        </div>
+        <div class="col-md-8 col-sm-12">
+            <center>
+                <h1 style="font-size:medium;">JAWAHAR LAL NEHARU POLYTECHINC</h1>
+                <h4 style="font-size:small;">Mahmudabad Siatpur - Uttar Pradesh</h4>
+                <p style="color:black; font-size:small;" class="mb-0"><b>Phone : </b>XXXXXXXXXX , <b>EmailID : </b>demo@gmail.com</p>
+                <h3 class="text-danger mt-0" style="font-size:small;">www.domain.com</h3>
+                <h2 style="font-size:medium;">RESULT - 2023</h2>
+            </center>
+        </div>
+        <div class="col-md-2 css-cus">
+            <img src="~/siteadmin/images/logo/logo1.png" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr class="black">
+                            <td style="text-align: right;"><b>Progarm :</b></td>
+                            <td>B.Tech (C.S)</td>
+                            <td style="text-align: right;"><b>Academic Session :</b></td>
+                            <td>2020-23</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <table class="table">
+                                    <tbody>
+                                        <tr class="black">
+                                            <td><b>Student Name :</b></td>
+                                            <td>Hemant</td>
+                                        </tr>
+                                        <tr class="black">
+                                            <td><b>Father Name :</b></td>
+                                            <td>Ramlakhan Nag</td>
+                                        <tr />
+                                        <tr class="black">
+                                            <td><b>Mother Name :</b></td>
+                                            <td>Urmila Nag</td>
+                                        <tr />
+                                        <tr class="black">
+                                            <td><b>Address :</b></td>
+                                            <td>Lakhimpur</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table class="table">
+                                    <tbody>
+                                        <tr class="black">
+                                            <td><b>Enrollment no. :</b></td>
+                                            <td>E20235689</td>
+                                        </tr>
+                                        <tr class="black">
+                                            <td><b>DOB :</b></td>
+                                            <td>15-07-2004</td>
+                                        <tr />
+                                        <tr class="black">
+                                            <td><b>Attendance :</b></td>
+                                            <td>40/120</td>
+                                        <tr />
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

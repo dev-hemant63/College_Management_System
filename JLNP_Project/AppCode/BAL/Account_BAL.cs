@@ -24,5 +24,11 @@ namespace JLNP_Project.AppCode.BAL
             var dt = AC_DAL.ChangePassword(account);
             return dt;
         }
+        public ResponseStatus ForgetPassword_BAL(string Enrollemnt,string Mobile)
+        {
+            Account_DAL AC_DAL = new Account_DAL();
+            var dt = AC_DAL.ForgetPassword(Enrollemnt, Mobile);
+            return dt;
+        }
     }
 }
