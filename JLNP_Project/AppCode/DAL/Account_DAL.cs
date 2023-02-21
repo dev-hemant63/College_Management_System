@@ -68,5 +68,39 @@ namespace JLNP_Project.AppCode.DAL
             }
             return res;
         }
+        public ResponseStatus ForgetPassword(string Enrollemnt,string Mobile)
+        {
+            var res = new ResponseStatus
+            {
+                statuscode = -1,
+                Msg = "Temp Error!"
+            };
+            string ProcName = "Proc_forgetPassword";
+            SqlParameter[] param =
+            {
+                new SqlParameter("@Enrollment",Enrollemnt),
+                new SqlParameter("@Mobile",Mobile)
+            };
+            var dt = _helper.ExcProc(ProcName, param);
+            if (dt.Rows.Count > 0)
+            {
+                try
+                {
+                    res.statuscode = Convert.ToInt32(dt.Rows[0]["Statuscode"] is DBNull ? 0 : Convert.ToInt32(dt.Rows[0]["Statuscode"]));
+                    res.Msg = Convert.ToString(dt.Rows[0]["Msg"] is DBNull ? 0 : Convert.ToString(dt.Rows[0]["Msg"]));
+                    if (res.statuscode == 1)
+                    {
+                        res.password = Convert.ToString(dt.Rows[0]["Password"] is DBNull ? 0 : Convert.ToString(dt.Rows[0]["Password"]));
+                        res.UserEmail = Convert.ToString(dt.Rows[0]["Email"] is DBNull ? 0 : Convert.ToString(dt.Rows[0]["Email"]));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    res.Msg = ex.Message;
+                }
+            }
+            return res;
+        }
+
     }
 }
