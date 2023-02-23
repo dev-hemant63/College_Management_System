@@ -1,7 +1,7 @@
 ﻿@model List<SubjectMaster>
 @{
     int i = 0;
-    if(Model != null)
+    if (Model != null)
     {
         foreach (var item in Model)
         {
@@ -17,6 +17,18 @@
                     <td>@item.TheoryMarks</td>
                     <td>@item.PracticalMarks</td>
                     <td>@item.PassingMarks</td>
+                    <td>
+                        <span class="switch switch-sm">
+                            <input type="checkbox" class="switch" onclick="ChangeStatus('@item.Id','IsPrectical')" id="isprectical_@item.Id" @Html.Raw(@item.IsPrectical ? "checked='checked'" : "")>
+                            <label for="isprectical_@item.Id"></label>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="switch switch-sm">
+                            <input type="checkbox" class="switch" onclick="ChangeStatus('@item.Id','IsWritten')" id="iswritten_@item.Id" @Html.Raw(@item.IsWritten ? "checked='checked'" : "")>
+                            <label for="iswritten_@item.Id"></label>
+                        </span>
+                    </td>
                     <td>@item.EntryDate</td>
                     <td>
                         <div class="btn-group btn-group-sm" style="float: none;">
@@ -30,7 +42,7 @@
     else
     {
     <tr>
-                <td colspan=8 class="text-center" style="color:red;">Record Not Found</td>
+                <td colspan=10 class="text-center" style="color:red;">Record Not Found</td>
     </tr>
     }
 }

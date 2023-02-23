@@ -30,5 +30,11 @@ namespace JLNP_Project.AppCode.BAL
             var dt = AC_DAL.ForgetPassword(Enrollemnt, Mobile);
             return dt;
         }
+        public ResponseStatus Saveloginsession(string sessionkey,int loginid,int reqmode)
+        {
+            Account_DAL AC_DAL = new Account_DAL();
+            var dt = AC_DAL.SaveSession(sessionkey, loginid, reqmode);
+            return dt;
+        }
     }
 }

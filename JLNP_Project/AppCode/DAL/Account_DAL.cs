@@ -101,6 +101,28 @@ namespace JLNP_Project.AppCode.DAL
             }
             return res;
         }
+        public ResponseStatus SaveSession(string sessionkey, int Loginid,int RequestMode)
+        {
+            var res = new ResponseStatus
+            {
+                statuscode = -1,
+                Msg = "Temp Error!"
+            };
+            string query = "insert into tbl_session(Sessionkey,LoginID,RequestMode,EntryDate) values(@sessionkey,@Loginid,@RequestMode,getdate())";
+            SqlParameter[] param =
+            {
+                new SqlParameter("@sessionkey",sessionkey),
+                new SqlParameter("@Loginid",Loginid),
+                new SqlParameter("@RequestMode",RequestMode)
+            };
+            var _is = _helper.ExcQuery(query, param);
+            if (_is)
+            {
+                res.statuscode = 1;
+                res.Msg = "Success";
+            }
+            return res;
+        }
 
     }
 }

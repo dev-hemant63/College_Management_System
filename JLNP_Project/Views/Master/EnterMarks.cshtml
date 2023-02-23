@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+<div class="">
+    <div class="">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bgred">
+                        <h4 style="color:white;">Enter Marks</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="divmarksheet">
+                            <center>
+                                <div class="col-md-4">
+                                    <input type="text" onblur="loadmarksheet()" id="textenrollment" class="form-control" placeholder="Enrollment" />
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var loadmarksheet = () => {
+        $.get('/Master/EnterMarks', {Enrollment:$('#textenrollment').val()}).done(function(response) {
+            console.log(response);
+            $('#divmarksheet').html(response);
+        }).fail(function() {
+            alert('Server Error');
+        });
+    }
+</script>

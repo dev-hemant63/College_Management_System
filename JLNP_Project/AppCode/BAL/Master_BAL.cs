@@ -43,6 +43,8 @@ namespace JLNP_Project.AppCode.BAL
                         TheoryMarks = Convert.ToString(row["TheoryMarks"].ToString()),
                         PracticalMarks = Convert.ToString(row["PracticalMarks"].ToString()),
                         PassingMarks = Convert.ToString(row["PassingMarks"].ToString()),
+                        IsPrectical = Convert.ToBoolean(row["IsPrectical"]),
+                        IsWritten = Convert.ToBoolean(row["Iswritten"]),
                         EntryDate = Convert.ToString(row["EntryDate"].ToString())
                     };
                     subjectlist.Add(data);

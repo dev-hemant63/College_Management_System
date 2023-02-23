@@ -1,6 +1,6 @@
 ﻿namespace JLNP_Project.Models
 {
-    public class LoginInfo
+    public class LoginInfo:StudentInfo
     {
         public int UserId { get; set; }
         public int RoleId { get; set; }

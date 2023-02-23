@@ -41,6 +41,8 @@
         public int Program { get; set; }
         public string ProgramName { get; set; }
         public string PassingMarks { get; set; }
+        public bool IsPrectical { get; set; }
+        public bool IsWritten { get; set; }
         public List<SubjectMaster> Assignlist { get; set; }
         public List<SubjectMaster> Bindlist { get; set; }
     }
