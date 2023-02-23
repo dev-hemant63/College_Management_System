@@ -45,6 +45,7 @@ namespace JLNP_Project.Controllers
                         Response.Cookies.Append("UserName", _lr.UserName.ToString(), options);
                         HttpContext.Session.SetString("Userdata", JsonConvert.SerializeObject(_lr));
                         res.LoginTypeId = _lr.LoginTypeId;
+                        var _ = AC_BAL.Saveloginsession(HttpContext.Session.Id, _lr.UserId, RequestMode.Web);
                     }
                     else
                     {

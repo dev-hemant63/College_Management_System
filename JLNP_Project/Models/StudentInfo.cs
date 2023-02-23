@@ -16,7 +16,6 @@
         public string EnrollmentNO { get; set; }
         public string Adress { get; set; }
         public string Phone { get; set; }
-        public int Statuscode { get; set; }
         public string Msg { get; set; }
     }
 }

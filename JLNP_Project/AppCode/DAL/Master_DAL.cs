@@ -12,6 +12,7 @@ namespace JLNP_Project.AppCode.DAL
         {
             SqlCommand cmd = new SqlCommand("Proc_SubjectMaster", con);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Id", subjectMaster.SubjectId);
             cmd.Parameters.AddWithValue("@BranchId", subjectMaster.BranchId);
             cmd.Parameters.AddWithValue("@Program", subjectMaster.Program);
             cmd.Parameters.AddWithValue("@PassingMarks", subjectMaster.PassingMarks);
@@ -22,6 +23,8 @@ namespace JLNP_Project.AppCode.DAL
             cmd.Parameters.AddWithValue("@SubjectType", subjectMaster.SubjectType);
             cmd.Parameters.AddWithValue("@TheoryMarks", subjectMaster.TheoryMarks);
             cmd.Parameters.AddWithValue("@PracticalMarks", subjectMaster.PracticalMarks);
+            cmd.Parameters.AddWithValue("@IsPrectical", subjectMaster.IsPrectical);
+            cmd.Parameters.AddWithValue("@IsWritten", subjectMaster.IsWritten);
             cmd.Parameters.AddWithValue("@Action", subjectMaster.Action);
             DataTable dt = new DataTable();
             SqlDataAdapter sda = new SqlDataAdapter(cmd);

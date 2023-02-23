@@ -7,30 +7,68 @@
 <link href="~/Logins/login.css" rel="stylesheet" type="text/css" />
 <link href="~/Logins/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
 <link href="~/css/Custom.css" rel="stylesheet" type="text/css">
-<style>
-    .login-box .left-side-area .logo-box img,
-    .our-login.register-page .logo-box img {
-        width: 100px;
-    }
-
-    .our-login.register-page .logo-box {
-        margin-bottom: 20px;
-    }
-
-    .login-box .left-side-area .middle-content {
-        padding: 90px 0;
-    }
-
-        .login-box .left-side-area .middle-content p {
-            padding-left: 140px;
+<script>
+    $(document).ready(function() {
+        
+    });
+    var login = function() {
+        let obj = {
+            LoginTypeId: $('#ddlusertype :selected').val(),
+            UserId: $('#UserId').val(),
+            Password: $('#password').val()
         }
-
-        .login-box .left-side-area .middle-content h1 {
-            font-size: 24px;
-            text-transform: uppercase;
-            color: #fae607 !important;
+        if (obj.LoginTypeId == '') {
+            alert('Please select Login Type');
+            $('#ddlusertype').focus();
+            return false;
         }
-</style>
+        if (obj.UserId == '') {
+            $('#UserIdsp').removeClass('d-none');
+            $('#UserId').focus();
+            return false;
+        }
+        if (obj.Password == '') {
+            $('#passwordsp').removeClass('d-none');
+            $('#password').focus();
+            return false;
+        }
+        preloader.load();
+        $.post('/Account/Login', obj).done(function(result) {
+            console.log(result);
+            preloader.remove();
+            if (result.loginTypeId == 1) {
+                window.location.replace("/Admin/Index");
+            }
+            else if (result.loginTypeId == 2) {
+                window.location.replace("/Admin/TeacherDash");
+            }
+            else if (result.loginTypeId == 3) {
+                window.location.replace("/Student/Index");
+            }
+            else if (result.loginTypeId == -1) {
+                $('#msg').text(result.msg);
+                return false;
+            }
+            else if (result.statuscode == -1) {
+                $('#msg').text(result.msg);
+                return false;
+            }
+            else {
+                window.location.reload();
+            }
+        }).fail(function(xhr) {
+            console.log(xhr);
+            //alert('server error');
+        })
+    }
+    var ForgetPassword = function() {
+        $.post('/Account/ForgetPassword').done(function(result) {
+            showModel(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+    }
+</script>
 <main class="d-flex align-items-center min-vh-100" style="background-image: -webkit-linear-gradient( 48deg, rgb(251, 254, 0) 0%, rgb(247, 148, 30) 100%)">
     <div class="container">
         <div class="card login-card" style="height:500Px;">
@@ -69,7 +107,7 @@
                             <span class="d-none text-danger" id="passwordsp">Enter Password</span>
                             <span class="text-danger" id="msg"></span>
                         </div>
-                        <button class="btn btn-block login-btn" type="submit" id="login" style="margin-top: 12px;">Sign In</button>
+                        <button class="btn btn-block login-btn" type="submit" onclick="login()" id="login" style="margin-top: 12px;">Sign In</button>
                         <a href="javascript:void(0)" class="forgot-password-link" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="ForgetPassword()">Forgot password?</a>
                     </div>
                 </div>
@@ -83,63 +121,3 @@
 <script src="~/js/site.js"></script>
 <script src="~/dist/sweetalert2.all.min.js"></script>
 <script src="~/dist/sweetalert2.all.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#login').click(function() {
-            if ($('#ddlusertype :selected').val() == '') {
-                alert('Please select Login Type');
-                $('#ddlusertype').focus();
-                return false;
-            }
-            if ($('#UserId').val() == '') {
-                $('#UserIdsp').removeClass('d-none');
-                $('#UserId').focus();
-                return false;
-            }
-            if ($('#password').val() == '') {
-                $('#passwordsp').removeClass('d-none');
-                $('#password').focus();
-                return false;
-            }
-            var obj = {
-                LoginTypeId: $('#ddlusertype :selected').val(),
-                UserId: $('#UserId').val(),
-                Password: $('#password').val()
-            }
-            preloader.load();
-            $.post('/Account/Login', obj).done(function(result) {
-                preloader.remove();
-                if (result.loginTypeId == 1) {
-                    window.location.replace("/Admin/Index");
-                }
-                else if (result.loginTypeId == 2) {
-                    window.location.replace("/Admin/TeacherDash");
-                }
-                else if (result.loginTypeId == 3) {
-                    window.location.replace("/Student/Index");
-                }
-                else if (result.loginTypeId == -1) {
-                    $('#msg').text(result.msg);
-                    return false;
-                }
-                else if (result.statuscode == -1) {
-                    $('#msg').text(result.msg);
-                    return false;
-                }
-                else {
-                    window.location.reload();
-                }
-            }).fail(function(xhr) {
-                console.log(xhr.responiveText);
-                alert('server error');
-            })
-        });
-    });
-    var ForgetPassword = function() {
-        $.post('/Account/ForgetPassword').done(function(result) {
-            showModel(result);
-        }).fail(function(xhr) {
-            console.log(xhr.responseText);
-        });
-    }
-</script>

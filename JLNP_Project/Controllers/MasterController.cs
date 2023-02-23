@@ -49,10 +49,24 @@ namespace JLNP_Project.Controllers
             var res = msdal.GetSubject_Bal(subjectMaster);
             return PartialView("Partial/_GetSubjectMaster", res);
         }
+        [HttpPost]
+        public IActionResult ChangeSubjectStatus(int SubId, string Action, bool Status)
+        {
+            Master_BAL msdal = new Master_BAL();
+            var req = new SubjectMaster
+            {
+                Action = Action,
+                SubjectId = SubId,
+                IsPrectical = Status,
+                IsWritten = Status,
+            };
+            var res = msdal.SaveSubject_Bal(req);
+            return Json(res);
+        }
         public IActionResult GetSubjectMaster_ById(SubjectMaster subjectMaster)
         {
             EditSubjectViewModel obj = new EditSubjectViewModel();
-            Master_BAL msdal = new Master_BAL(); 
+            Master_BAL msdal = new Master_BAL();
             IMasterML ml = new MasterML();
             obj.programs = ml.GetProgram();
             subjectMaster.Action = "GetById";
@@ -149,7 +163,7 @@ namespace JLNP_Project.Controllers
             return View(res);
         }
         [HttpPost]
-        public IActionResult SyllabusMaster(IFormFile Files, int Branch, int Subject, int Year,int Program)
+        public IActionResult SyllabusMaster(IFormFile Files, int Branch, int Subject, int Year, int Program)
         {
             var rse = new ResponseStatus
             {
@@ -397,7 +411,7 @@ namespace JLNP_Project.Controllers
             model.program = ml.GetProgram();
             model.branch = midlelayar.BindBranch();
             model.data = ml.EditProgramBranchMapping(ID);
-            model.batch=ml.GetBatch();
+            model.batch = ml.GetBatch();
             return PartialView("Partial/_EditProgramBranchMapping", model);
         }
         [HttpPost]
@@ -446,6 +460,19 @@ namespace JLNP_Project.Controllers
             IMasterML ml = new MasterML();
             var res = ml.GetBatch();
             return Json(res);
+        }
+        [HttpGet]
+        public IActionResult EnterMarks(string Enrollment = "")
+        {
+            if (Enrollment != "")
+            {
+                return PartialView("Partial/_EnterMarks");
+            }
+            else
+            {
+                return View();
+            }
+            return Ok();
         }
     }
 }

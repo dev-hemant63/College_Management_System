@@ -141,6 +141,7 @@ namespace JLNP_Project.AppCode.DL
         public StudentInfo Proc_GetStudentDetails(int UserID)
         {
             string ProcName = "Proc_GetStudentdetails";
+            var statuscode = -1;
             StudentInfo res = new StudentInfo();
             SqlParameter[] param = {
                 new SqlParameter("@UserID",UserID)
@@ -148,9 +149,9 @@ namespace JLNP_Project.AppCode.DL
             var dt = dbhelper.ExcProc(ProcName, param);
             if (dt.Rows.Count > 0)
             {
-                res.Statuscode = Convert.ToInt32(dt.Rows[0]["Statuscode"]);
+                statuscode = Convert.ToInt32(dt.Rows[0]["Statuscode"]);
                 res.Msg = Convert.ToString(dt.Rows[0]["Msg"].ToString());
-                if (res.Statuscode == 1)
+                if (statuscode == 1)
                 {
                     res.Name = Convert.ToString(dt.Rows[0]["Name"].ToString());
                     res.FatherName = Convert.ToString(dt.Rows[0]["Fname"].ToString());
