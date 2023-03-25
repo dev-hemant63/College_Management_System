@@ -509,5 +509,38 @@ namespace JLNP_Project.AppCode.DL
             }
             return res;
         }
+        public List<StudentResult> ProcGetStudentResult(string Enrollment)
+        {
+            var res = new List<StudentResult>();
+            string ProcName = "Proc_StudentResult"; // Query
+            SqlParameter[] param =
+            {
+                new SqlParameter("@Enrollment",Enrollment)
+            };
+            try
+            {
+                var dt = _helper.ExcProc(ProcName, param);
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        var model = new StudentResult
+                        {
+                            SubjectId = Convert.ToInt32(dr["BranchId"] is DBNull ? 0 : Convert.ToInt32(dr["BranchId"])),
+                            SubjectCode = Convert.ToString(dr["Branch_Name"] is DBNull ? "" : dr["Branch_Name"].ToString()),
+                            SubjectName = Convert.ToString(dr["Branch_Name"] is DBNull ? "" : dr["Branch_Name"].ToString()),
+                            TotalMarks = Convert.ToInt32(dr["Branch_Name"] is DBNull ? 0 : dr["Branch_Name"]),
+                            PassingMarks = Convert.ToString(dr["Branch_Name"] is DBNull ? 0 : dr["Branch_Name"].ToString()),
+                        };
+                        res.Add(model);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return res;
+        }
     }
 }

@@ -21,5 +21,6 @@ namespace JLNP_Project.AppCode.Interface
         List<BatchMasterReqRes> GetBatch();
         ResponseStatus DeleteBatch(int Id);
         List<Branch> BindProgramWiseBranch(int ProgramId);
+        List<StudentResult> StudentResultRes(string Enrollment);
     }
 }

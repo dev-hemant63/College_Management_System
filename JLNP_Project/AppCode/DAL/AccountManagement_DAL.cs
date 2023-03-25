@@ -167,25 +167,18 @@ namespace JLNP_Project.AppCode.DAL
             }
             return res;
         }
-        public List<FeesType> BindFeesType(int Year, int ProgramId, int Branch)
+        public List<FeesType> BindFeesType(int Year, int ProgramId, int Branch,string Enrollrmnt = "")
         {
-            string Quesry = "";
+            string Quesry = "Proc_GetAmount";
             var res = new List<FeesType>();
-            if (Year != 0 && ProgramId != 0 && Branch != 0)
-            {
-                Quesry = "declare @TotalFees numeric(18,2) select @TotalFees = SUM(CAST(tf.Amount as numeric(18, 2))) from tbl_FeesHead tf where tf.Program = @ProgramId and tf.Branch = @Branch and tf._Year = @Year select @TotalFees TotalFees, tft.FeesType,tf.Amount from tbl_FeesHead tf inner join tbl_FeesType tft on tf.FeesType = tft.id where tf.Program = @ProgramId and tf.Branch = @Branch and tf._Year = @Year group by tft.FeesType,tf.Amount";
-            }
-            else
-            {
-                Quesry = "select Id,FeesType from tbl_FeesType";
-            }
             SqlParameter[] param =
             {
                 new SqlParameter("@ProgramId",ProgramId),
                 new SqlParameter("@Branch",Branch),
-                new SqlParameter("@Year",Year)
+                new SqlParameter("@Year",Year),
+                new SqlParameter("@Enrollrmnt",Enrollrmnt),
             };
-            var dt = _dbhelper.ExcQueryDT(Quesry, param);
+            var dt = _dbhelper.ExcProc(Quesry, param);
             if (dt.Rows.Count > 0)
             {
                 if (Year == 0 || ProgramId == 0 || Branch == 0)

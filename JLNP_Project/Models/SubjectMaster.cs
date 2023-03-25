@@ -43,6 +43,7 @@
         public string PassingMarks { get; set; }
         public bool IsPrectical { get; set; }
         public bool IsWritten { get; set; }
+        public int PracticalPassingMarks { get; set; }
         public List<SubjectMaster> Assignlist { get; set; }
         public List<SubjectMaster> Bindlist { get; set; }
     }
@@ -54,6 +55,7 @@
         public int SubjectId { get; set; }
         public int Year { get; set; }
         public string VideoUrl { get; set; }
+        public string Enrollementno { get; set; }
     }
     public class CommanMasterResponse
     {
@@ -76,5 +78,10 @@
     {
         public SubjectMaster data { get; set; }
         public List<ProgramMaster> programs { get; set; }
+    }
+    public class StudentResult: SubjectMaster
+    {
+        public int TotalMarks { get; set; }
+        public int ObtainMarks { get; set; }
     }
 }

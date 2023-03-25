@@ -267,12 +267,15 @@
         });
     }
     var Bindfeestype = () => {
-        $.post('/AccountManagement/Bindfeestype', { Year: $('#ddlyear option:selected').val(), ProgramId: $('#ddlprogram option:selected').val(), Branch: $('#ddlbranch option:selected').val() }).done(function(result) {
+        let TotalFees = 0;
+        $.post('/AccountManagement/Bindfeestype', { Year: $('#ddlyear option:selected').val(), ProgramId: $('#ddlprogram option:selected').val(), Branch: $('#ddlbranch option:selected').val(),EnrollmentNo:$('#enrolmnt').val() }).done(function(result) {
             $('#tblfees tbody').empty();
             for (var i = 0; i < result.length; i++) {
                 $('#tblfees tbody').append('<tr><td>*</td><td>' + result[i].feesTypes + '</td><td>' + result[i].amount + '</td></tr>')
+                TotalFees = TotalFees + result[i].amount;
             }
-            $('#tblfees tbody').append('<tr class="bg-primary"><td></td><td>Total</td><td>' + result[0].totalFees + '</td></tr>');
+            $('#tblfees tbody').append('<tr class="bg-primary"><td></td><td>Total</td><td>' + TotalFees + '</td></tr>');
+            $('#ttlamount').val(result[0].totalFees);
         }).fail(function(xhr) {
             console.log(xhr.responseText)
         });
