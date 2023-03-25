@@ -3,146 +3,242 @@
     Layout = "_LayoutAdmin";
 }
 <style>
-    .switch {
-        font-size: 1rem;
+        .input-group>.form-control,.input-group>.custom-select,.input-group>.custom-file {
         position: relative;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        width: 1%;
+        margin-bottom: 0
     }
 
-        .switch.is-valid {
-            border-color: #28a745;
+    .input-group>.form-control:focus,.input-group>.custom-select:focus,.input-group>.custom-file:focus {
+        z-index: 3
+    }
+
+    .input-group>.form-control+.form-control,.input-group>.form-control+.custom-select,.input-group>.form-control+.custom-file,.input-group>.custom-select+.form-control,.input-group>.custom-select+.custom-select,.input-group>.custom-select+.custom-file,.input-group>.custom-file+.form-control,.input-group>.custom-file+.custom-select,.input-group>.custom-file+.custom-file {
+        margin-left: -1px
+    }
+
+    .input-group>.form-control:not(:last-child),.input-group>.custom-select:not(:last-child) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0
+    }
+
+    .input-group>.form-control:not(:first-child),.input-group>.custom-select:not(:first-child) {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0
+    }
+
+    .input-group>.custom-file {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center
+    }
+
+    .input-group>.custom-file:not(:last-child) .custom-file-label,.input-group>.custom-file:not(:last-child) .custom-file-label::after {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0
+    }
+
+    .input-group>.custom-file:not(:first-child) .custom-file-label {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0
+    }
+
+    .input-group-prepend,.input-group-append {
+        display: -ms-flexbox;
+        display: flex
+    }
+
+    .input-group-prepend .btn,.input-group-append .btn {
+        position: relative;
+        z-index: 2
+    }
+
+    .input-group-prepend .btn+.btn,.input-group-prepend .btn+.input-group-text,.input-group-prepend .input-group-text+.input-group-text,.input-group-prepend .input-group-text+.btn,.input-group-append .btn+.btn,.input-group-append .btn+.input-group-text,.input-group-append .input-group-text+.input-group-text,.input-group-append .input-group-text+.btn {
+        margin-left: -1px
+    }
+
+    .input-group-prepend {
+        margin-right: -1px
+    }
+
+    .input-group-append {
+        margin-top: 10px;
+    }
+
+    .input-group-text {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        padding: .375rem .75rem;
+        margin-bottom: 0;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        text-align: center;
+        white-space: nowrap;
+        background-color: #e9ecef;
+        border: 1px solid #ced4da;
+        border-radius: .25rem
+    }
+
+    .input-group-text input[type="radio"],.input-group-text input[type="checkbox"] {
+        margin-top: 0
+    }
+
+    .input-group>.input-group-prepend>.btn,.input-group>.input-group-prepend>.input-group-text,.input-group>.input-group-append:not(:last-child)>.btn,.input-group>.input-group-append:not(:last-child)>.input-group-text,.input-group>.input-group-append:last-child>.btn:not(:last-child):not(.dropdown-toggle),.input-group>.input-group-append:last-child>.input-group-text:not(:last-child) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0
+    }
+
+    .input-group>.input-group-append>.btn,.input-group>.input-group-append>.input-group-text,.input-group>.input-group-prepend:not(:first-child)>.btn,.input-group>.input-group-prepend:not(:first-child)>.input-group-text,.input-group>.input-group-prepend:first-child>.btn:not(:first-child),.input-group>.input-group-prepend:first-child>.input-group-text:not(:first-child) {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0
+    }
+        .switch {
+            font-size: 1rem;
+            position: relative;
         }
 
-        .switch.is-info {
-            border-color: #17a2b8;
-        }
-
-        .switch input {
-            position: absolute;
-            height: 1px;
-            width: 1px;
-            background: none;
-            border: 0;
-            clip: rect(0 0 0 0);
-            clip-path: inset(50%);
-            overflow: hidden;
-            padding: 0;
-        }
-
-            .switch input + label {
-                position: relative;
-                min-width: calc(calc(2.375rem * .8) * 2);
-                border-radius: calc(2.375rem * .8);
-                height: calc(2.375rem * .8);
-                line-height: calc(2.375rem * .8);
-                display: inline-block;
-                cursor: pointer;
-                outline: none;
-                user-select: none;
-                vertical-align: middle;
-                text-indent: calc(calc(calc(2.375rem * .8) * 2) + .5rem);
+            .switch.is-valid {
+                border-color: #28a745;
             }
 
-                .switch input + label::before,
-                .switch input + label::after {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: calc(calc(2.375rem * .8) * 2);
-                    bottom: 0;
-                    display: block;
-                }
+            .switch.is-info {
+                border-color: #17a2b8;
+            }
 
-                .switch input + label::before {
-                    right: 0;
-                    background-color: #dee2e6;
+            .switch input {
+                position: absolute;
+                height: 1px;
+                width: 1px;
+                background: none;
+                border: 0;
+                clip: rect(0 0 0 0);
+                clip-path: inset(50%);
+                overflow: hidden;
+                padding: 0;
+            }
+
+                .switch input + label {
+                    position: relative;
+                    min-width: calc(calc(2.375rem * .8) * 2);
                     border-radius: calc(2.375rem * .8);
-                    transition: 0.2s all;
+                    height: calc(2.375rem * .8);
+                    line-height: calc(2.375rem * .8);
+                    display: inline-block;
+                    cursor: pointer;
+                    outline: none;
+                    user-select: none;
+                    vertical-align: middle;
+                    text-indent: calc(calc(calc(2.375rem * .8) * 2) + .5rem);
                 }
 
-                .switch input + label::after {
-                    top: 2px;
-                    left: 2px;
-                    width: calc(calc(2.375rem * .8) - calc(2px * 2));
-                    height: calc(calc(2.375rem * .8) - calc(2px * 2));
-                    border-radius: 50%;
-                    background-color: white;
-                    transition: 0.2s all;
+                    .switch input + label::before,
+                    .switch input + label::after {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: calc(calc(2.375rem * .8) * 2);
+                        bottom: 0;
+                        display: block;
+                    }
+
+                    .switch input + label::before {
+                        right: 0;
+                        background-color: #dee2e6;
+                        border-radius: calc(2.375rem * .8);
+                        transition: 0.2s all;
+                    }
+
+                    .switch input + label::after {
+                        top: 2px;
+                        left: 2px;
+                        width: calc(calc(2.375rem * .8) - calc(2px * 2));
+                        height: calc(calc(2.375rem * .8) - calc(2px * 2));
+                        border-radius: 50%;
+                        background-color: white;
+                        transition: 0.2s all;
+                    }
+
+                .switch input:checked + label::before {
+                    background-color: #6e7882;
                 }
 
-            .switch input:checked + label::before {
-                background-color: #6e7882;
-            }
-
-            .switch input:checked + label::after {
-                margin-left: calc(2.375rem * .8);
-            }
-
-            .switch input:focus + label::before {
-                outline: none;
-                box-shadow: 0 0 0 0.2rem rgba(0, 136, 221, 0.25);
-            }
-
-            .switch input:disabled + label {
-                color: #868e96;
-                cursor: not-allowed;
-            }
-
-                .switch input:disabled + label::before {
-                    background-color: #e9ecef;
+                .switch input:checked + label::after {
+                    margin-left: calc(2.375rem * .8);
                 }
 
-        .switch.switch-sm {
-            font-size: 0.875rem;
-        }
-
-            .switch.switch-sm input + label {
-                min-width: calc(calc(1.9375rem * .8) * 2);
-                height: calc(1.9375rem * .8);
-                line-height: calc(1.9375rem * .8);
-                text-indent: calc(calc(calc(1.9375rem * .8) * 2) + .5rem);
-            }
-
-                .switch.switch-sm input + label::before {
-                    width: calc(calc(1.9375rem * .8) * 2);
+                .switch input:focus + label::before {
+                    outline: none;
+                    box-shadow: 0 0 0 0.2rem rgba(0, 136, 221, 0.25);
                 }
 
-                .switch.switch-sm input + label::after {
-                    width: calc(calc(1.9375rem * .8) - calc(2px * 2));
-                    height: calc(calc(1.9375rem * .8) - calc(2px * 2));
+                .switch input:disabled + label {
+                    color: #868e96;
+                    cursor: not-allowed;
                 }
 
-            .switch.switch-sm input:checked + label::after {
-                margin-left: calc(1.9375rem * .8);
+                    .switch input:disabled + label::before {
+                        background-color: #e9ecef;
+                    }
+
+            .switch.switch-sm {
+                font-size: 0.875rem;
             }
 
-        .switch.switch-lg {
-            font-size: 1.25rem;
-        }
-
-            .switch.switch-lg input + label {
-                min-width: calc(calc(3rem * .8) * 2);
-                height: calc(3rem * .8);
-                line-height: calc(3rem * .8);
-                text-indent: calc(calc(calc(3rem * .8) * 2) + .5rem);
-            }
-
-                .switch.switch-lg input + label::before {
-                    width: calc(calc(3rem * .8) * 2);
+                .switch.switch-sm input + label {
+                    min-width: calc(calc(1.9375rem * .8) * 2);
+                    height: calc(1.9375rem * .8);
+                    line-height: calc(1.9375rem * .8);
+                    text-indent: calc(calc(calc(1.9375rem * .8) * 2) + .5rem);
                 }
 
-                .switch.switch-lg input + label::after {
-                    width: calc(calc(3rem * .8) - calc(2px * 2));
-                    height: calc(calc(3rem * .8) - calc(2px * 2));
+                    .switch.switch-sm input + label::before {
+                        width: calc(calc(1.9375rem * .8) * 2);
+                    }
+
+                    .switch.switch-sm input + label::after {
+                        width: calc(calc(1.9375rem * .8) - calc(2px * 2));
+                        height: calc(calc(1.9375rem * .8) - calc(2px * 2));
+                    }
+
+                .switch.switch-sm input:checked + label::after {
+                    margin-left: calc(1.9375rem * .8);
                 }
 
-            .switch.switch-lg input:checked + label::after {
-                margin-left: calc(3rem * .8);
+            .switch.switch-lg {
+                font-size: 1.25rem;
             }
 
-        .switch + .switch {
-            margin-left: 1rem;
-        }
+                .switch.switch-lg input + label {
+                    min-width: calc(calc(3rem * .8) * 2);
+                    height: calc(3rem * .8);
+                    line-height: calc(3rem * .8);
+                    text-indent: calc(calc(calc(3rem * .8) * 2) + .5rem);
+                }
+
+                    .switch.switch-lg input + label::before {
+                        width: calc(calc(3rem * .8) * 2);
+                    }
+
+                    .switch.switch-lg input + label::after {
+                        width: calc(calc(3rem * .8) - calc(2px * 2));
+                        height: calc(calc(3rem * .8) - calc(2px * 2));
+                    }
+
+                .switch.switch-lg input:checked + label::after {
+                    margin-left: calc(3rem * .8);
+                }
+
+            .switch + .switch {
+                margin-left: 1rem;
+            }
 </style>
 <div class="">
     <div class="">
@@ -176,6 +272,7 @@
                                     <option value="1">First Year</option>
                                     <option value="2">Secound Year</option>
                                     <option value="3">Third Year</option>
+                                    <option value="4">Final Year</option>
                                 </select>
                             </div>
                             <div class="col-sm-3">
@@ -193,15 +290,9 @@
                                 <input type="number" id="txttheoryMarks" placeholder="Theory Marks" class="form-control" />
                             </div>
                             <div class="col-sm-3">
-                                <label>Prectical Marks<span style="color:red;">*</span></label>
-                                <input type="number" id="txtsubjectMarks" placeholder="Prectical Marks" class="form-control" />
-                            </div>
-                            <div class="col-sm-3">
                                 <label>Passing Marks<span style="color:red;">*</span></label>
                                 <input type="number" id="txtpassing" placeholder="Passing Marks" class="form-control" />
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-sm-3">
                                 <label>Subject Type<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlsubjecttype">
@@ -210,32 +301,30 @@
                                     <option value="Conpalsary">Compulsory</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 d-none prec">
+                                <label>Prectical Marks<span style="color:red;">*</span></label>
+                                <input type="number" id="txtprecticalMarks" placeholder="Prectical Marks" class="form-control" />
+                            </div>
+                            <div class="col-sm-3 d-none prec">
+                                <label>Prectical Passing Marks<span style="color:red;">*</span></label>
+                                <input type="number" id="txtPrecPassingmarks" placeholder="Prectical Passing Marks" class="form-control" />
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text switch switch-sm bg-white align">
+                                        <input type="checkbox" class="switch" id="isprectical" onchange="PrecticalDetail()" />
+                                        <label for="isprectical"></label>
+                                        <p style="margin-left:5px;">IsPrectical</p>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-2">
                                 <button class="btn btn-outline-primary" onclick="submitdata()" style="margin-top: 25px;width: 43%;">Save</button>
                             </div>
-                        </div>
-                        <div class="table-responsive" style="margin-top:13px;">
-                            <table class="table table-bordered" id="tblbranch">
-                                <thead class="bg-primary">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Program</th>
-                                        <th>Branch Name</th>
-                                        <th>Year</th>
-                                        <th>Subject</th>
-                                        <th>Subject Code</th>
-                                        <th>Subject Type</th>
-                                        <th>Theory Marks</th>
-                                        <th>Practical Marks</th>
-                                        <th>Passing Marks</th>
-                                        <th>IsPrectical</th>
-                                        <th>IsWritten</th>
-                                        <th>EntryDate</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
@@ -245,11 +334,19 @@
 </div>
 <script>
     $(document).ready(function() {
-        loaddata();
         Bindbranch();
     });
-
+    var PrecticalDetail = () => {
+        let isprectical = $('#isprectical').is(':checked');
+        if (isprectical) {
+            $('.prec').removeClass('d-none');
+        }
+        else {
+            $('.prec').addClass('d-none');
+        }
+    }
     var submitdata = () => {
+        let isprectical = false;
         if ($('#ddlprogram option:selected').val() == '') {
             alert('Please Select Branch');
             $('#ddlprogram').focus();
@@ -286,10 +383,18 @@
             $('#txttheoryMarks').focus();
             return false;
         }
-        if ($('#txtsubjectMarks').val() == '') {
-            alert('Please Enter Practical Marks');
-            $('#txtsubjectMarks').focus();
-            return false;
+        if ($('#isprectical').is(':checked')) {
+            isprectical = true;
+            if ($('#txtprecticalMarks').val() == '') {
+                alert('Please Enter Practical Marks');
+                $('#txtprecticalMarks').focus();
+                return false;
+            }
+            if ($('#txtPrecPassingmarks').val() == '') {
+                alert('Please Enter Prectical Passing Marks');
+                $('#txtPrecPassingmarks').focus();
+                return false;
+            }
         }
         if ($('#txtpassing').val() == '') {
             alert('Please Enter Passing Marks');
@@ -310,8 +415,10 @@
             SubjectCode: $('#txtsubjectCode').val(),
             SubjectType: $('#ddlsubjecttype option:selected').val(),
             TheoryMarks: $('#txttheoryMarks').val(),
-            PracticalMarks: $('#txtsubjectMarks').val(),
-            PassingMarks: $('#txtpassing').val()
+            PracticalMarks: $('#txtprecticalMarks').val(),
+            PassingMarks: $('#txtpassing').val(),
+            IsPrectical:isprectical,
+            PecticalPassingMarks:$('#txtPrecPassingmarks').val()
         }
         preloader.load();
         $.post('/Master/SaveSubjectMaster', obj).done(function(result) {
@@ -329,16 +436,6 @@
             }
         }).fail(function(xhr) {
             console.log(xhr.responseText)
-        });
-    }
-    var loaddata = () => {
-        preloader.load();
-        $.post('/Master/GetSubjectMaster').done(function(result) {
-            $('#tblbranch tbody').html(result);
-            preloader.remove();
-        }).fail(function(xhr) {
-            console.log(xhr.responseText);
-            alert('Server Error');
         });
     }
     var DeleteSubject = () => {
@@ -364,7 +461,7 @@
             }
         }
         preloader.load();
-        $.post('/Master/ChangeSubjectStatus', { SubId: id, Action: action ,Status:status}).done(function(result) {
+        $.post('/Master/ChangeSubjectStatus', { SubId: id, Action: action, Status: status }).done(function(result) {
             preloader.remove();
             alertnotify(result.statuscode, result.msg);
         }).fail(function(xhr) {

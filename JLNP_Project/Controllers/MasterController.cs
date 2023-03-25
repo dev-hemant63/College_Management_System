@@ -21,9 +21,26 @@ namespace JLNP_Project.Controllers
         {
             _accessor = accessor;
             _webHostEnvironment = webHostEnvironment;
-            _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString("Userdata"));
+            try
+            {
+                _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString("Userdata"));
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
         public IActionResult SubjectMaster()
+        {
+            if (_lr.UserName != null)
+            {
+                IMasterML ml = new MasterML();
+                var res = ml.GetProgram();
+                return View(res);
+            }
+            return RedirectToAction("UsersLogin", "Account");
+        }
+        public IActionResult SubjectMasterList()
         {
             if (_lr.UserName != null)
             {

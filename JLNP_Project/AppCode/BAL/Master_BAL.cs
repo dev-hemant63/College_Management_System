@@ -69,9 +69,11 @@ namespace JLNP_Project.AppCode.BAL
                     subjects.SubjectCode = Convert.ToString(row["SubjectCode"].ToString());
                     subjects.SubjectType = Convert.ToString(row["SubjectType"].ToString());
                     subjects.TheoryMarks = Convert.ToString(row["TheoryMarks"].ToString());
-                    subjects.PracticalMarks = Convert.ToString(row["PracticalMarks"].ToString());
+                    subjects.IsPrectical = Convert.ToBoolean(row["IsPrectical"]);
                     subjects.PassingMarks = Convert.ToString(row["PassingMarks"].ToString());
                     subjects.EntryDate = Convert.ToString(row["EntryDate"].ToString());
+                    subjects.PracticalMarks = Convert.ToString(row["PracticalMarks"].ToString());
+                    subjects.PracticalPassingMarks = Convert.ToInt32(row["PrecticalPassingMarks"]);
                 }
             }
             return subjects;
@@ -84,7 +86,7 @@ namespace JLNP_Project.AppCode.BAL
                 statuscode = -1,
                 Msg = "Temp Error"
             };
-            var dt = msDal.EditSubjectMaster_Dal(subjectMaster);
+            var dt = msDal.SaveSubject_Dal(subjectMaster);
             if (dt.Rows.Count > 0)
             {
                 res.Msg = Convert.ToString(dt.Rows[0]["Msg"].ToString());

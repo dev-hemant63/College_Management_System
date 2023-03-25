@@ -92,5 +92,10 @@ namespace JLNP_Project.AppCode.Midlelayer
             var response = _proc.ProcBindProgramWiseBranch(ProgramId);
             return response;
         }
+        public List<StudentResult> StudentResultRes(string Enrollment)
+        {
+            var response = _proc.ProcGetStudentResult(Enrollment);
+            return response;
+        }
     }
 }

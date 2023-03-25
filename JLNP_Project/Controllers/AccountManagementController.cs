@@ -310,9 +310,9 @@ namespace JLNP_Project.Controllers
             return Json(res);
         }
         [HttpPost]
-        public IActionResult Bindfeestype(int Year,int ProgramId,int Branch)
+        public IActionResult Bindfeestype(int Year,int ProgramId,int Branch, string EnrollmentNo = "")
         {
-            var res = _accountBAL.BindFeesType(Year,ProgramId, Branch);
+            var res = _accountBAL.BindFeesType(Year,ProgramId, Branch, EnrollmentNo);
             return Json(res);
         }
     }

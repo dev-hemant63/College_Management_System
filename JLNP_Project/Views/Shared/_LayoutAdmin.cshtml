@@ -73,7 +73,7 @@
                         <li class="onhover-dropdown">
                             <div class="bookmark-box"><img class="cus-img-icon rounded-circle" src="~/Assessts3/images/userimg.png" alt=""></div>
                             <div class="bookmark-dropdown onhover-show-div">
-                                <ul class="m-t-5">
+                                <ul class="m-t-5" style="font-size: 13px !important;">
                                     <li>
                                         <div class="sidebar-user text-center">
                                             <img class="cus-img rounded-circle" src="~/Assessts3/images/userimg.png" alt="">
@@ -140,11 +140,10 @@
                                         <li><a href="/Admission/AForm">- &nbsp; Admission</a></li>
                                     </ul>
                                 </li>
-
                                 <li class="dropdown">
                                     <a class="nav-link menu-title" href="javascript:void(0)"><i class="fa fa-cogs"></i><span>Master & Settings</span></a>
                                     <ul class="nav-submenu menu-content">
-                                        <li><a href="/Master/SubjectMaster"> - &nbsp; Add Subject</a></li>
+                                        <li><a href="/Master/SubjectMasterList"> - &nbsp; Add Subject</a></li>
                                         <li><a href="/Teacher/AddTeacher">- &nbsp; Add Teacher</a></li>
                                         <li><a href="/Master/BatchMaster">- &nbsp; Batch Master</a></li>
                                         <li><a href="/Master/ProgramMaster">- &nbsp; Program Master</a></li>
@@ -243,6 +242,7 @@
     <script src="~/dist/sweetalert2.all.js"></script>
     <script src="~/js/yearpicker.js"></script>
     <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/canvasjs.min.js"></script>
     <script>
         var $$host = '@(ViewData["Host"])';
         var ChangePassword = function(userid) {

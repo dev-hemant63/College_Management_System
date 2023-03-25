@@ -128,9 +128,9 @@ namespace JLNP_Project.AppCode.BAL
             var res = _accountDAL.Deletefeestype(Id);
             return res;
         }
-        public List<FeesType> BindFeesType(int Year = 0, int ProgramId = 0, int Branch = 0)
+        public List<FeesType> BindFeesType(int Year = 0, int ProgramId = 0, int Branch = 0,string Enrollrmnt ="")
         {
-            var res = _accountDAL.BindFeesType(Year, ProgramId, Branch);
+            var res = _accountDAL.BindFeesType(Year, ProgramId, Branch, Enrollrmnt);
             return res;
         }
         public List<FeesType> BindFeesTypeByYear(int Year = 0, int ProgramId = 0, int Branch = 0)
