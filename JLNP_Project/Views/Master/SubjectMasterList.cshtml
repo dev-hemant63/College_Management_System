@@ -179,8 +179,8 @@
                                     <option value="4">Final Year</option>
                                 </select>
                             </div>
-                            <div class="col-sm-2">
-                                <button class="btn btn-outline-primary" style="margin-top: 25px;">Search</button>
+                            <div class="col-sm-2" style="display: flex;">
+                                <button class="btn btn-outline-primary" style="margin-top: 25px; margin-left: 3px;">Search</button>
                                  <a href="/Master/SubjectMaster" class="btn btn-outline-danger" style="margin-top: 25px;">Add New +</a>
                             </div>
                         </div>
@@ -197,6 +197,7 @@
                                         <th>Subject Type</th>
                                         <th>Theory Marks</th>
                                         <th>Practical Marks</th>
+                                        <th>Practical Passing Marks</th>
                                         <th>Passing Marks</th>
                                         <th>IsPrectical</th>
                                         <th>IsWritten</th>
@@ -225,6 +226,13 @@
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');
+        });
+    }
+    var DeleteSubject = (id) =>{
+        $.post('/Admission/BindProgramWiseBranch', { Id: id }).done(function(result) {
+            alertnotify(result.statuscode,result.msg);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
         });
     }
 </script>

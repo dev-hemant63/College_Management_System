@@ -42,6 +42,7 @@ namespace JLNP_Project.AppCode.BAL
                         SubjectType = Convert.ToString(row["SubjectType"].ToString()),
                         TheoryMarks = Convert.ToString(row["TheoryMarks"].ToString()),
                         PracticalMarks = Convert.ToString(row["PracticalMarks"].ToString()),
+                        PracticalPassingMarks = Convert.ToInt32(row["PrecticalPassingMarks"]),
                         PassingMarks = Convert.ToString(row["PassingMarks"].ToString()),
                         IsPrectical = Convert.ToBoolean(row["IsPrectical"]),
                         IsWritten = Convert.ToBoolean(row["Iswritten"]),
@@ -62,7 +63,7 @@ namespace JLNP_Project.AppCode.BAL
                 foreach (DataRow row in dt.Rows)
                 {
                     subjects.Id = Convert.ToInt32(row["Id"]);
-                    subjects.Branch = Convert.ToString(row["Branch"].ToString());
+                    subjects.Branch = Convert.ToString(row["BranchId"].ToString());
                     subjects.Program = Convert.ToInt32(row["Program"].ToString());
                     subjects.Year = Convert.ToString(row["_Year"].ToString());
                     subjects.SubjectName = Convert.ToString(row["SubjectName"].ToString());

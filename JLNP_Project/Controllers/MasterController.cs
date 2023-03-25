@@ -99,7 +99,7 @@ namespace JLNP_Project.Controllers
             return Json(res);
         }
         [HttpPost]
-        public IActionResult DeleteSubject(int Id, string Action)
+        public IActionResult DeleteSubject(int Id, string Action="")
         {
             Master_BAL msdal = new Master_BAL();
             Action = "Delete";
