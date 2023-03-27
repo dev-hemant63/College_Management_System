@@ -54,9 +54,12 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
+                AssignSubjectViewModel model = new AssignSubjectViewModel();
                 IMasterML ml = new MasterML();
-                var res = ml.GetProgram();
-                return View(res);
+                Admin_BAL adbal = new Admin_BAL();
+                model.Teachers = adbal.Bind_Teacher_Bal();
+                model.ProgramMasters = ml.GetProgram();
+                return View(model);
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -103,11 +106,10 @@ namespace JLNP_Project.Controllers
             var res = adbal.GetTimetable();
             return PartialView("Partial/_GetTimetable", res);
         }
-        [HttpPost]
-        public IActionResult Bind_Subject(int BranchId, int Year)
+        public IActionResult Bind_Subject(int Program, int BranchId, int Year)
         {
             Admin_BAL adbal = new Admin_BAL();
-            var res = adbal.Bind_Subject_Bal(BranchId, Year);
+            var res = adbal.Bind_Subject_Bal(Program, BranchId, Year);
             return Json(res);
         }
         [HttpPost]
@@ -115,13 +117,6 @@ namespace JLNP_Project.Controllers
         {
             Admin_BAL adbal = new Admin_BAL();
             var res = adbal.Bind_Subjects_Bal();
-            return Json(res);
-        }
-        [HttpPost]
-        public IActionResult Bind_teacher()
-        {
-            Admin_BAL adbal = new Admin_BAL();
-            var res = adbal.Bind_Teacher_Bal();
             return Json(res);
         }
         [HttpPost]
@@ -141,9 +136,11 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult Edit_Assignsubject(int Id)
         {
+            EditAssignSubjectViewModel model = new EditAssignSubjectViewModel();
             Admin_BAL adbal = new Admin_BAL();
-            var res = adbal.Edit_Assignsubject_bal(Id);
-            return PartialView("Partial/_EditAssignSubject", res);
+            model.data = adbal.Edit_Assignsubject_bal(Id);
+            model.Teachers = adbal.Bind_Teacher_Bal();
+            return PartialView("Partial/_EditAssignSubject", model);
         }
         [HttpPost]
         public IActionResult Assignsubject_Edit(int Id)
@@ -186,7 +183,7 @@ namespace JLNP_Project.Controllers
             return PartialView("Partial/_GetUsers", res);
         }
         [HttpPost]
-        public IActionResult UpdateUserStatus(int UserID , bool IsActive)
+        public IActionResult UpdateUserStatus(int UserID, bool IsActive)
         {
             Admin_BAL adbal = new Admin_BAL();
             var response = adbal.UpdateUserStatus(UserID, IsActive);

@@ -1,49 +1,82 @@
 ﻿@model List<SubjectMaster>
 @{
     int i = 0;
-    if (Model != null)
+    if (Model.Any())
     {
         foreach (var item in Model)
         {
             i++;
-    <tr data-item-id="@item.Id">
-                    <td>@i</td>
-                    <td>@item.ProgramName</td>
-                    <td>@item.Branch</td>
-                    <td>@item.Year</td>
-                    <td>@item.SubjectName</td>
-                    <td>@item.SubjectCode</td>
-                    <td>@item.SubjectType</td>
-                    <td>@item.TheoryMarks</td>
-                    <td>@item.PracticalMarks</td>
-                    <td>@item.PracticalPassingMarks</td>
-                    <td>@item.PassingMarks</td>
-                    <td>
-                        <span class="switch switch-sm">
-                            <input type="checkbox" class="switch" onclick="ChangeStatus('@item.Id','IsPrectical')" id="isprectical_@item.Id" @Html.Raw(@item.IsPrectical ? "checked='checked'" : "")>
-                            <label for="isprectical_@item.Id"></label>
-                        </span>
-                    </td>
-                    <td>
-                        <span class="switch switch-sm">
-                            <input type="checkbox" class="switch" onclick="ChangeStatus('@item.Id','IsWritten')" id="iswritten_@item.Id" @Html.Raw(@item.IsWritten ? "checked='checked'" : "")>
-                            <label for="iswritten_@item.Id"></label>
-                        </span>
-                    </td>
-                    <td>@item.EntryDate</td>
-                    <td>
-                        <div class="btn-group btn-group-sm" style="float: none;">
-                            <a class="tabledit-edit-button btn btn-sm btn-success btn_edit" id="edit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" href="/Master/GetSubjectMaster_ById?Id=@item.Id" style="float: none; margin: 4px;"><span class="ti-pencil"></span></a>
-                            <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;" onclick="DeleteSubject('@item.Id')"><span class="ti-trash"></span></button>
-                        </div>
-                    </td>
-    </tr>
+            <tr data-item-id="@item.Id">
+                <td>@i</td>
+                <td>@item.ProgramName</td>
+                <td>@item.Branch</td>
+                <td>@item.Year</td>
+                <td>@item.SubjectName</td>
+                <td>@item.SubjectCode</td>
+                <td>@item.SubjectType</td>
+                <td>@item.TheoryMarks</td>
+                <td>@item.PracticalMarks</td>
+                <td>@item.PracticalPassingMarks</td>
+                <td>@item.PassingMarks</td>
+                <td>
+                    <span class="switch switch-sm">
+                        <input type="checkbox" class="switch" onclick="ChangeStatus('@item.Id','IsPrectical')" id="isprectical_@item.Id" @Html.Raw(@item.IsPrectical ? "checked='checked'" : "")>
+                        <label for="isprectical_@item.Id"></label>
+                    </span>
+                </td>
+                <td>
+                    <span class="switch switch-sm">
+                        <input type="checkbox" class="switch" onclick="ChangeStatus('@item.Id','IsWritten')" id="iswritten_@item.Id" @Html.Raw(@item.IsWritten ? "checked='checked'" : "")>
+                        <label for="iswritten_@item.Id"></label>
+                    </span>
+                </td>
+                <td>@item.EntryDate</td>
+                <td>
+                    <div class="btn-group btn-group-sm" style="float: none;">
+                        <a class="tabledit-edit-button btn btn-sm btn-success btn_edit" id="edit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" href="/Master/GetSubjectMaster_ById?Id=@item.Id" style="float: none; margin: 4px;"><span class="ti-pencil"></span></a>
+                        <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;" onclick="DeleteSubject('@item.Id')"><span class="ti-trash"></span></button>
+                    </div>
+                </td>
+            </tr>
         }
     }
     else
     {
-    <tr>
-                <td colspan=10 class="text-center" style="color:red;">Record Not Found</td>
-    </tr>
+        <tr>
+            <td colspan="15" class="text-center" style="color:red;">Record Not Found</td>
+        </tr>
     }
 }
+<script>
+    var DeleteSubject = (SubjectId) => {
+        preloader.load();
+        $.post('/Master/DeleteSubject', { Id: SubjectId }).done(function(result) {
+            preloader.remove();
+            alertnotify(result.statuscode, result.msg);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
+        });
+    }
+    var ChangeStatus = (id, action) => {
+        let status = false;
+        if (action == 'IsPrectical') {
+            if ($('#isprectical_' + id).is(':checked')) {
+                status = true;
+            }
+        }
+        else {
+            if ($('#iswritten_' + id).is(':checked')) {
+                status = true;
+            }
+        }
+        preloader.load();
+        $.post('/Master/ChangeSubjectStatus', { SubId: id, Action: action, Status: status }).done(function(result) {
+            preloader.remove();
+            alertnotify(result.statuscode, result.msg);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+            alert('Server Error');
+        });
+    }
+</script>

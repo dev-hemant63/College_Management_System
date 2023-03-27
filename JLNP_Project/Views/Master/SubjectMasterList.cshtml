@@ -157,7 +157,7 @@
                             <div class="col-sm-2">
                                 <label>Select Program<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlprogram" onchange="Bindbranch()">
-                                    <option value="">--Select Program--</option>
+                                    <option value="0">--Select Program--</option>
                                     @foreach (var item in Model)
                                     {
                                         <option value="@item.Id">@item.Program</option>
@@ -167,6 +167,7 @@
                             <div class="col-sm-2">
                                 <label>Select Branch<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlbranch">
+                                    <option value="0">--Select Branch--</option>
                                 </select>
                             </div>
                             <div class="col-sm-2">
@@ -180,7 +181,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-2" style="display: flex;">
-                                <button class="btn btn-outline-primary" style="margin-top: 25px; margin-left: 3px;">Search</button>
+                                <button class="btn btn-outline-primary" style="margin-top: 25px; margin-left: 3px;" onclick="loaddata()">Search</button>
                                  <a href="/Master/SubjectMaster" class="btn btn-outline-danger" style="margin-top: 25px;">Add New +</a>
                             </div>
                         </div>
@@ -219,8 +220,13 @@
         loaddata();
     });
     var loaddata = () => {
+        let obj = {
+            Program:$('#ddlprogram option:selected').val(),
+            BranchId:$('#ddlbranch option:selected').val(),
+            Year:$('#ddlyear option:selected').val()
+        }
         preloader.load();
-        $.post('/Master/GetSubjectMaster').done(function(result) {
+        $.post('/Master/GetSubjectMaster',obj).done(function(result) {
             $('#tblbranch tbody').html(result);
             preloader.remove();
         }).fail(function(xhr) {
@@ -231,6 +237,16 @@
     var DeleteSubject = (id) =>{
         $.post('/Admission/BindProgramWiseBranch', { Id: id }).done(function(result) {
             alertnotify(result.statuscode,result.msg);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var Bindbranch = () => {
+        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlprogram option:selected').val() }).done(function(result) {
+            $('#ddlbranch').empty();
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+            }
         }).fail(function(xhr) {
             console.log(xhr.responseText)
         });

@@ -19,9 +19,6 @@ namespace JLNP_Project.AppCode.DL
 
             SqlParameter[] param ={
                 new SqlParameter("@Id",studentFineMdl.Id),
-                new SqlParameter("@BranchId",studentFineMdl.BranchId),
-                new SqlParameter("@Year",studentFineMdl.Year),
-                new SqlParameter("@StudentName",studentFineMdl.Name),
                 new SqlParameter("@EnrollmentNumber",studentFineMdl.Entrolment_No),
                 new SqlParameter("@FineAmount",studentFineMdl.FineAmount),
                 new SqlParameter("@FineResion",studentFineMdl.FineResion),
@@ -53,12 +50,9 @@ namespace JLNP_Project.AppCode.DL
                         StudentFineMdl data = new StudentFineMdl
                         {
                             Id = Convert.ToInt32(dr["Id"]),
-                            Branch = Convert.ToString(dr["Branch_Name"].ToString()),
-                            Name = Convert.ToString(dr["StudentName"].ToString()),
                             Entrolment_No = Convert.ToString(dr["EnrollmentNumber"].ToString()),
                             FineAmount = Convert.ToInt32(dr["FineAmount"]),
                             FineResion = Convert.ToString(dr["FineResion"].ToString()),
-                            _Year = Convert.ToString(dr["_Year"].ToString()),
                             EntryDate = Convert.ToString(dr["EntryDate"].ToString() is DBNull?"": dr["EntryDate"].ToString()),
                             FineStatus = Convert.ToInt32(dr["FineStatus"] is DBNull ? 0 : Convert.ToInt32(dr["FineStatus"]))
                         };
@@ -87,13 +81,9 @@ namespace JLNP_Project.AppCode.DL
                 foreach (DataRow dr in dt.Rows)
                 {
                     res.Id = Convert.ToInt32(dr["Id"]);
-                    res.BranchId = Convert.ToInt32(dr["BranchId"]);
-                    res.Name = Convert.ToString(dr["StudentName"].ToString());
                     res.Entrolment_No = Convert.ToString(dr["EnrollmentNumber"].ToString());
                     res.FineAmount = Convert.ToInt32(dr["FineAmount"]);
                     res.FineResion = Convert.ToString(dr["FineResion"].ToString());
-                    res._Year = Convert.ToString(dr["_Year"].ToString());
-                    res.Branch = Convert.ToString(dr["Branch_Name"].ToString());
                 }
             }
             return res;

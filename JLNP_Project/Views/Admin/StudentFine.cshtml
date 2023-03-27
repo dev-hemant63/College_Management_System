@@ -13,32 +13,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3">
-                                <label>Select Branch<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlbranch" onchange="selectyear()">
-                                </select>
-                            </div>
-                            <div class="col-sm-3">
-                                <label>Select Year<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlyear">
-                                    <option value="">-- Select Year --</option>
-                                    <option value="1">First Year </option>
-                                    <option value="2">Second Year</option>
-                                    <option value="3">Final Year </option>
-                                </select>
-                            </div>
-                            <div class="col-sm-3">
-                                <label>Student Name<span style="color:red;">*</span></label>
-                                <input type="text" class="form-control" id="txtname" />
-                            </div>
-                            <div class="col-sm-3">
                                 <label>Enrollment Number<span style="color:red;">*</span></label>
                                 <input type="text" class="form-control" id="txtenrol" />
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-sm-4">
                                 <label>Fine Amount<span style="color:red;">*</span></label>
-                                <input type="text" class="form-control" id="txtamount" />
+                                <input type="number" class="form-control" id="txtamount" />
                             </div>
                             <div class="col-sm-4">
                                 <label>Fine Resion<span style="color:red;">*</span></label>
@@ -47,16 +27,12 @@
                             <div class="col-sm-3">
                                 <button class="btn btn-outline-primary" id="btnsubmit" style="margin-top: 29px;width: 43%;" onclick="submitdata()">Save</button>
                             </div>
-                            <input type="hidden" id="hdnid" value="@Model."
                         </div>
                         <div class="table-responsive" style="margin-top:13px;">
                             <table class="table mb-0 table-bordered" id="tblbranch">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
-                                        <th>Branch</th>
-                                        <th>Year</th>
-                                        <th>Student Name</th>
                                         <th>Entrollment Number</th>
                                         <th>Fine Amount</th>
                                         <th>Fine Resion</th>
@@ -75,9 +51,6 @@
                                             <tr>
                                                 <input type="hidden" id="hdnid" value="@item.Id">
                                                 <td>@i</td>
-                                                <td>@item.Branch</td>
-                                                <td>@item._Year</td>
-                                                <td>@item.Name</td>
                                                 <td>@item.Entrolment_No</td>
                                                 <td>@item.FineAmount</td>
                                                 <td>@item.FineResion</td>
@@ -120,26 +93,11 @@
 <script src="~/js/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
-        Bindbranch();
+        
     });
-    var Bindbranch = () => {
-        $.post('/Admission/BindBranch').done(function(result) {
-            console.log(result);
-            $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
-            for (var i = 0; i < result.length; i++) {
-                $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
-            }
-        }).fail(function(xhr) {
-            console.log(xhr.responseText)
-        });
-    }
-
     var submitdata = () => {
         let data = {
             Id: $('#hdnid').val(),
-            BranchId: $('#ddlbranch option:selected').val(),
-            Year: $('#ddlyear option:selected').val(),
-            Name: $('#txtname').val(),
             Entrolment_No: $('#txtenrol').val(),
             FineAmount: $('#txtamount').val(),
             FineResion: $('#txtresion').val(),
@@ -158,7 +116,6 @@
         $.post('/Student/GetStudentFineById', { Id: RecordId }).done(function(result) {
             preloader.remove();
             $('body').append(result);
-            Bindbranchlist();
             $('#myModalNew').modal('show');
             $('[data-dismiss="modal"]').unbind().click(function() {
                 $('.modal,.modal-backdrop').remove();
@@ -185,16 +142,6 @@
             alertnotify(result.statuscode,result.msg);
         }).fail(function() {
             alert('Server Error');
-        });
-    }
-    var Bindbranchlist = () => {
-        $.post('/Admission/BindBranch').done(function(result) {
-            console.log(result);
-            for (var i = 0; i < result.length; i++) {
-                $('#lstbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
-            }
-        }).fail(function(xhr) {
-            console.log(xhr.responseText)
         });
     }
 </script>

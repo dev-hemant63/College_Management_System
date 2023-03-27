@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "_LayoutAdmin";
 }
-@model List<ProgramMaster>
+@model AssignSubjectViewModel
 <div class="">
     <div class="">
         <div class="row">
@@ -16,7 +16,7 @@
                                 <label>Select Branch<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlprogram" onchange="Bindbranch()">
                                     <option value="">-- Select Program --</option>
-                                    @foreach (var item in Model)
+                                    @foreach (var item in Model.ProgramMasters)
                                     {
                                         <option value="@item.Id">@item.Program</option>
                                     }
@@ -56,7 +56,10 @@
                                 <label>Select Teacher<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlteacher">
                                     <option value="">-- Select Teacher --</option>
-
+                                    @foreach (var item in Model.Teachers)
+                                    {
+                                        <option value="@item.TeacherId">@item.TeacherName</option>
+                                    }
                                 </select>
                                 <span class="text-danger d-none" id="teacherv">Please Select Teacher</span>
                             </div>
@@ -89,20 +92,8 @@
 </div>
 <script>
     $(document).ready(function() {
-        Bindteacher();
         loaddata();
     });
-    //var Bindbranch = () => {
-    //    $.post('/Admission/BindBranch').done(function(result) {
-    //        console.log(result);
-    //        $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
-    //        for (var i = 0; i < result.length; i++) {
-    //            $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
-    //        }
-    //    }).fail(function(xhr) {
-    //        console.log(xhr.responseText)
-    //    });
-    //}
     var Bindbranch = () => {
         $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlprogram option:selected').val() }).done(function(result) {
             $('#ddlbranch').empty();
@@ -114,27 +105,13 @@
         });
     }
     var BindSubject = () => {
-        let obj = {
-            Program: $('#ddlprogram option:selected').val(),
-            BranchId: $('#ddlbranch option:selected').val(),
-            Year: $('#ddlyear option:selected').val(),
-        }
-        $.post('/Admin/Bind_Subject', obj).done(function(result) {
-            for (var i = 0; i < result.length; i++) {
-                $('#ddlsubject').append('<option value="' + result[i].subjectId + '">' + result[i].subjectName + '</option>');
+        $.post('/Admin/Bind_Subject', { Program: $('#ddlprogram option:selected').val(), BranchId: $('#ddlbranch option:selected').val(), Year: $('#ddlyear option:selected').val() }).done(function(res) {
+            $('#ddlsubject').empty();
+            for (var i = 0; i < res.length; i++) {
+                $('#ddlsubject').append('<option value="' + res[i].subjectId + '">' + res[i].subjectName + '</option>')
             }
-        }).fail(function(xhr) {
-            alert("Server Error");
-        });
-    }
-    var Bindteacher = () => {
-        $.post('/Admin/Bind_teacher').done(function(result) {
-            console.log(result);
-            for (var i = 0; i < result.length; i++) {
-                $('#ddlteacher').append('<option value="' + result[i].teacherId + '">' + result[i].teacherName + '</option>');
-            }
-        }).fail(function(xhr) {
-            alert("Server Error");
+        }).fail(function() {
+            console.log('Server Error!');
         });
     }
     var savedata = () => {
@@ -184,7 +161,7 @@
         preloader.load();
         $.post('/Admin/SaveAssignSubject', obj).done(function(result) {
             preloader.remove();
-            alertnotify(result.statuscode,result.msg);
+            alertnotify(result.statuscode, result.msg);
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');
@@ -206,13 +183,12 @@
             preloader.remove();
             $('body').append(result);
             BindSubjectlst();
-            Bindbranchlst();
-            Bindteacherlst();
             Bindprogramlst();
             $('#myModalNew').modal('show');
             $('[data-dismiss="modal"]').unbind().click(function() {
                 $('.modal,.modal-backdrop').remove();
             })
+            Bindbranchlst();
         }).fail(function(xhr) {
             console(xhr.responseText);
         });
@@ -221,23 +197,12 @@
         preloader.load();
         $.post('/Admin/Assignsubject_Edit', { Id: Id }).done(function(result) {
             preloader.remove();
-            alertnotify(result.statuscode,result.msg);
+            alertnotify(result.statuscode, result.msg);
         }).fail(function(xhr) {
             console(xhr.responseText);
         });
     }
-    var Bindbranchlst = () => {
-        $.post('/Admission/BindBranch').done(function(result) {
-            console.log(result);
-            for (var i = 0; i < result.length; i++) {
-                $('#ddlbranchlst').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
-            }
-        }).fail(function(xhr) {
-            console.log(xhr.responseText)
-        });
-    }
     var BindSubjectlst = () => {
-        
         $.post('/Admin/Bind_Subjects').done(function(result) {
             for (var i = 0; i < result.length; i++) {
                 $('#ddlsubjectlst').append('<option value="' + result[i].subjectId + '">' + result[i].subjectName + '</option>');
@@ -247,7 +212,7 @@
         });
     }
     var Bindprogramlst = () => {
-        
+
         $.post('/BindProgram').done(function(result) {
             for (var i = 0; i < result.length; i++) {
                 $('#ddlprogramlst').append('<option value="' + result[i].id + '">' + result[i].program + '</option>');
@@ -256,14 +221,13 @@
             alert("Server Error");
         });
     }
-    var Bindteacherlst = () => {
-        $.post('/Admin/Bind_teacher').done(function(result) {
-            console.log(result);
+    var Bindbranchlst = () => {
+        $.post('/Admission/BindBranch').done(function(result) {
             for (var i = 0; i < result.length; i++) {
-                $('#ddlteacherlst').append('<option value="' + result[i].teacherId + '">' + result[i].teacherName + '</option>');
+                $('#ddlbranchlst').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
             }
         }).fail(function(xhr) {
-            alert("Server Error");
+            console.log(xhr.responseText)
         });
     }
 </script>
