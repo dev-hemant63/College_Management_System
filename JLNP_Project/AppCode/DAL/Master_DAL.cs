@@ -37,6 +37,9 @@ namespace JLNP_Project.AppCode.DAL
             SqlCommand cmd = new SqlCommand("Proc_SubjectMaster", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Action", subjectMaster.Action);
+            cmd.Parameters.AddWithValue("@Program", subjectMaster.Program);
+            cmd.Parameters.AddWithValue("@BranchId", subjectMaster.BranchId);
+            cmd.Parameters.AddWithValue("@_Year", subjectMaster.Year);
             DataTable dt = new DataTable();
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             sda.Fill(dt);

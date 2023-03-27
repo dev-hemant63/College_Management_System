@@ -251,7 +251,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-4">
-                                <input type="hidden" value="@Model.data.Id"/>
+                                <input type="hidden" id="hidden" value="@Model.data.Id"/>
                                 <label>Select Program<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlprogram" onchange="Bindbranch()" asp-for="@Model.data.Program">
                                     <option value="">--Select Program--</option>
@@ -424,7 +424,7 @@
             return false;
         }
         let obj = {
-            Id: $('#txthdn').val(),
+            SubjectId: $('#hidden').val(),
             Program: $('#ddlprogram option:selected').val(),
             Branch: $('#ddlbranch option:selected').val(),
             BranchId: $('#ddlbranch option:selected').val(),
@@ -436,7 +436,7 @@
             PracticalMarks: $('#txtprecticalMarks').val(),
             PassingMarks: $('#txtpassing').val(),
             IsPrectical:isprectical,
-            PecticalPassingMarks:$('#txtPrecPassingmarks').val()
+            PracticalPassingMarks:$('#txtPrecPassingmarks').val()
         }
         preloader.load();
         $.post('/Master/EditSubjectMaster', obj).done(function(result) {
@@ -452,8 +452,8 @@
     var Goback = () =>{
         window.location.href = '/Master/SubjectMasterList';
     }
-    var Bindbranch = (id) => {
-        $.post('/Master/DeleteSubject', { ProgramId: $('#ddlprogram option:selected').val() }).done(function(result) {
+    var Bindbranch = () => {
+        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlprogram option:selected').val() }).done(function(result) {
             $('#ddlbranch').empty();
             for (var i = 0; i < result.length; i++) {
                 $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')

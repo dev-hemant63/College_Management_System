@@ -54,9 +54,12 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
+                AssignSubjectViewModel model = new AssignSubjectViewModel();
                 IMasterML ml = new MasterML();
-                var res = ml.GetProgram();
-                return View(res);
+                Admin_BAL adbal = new Admin_BAL();
+                model.Teachers = adbal.Bind_Teacher_Bal();
+                model.ProgramMasters = ml.GetProgram();
+                return View(model);
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -103,11 +106,10 @@ namespace JLNP_Project.Controllers
             var res = adbal.GetTimetable();
             return PartialView("Partial/_GetTimetable", res);
         }
-        [HttpPost]
-        public IActionResult Bind_Subject(int BranchId, int Year)
+        public IActionResult Bind_Subject(int Program = 0, int BranchId = 0, int Year = 0)
         {
             Admin_BAL adbal = new Admin_BAL();
-            var res = adbal.Bind_Subject_Bal(BranchId, Year);
+            var res = adbal.Bind_Subject_Bal(Program, BranchId, Year);
             return Json(res);
         }
         [HttpPost]
@@ -115,13 +117,6 @@ namespace JLNP_Project.Controllers
         {
             Admin_BAL adbal = new Admin_BAL();
             var res = adbal.Bind_Subjects_Bal();
-            return Json(res);
-        }
-        [HttpPost]
-        public IActionResult Bind_teacher()
-        {
-            Admin_BAL adbal = new Admin_BAL();
-            var res = adbal.Bind_Teacher_Bal();
             return Json(res);
         }
         [HttpPost]
@@ -186,7 +181,7 @@ namespace JLNP_Project.Controllers
             return PartialView("Partial/_GetUsers", res);
         }
         [HttpPost]
-        public IActionResult UpdateUserStatus(int UserID , bool IsActive)
+        public IActionResult UpdateUserStatus(int UserID, bool IsActive)
         {
             Admin_BAL adbal = new Admin_BAL();
             var response = adbal.UpdateUserStatus(UserID, IsActive);

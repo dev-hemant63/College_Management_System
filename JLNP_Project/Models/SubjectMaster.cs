@@ -84,4 +84,9 @@
         public int TotalMarks { get; set; }
         public int ObtainMarks { get; set; }
     }
+    public class AssignSubjectViewModel
+    {
+        public List<ProgramMaster> ProgramMasters { get; set; }
+        public List<SubjectMaster> Teachers { get; set; }
+    }
 }

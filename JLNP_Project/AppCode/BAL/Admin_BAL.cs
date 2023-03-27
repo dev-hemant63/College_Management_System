@@ -34,10 +34,10 @@ namespace JLNP_Project.AppCode.BAL
             var timetable = addal.GetTimetable(Action);
             return timetable;
         }
-        public List<SubjectMaster> Bind_Subject_Bal(int BranchId, int Year)
+        public List<SubjectMaster> Bind_Subject_Bal(int Program,int BranchId, int Year)
         {
             AdminDAL addal = new AdminDAL();
-            var sublst = addal.BindSubjectYearWise(BranchId, Year);
+            var sublst = addal.BindSubjectYearWise(Program,BranchId, Year);
             return sublst;
         }
         public List<SubjectMaster> Bind_Subjects_Bal()

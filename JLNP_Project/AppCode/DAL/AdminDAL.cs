@@ -104,12 +104,13 @@ namespace JLNP_Project.AppCode.DAL
             }
             return timetablelst;
         }
-        public List<SubjectMaster> BindSubjectYearWise(int BranchId, int Year)
+        public List<SubjectMaster> BindSubjectYearWise(int Program,int BranchId, int Year)
         {
             var procanme = "Proc_Bind_Subject";//Procedure name
             SqlParameter[] param = new SqlParameter[]
             {
                 new SqlParameter("@BranchId",BranchId),
+                new SqlParameter("@Program",Program),
                 new SqlParameter("@Year",Year)
             };
             var dt = dbh.ExcProc(procanme, param);
