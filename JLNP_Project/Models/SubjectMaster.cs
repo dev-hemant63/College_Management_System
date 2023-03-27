@@ -32,7 +32,6 @@
         public string Assignment { get; set; }
         public int BranchYear { get; set; }
         public string LoginID { get; set; }
-        public string Password { get; set; }
         public string MobileNo { get; set; }
         public string Gender { get; set; }
         public string GroupName { get; set; }
@@ -88,5 +87,10 @@
     {
         public List<ProgramMaster> ProgramMasters { get; set; }
         public List<SubjectMaster> Teachers { get; set; }
+    }
+    public class EditAssignSubjectViewModel
+    {
+        public List<SubjectMaster> Teachers { get; set; }
+        public SubjectMaster data { get; set; }
     }
 }

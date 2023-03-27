@@ -12,22 +12,29 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
+                                <label>Select Program<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlprogram" onchange="Bindbranch()">
+                                    <option value="">-- Select Program --</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
                                 <input type="hidden" id="hdnid" />
                                 <label>Select Branch<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlbranch" onchange="BindSubject()">
                                 </select>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <label>Select Year<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlyear" onchange="BindSubject()">
                                     <option value="">-- Select Year --</option>
                                     <option value="1">First Year </option>
                                     <option value="2">Second Year</option>
-                                    <option value="3">Final Year </option>
+                                    <option value="3">Third Year </option>
+                                    <option value="4">Final Year </option>
                                 </select>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <label>Select Subject<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlsubject">
                                     <option value="">-- Select Subject --</option>
@@ -49,6 +56,7 @@
                                     <thead class="bg-primary">
                                         <tr>
                                             <th>#</th>
+                                            <th>Program</th>
                                             <th>Branch</th>
                                             <th>Year</th>
                                             <th>Subject</th>
@@ -67,6 +75,7 @@
                                                 i++;
                                                 <tr>
                                                     <td>@i</td>
+                                                    <td>@item.ProgramName</td>
                                                     <td>@item.Branch</td>
                                                     <td>@item.Year</td>
                                                     <td>@item.SubjectName</td>
@@ -91,14 +100,14 @@
         </div>
     </div>
 </div>
-<script src="~/js/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
         Bindbranch();
+        Bindprogramlst();
     });
     var Bindbranch = () => {
-        $.post('/Admission/BindBranch').done(function(result) {
-            $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
+        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlprogram option:selected').val() }).done(function(result) {
+            $('#ddlbranch').empty();
             for (var i = 0; i < result.length; i++) {
                 $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
             }
@@ -107,23 +116,19 @@
         });
     }
     var BindSubject = () => {
-        let obj = {
-            BranchId: $('#ddlbranch option:selected').val(),
-            Year: $('#ddlyear option:selected').val(),
-        }
-        $.post('/Admin/Bind_Subject', obj).done(function(result) {
-            console.log(result);
-            for (var i = 0; i < result.length; i++) {
-                $('#ddlsubject').append('<option value="' + result[i].subjectId + '">' + result[i].subjectName + '</option>');
+        $.post('/Admin/Bind_Subject', { Program: $('#ddlprogram option:selected').val(), BranchId: $('#ddlbranch option:selected').val(), Year: $('#ddlyear option:selected').val() }).done(function(res) {
+            $('#ddlsubject').empty();
+            for (var i = 0; i < res.length; i++) {
+                $('#ddlsubject').append('<option value="' + res[i].subjectId + '">' + res[i].subjectName + '</option>')
             }
-        }).fail(function(xhr) {
-            alert("Server Error");
+        }).fail(function() {
+            console.log('Server Error!');
         });
     }
-
     var btnsubmit = () => {
         let obj = {
             Id:$('#hdnid').val(),
+            Program: $('#ddlprogram option:selected').val(),
             BranchId: $('#ddlbranch option:selected').val(),
             BranchYear: $('#ddlyear option:selected').val(),
             SubjectId: $('#ddlsubject option:selected').val(),
@@ -139,28 +144,20 @@
             alert("Server Error");
         });
     }
-    //var editassignment = (AsId) => {
-    //    let obj = {
-    //        Id:AsId,
-    //        Action: 'Get'
-    //    }
-    //    $.get('/Admin/GetByIdAssignment', obj).done(function() {
-    //       // console.log(result.assignment);
-    //       // $('#hdnid').val(result.id);
-    //       // $('#txtassignment').val(result.assignment);
-    //       //$('#ddlbranch').append('<option value="' + result.branchId + '" selected>' + result.branch + '</option>');
-    //       //$('#ddlsubject').append('<option value="' + result.subjectId + '" selected>' + result.subjectName + '</option>');
-    //       //$('#ddlyear').append('<option value="' + result.year + '" selected>' + result._Year + '</option>');
-    //    }).fail(function(xhr) {
-    //        console.log(xhr.responseText);
-    //        alert("Server Error");
-    //    });
-    //}
     var Deleteassignment = (AsId) => {
         $.post('/Admin/DeleteAssignment', {Id:AsId}).done(function(result) {
             alertnotify(result.statuscode,result.msg);
         }).fail(function(xhr) {
             console.log(xhr.responseText);
+            alert("Server Error");
+        });
+    }
+    var Bindprogramlst = () => {
+        $.post('/BindProgram').done(function(result) {
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlprogram').append('<option value="' + result[i].id + '">' + result[i].program + '</option>');
+            }
+        }).fail(function(xhr) {
             alert("Server Error");
         });
     }

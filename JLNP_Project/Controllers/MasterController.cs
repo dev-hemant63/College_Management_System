@@ -491,5 +491,15 @@ namespace JLNP_Project.Controllers
             }
             return Ok();
         }
+        [HttpGet]
+        public IActionResult RegistartionMaster()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult AdmissionMaster()
+        {
+            return View();
+        }
     }
 }

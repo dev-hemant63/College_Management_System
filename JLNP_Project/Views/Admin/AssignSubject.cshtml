@@ -90,7 +90,6 @@
         </div>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
         loaddata();
@@ -106,14 +105,13 @@
         });
     }
     var BindSubject = () => {
-        $.post('/Admin/Bind_Subject', { Program: $('#ddlprogram option:selected').val(), BranchId: $('#ddlbranch option:selected').val(), Year: $('#ddlyear option:selected').val() }).done(function(result) {
-            console.log(result);
+        $.post('/Admin/Bind_Subject', { Program: $('#ddlprogram option:selected').val(), BranchId: $('#ddlbranch option:selected').val(), Year: $('#ddlyear option:selected').val() }).done(function(res) {
             $('#ddlsubject').empty();
-            for (var i = 0; i < result.length; i++) {
-                $('#ddlsubject').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+            for (var i = 0; i < res.length; i++) {
+                $('#ddlsubject').append('<option value="' + res[i].subjectId + '">' + res[i].subjectName + '</option>')
             }
-        }).fail(function(xhr) {
-            console.log(xhr.responseText)
+        }).fail(function() {
+            console.log('Server Error!');
         });
     }
     var savedata = () => {
@@ -185,13 +183,12 @@
             preloader.remove();
             $('body').append(result);
             BindSubjectlst();
-            Bindbranchlst();
-            Bindteacherlst();
             Bindprogramlst();
             $('#myModalNew').modal('show');
             $('[data-dismiss="modal"]').unbind().click(function() {
                 $('.modal,.modal-backdrop').remove();
             })
+            Bindbranchlst();
         }).fail(function(xhr) {
             console(xhr.responseText);
         });
@@ -205,18 +202,7 @@
             console(xhr.responseText);
         });
     }
-    var Bindbranchlst = () => {
-        $.post('/Admission/BindBranch').done(function(result) {
-            console.log(result);
-            for (var i = 0; i < result.length; i++) {
-                $('#ddlbranchlst').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
-            }
-        }).fail(function(xhr) {
-            console.log(xhr.responseText)
-        });
-    }
     var BindSubjectlst = () => {
-
         $.post('/Admin/Bind_Subjects').done(function(result) {
             for (var i = 0; i < result.length; i++) {
                 $('#ddlsubjectlst').append('<option value="' + result[i].subjectId + '">' + result[i].subjectName + '</option>');
@@ -235,14 +221,13 @@
             alert("Server Error");
         });
     }
-    var Bindteacherlst = () => {
-        $.post('/Admin/Bind_teacher').done(function(result) {
-            console.log(result);
+    var Bindbranchlst = () => {
+        $.post('/Admission/BindBranch').done(function(result) {
             for (var i = 0; i < result.length; i++) {
-                $('#ddlteacherlst').append('<option value="' + result[i].teacherId + '">' + result[i].teacherName + '</option>');
+                $('#ddlbranchlst').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
             }
         }).fail(function(xhr) {
-            alert("Server Error");
+            console.log(xhr.responseText)
         });
     }
 </script>

@@ -1,4 +1,4 @@
-﻿@model SubjectMaster
+﻿@model EditAssignSubjectViewModel
 <div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -10,41 +10,45 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <label>Program<span style="color:red;">*</span></label>
-                        <select class="form-control" id="ddlprogramlst" asp-for="@Model.Program">
+                        <select class="form-control" id="ddlprogramlst" asp-for="@Model.data.Program" onchange="Bindbranchlst()">
                         </select>
                     </div>
                     <div class="col-sm-4">
-                        <input type="hidden" id="hdnid" value="@Model.Id" />
+                        <input type="hidden" id="hdnid" value="@Model.data.Id" />
                         <label>Branch<span style="color:red;">*</span></label>
-                        <select class="form-control" id="ddlbranchlst" asp-for="@Model.BranchId">
+                        <select class="form-control" id="ddlbranchlst" asp-for="@Model.data.BranchId">
                         </select>
                     </div>
                     <div class="col-sm-4">
                         <label>Year<span style="color:red;">*</span></label>
-                        <select class="form-control" id="ddlyearlst" asp-for="@Model._Year">
+                        <select class="form-control" id="ddlyearlst" asp-for="@Model.data._Year">
                             <option value="1">1 Year </option>
                             <option value="2">2 Year</option>
                             <option value="3">3 Year </option>
                             <option value="4">4 Year </option>
                         </select>
                     </div>
-                    
+
                 </div>
                 <div class="row">
                     <div class="col-sm-4">
                         <label>Select Subject<span style="color:red;">*</span></label>
-                        <select class="form-control" id="ddlsubjectlst" asp-for="@Model.SubjectId">
+                        <select class="form-control" id="ddlsubjectlst" asp-for="@Model.data.SubjectId">
                         </select>
                     </div>
                     <div class="col-sm-4">
                         <label>Select Teacher<span style="color:red;">*</span></label>
-                        <select class="form-control" id="ddlteacherlst" asp-for="@Model.TeacherId">
+                        <select class="form-control" id="ddlteacherlst" asp-for="@Model.data.TeacherId">
+                            @foreach (var item in Model.Teachers)
+                            {
+                                <option value="@item.TeacherId">@item.TeacherName</option>
+                            }
                         </select>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-primary" onclick="Updatedata(@Model.Id)" id="btnsave">save</button>
+                <button type="button" class="btn btn-outline-primary" onclick="Updatedata(@Model.data.Id)" id="btnsave">save</button>
             </div>
         </div>
     </div>
@@ -60,7 +64,7 @@
             TeacherId: $('#ddlteacherlst option:selected').val()
         }
         $.post('/Admin/SaveAssignSubject', obj).done(function(result) {
-            alertnotify(result.statuscode,result.msg);
+            alertnotify(result.statuscode, result.msg);
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');

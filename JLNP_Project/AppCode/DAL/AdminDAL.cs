@@ -261,6 +261,7 @@ namespace JLNP_Project.AppCode.DAL
             SqlParameter[] param = new SqlParameter[]
             {
                 new SqlParameter("@Id",subjectMaster.Id),
+                new SqlParameter("@Program",subjectMaster.Program),
                 new SqlParameter("@BranchId",subjectMaster.BranchId),
                 new SqlParameter("@Year",subjectMaster.BranchYear),
                 new SqlParameter("@SubjectId",subjectMaster.SubjectId),
@@ -299,6 +300,7 @@ namespace JLNP_Project.AppCode.DAL
                         Id = Convert.ToInt32(dr["Id"]),
                         Year = Convert.ToString(dr["Year"].ToString()),
                         SubjectName = Convert.ToString(dr["SubjectName"].ToString()),
+                        ProgramName = Convert.ToString(dr["Program"].ToString()),
                         Assignment = Convert.ToString(dr["Assignment"].ToString()),
                         EntryDate = Convert.ToString(dr["EntryDate"].ToString()),
                         Branch = Convert.ToString(dr["Branch_Name"].ToString()),
@@ -323,6 +325,7 @@ namespace JLNP_Project.AppCode.DAL
                 foreach (DataRow dr in dt.Rows)
                 {
                     res.Id = Convert.ToInt32(dr["Id"]);
+                    res.Program = Convert.ToInt32(dr["Program"]);
                     res.Year = Convert.ToString(dr["Year"].ToString());
                     res._Year = Convert.ToString(dr["_Year"].ToString());
                     res.SubjectName = Convert.ToString(dr["SubjectName"].ToString());
@@ -382,7 +385,7 @@ namespace JLNP_Project.AppCode.DAL
                         UserName = Convert.ToString(dr["Name"].ToString()),
                         LoginID= Convert.ToString(dr["UserId"].ToString()),
                         UserEmail= Convert.ToString(dr["Email"].ToString()),
-                        Password = Convert.ToString(dr["Password"].ToString()),
+                        password = Convert.ToString(dr["Password"].ToString()),
                         MobileNo = Convert.ToString(dr["Mobile"].ToString()),
                         Branch = Convert.ToString(dr["Branch_Name"].ToString()),
                         GroupName = Convert.ToString(dr["Group_Name"].ToString()),

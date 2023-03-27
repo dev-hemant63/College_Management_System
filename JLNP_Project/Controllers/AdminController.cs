@@ -106,7 +106,7 @@ namespace JLNP_Project.Controllers
             var res = adbal.GetTimetable();
             return PartialView("Partial/_GetTimetable", res);
         }
-        public IActionResult Bind_Subject(int Program = 0, int BranchId = 0, int Year = 0)
+        public IActionResult Bind_Subject(int Program, int BranchId, int Year)
         {
             Admin_BAL adbal = new Admin_BAL();
             var res = adbal.Bind_Subject_Bal(Program, BranchId, Year);
@@ -136,9 +136,11 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult Edit_Assignsubject(int Id)
         {
+            EditAssignSubjectViewModel model = new EditAssignSubjectViewModel();
             Admin_BAL adbal = new Admin_BAL();
-            var res = adbal.Edit_Assignsubject_bal(Id);
-            return PartialView("Partial/_EditAssignSubject", res);
+            model.data = adbal.Edit_Assignsubject_bal(Id);
+            model.Teachers = adbal.Bind_Teacher_Bal();
+            return PartialView("Partial/_EditAssignSubject", model);
         }
         [HttpPost]
         public IActionResult Assignsubject_Edit(int Id)

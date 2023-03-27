@@ -26,7 +26,6 @@ namespace JLNP_Project.AppCode.BAL
             var subjectlist = addal.SaveTimetable_Dal(subjectMaster);
             return subjectlist;
         }
-
         public List<SubjectMaster> GetTimetable()
         {
             AdminDAL addal = new AdminDAL();
