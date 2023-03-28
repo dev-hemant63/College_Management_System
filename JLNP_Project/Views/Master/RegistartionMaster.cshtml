@@ -1,0 +1,87 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+<div class="">
+    <div class="">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bgred">
+                        <h4 style="color:white;">Registartion Master</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Start Date<span style="color:red;">*</span></label>
+                                <input type="date" class="form-control" id="txtRegistrationStart" placeholder="Start Date" />
+                                <span class="text-danger d-none" id="txtRegistrationStartsp">Please Enter Start Date</span>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>End Date<span style="color:red;">*</span></label>
+                                <input type="date" class="form-control" id="txtRegistrationEnd" placeholder="End Date" />
+                                <span class="text-danger d-none" id="txtRegistrationEndsp">Please Enter End Date</span>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Day Limit<span style="color:red;">*</span></label>
+                                <input type="number" class="form-control" id="txtdaylimit" placeholder="Day Limit" />
+                                <span class="text-danger d-none" id="txtdaylimitsp">Please Enter Day Limit</span>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>All Limit<span style="color:red;">*</span></label>
+                                <input type="number" class="form-control" id="txtalllimit" placeholder="All Limit" />
+                                <span class="text-danger d-none" id="txtalllimitsp">Please Enter Day Limit</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <button class="btn btn-outline-primary" id="btnsubmit" onclick="Savedata()" style="margin-top: 21px;width: 43%;">Save</button>
+                            </div>
+                        </div>
+                        <div class="table-responsive table-bordered" style="margin-top:13px;">
+                            <table class="table mb-0" id="tblprogram">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Day Limit</th>
+                                        <th>All Limit</th>
+                                        <th>Entry Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var Savedata = () =>{
+        let obj = {
+            Startdate:$('#txtRegistrationStart').val(),
+            Enddate:$('#txtRegistrationEnd').val(),
+            Daylimit:$('#txtdaylimit').val(),
+            Alllimit:$('#txtalllimit').val(),
+        }
+        if(obj.Startdate == '' || obj.Startdate == undefined){
+            $('#txtRegistrationStartsp').removeClass('d-none');
+            return false;
+        }
+        if(obj.Enddate == '' || obj.Enddate == undefined){
+            $('#txtRegistrationEndsp').removeClass('d-none');
+            return false;
+        }
+        if(obj.Daylimit == '' || obj.Daylimit == undefined){
+            $('#txtdaylimitsp').removeClass('d-none');
+            return false;
+        }
+        if(obj.Alllimit == '' || obj.Alllimit == undefined){
+            $('#txtalllimitsp').removeClass('d-none');
+            return false;
+        }
+    }
+</script>

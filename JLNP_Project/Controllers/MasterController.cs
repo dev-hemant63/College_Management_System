@@ -99,10 +99,10 @@ namespace JLNP_Project.Controllers
             return Json(res);
         }
         [HttpPost]
-        public IActionResult DeleteSubject(int Id, string Action="")
+        public IActionResult DeleteSubject(int Id)
         {
             Master_BAL msdal = new Master_BAL();
-            Action = "Delete";
+            string Action = "Delete";
             var res = msdal.DeleteSubject_Bal(Id, Action);
             return Json(res);
         }
@@ -491,5 +491,16 @@ namespace JLNP_Project.Controllers
             }
             return Ok();
         }
+        [HttpGet]
+        public IActionResult RegistartionMaster()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult AdmissionMaster()
+        {
+            return View();
+        }
+
     }
 }

@@ -263,6 +263,7 @@
                             <div class="col-sm-4">
                                 <label>Select Branch<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlbranch">
+                                    <option value="">--Select Program--</option>
                                 </select>
                             </div>
                             <div class="col-sm-4">
@@ -438,37 +439,6 @@
             }
         }).fail(function(xhr) {
             console.log(xhr.responseText)
-        });
-    }
-    var DeleteSubject = () => {
-        preloader.load();
-        $.post('/Master/DeleteSubject', { Id: SubjectId }).done(function(result) {
-            preloader.remove();
-            alertnotify(result.statuscode, result.msg);
-        }).fail(function(xhr) {
-            console.log(xhr.responseText);
-            alert('Server Error');
-        });
-    }
-    var ChangeStatus = (id, action) => {
-        let status = false;
-        if (action == 'IsPrectical') {
-            if ($('#isprectical_' + id).is(':checked')) {
-                status = true;
-            }
-        }
-        else {
-            if ($('#iswritten_' + id).is(':checked')) {
-                status = true;
-            }
-        }
-        preloader.load();
-        $.post('/Master/ChangeSubjectStatus', { SubId: id, Action: action, Status: status }).done(function(result) {
-            preloader.remove();
-            alertnotify(result.statuscode, result.msg);
-        }).fail(function(xhr) {
-            console.log(xhr.responseText);
-            alert('Server Error');
         });
     }
 </script>
