@@ -492,15 +492,49 @@ namespace JLNP_Project.Controllers
             return Ok();
         }
         [HttpGet]
-        public IActionResult RegistartionMaster()
+        public IActionResult RegistartionMaster(int Id = 0)
         {
-            return View();
+            if (_lr != null)
+            {
+                if (Id != 0)
+                {
+                    IMasterML ml = new MasterML();
+                    var res = ml.GetRegistrationMaster();
+                    res.IsEdit = true;
+                    return View(res);
+                }
+                else
+                {
+                    IMasterML ml = new MasterML();
+                    var res = ml.GetRegistrationMaster();
+                    res.IsEdit = false;
+                    return View(res);
+                }
+            }
+            return RedirectToAction("UsersLogin", "Account");
+        }
+        [HttpPost]
+        public IActionResult SaveRegistartionMaster(RegistrationMaster req)
+        {
+            IMasterML ml = new MasterML();
+            var res = ml.SaveRegistrationMaster(req);
+            return Json(res);
+        }
+        [HttpPost]
+        public IActionResult UpdateRegistartionMasterType(bool Is)
+        {
+            IMasterML ml = new MasterML();
+            var req = new RegistrationMaster
+            {
+                IsOpen = Is
+            };
+            var res = ml.UpdateRegistrationMaster(req);
+            return Json(res);
         }
         [HttpGet]
         public IActionResult AdmissionMaster()
         {
             return View();
         }
-
     }
 }

@@ -97,5 +97,20 @@ namespace JLNP_Project.AppCode.Midlelayer
             var response = _proc.ProcGetStudentResult(Enrollment);
             return response;
         }
+        public RegistrationMaster GetRegistrationMaster()
+        {
+            var response = _proc.ProcGetGetRegistrationMaster();
+            return response;
+        }
+        public ResponseStatus SaveRegistrationMaster(RegistrationMaster req)
+        {
+            var response = _proc.ProcsaveRegistrationMaster(req);
+            return response;
+        }
+        public ResponseStatus UpdateRegistrationMaster(RegistrationMaster req)
+        {
+            var response = _proc.ProcChangeRegistrationMastersts(req);
+            return response;
+        }
     }
 }

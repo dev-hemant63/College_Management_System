@@ -93,4 +93,16 @@
         public List<SubjectMaster> Teachers { get; set; }
         public SubjectMaster data { get; set; }
     }
+    public class RegistrationMaster
+    {
+        public string Startdate { get; set; }
+        public string Enddate { get; set; }
+        public string Entrydate { get; set; }
+        public int Daylimit { get; set; }
+        public int Alllimit { get; set; }
+        public bool IsEdit { get; set; }
+        public bool IsOpen { get; set; }
+        public bool IsAdmission { get; set; }
+
+    }
 }
