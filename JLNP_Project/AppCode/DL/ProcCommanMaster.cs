@@ -542,5 +542,97 @@ namespace JLNP_Project.AppCode.DL
             }
             return res;
         }
+        public RegistrationMaster ProcGetGetRegistrationMaster()
+        {
+            var res = new RegistrationMaster();
+            string ProcName = "select * from tbl_RegistrationMaster"; // Query
+            try
+            {
+                var dt = _helper.ExcQueryWithoutParam(ProcName);
+                if (dt.Rows.Count > 0)
+                {
+                    res.Startdate = Convert.ToString(dt.Rows[0]["Startdate"] is DBNull ? "" : dt.Rows[0]["Startdate"].ToString());
+                    res.Enddate = Convert.ToString(dt.Rows[0]["Enddate"] is DBNull ? "" : dt.Rows[0]["Enddate"].ToString());
+                    res.Daylimit = Convert.ToInt32(dt.Rows[0]["Daylimit"] is DBNull ? 0 : dt.Rows[0]["Daylimit"]);
+                    res.Alllimit = Convert.ToInt32(dt.Rows[0]["Alllimit"] is DBNull ? 0 : dt.Rows[0]["Alllimit"]);
+                    res.Entrydate = Convert.ToString(dt.Rows[0]["Entrydate"] is DBNull ? "" : dt.Rows[0]["Entrydate"].ToString());
+                    res.IsOpen = Convert.ToBoolean(dt.Rows[0]["IsOpen"] is DBNull ? false : dt.Rows[0]["IsOpen"]);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return res;
+        }
+        public ResponseStatus ProcsaveRegistrationMaster(RegistrationMaster req)
+        {
+            var res = new ResponseStatus();
+            string ProcName = "";
+            if (!req.IsAdmission)
+            {
+                ProcName = "Update tbl_RegistrationMaster set Startdate = @Startdate, Enddate = @Enddate,Daylimit = @Daylimit,Alllimit = @Alllimit,Modifydate = GETDATE()" +
+                "Select  1 Statuscode,'Success' Msg ";
+            }
+            else
+            {
+                ProcName = "Update tbl_RegistrationMaster set Startdate = @Startdate, Enddate = @Enddate,Daylimit = @Daylimit,Alllimit = @Alllimit,Modifydate = GETDATE()" +
+                "Select  1 Statuscode,'Success' Msg ";
+            }// Query
+            SqlParameter[] Param = new SqlParameter[]
+            {
+                new SqlParameter("@Startdate",req.Startdate),
+                new SqlParameter("@Enddate",req.Enddate),
+                new SqlParameter("@Daylimit",req.Daylimit),
+                new SqlParameter("@Alllimit",req.Alllimit),
+            };
+            try
+            {
+                var dt = _helper.ExcQueryDT(ProcName, Param);
+                if (dt.Rows.Count > 0)
+                {
+                    res.statuscode = Convert.ToInt32(dt.Rows[0]["Statuscode"] is DBNull ? -1 : dt.Rows[0]["Statuscode"]);
+                    res.Msg = Convert.ToString(dt.Rows[0]["Msg"] is DBNull ? "" : dt.Rows[0]["Msg"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return res;
+        }
+        public ResponseStatus ProcChangeRegistrationMastersts(RegistrationMaster req)
+        {
+            var res = new ResponseStatus();
+            string ProcName = "";
+            if (!req.IsAdmission)
+            {
+                ProcName = "Update tbl_RegistrationMaster set IsOpen = @Isopen,Modifydate = GETDATE()" +
+                "Select  1 Statuscode,'Status updated successfully!' Msg ";
+            }
+            else
+            {
+                ProcName = "Update tbl_RegistrationMaster set IsOpen = @Isopen,Modifydate = GETDATE()" +
+                "Select  1 Statuscode,'Status updated successfully!' Msg ";
+            }// Query
+            SqlParameter[] Param = new SqlParameter[]
+            {
+                new SqlParameter("@Isopen",req.IsOpen)
+            };
+            try
+            {
+                var dt = _helper.ExcQueryDT(ProcName, Param);
+                if (dt.Rows.Count > 0)
+                {
+                    res.statuscode = Convert.ToInt32(dt.Rows[0]["Statuscode"] is DBNull ? -1 : dt.Rows[0]["Statuscode"]);
+                    res.Msg = Convert.ToString(dt.Rows[0]["Msg"] is DBNull ? "" : dt.Rows[0]["Msg"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return res;
+        }
     }
 }
