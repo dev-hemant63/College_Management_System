@@ -12,9 +12,7 @@ namespace JLNP_Project.Controllers.API
         [HttpGet]
         public IActionResult GetTimetable()
         {
-            Admin_BAL adbal = new Admin_BAL();
-            var res = adbal.GetTimetable();
-            return Ok(res);
+            return Ok();
         }
     }
 }

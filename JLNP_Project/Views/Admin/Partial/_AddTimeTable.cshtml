@@ -1,0 +1,310 @@
+﻿<div class="row">
+    <div class="col-sm-12">
+        <div class="tab">
+            <button class="tablinks active" onclick="openCity(event, 'Monday')">Monday</button>
+            <button class="tablinks" onclick="openCity(event, 'Tuesday')">Tuesday</button>
+            <button class="tablinks" onclick="openCity(event, 'Wednesday')">Wednesday</button>
+            <button class="tablinks" onclick="openCity(event, 'Thursday')">Thursday</button>
+            <button class="tablinks" onclick="openCity(event, 'Friday')">Friday</button>
+            <button class="tablinks" onclick="openCity(event, 'Suterday')">Suterday</button>
+            <button class="tablinks" onclick="openCity(event, 'Sunday')">Sunday</button>
+            <input type="hidden" value="tblMonday" id="hdnid" />
+            <a href="#" class="btn btn-warning" id="btnadd">+AddNew</a>
+        </div>
+        <div id="Monday" class="tabcontent" style="display: block;">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tblMonday">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Time From</th>
+                            <th>Time To</th>
+                            <th>Room No</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select class="form-control">
+                                    <option value="0">:: Select Subject ::</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control">
+                                    <option value="0">:: Select Teacher ::</option>
+                                </select>
+                            </td>
+                            <td><input type="time" class="form-control" id="fromtime" /></td>
+                            <td><input type="time" class="form-control" id="totime" /></td>
+                            <td><input type="text" class="form-control" id="room" placeholder="Room No." /></td>
+                            <td>
+                                <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="Tuesday" class="tabcontent">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tblTuesday">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Time From</th>
+                            <th>Time To</th>
+                            <th>Room No</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select class="form-control">
+                                    <option value="0">:: Select Subject ::</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control">
+                                    <option value="0">:: Select Teacher ::</option>
+                                </select>
+                            </td>
+                            <td><input type="time" class="form-control" id="fromtime" /></td>
+                            <td><input type="time" class="form-control" id="totime" /></td>
+                            <td><input type="text" class="form-control" id="room" placeholder="Room No." /></td>
+                            <td>
+                                <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="Wednesday" class="tabcontent">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tblWednesday">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Time From</th>
+                            <th>Time To</th>
+                            <th>Room No</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select class="form-control">
+                                    <option value="0">:: Select Subject ::</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control">
+                                    <option value="0">:: Select Teacher ::</option>
+                                </select>
+                            </td>
+                            <td><input type="time" class="form-control" id="fromtime" /></td>
+                            <td><input type="time" class="form-control" id="totime" /></td>
+                            <td><input type="text" class="form-control" id="room" placeholder="Room No." /></td>
+                            <td>
+                                <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="Thursday" class="tabcontent">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tblThursday">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Time From</th>
+                            <th>Time To</th>
+                            <th>Room No</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select class="form-control">
+                                    <option value="0">:: Select Subject ::</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control">
+                                    <option value="0">:: Select Teacher ::</option>
+                                </select>
+                            </td>
+                            <td><input type="time" class="form-control" id="fromtime" /></td>
+                            <td><input type="time" class="form-control" id="totime" /></td>
+                            <td><input type="text" class="form-control" id="room" placeholder="Room No." /></td>
+                            <td>
+                                <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="Friday" class="tabcontent">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tblFriday">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Time From</th>
+                            <th>Time To</th>
+                            <th>Room No</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select class="form-control">
+                                    <option value="0">:: Select Subject ::</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control">
+                                    <option value="0">:: Select Teacher ::</option>
+                                </select>
+                            </td>
+                            <td><input type="time" class="form-control" id="fromtime" /></td>
+                            <td><input type="time" class="form-control" id="totime" /></td>
+                            <td><input type="text" class="form-control" id="room" placeholder="Room No." /></td>
+                            <td>
+                                <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="Suterday" class="tabcontent">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tblSuterday">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Time From</th>
+                            <th>Time To</th>
+                            <th>Room No</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select class="form-control">
+                                    <option value="0">:: Select Subject ::</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control">
+                                    <option value="0">:: Select Teacher ::</option>
+                                </select>
+                            </td>
+                            <td><input type="time" class="form-control" id="fromtime" /></td>
+                            <td><input type="time" class="form-control" id="totime" /></td>
+                            <td><input type="text" class="form-control" id="room" placeholder="Room No." /></td>
+                            <td>
+                                <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="Sunday" class="tabcontent">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tblSunday">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Time From</th>
+                            <th>Time To</th>
+                            <th>Room No</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select class="form-control">
+                                    <option value="0">:: Select Subject ::</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control">
+                                    <option value="0">:: Select Teacher ::</option>
+                                </select>
+                            </td>
+                            <td><input type="time" class="form-control" id="fromtime" /></td>
+                            <td><input type="time" class="form-control" id="totime" /></td>
+                            <td><input type="text" class="form-control" id="room" placeholder="Room No." /></td>
+                            <td>
+                                <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 mt-4" style="display: flex; justify-content: flex-end;">
+        <button class="btn btn-outline-success">Save</button>
+    </div>
+</div>
+<script>
+    function openCity(evt, cityName) {
+        $('#hdnid').val('tbl' + cityName);
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    $('#btnadd').click(() => {
+        var id = $('#hdnid').val();
+        $('#' + id + ' tbody').append(`
+            <tr>
+               <td>
+                   <select class="form-control">
+                       <option value="0">:: Select Subject ::</option>
+                   </select>
+               </td>
+               <td>
+                   <select class="form-control">
+                       <option value="0">:: Select Teacher ::</option>
+                   </select>
+               </td>
+               <td><input type="time" class="form-control" id="fromtime" /></td>
+               <td><input type="time" class="form-control" id="totime" /></td>
+               <td><input type="text" class="form-control" id="room" placeholder="Room No." /></td>
+               <td>
+                   <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
+               </td>
+             </tr>`);
+    });
+</script>

@@ -49,61 +49,6 @@ namespace JLNP_Project.AppCode.DAL
             }
             return subjectlst;
         }
-        public object SaveTimetable_Dal(SubjectMaster req)
-        {
-            ResponseStatus res = new ResponseStatus
-            {
-                statuscode = 1,
-                Msg = "Temp Error"
-            };
-            var procanme = "Proc_TimeTable";//Procedure name
-            SqlParameter[] param = new SqlParameter[]
-            {
-                new SqlParameter("@BranchId",req.Branch),
-                new SqlParameter("@Year",req.Year),
-                new SqlParameter("@SubjectId",req.SubjectId),
-                new SqlParameter("@Day",req.Days),
-                new SqlParameter("@Period",req.Period),
-                new SqlParameter("@Action",req.Action),
-            };
-            var dt = dbh.ExcProc(procanme, param);
-            if (dt.Rows.Count > 0)
-            {
-                res.statuscode = Convert.ToInt32(dt.Rows[0]["statuscode"]);
-                res.Msg = dt.Rows[0]["msg"] is DBNull ? string.Empty : Convert.ToString(dt.Rows[0]["msg"]);
-            }
-            return res;
-        }
-        public List<SubjectMaster> GetTimetable(string Action)
-        {
-            var procanme = "Proc_TimeTable";//Procedure name
-            SqlParameter[] param = new SqlParameter[]
-            {
-                new SqlParameter("@Action",Action)
-            };
-            var dt = dbh.ExcProc(procanme, param);
-            var timetablelst = new List<SubjectMaster>();
-            if (dt.Rows.Count > 0)
-            {
-                foreach (DataRow dr in dt.Rows)
-                {
-                    SubjectMaster res = new SubjectMaster
-                    {
-                        Days = dr["Day"] is DBNull ? string.Empty : Convert.ToString(dr["Day"]),
-                        Branch = dr["Branch_Name"] is DBNull ? string.Empty : Convert.ToString(dr["Branch_Name"]),
-                        Year = Convert.ToString(dr["Year"].ToString()),
-                        Period1 = dr["Period1"] is DBNull ? string.Empty : Convert.ToString(dr["Period1"]),
-                        Period2 = dr["Period2"] is DBNull ? string.Empty : Convert.ToString(dr["Period2"]),
-                        Period3 = dr["Period3"] is DBNull ? string.Empty : Convert.ToString(dr["Period3"]),
-                        Period4 = dr["Period4"] is DBNull ? string.Empty : Convert.ToString(dr["Period4"]),
-                        Period5 = dr["Period5"] is DBNull ? string.Empty : Convert.ToString(dr["Period5"]),
-                        Period6 = dr["Period6"] is DBNull ? string.Empty : Convert.ToString(dr["Period6"]),
-                    };
-                    timetablelst.Add(res);
-                }
-            }
-            return timetablelst;
-        }
         public List<SubjectMaster> BindSubjectYearWise(int Program,int BranchId, int Year)
         {
             var procanme = "Proc_Bind_Subject";//Procedure name

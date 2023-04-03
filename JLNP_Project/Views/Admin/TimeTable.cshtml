@@ -1,8 +1,57 @@
 ﻿@{
     Layout = "_LayoutAdmin";
 }
+<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+    border: 0.5px solid #ccc;
+    background-color: #f1f1f1;
+    height: 38px;
+    display: flex;
+    align-content: flex-start;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+.tab button {
+    font-size: 13px;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+</style>
 <div class="">
-    <div class="">
+    <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -12,154 +61,76 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-4">
-                                <label>Select Branch<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlbranch" onchange="BindSubject()">
+                                <label>Program</label>
+                                <select class="form-control" id="ddlprogram">
+                                    <option value="0">:: Select Program ::</option>
                                 </select>
-                                <span class="text-danger d-none" id="ddlbranchsp">Please Select Branch</span>
+                                <small class="text-danger d-none" id="Program">Please select program..</small>
                             </div>
                             <div class="col-sm-4">
-                                <label>Select Year<span style="color:red;">*</span></label>
+                                <label>Branch</label>
+                                <select class="form-control" id="ddlbranch">
+                                    <option value="0">:: Select Branch ::</option>
+                                </select>
+                                <small class="text-danger d-none" id="branchv">Please select branch..</small>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Year</label>
                                 <select class="form-control" id="ddlyear">
-                                    <option value="">-- Select Year --</option>
-                                    <option value="1">First Year </option>
-                                    <option value="2">Second Year</option>
-                                    <option value="3">Final Year </option>
+                                    <option value="0">:: Select Year ::</option>
                                 </select>
+                                <small class="text-danger d-none" id="yearv">Please select year..</small>
                             </div>
-                            <div class="col-sm-4">
-                                <label>Select Sunject<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlsubject">
-                                </select>
-                            </div>
-
                         </div>
+                        <hr />
                         <div class="row">
-                            <div class="col-sm-4">
-                                <label>Select Days<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddldays">
-                                    <option value="">-- Select Days --</option>
-                                    <option value="Monday">Monday</option>
-                                    <option value="Tuseday">Tuseday</option>
-                                    <option value="Wednesday">Wednesday</option>
-                                    <option value="Thesday">Thesday</option>
-                                    <option value="Friday">Friday</option>
-                                    <option value="Suterday">Suterday</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-4">
-                                <label>Select Period<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlperiod">
-                                    <option value="">-- Select Period --</option>
-                                    <option value="1">Period 1</option>
-                                    <option value="2">Period 2</option>
-                                    <option value="3">Period 3</option>
-                                    <option value="4">Period 4</option>
-                                    <option value="5">Period 5</option>
-                                    <option value="6">Period 6</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-3">
-                                <button class="btn btn-outline-primary" style="margin-top: 29px;width: 43%;" onclick="Submitdata()">Save</button>
+                            <div class="col-sm-12" style="display: flex; justify-content: flex-end;">
+                                <button class="btn btn-outline-warning" onclick="Search()">Search</button>
                             </div>
                         </div>
-                        <div class="table-responsive" style="margin-top:13px;">
-                            <table class="table mb-0" id="tbltimetable">
-                                <thead class="bg-primary table-bordered">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Days</th>
-                                        <th>Branch</th>
-                                        <th>Year</th>
-                                        <th>Period 1</th>
-                                        <th>Period 2</th>
-                                        <th>Period 3</th>
-                                        <th>Period 4</th>
-                                        <th>Period 5</th>
-                                        <th>Period 6</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+                        <hr />
+                        <div id="divttl"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script src="~/js/jquery.min.js"></script>
 <script>
-    $(document).ready(function() {
-        loaddata();
-        Bindbranch();
+var Search = () => {
+    let obj = {
+        BranchId: $('#ddlbranch option:selected').val(),
+        Program: $('#ddlprogram option:selected').val(),
+        Year: $('#ddlyear option:selected').val(),
+    }
+    if (obj.Program == '' || obj.Program == undefined) {
+        $('#Program').removeClass('d-none');
+        return false;
+    }
+    else {
+        $('#Program').addClass('d-none');
+    }
+    if (obj.Program == '' || obj.Program == undefined) {
+        $('#branchv').removeClass('d-none');
+        return false;
+    }
+    else {
+        $('#branchv').addClass('d-none');
+    }
+    if (obj.Year == '' || obj.Year == undefined) {
+        $('#yearv').removeClass('d-none');
+        return false;
+    }
+    else {
+        $('#yearv').addClass('d-none');
+    }
+    preloader.load();
+    $.post('/Admin/GetTimeTable', obj).done(function(result) {
+        preloader.remove();
+        $('#divttl').html(result);
+    }).fail(function(xhr) {
+        console.log(xhr.responseText);
+        alert('Server Error');
     });
-    var Submitdata = () => {
-        if ($('#ddlbranch option:selected').val() == '') {
-            $('#ddlbranchsp').removeClass('d-none');
-            return false;
-        }
-        if ($('#ddlyear option:selected').val() == '') {
-            alert("Please Select Year");
-            $('#ddlyear').focus();
-            return false;
-        }
-        if ($('#ddlsubject option:selected').val() == '') {
-            alert("Please Select Year");
-            $('#ddlsubject').focus();
-            return false;
-        }
-        if ($('#ddldays option:selected').val() == '') {
-            alert("Please Select Day");
-            $('#ddldays').focus();
-            return false;
-        }
-        if ($('#ddlperiod option:selected').val() == '') {
-            alert("Please Fill Requered Inpormation..");
-            $('#ddlperiod').focus();
-            return false;
-        }
-        let obj = {
-            Branch: $('#ddlbranch option:selected').val(),
-            Year: $('#ddlyear option:selected').val(),
-            SubjectId: $('#ddlsubject option:selected').val(),
-            Days: $('#ddldays option:selected').val(),
-            Period: $('#ddlperiod option:selected').val()
-        }
-        $.post('/Admin/SaveTimetable', obj).done(function(result) {
-            alert(result.msg);
-            window.location.reload();
-        }).fail(function(xhr) {
-            console.log(xhr.responseText);
-            alert('Server Error');
-        });
-    }
-    var Bindbranch = () => {
-        $.post('/Admission/BindBranch').done(function(result) {
-            $('#ddlbranch').empty().append('<option value="">--Select Branch--</option>');
-            for (var i = 0; i < result.length; i++) {
-                $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
-            }
-        }).fail(function(xhr) {
-            console.log(xhr.responseText)
-        });
-    }
-    var BindSubject = () => {
-        $.post('/Admin/BindSubject', { BranchId: $('#ddlbranch option:selected').val() }).done(function(result) {
-            $('#ddlsubject').empty().append('<option value="">--Select Subject--</option>');
-            for (var i = 0; i < result.length; i++) {
-                $('#ddlsubject').append('<option value="' + result[i].subjectId + '">' + result[i].subjectName + '</option>')
-            }
-        }).fail(function(xhr) {
-            console.log(xhr.responseText)
-        });
-    }
-    var loaddata = () => {
-        $.post('/Admin/GetTimetable').done(function(result) {
-            $('#tbltimetable tbody').html(result);
-        }).fail(function(xhr) {
-            consoel.log(xhr.responseText);
-            alert("Server Error");
-        });
-    }
+}
 </script>

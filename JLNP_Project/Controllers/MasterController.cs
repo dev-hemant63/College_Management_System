@@ -496,19 +496,23 @@ namespace JLNP_Project.Controllers
         {
             if (_lr != null)
             {
+                bool IsAdmission = false;
+                var mdl = new RegistrationViewModel();
                 if (Id != 0)
                 {
                     IMasterML ml = new MasterML();
-                    var res = ml.GetRegistrationMaster();
-                    res.IsEdit = true;
-                    return View(res);
+                    mdl.data = ml.GetRegistrationMaster(IsAdmission);
+                    mdl.ProgramMasters = ml.GetProgram();
+                    mdl.data.IsEdit = true;
+                    return View(mdl);
                 }
                 else
                 {
                     IMasterML ml = new MasterML();
-                    var res = ml.GetRegistrationMaster();
-                    res.IsEdit = false;
-                    return View(res);
+                    mdl.data = ml.GetRegistrationMaster(IsAdmission);
+                    mdl.ProgramMasters = ml.GetProgram();
+                    mdl.data.IsEdit = false;
+                    return View(mdl);
                 }
             }
             return RedirectToAction("UsersLogin", "Account");
@@ -521,20 +525,59 @@ namespace JLNP_Project.Controllers
             return Json(res);
         }
         [HttpPost]
-        public IActionResult UpdateRegistartionMasterType(bool Is)
+        public IActionResult UpdateRegistartionMasterType(bool Is, int Program = 0, int Branch = 0, int Year = 0)
         {
             IMasterML ml = new MasterML();
             var req = new RegistrationMaster
             {
-                IsOpen = Is
+                Program = Program,
+                Branch = Branch,
+                IsOpen = Is,
+                Year = Year
             };
             var res = ml.UpdateRegistrationMaster(req);
             return Json(res);
         }
         [HttpGet]
-        public IActionResult AdmissionMaster()
+        public IActionResult AdmissionMaster(int Id = 0)
         {
-            return View();
+            if (_lr != null)
+            {
+                bool IsAdmission = true;
+                var mdl = new RegistrationViewModel();
+                if (Id != 0)
+                {
+                    IMasterML ml = new MasterML();
+                    mdl.data = ml.GetRegistrationMaster(IsAdmission);
+                    mdl.ProgramMasters = ml.GetProgram();
+                    mdl.data.IsEdit = true;
+                    return View(mdl);
+                }
+                else
+                {
+                    IMasterML ml = new MasterML();
+                    mdl.data = ml.GetRegistrationMaster(IsAdmission);
+                    mdl.ProgramMasters = ml.GetProgram();
+                    mdl.data.IsEdit = false;
+                    return View(mdl);
+                }
+            }
+            return RedirectToAction("UsersLogin", "Account");
+        }
+        [HttpPost]
+        public IActionResult UpdateAdmissionMasterType(bool Is, int Program = 0, int Branch = 0, int Year = 0)
+        {
+            IMasterML ml = new MasterML();
+            var req = new RegistrationMaster
+            {
+                Program = Program,
+                Branch = Branch,
+                IsOpen = Is,
+                Year = Year
+            };
+            req.IsAdmission = true;
+            var res = ml.UpdateRegistrationMaster(req);
+            return Json(res);
         }
     }
 }

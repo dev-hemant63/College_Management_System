@@ -43,6 +43,10 @@ namespace JLNP_Project.Controllers
             }
             return RedirectToAction("UsersLogin", "Account");
         }
+        public IActionResult GetTimeTable()
+        {
+            return PartialView("Partial/_AddTimeTable");
+        }
         [Route("BindProgram")]
         public IActionResult BindProgram()
         {
@@ -90,21 +94,6 @@ namespace JLNP_Project.Controllers
             Admin_BAL adbal = new Admin_BAL();
             var res = adbal.BindSubject_Bal(BranchId);
             return Json(res);
-        }
-        [HttpPost]
-        public IActionResult SaveTimetable(SubjectMaster subjectMaster)
-        {
-            Admin_BAL adbal = new Admin_BAL();
-            subjectMaster.Action = "Add";
-            var res = adbal.SaveTimetable_Bal(subjectMaster);
-            return Json(res);
-        }
-        [HttpPost]
-        public IActionResult GetTimetable()
-        {
-            Admin_BAL adbal = new Admin_BAL();
-            var res = adbal.GetTimetable();
-            return PartialView("Partial/_GetTimetable", res);
         }
         public IActionResult Bind_Subject(int Program, int BranchId, int Year)
         {
