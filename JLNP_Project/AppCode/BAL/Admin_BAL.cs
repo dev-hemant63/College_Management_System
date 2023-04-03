@@ -19,20 +19,6 @@ namespace JLNP_Project.AppCode.BAL
             var subjectlist = addal.BindSubject_Dal(SubjectId);
             return subjectlist;
         }
-        public object SaveTimetable_Bal(SubjectMaster subjectMaster)
-        {
-            AdminDAL addal = new AdminDAL();
-            subjectMaster.Action = "Add";
-            var subjectlist = addal.SaveTimetable_Dal(subjectMaster);
-            return subjectlist;
-        }
-        public List<SubjectMaster> GetTimetable()
-        {
-            AdminDAL addal = new AdminDAL();
-            string Action = "Get";
-            var timetable = addal.GetTimetable(Action);
-            return timetable;
-        }
         public List<SubjectMaster> Bind_Subject_Bal(int Program,int BranchId, int Year)
         {
             AdminDAL addal = new AdminDAL();

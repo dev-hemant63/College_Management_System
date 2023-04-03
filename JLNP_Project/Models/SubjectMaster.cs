@@ -21,12 +21,6 @@
         public string TheoryMarks { get; set; }
         public string PracticalMarks { get; set; }
         public string Days { get; set; }
-        public string Period1 { get; set; }
-        public string Period2 { get; set; }
-        public string Period3 { get; set; }
-        public string Period4 { get; set; }
-        public string Period5 { get; set; }
-        public string Period6 { get; set; }
         public string EntryDate { get; set; }
         public string Action { get; set; }
         public string Assignment { get; set; }
@@ -100,9 +94,18 @@
         public string Entrydate { get; set; }
         public int Daylimit { get; set; }
         public int Alllimit { get; set; }
+        public int ID { get; set; }
         public bool IsEdit { get; set; }
         public bool IsOpen { get; set; }
         public bool IsAdmission { get; set; }
+        public int Program { get; set; }
+        public int Branch { get; set; }
+        public int Year { get; set; }
 
+    }
+    public class RegistrationViewModel
+    {
+        public RegistrationMaster data { get; set; }
+        public List<ProgramMaster> ProgramMasters { get; set; }
     }
 }

@@ -542,15 +542,24 @@ namespace JLNP_Project.AppCode.DL
             }
             return res;
         }
-        public RegistrationMaster ProcGetGetRegistrationMaster()
+        public RegistrationMaster ProcGetGetRegistrationMaster(bool IsAdmission)
         {
             var res = new RegistrationMaster();
-            string ProcName = "select * from tbl_RegistrationMaster"; // Query
+            string ProcName = ""; // Query
+            if (!IsAdmission)
+            {
+                ProcName = "select * from tbl_RegistrationMaster";
+            }
+            else
+            {
+                ProcName = "select * from tbl_AdmissionMaster";
+            }
             try
             {
                 var dt = _helper.ExcQueryWithoutParam(ProcName);
                 if (dt.Rows.Count > 0)
                 {
+                    res.ID = Convert.ToInt32(dt.Rows[0]["Id"] is DBNull ? 0 : dt.Rows[0]["Id"]);
                     res.Startdate = Convert.ToString(dt.Rows[0]["Startdate"] is DBNull ? "" : dt.Rows[0]["Startdate"].ToString());
                     res.Enddate = Convert.ToString(dt.Rows[0]["Enddate"] is DBNull ? "" : dt.Rows[0]["Enddate"].ToString());
                     res.Daylimit = Convert.ToInt32(dt.Rows[0]["Daylimit"] is DBNull ? 0 : dt.Rows[0]["Daylimit"]);
@@ -576,7 +585,7 @@ namespace JLNP_Project.AppCode.DL
             }
             else
             {
-                ProcName = "Update tbl_RegistrationMaster set Startdate = @Startdate, Enddate = @Enddate,Daylimit = @Daylimit,Alllimit = @Alllimit,Modifydate = GETDATE()" +
+                ProcName = "Update tbl_AdmissionMaster set Startdate = @Startdate, Enddate = @Enddate,Daylimit = @Daylimit,Alllimit = @Alllimit,Modifydate = GETDATE()" +
                 "Select  1 Statuscode,'Success' Msg ";
             }// Query
             SqlParameter[] Param = new SqlParameter[]
@@ -584,7 +593,7 @@ namespace JLNP_Project.AppCode.DL
                 new SqlParameter("@Startdate",req.Startdate),
                 new SqlParameter("@Enddate",req.Enddate),
                 new SqlParameter("@Daylimit",req.Daylimit),
-                new SqlParameter("@Alllimit",req.Alllimit),
+                new SqlParameter("@Alllimit",req.Alllimit)
             };
             try
             {
@@ -607,17 +616,20 @@ namespace JLNP_Project.AppCode.DL
             string ProcName = "";
             if (!req.IsAdmission)
             {
-                ProcName = "Update tbl_RegistrationMaster set IsOpen = @Isopen,Modifydate = GETDATE()" +
-                "Select  1 Statuscode,'Status updated successfully!' Msg ";
+                ProcName = "Update tbl_RegistrationMaster set IsOpen = @Isopen,Modifydate = GETDATE(),Program = @Program,Branch = @Branch,Year = @Year" +
+                "Select 1 Statuscode,'Status updated successfully!' Msg ";
             }
             else
             {
-                ProcName = "Update tbl_RegistrationMaster set IsOpen = @Isopen,Modifydate = GETDATE()" +
-                "Select  1 Statuscode,'Status updated successfully!' Msg ";
+                ProcName = "Update tbl_AdmissionMaster set IsOpen = @Isopen,Modifydate = GETDATE(),Program = @Program,Branch = @Branch,Year = @Year" +
+                "Select 1 Statuscode,'Status updated successfully!' Msg ";
             }// Query
             SqlParameter[] Param = new SqlParameter[]
             {
-                new SqlParameter("@Isopen",req.IsOpen)
+                new SqlParameter("@Isopen",req.IsOpen),
+                new SqlParameter("@Program",req.Program),
+                new SqlParameter("@Branch",req.Branch),
+                new SqlParameter("@Year",req.Year),
             };
             try
             {
