@@ -1,0 +1,65 @@
+﻿@model TimeTableViewModel
+@if (Model.Timetable.Count > 0)
+{
+    @foreach (var item in Model.Timetable)
+    {
+        @if (item.Day.Replace("tbl", "") == "Monday")
+        {
+            <tr data-id="@item.ID">
+                <td>
+                    <select class="form-control" asp-for="@item.Subject">
+                        <option value="0">:: Select Subject ::</option>
+                        @foreach (var item2 in Model.SubjectList)
+                        {
+                            <option value="@item2.SubjectId">@item2.SubjectName</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    <select class="form-control" asp-for="@item.Teacher">
+                        <option value="0">:: Select Teacher ::</option>
+                        @foreach (var item3 in Model.TeacherList)
+                        {
+                            <option value="@item3.TeacherId">@item3.TeacherName</option>
+                        }
+                    </select>
+                </td>
+                <td><input type="time" class="form-control" id="fromtime" asp-for="@item.TimeFrom" /></td>
+                <td><input type="time" class="form-control" id="totime" asp-for="@item.TimeTo" /></td>
+                <td><input type="text" class="form-control" id="room" asp-for="@item.RoomNo" placeholder="Room No." /></td>
+                <td>
+                    <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
+                </td>
+            </tr>
+        }
+    }
+}
+else
+{
+    <tr data-id="0">
+        <td>
+            <select class="form-control">
+                <option value="0">:: Select Subject ::</option>
+                @foreach (var item in Model.SubjectList)
+                {
+                    <option value="@item.SubjectId">@item.SubjectName</option>
+                }
+            </select>
+        </td>
+        <td>
+            <select class="form-control">
+                <option value="0">:: Select Teacher ::</option>
+                @foreach (var item in Model.TeacherList)
+                {
+                    <option value="@item.TeacherId">@item.TeacherName</option>
+                }
+            </select>
+        </td>
+        <td><input type="time" class="form-control" id="fromtime" /></td>
+        <td><input type="time" class="form-control" id="totime" /></td>
+        <td><input type="text" class="form-control" id="room" placeholder="Room No." /></td>
+        <td>
+            <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
+        </td>
+    </tr>
+}

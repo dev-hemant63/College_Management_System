@@ -39,13 +39,88 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                return View();
+                IMasterML ml = new MasterML();
+                var res = ml.GetProgram();
+                return View(res);
             }
             return RedirectToAction("UsersLogin", "Account");
         }
-        public IActionResult GetTimeTable()
+        public IActionResult GetTimeTable(int Program,int BranchId,int Year,string Day)
         {
-            return PartialView("Partial/_AddTimeTable");
+            Admin_BAL adbal = new Admin_BAL();
+            TimeTableViewModel model = new TimeTableViewModel();
+            model.SubjectList = adbal.Bind_Subject_Bal(Program, BranchId, Year);
+            model.TeacherList = adbal.Bind_Teacher_Bal();
+            model.Timetable = adbal.GetTimeTable(Program, BranchId, Year, Day.Replace("tbl",""));
+            return PartialView("Partial/TimeTable/_AddTimeTable", model);
+        }
+        [HttpPost]
+        public IActionResult GetTimetableByday(int Program, int BranchId, int Year, string Day)
+        {
+            Admin_BAL adbal = new Admin_BAL();
+            TimeTableViewModel model = new TimeTableViewModel();
+            model.SubjectList = adbal.Bind_Subject_Bal(Program, BranchId, Year);
+            model.TeacherList = adbal.Bind_Teacher_Bal();
+            model.Timetable = adbal.GetTimeTable(Program, BranchId, Year, Day.Replace("tbl", ""));
+            switch (Day.Replace("tbl", ""))
+            {
+                case "Monday":
+                    return PartialView("Partial/TimeTable/_Monday", model);
+                    break;
+                case "Tuesday":
+                    return PartialView("Partial/TimeTable/_Tuesday", model);
+                    break;
+                case "Wednesday":
+                    return PartialView("Partial/TimeTable/_Wednesday", model);
+                    break;
+                case "Thursday":
+                    return PartialView("Partial/TimeTable/_Thursday", model);
+                    break;
+                case "Friday":
+                    return PartialView("Partial/TimeTable/_Friday", model);
+                    break;
+                case "Suterday":
+                    return PartialView("Partial/TimeTable/_Suterday", model);
+                    break;
+                case "Sunday":
+                    return PartialView("Partial/TimeTable/_Sunday", model);
+                    break;
+                default:
+                    break;
+            }
+            return Ok();
+        }
+        [HttpPost]
+        public IActionResult SaveTimetable(List<TimeTable> req)
+        {
+            Admin_BAL adbal = new Admin_BAL();
+            var res = adbal.SaveTimeTable(req);
+            return Json(res);
+        }
+        [HttpPost]
+        public IActionResult DeleteTimeTable(int ID)
+        {
+            Admin_BAL adbal = new Admin_BAL();
+            var res = adbal.DeleteTimeTable(ID);
+            return Json(res);
+        }
+        [HttpGet]
+        public IActionResult TimetableRepot()
+        {
+            if (_lr.UserName != null)
+            {
+                IMasterML ml = new MasterML();
+                var res = ml.GetProgram();
+                return View(res);
+            }
+            return RedirectToAction("UsersLogin", "Account");
+        }
+        [HttpPost]
+        public IActionResult GetTimeTableReport(int Program, int BranchId, int Year)
+        {
+            Admin_BAL adbal = new Admin_BAL();
+            var res = adbal.GetTimeTableReport(Program, BranchId, Year);
+            return PartialView("Partial/TimeTable/_GetTimetableReport", res);
         }
         [Route("BindProgram")]
         public IActionResult BindProgram()

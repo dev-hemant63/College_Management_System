@@ -49,7 +49,7 @@ namespace JLNP_Project.AppCode.DAL
             }
             return subjectlst;
         }
-        public List<SubjectMaster> BindSubjectYearWise(int Program,int BranchId, int Year)
+        public List<SubjectMaster> BindSubjectYearWise(int Program, int BranchId, int Year)
         {
             var procanme = "Proc_Bind_Subject";//Procedure name
             SqlParameter[] param = new SqlParameter[]
@@ -304,7 +304,7 @@ namespace JLNP_Project.AppCode.DAL
             }
             return res;
         }
-        public List<SubjectMaster> GetUser_Dal(int UserID,string UserName,string Mobile)
+        public List<SubjectMaster> GetUser_Dal(int UserID, string UserName, string Mobile)
         {
             ResponseStatus res = new ResponseStatus
             {
@@ -328,8 +328,8 @@ namespace JLNP_Project.AppCode.DAL
                     {
                         Id = Convert.ToInt32(dr["Id"]),
                         UserName = Convert.ToString(dr["Name"].ToString()),
-                        LoginID= Convert.ToString(dr["UserId"].ToString()),
-                        UserEmail= Convert.ToString(dr["Email"].ToString()),
+                        LoginID = Convert.ToString(dr["UserId"].ToString()),
+                        UserEmail = Convert.ToString(dr["Email"].ToString()),
                         password = Convert.ToString(dr["Password"].ToString()),
                         MobileNo = Convert.ToString(dr["Mobile"].ToString()),
                         Branch = Convert.ToString(dr["Branch_Name"].ToString()),
@@ -349,7 +349,7 @@ namespace JLNP_Project.AppCode.DAL
                 statuscode = 1,
                 Msg = "Temp Error"
             };
-            
+
             SqlParameter[] param = new SqlParameter[]
             {
                 new SqlParameter("@LoginID",UserID),
@@ -361,6 +361,202 @@ namespace JLNP_Project.AppCode.DAL
             {
                 res.statuscode = 1;
                 res.Msg = IsActive == true ? "User actived successfully!" : "User inactived successfully!";
+            }
+            return res;
+        }
+        public ResponseStatus SaveTimeTable(TimeTable req)
+        {
+            ResponseStatus res = new ResponseStatus
+            {
+                statuscode = 1,
+                Msg = "Temp Error"
+            };
+
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@ID",req.ID),
+                new SqlParameter("@Program",req.Program),
+                new SqlParameter("@Branch",req.Branch),
+                new SqlParameter("@Year",req.Year),
+                new SqlParameter("@Subject",req.Subject),
+                new SqlParameter("@Teacher",req.Teacher),
+                new SqlParameter("@TimeFrom",req.TimeFrom),
+                new SqlParameter("@TimeTo",req.TimeTo),
+                new SqlParameter("@RoomNo",req.RoomNo),
+                new SqlParameter("@Day",req.Day),
+            };
+            var command = "Proc_SaveTimeTable"; //command
+            var dt = dbh.ExcProc(command, param);
+            if (dt.Rows.Count > 0)
+            {
+                res.statuscode = Convert.ToInt32(dt.Rows[0]["statuscode"]);
+                res.Msg = Convert.ToString(dt.Rows[0]["Msg"].ToString());
+            }
+            return res;
+        }
+        public ResponseStatus DeleteTimeTable(int ID)
+        {
+            ResponseStatus res = new ResponseStatus
+            {
+                statuscode = 1,
+                Msg = "Temp Error"
+            };
+
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@ID",ID)
+            };
+            var command = "Delete from tbl_timetable where Id = @ID;select 1 Statuscode,'Record deleted successfully!' Msg"; //command
+            var dt = dbh.ExcQueryDT(command, param);
+            if (dt.Rows.Count > 0)
+            {
+                res.statuscode = Convert.ToInt32(dt.Rows[0]["Statuscode"]);
+                res.Msg = Convert.ToString(dt.Rows[0]["Msg"].ToString());
+            }
+            return res;
+        }
+        public List<TimeTable> GetTimeTable(int Program, int BranchId, int Year, string Day)
+        {
+            var res = new List<TimeTable>();
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@Program",Program),
+                new SqlParameter("@BranchId",BranchId),
+                new SqlParameter("@Year",Year),
+                new SqlParameter("@Day",Day)
+            };
+            var command = "select * from tbl_timetable where Program = @Program and Branch = @BranchId and Year = @Year and Day = @Day"; //command
+            var dt = dbh.ExcQueryDT(command, param);
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow item in dt.Rows)
+                {
+                    var TimeTable = new TimeTable
+                    {
+                        ID = Convert.ToInt32(item["ID"]),
+                        Program = Convert.ToInt32(item["Program"]),
+                        Branch = Convert.ToInt32(item["Branch"]),
+                        Year = Convert.ToInt32(item["Year"]),
+                        Subject = Convert.ToInt32(item["Subject"]),
+                        Teacher = Convert.ToInt32(item["Teacher"]),
+                        TimeFrom = Convert.ToString(item["TimeFrom"].ToString()),
+                        TimeTo = Convert.ToString(item["TimeTo"].ToString()),
+                        RoomNo = Convert.ToString(item["RoomNo"].ToString()),
+                        Day = Convert.ToString(item["Day"].ToString()),
+                    };
+                    res.Add(TimeTable);
+                }
+            }
+            return res;
+        }
+        public TimeTableReportViewModel GetTimeTableReport(int Program, int BranchId, int Year)
+        {
+            var res = new TimeTableReportViewModel();
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@Program",Program),
+                new SqlParameter("@Branch",BranchId),
+                new SqlParameter("@Year",Year)
+            };
+            var command = "Proc_TimeTableReport"; //command
+            var ds = dbh.ExcProc_Dataset(command, param);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow item in ds.Tables[0].Rows)
+                {
+                    var TimeTable = new TimeTableReport
+                    {
+                        SubjectName = Convert.ToString(item["SubjectName"].ToString()),
+                        Teacher = Convert.ToString(item["Teacher"].ToString()),
+                        Time = Convert.ToString(item["Time"].ToString()),
+                        RoomNo = Convert.ToString(item["RoomNo"].ToString()),
+                    };
+                    res.Monday.Add(TimeTable);
+                }
+            }
+            if (ds.Tables[1].Rows.Count > 0)
+            {
+                foreach (DataRow item in ds.Tables[1].Rows)
+                {
+                    var TimeTable = new TimeTableReport
+                    {
+                        SubjectName = Convert.ToString(item["SubjectName"].ToString()),
+                        Teacher = Convert.ToString(item["Teacher"].ToString()),
+                        Time = Convert.ToString(item["Time"].ToString()),
+                        RoomNo = Convert.ToString(item["RoomNo"].ToString()),
+                    };
+                    res.Tuesday.Add(TimeTable);
+                }
+            }
+            if (ds.Tables[2].Rows.Count > 0)
+            {
+                foreach (DataRow item in ds.Tables[2].Rows)
+                {
+                    var TimeTable = new TimeTableReport
+                    {
+                        SubjectName = Convert.ToString(item["SubjectName"].ToString()),
+                        Teacher = Convert.ToString(item["Teacher"].ToString()),
+                        Time = Convert.ToString(item["Time"].ToString()),
+                        RoomNo = Convert.ToString(item["RoomNo"].ToString()),
+                    };
+                    res.Wednesday.Add(TimeTable);
+                }
+            }
+            if (ds.Tables[3].Rows.Count > 0)
+            {
+                foreach (DataRow item in ds.Tables[3].Rows)
+                {
+                    var TimeTable = new TimeTableReport
+                    {
+                        SubjectName = Convert.ToString(item["SubjectName"].ToString()),
+                        Teacher = Convert.ToString(item["Teacher"].ToString()),
+                        Time = Convert.ToString(item["Time"].ToString()),
+                        RoomNo = Convert.ToString(item["RoomNo"].ToString()),
+                    };
+                    res.Thursday.Add(TimeTable);
+                }
+            }
+            if (ds.Tables[4].Rows.Count > 0)
+            {
+                foreach (DataRow item in ds.Tables[4].Rows)
+                {
+                    var TimeTable = new TimeTableReport
+                    {
+                        SubjectName = Convert.ToString(item["SubjectName"].ToString()),
+                        Teacher = Convert.ToString(item["Teacher"].ToString()),
+                        Time = Convert.ToString(item["Time"].ToString()),
+                        RoomNo = Convert.ToString(item["RoomNo"].ToString()),
+                    };
+                    res.Friday.Add(TimeTable);
+                }
+            }
+            if (ds.Tables[5].Rows.Count > 0)
+            {
+                foreach (DataRow item in ds.Tables[5].Rows)
+                {
+                    var TimeTable = new TimeTableReport
+                    {
+                        SubjectName = Convert.ToString(item["SubjectName"].ToString()),
+                        Teacher = Convert.ToString(item["Teacher"].ToString()),
+                        Time = Convert.ToString(item["Time"].ToString()),
+                        RoomNo = Convert.ToString(item["RoomNo"].ToString()),
+                    };
+                    res.Suterday.Add(TimeTable);
+                }
+            }
+            if (ds.Tables[6].Rows.Count > 0)
+            {
+                foreach (DataRow item in ds.Tables[6].Rows)
+                {
+                    var TimeTable = new TimeTableReport
+                    {
+                        SubjectName = Convert.ToString(item["SubjectName"].ToString()),
+                        Teacher = Convert.ToString(item["Teacher"].ToString()),
+                        Time = Convert.ToString(item["Time"].ToString()),
+                        RoomNo = Convert.ToString(item["RoomNo"].ToString()),
+                    };
+                    res.Sunday.Add(TimeTable);
+                }
             }
             return res;
         }

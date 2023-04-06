@@ -1,0 +1,221 @@
+﻿@model TimeTableReportViewModel
+<style>
+    div {
+    display: block;
+}
+</style>
+<div class="table-responsive">
+    <table class="table table-stripped">
+        <thead>
+            <tr>
+                <th class="text text-center">
+                    Monday
+                </th>
+                <th class="text text-center">
+                    Tuesday
+                </th>
+                <th class="text text-center">
+                    Wednesday
+                </th>
+                <th class="text text-center">
+                    Thursday
+                </th>
+                <th class="text text-center">
+                    Friday
+                </th>
+                <th class="text text-center">
+                    Saturday
+                </th>
+                <th class="text text-center">
+                    Sunday
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text text-center text-success" width="14%">
+                    @{
+                        if (Model.Monday.Count > 0)
+                        {
+                            foreach (var item in Model.Monday)
+                            {
+                                <div class="attachment-block clearfix">
+                                    <b class="text-green">
+                                        Subject:@item.SubjectName
+                                    </b><br>
+                                    <b class="text-green">
+                                        Teacher:@item.Teacher
+                                    </b><br>
+                                    <strong class="text-green">@item.Time</strong>
+                                    <strong class="text-green">Room No: @item.RoomNo</strong><br>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="attachment-block clearfix">
+                                <b class="text text-center">Not <br>Scheduled</b><br>
+                            </div>
+                        }
+                    }
+                </td>
+                <td class="text text-center text-success" width="14%">
+                    @{
+                        if (Model.Monday.Count > 0)
+                        {
+                            foreach (var item in Model.Tuesday)
+                            {
+                                <div class="attachment-block clearfix">
+                                    <b class="text-green">
+                                        Subject:@item.SubjectName
+                                    </b><br>
+                                    <b class="text-green">
+                                        Teacher:@item.Teacher
+                                    </b><br>
+                                    <strong class="text-green">@item.Time</strong>
+                                    <strong class="text-green">Room No: @item.RoomNo</strong><br>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="attachment-block clearfix">
+                                <b class="text text-center">Not <br>Scheduled</b><br>
+                            </div>
+                        }
+                    }
+                </td>
+                <td class="text text-center text-success" width="14%">
+                    @{
+                        if (Model.Monday.Count > 0)
+                        {
+                            foreach (var item in Model.Wednesday)
+                            {
+                                <div class="attachment-block clearfix">
+                                    <b class="text-green">
+                                        Subject:@item.SubjectName
+                                    </b><br>
+                                    <b class="text-green">
+                                        Teacher:@item.Teacher
+                                    </b><br>
+                                    <strong class="text-green">@item.Time</strong>
+                                    <strong class="text-green">Room No: @item.RoomNo</strong><br>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="attachment-block clearfix">
+                                <b class="text text-center">Not <br>Scheduled</b><br>
+                            </div>
+                        }
+                    }
+                </td>
+                <td class="text text-center text-success" width="14%">
+                    @{
+                        if (Model.Monday.Count != 0)
+                        {
+                            foreach (var item in Model.Thursday)
+                            {
+                                <div class="attachment-block clearfix">
+                                    <b class="text-green">
+                                        Subject:@item.SubjectName
+                                    </b><br>
+                                    <b class="text-green">
+                                        Teacher:@item.Teacher
+                                    </b><br>
+                                    <strong class="text-green">@item.Time</strong>
+                                    <strong class="text-green">Room No: @item.RoomNo</strong><br>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="attachment-block clearfix">
+                                <b class="text text-center">Not <br>Scheduled</b><br>
+                            </div>
+                        }
+                    }
+                </td>
+                <td class="text text-center text-success" width="14%">
+                    @{
+                        if (Model.Monday.Count > 0)
+                        {
+                            foreach (var item in Model.Friday)
+                            {
+                                <div class="attachment-block clearfix">
+                                    <b class="text-green">
+                                        Subject:@item.SubjectName
+                                    </b><br>
+                                    <b class="text-green">
+                                        Teacher:@item.Teacher
+                                    </b><br>
+                                    <strong class="text-green">@item.Time</strong>
+                                    <strong class="text-green">Room No: @item.RoomNo</strong><br>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="attachment-block clearfix">
+                                <b class="text text-center">Not <br>Scheduled</b><br>
+                            </div>
+                        }
+                    }
+                </td>
+                <td class="text text-center text-success" width="14%">
+                    @{
+                        if (Model.Monday.Count > 0)
+                        {
+                            foreach (var item in Model.Suterday)
+                            {
+                                <div class="attachment-block clearfix">
+                                    <b class="text-green">
+                                        Subject:@item.SubjectName
+                                    </b><br>
+                                    <b class="text-green">
+                                        Teacher:@item.Teacher
+                                    </b><br>
+                                    <strong class="text-green">@item.Time</strong>
+                                    <strong class="text-green">Room No: @item.RoomNo</strong><br>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="attachment-block clearfix">
+                                <b class="text text-center">Not <br>Scheduled</b><br>
+                            </div>
+                        }
+                    }
+                </td>
+                <td class="text text-center text-success" width="14%">
+                    @{
+                        if (Model.Monday.Count > 0)
+                        {
+                            foreach (var item in Model.Sunday)
+                            {
+                                <div class="attachment-block clearfix">
+                                    <b class="text-green">
+                                        Subject:@item.SubjectName
+                                    </b><br>
+                                    <b class="text-green">
+                                        Teacher:@item.Teacher
+                                    </b><br>
+                                    <strong class="text-green">@item.Time</strong>
+                                    <strong class="text-green">Room No: @item.RoomNo</strong><br>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="attachment-block clearfix">
+                                <b class="text text-center">Not <br>Scheduled</b><br>
+                            </div>
+                        }
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

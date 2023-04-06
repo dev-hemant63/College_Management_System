@@ -1,0 +1,286 @@
+﻿@model TimeTableViewModel
+<div class="row">
+    <div class="col-sm-12">
+        <div class="tab">
+            <button class="tablinks active" onclick="newopencity(event, 'Monday')">Monday</button>
+            <button class="tablinks" onclick="newopencity(event, 'Tuesday')">Tuesday</button>
+            <button class="tablinks" onclick="newopencity(event, 'Wednesday')">Wednesday</button>
+            <button class="tablinks" onclick="newopencity(event, 'Thursday')">Thursday</button>
+            <button class="tablinks" onclick="newopencity(event, 'Friday')">Friday</button>
+            <button class="tablinks" onclick="newopencity(event, 'Suterday')">Suterday</button>
+            <button class="tablinks" onclick="newopencity(event, 'Sunday')">Sunday</button>
+            <a href="#" class="btn btn-warning" id="btnadd">+AddNew</a>
+        </div>
+        <div id="Monday" class="tabcontent" style="display: block;">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tblMonday">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Time From</th>
+                            <th>Time To</th>
+                            <th>Room No</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="Tuesday" class="tabcontent">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tblTuesday">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Time From</th>
+                            <th>Time To</th>
+                            <th>Room No</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="Wednesday" class="tabcontent">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tblWednesday">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Time From</th>
+                            <th>Time To</th>
+                            <th>Room No</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="Thursday" class="tabcontent">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tblThursday">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Time From</th>
+                            <th>Time To</th>
+                            <th>Room No</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="Friday" class="tabcontent">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tblFriday">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Time From</th>
+                            <th>Time To</th>
+                            <th>Room No</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="Suterday" class="tabcontent">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tblSuterday">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Time From</th>
+                            <th>Time To</th>
+                            <th>Room No</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="Sunday" class="tabcontent">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="tblSunday">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>Time From</th>
+                            <th>Time To</th>
+                            <th>Room No</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 mt-4" style="display: flex; justify-content: flex-end;">
+        <button class="btn btn-outline-success" onclick="SaveBulkRecord()">Save</button>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('.tabledit-delete-button').click(function() {
+            let id = $(this).closest('tr').data().id;
+            if (id == '0') {
+                $(this).closest('tr').remove();
+            }
+            else {
+                preloader.load();
+                $.post('/Admin/DeleteTimeTable', { ID: id }).done(function(res) {
+                    preloader.remove();
+                    if (res.statuscode == 1) {
+                        $(this).closest('tr').remove();
+                    }
+                }).fail(function() {
+                    alertnotify(-1, 'Server Error');
+                });
+            }
+        });
+    });
+    function openCity(evt, cityName) {
+        $('#hdnid').val('tbl' + cityName);
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    $('#btnadd').click(() => {
+        var id = $('#hdnid').val();
+        $('#' + id + ' tbody').append(`
+                                        <tr data-id="0">
+                                           <td>
+                                               <select class="form-control">
+                                                   <option value="0">:: Select Subject ::</option>
+    @foreach (var item in Model.SubjectList)
+    {
+                <option value="@item.SubjectId">@item.SubjectName</option>
+    }
+                                               </select>
+                                           </td>
+                                           <td>
+                                               <select class="form-control">
+                                                   <option value="0">:: Select Teacher ::</option>
+    @foreach (var item in Model.TeacherList)
+    {
+                                                                                  <option value="@item.TeacherId">@item.TeacherName</option>
+    }
+                                               </select>
+                                           </td>
+                                           <td><input type="time" class="form-control" id="fromtime" /></td>
+                                           <td><input type="time" class="form-control" id="totime" /></td>
+                                           <td><input type="text" class="form-control" id="room" placeholder="Room No." /></td>
+                                           <td>
+                                               <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
+                                           </td>
+                                         </tr>`);
+    });
+    var SaveBulkRecord = () => {
+        var table = [];
+        let validfield = false;
+        let id = $('#hdnid').val();
+        $('#' + id + ' tbody tr').each(function() {
+            let currentRow = $(this);
+            let obj = {
+                Program: $('#ddlprogram').val(),
+                Branch: $('#ddlbranch').val(),
+                Year: $('#ddlyear').val(),
+                ID: currentRow.attr("data-id"),
+                Subject: currentRow.find('td:eq(0) select').val(),
+                Teacher: currentRow.find('td:eq(1) select').val(),
+                TimeFrom: currentRow.find('td:eq(2) input').val(),
+                TimeTo: currentRow.find('td:eq(3) input').val(),
+                RoomNo: currentRow.find('td:eq(4) input').val(),
+                Day: $('#hdnid').val(),
+            };
+            if (obj.Program == '0') {
+                alert('Please select program..');
+                return false;
+            }
+            else if (obj.Branch == '0') {
+                alert('Please select Branch..');
+                return false;
+            }
+            else if (obj.Year == '0') {
+                alert('Please select Year..');
+                return false;
+            }
+            else if (obj.Year == '0') {
+                alert('Please select Year..');
+                return false;
+            }
+            else if (obj.Subject == '0') {
+                alert('Please select Subject..');
+                return false;
+            }
+            else if (obj.Teacher == '0') {
+                alert('Please select Teacher..');
+                return false;
+            }
+            else if (obj.TimeFrom == '') {
+                alert('Please Enter Time From..');
+                return false;
+            }
+            else if (obj.TimeTo == '') {
+                alert('Please Enter Time To..');
+                return false;
+            }
+            else if (obj.RoomNo == '') {
+                alert('Please Enter Room No..');
+                return false;
+            }
+            else {
+                validfield = true;
+            }
+            table.push(obj);
+        });
+        if (validfield) {
+            preloader.load();
+            $.post('/Admin/SaveTimetable', { req: table }).done(function(res) {
+                preloader.remove();
+                alertnotify(res.statuscode, res.msg);
+            }).fail(function() {
+                alertnotify(-1, 'Server Error');
+            });
+        }
+    }
+</script>
