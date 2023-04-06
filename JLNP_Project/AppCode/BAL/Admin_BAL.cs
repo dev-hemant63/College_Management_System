@@ -105,5 +105,45 @@ namespace JLNP_Project.AppCode.BAL
             var res = addal.UpdateUserStatus(UserID, IsActive);
             return res;
         }
+        public ResponseStatus SaveTimeTable(List<TimeTable> req)
+        {
+            AdminDAL addal = new AdminDAL();
+            var res = new ResponseStatus();
+            foreach (var item in req)
+            {
+                res = addal.SaveTimeTable(new TimeTable
+                {
+                    ID = item.ID,
+                    Program = item.Program,
+                    Branch = item.Branch,
+                    Year = item.Year,
+                    Subject = item.Subject,
+                    Teacher = item.Teacher,
+                    TimeFrom = item.TimeFrom,
+                    TimeTo = item.TimeTo,
+                    RoomNo = item.RoomNo,
+                    Day = item.Day.Replace("tbl",""),
+                });
+            }
+            return res;
+        }
+        public ResponseStatus DeleteTimeTable(int ID)
+        {
+            AdminDAL addal = new AdminDAL();
+            var res = addal.DeleteTimeTable(ID);
+            return res;
+        }
+        public List<TimeTable> GetTimeTable(int Program, int BranchId, int Year,string Day)
+        {
+            AdminDAL addal = new AdminDAL();
+            var res = addal.GetTimeTable(Program, BranchId, Year, Day);
+            return res;
+        }
+        public TimeTableReportViewModel GetTimeTableReport(int Program, int BranchId, int Year)
+        {
+            AdminDAL addal = new AdminDAL();
+            var res = addal.GetTimeTableReport(Program, BranchId, Year);
+            return res;
+        }
     }
 }

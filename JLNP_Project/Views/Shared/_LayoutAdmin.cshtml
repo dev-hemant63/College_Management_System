@@ -107,8 +107,6 @@
 
                         <div class="app-sidebar__user clearfix">
                             <div class="dropdown user-pro-body d-flex">
-
-
                                 <div class="">
                                     <img alt="user-img" class="avatar avatar-xl brround" src="~/Assessts3/images/userimg.png"><span class="avatar-status profile-status bg-green"></span>
                                 </div>
@@ -143,8 +141,6 @@
                                 <li class="dropdown">
                                     <a class="nav-link menu-title" href="javascript:void(0)"><i class="fa fa-cogs"></i><span>Master & Settings</span></a>
                                     <ul class="nav-submenu menu-content">
-                                        <li><a href="/Master/SubjectMasterList"> - &nbsp; Add Subject</a></li>
-                                        <li><a href="/Teacher/AddTeacher">- &nbsp; Add Teacher</a></li>
                                         <li><a href="/Master/BatchMaster">- &nbsp; Batch Master</a></li>
                                         <li><a href="/Master/ProgramMaster">- &nbsp; Program Master</a></li>
                                         <li><a href="/Branch/BranchMatser">- &nbsp; Branch Master</a></li>
@@ -152,8 +148,6 @@
                                         <li><a href="/Master/RegistartionMaster">- &nbsp; Registartion Master</a></li>
                                         <li><a href="/Master/AdmissionMaster">- &nbsp; Admission Master</a></li>
                                         <li><a href="/Master/NotificationMaster">- &nbsp; Notification Master</a></li>
-                                        <li><a href="/Master/SyllabusMaster">- &nbsp; Syllabus Master</a></li>
-                                        <li><a href="/Master/VideoLecture">- &nbsp; Add VideoLecture</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
@@ -166,15 +160,19 @@
                                         <li><a href="/AccountManagement/StudentSubmitFees">- &nbsp;    Student Submited Fees</a></li>
                                     </ul>
                                 </li>
-                                <li>
-                                    <a class="nav-link menu-title" href="/Admin/GetUsers"><i class="fa fa-user"></i><span>User List</span></a>
+                                <li class="dropdown">
+                                    <a class="nav-link menu-title" href="#" id="gamemodule"><i class="fas fa-user"></i>User Management</a>
+                                    <ul class="nav-submenu menu-content">
+                                        <li><a href="/Admin/GetUsers">- &nbsp;   Students List </a></li>
+                                        <li><a href="/Teacher/AddTeacher">- &nbsp; Add Teacher</a></li>
+                                        <li><a href="/Teacher/teacherlist">- &nbsp;   Teachers List </a></li>
+                                    </ul>
                                 </li>
                                 <li class="dropdown">
                                     <a id="dwnAdminReport" class="nav-link menu-title" href="javascript:void(0)"><i class="fa fa-file"></i><span>Report</span></a>
                                     <ul class="nav-submenu menu-content">
                                         <li><a href="/Student/StudentList">- &nbsp;Regitration Report</a></li>
                                         <li><a href="/Report/AdmissionReport">- &nbsp;Admission Report</a></li>
-                                        <li><a href="/Teacher/teacherlist">- &nbsp;Teacher Report</a></li>
                                         <li><a href="/Branch/BranchList">- &nbsp;Branch Report</a></li>
                                         <li><a href="/Report/FeesTransctionReport">- &nbsp;Fees Transction Report</a></li>
                                         <li><a href="/Report/ProjectReport">- &nbsp;Project Report</a></li>
@@ -182,16 +180,30 @@
                                         <li><a href="/Report/SyllabusReport">- &nbsp;Syllabus Report</a></li>
                                     </ul>
                                 </li>
-                                <li>
-                                    <a class="nav-link menu-title" href="/Admin/TimeTable"><i class="fa fa-stopwatch"></i><span>Time Table</span></a>
+                                <li class="dropdown">
+                                    <a id="dwnAdminReport" class="nav-link menu-title" href="javascript:void(0)"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Time Table</span></a>
+                                    <ul class="nav-submenu menu-content">
+                                        <li><a href="/Admin/TimeTable">- &nbsp;Schedule Time Table</a></li>
+                                        <li><a href="/Admin/TimetableRepot">- &nbsp;Branch Time Table</a></li>
+                                    </ul>
                                 </li>
-                                <li>
-                                    <a class="nav-link menu-title" href="/Admin/AssignSubject"><i class="fa fa-book"></i><span>Assign Subject</span></a>
+                                <li class="dropdown">
+                                    <a id="dwnAdminReport" class="nav-link menu-title" href="javascript:void(0)"><i class="fa fa-mortar-board ftlayer"></i><span>Academics</span></a>
+                                    <ul class="nav-submenu menu-content">
+                                        <li><a href="/Master/SubjectMasterList"> - &nbsp; Add Subject</a></li>
+                                        <li><a href="/Admin/AssignSubject">- &nbsp;Assign Subject</a></li>
+                                        <li><a href="/Master/SyllabusMaster">- &nbsp; Syllabus Master</a></li>
+                                        <li><a href="/Master/VideoLecture">- &nbsp; Add VideoLecture</a></li>
+                                        <li><a href="/Admin/Assignment">- &nbsp; Assignments</a></li>
+                                    </ul>
                                 </li>
-
-
-                                <li class="">
-                                    <a class="nav-link menu-title" href="/Admin/Assignment"><i class="fa fa-book"></i><span>Assignments</span></a>
+                                <li class="dropdown">
+                                    <a id="dwnAdminReport" class="nav-link menu-title" href="javascript:void(0)"><i class="fa fa-calendar-check-o ftlayer"></i><span>Attendance</span></a>
+                                    <ul class="nav-submenu menu-content">
+                                        <li><a href="/Attendance/MarkAttendance"> - &nbsp; Student Attendance</a></li>
+                                        <li><a href="/Attendance/AttendanceReport">- &nbsp; Attendance By Date</a></li>
+                                        <li><a href="/Attendance/ApproveLeave">- &nbsp; Approve Leave</a></li>
+                                    </ul>
                                 </li>
                                 <li>
                                     <a class="nav-link menu-title" href="/Master/EnterMarks"><i class="fa fa-book"></i><span>Enter Marks</span></a>
