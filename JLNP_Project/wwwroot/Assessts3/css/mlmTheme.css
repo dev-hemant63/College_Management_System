@@ -1251,8 +1251,7 @@ hr {
 }
 
 .table th, .table td {
-    padding: 4px 8px;
-    vertical-align: top;
+    /*padding: 4px 8px;*/
     border: 1px solid #f3f3f3;
     font-size: 13px;
 }

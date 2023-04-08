@@ -1,5 +1,228 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model Attendance
+<style type="text/css">
+    .alert-warning {
+        background-color: #ffe7c1 !important;
+        border: 1px solid #f3c7a7 !important;
+        color: #e67e22 !important;
+    }
+
+    .radio {
+        padding-left: 20px;
+    }
+
+        .radio label {
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+            padding-left: 5px;
+        }
+
+            .radio label::before {
+                content: "";
+                display: inline-block;
+                position: absolute;
+                width: 17px;
+                height: 17px;
+                left: 0;
+                margin-left: -20px;
+                border: 1px solid #cccccc;
+                border-radius: 50%;
+                background-color: #fff;
+                -webkit-transition: border 0.15s ease-in-out;
+                -o-transition: border 0.15s ease-in-out;
+                transition: border 0.15s ease-in-out;
+            }
+
+            .radio label::after {
+                display: inline-block;
+                position: absolute;
+                content: " ";
+                width: 11px;
+                height: 11px;
+                left: 3px;
+                top: 3px;
+                margin-left: -20px;
+                border-radius: 50%;
+                background-color: #555555;
+                -webkit-transform: scale(0, 0);
+                -ms-transform: scale(0, 0);
+                -o-transform: scale(0, 0);
+                transform: scale(0, 0);
+                -webkit-transition: -webkit-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+                -moz-transition: -moz-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+                -o-transition: -o-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+                transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+            }
+
+        .radio input[type="radio"] {
+            opacity: 0;
+            z-index: 1;
+        }
+
+            .radio input[type="radio"]:focus + label::before {
+                outline: thin dotted;
+                outline: 5px auto -webkit-focus-ring-color;
+                outline-offset: -2px;
+            }
+
+            .radio input[type="radio"]:checked + label::after {
+                -webkit-transform: scale(1, 1);
+                -ms-transform: scale(1, 1);
+                -o-transform: scale(1, 1);
+                transform: scale(1, 1);
+            }
+
+            .radio input[type="radio"]:disabled + label {
+                opacity: 0.65;
+            }
+
+                .radio input[type="radio"]:disabled + label::before {
+                    cursor: not-allowed;
+                }
+
+        .radio.radio-inline {
+            margin-top: 7;
+        }
+
+    .radio-primary input[type="radio"] + label::after {
+        background-color: #337ab7;
+    }
+
+    .radio-primary input[type="radio"]:checked + label::before {
+        border-color: #337ab7;
+    }
+
+    .radio-primary input[type="radio"]:checked + label::after {
+        background-color: #337ab7;
+    }
+
+    .radio-danger input[type="radio"] + label::after {
+        background-color: #d9534f;
+    }
+
+    .radio-danger input[type="radio"]:checked + label::before {
+        border-color: #d9534f;
+    }
+
+    .radio-danger input[type="radio"]:checked + label::after {
+        background-color: #d9534f;
+    }
+
+    .radio-info input[type="radio"] + label::after {
+        background-color: #5bc0de;
+    }
+
+    .radio-info input[type="radio"]:checked + label::before {
+        border-color: #5bc0de;
+    }
+
+    .radio-info input[type="radio"]:checked + label::after {
+        background-color: #5bc0de;
+    }
+
+    @@media (max-width:767px) {
+        .radio.radio-inline {
+            display: inherit;
+        }
+    }
+</style>
+<div class="row" style="display: flex;
+    justify-content: space-between;">
+    <div class="col-sm-3">
+        <h5>Student List</h5>
+    </div>
+    <div class="col-sm-3">
+        <button type="submit" name="search" onclick="SaveRecord()" class="btn btn-primary btn-sm pull-right checkbox-toggle"><i class="fa fa-save"></i> Save Attendance </button>
+    </div>
+</div>
+<hr />
+@if (@Model.statuscode == -1)
+{
+    <div class="alert alert-warning" style="height: 50px;"><p style="margin-left:2px;">@Model.Msg</p></div>
 }
+<div class="table-responsive">
+    <table class="table table bordered" id="tblstudenty">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Student Name</th>
+                <th>Enrollment No</th>
+                <th>Attendance</th>
+                <th>Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.statuscode == 1)
+                {
+                    int i = 0;
+                        @foreach (var item in Model.Studentlist)
+                    {
+                        i++;
+                            <tr data-id="@i">
+                                <td>@i</td>
+                                <td>@item.Name</td>
+                                <td>@item.Entrolment_No</td>
+                                <td style="display:flex; padding: 7px 8px;">
+                                    <div class="radio radio-info radio-inline">
+                                        <input type="radio" id="attendencetype20-0" value="1" name="attendencetype20">
+                                        <label for="attendencetype20-0">
+                                            Present
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-info radio-inline">
+                                        <input type="radio" id="attendencetype20-1" value="3" name="attendencetype20">
+                                        <label for="attendencetype20-1">
+                                            Late
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-info radio-inline">
+                                        <input checked="" type="radio" id="attendencetype20-2" value="2" name="attendencetype20">
+                                        <label for="attendencetype20-2">
+                                            Absent
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-info radio-inline">
+                                        <input type="radio" id="attendencetype20-3" value="4" name="attendencetype20">
+                                        <label for="attendencetype20-3">
+                                            Half Day
+                                        </label>
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="txtnote_@i" />
+                                </td>
+                            </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    var SaveRecord = () => {
+        var table = [];
+        $('#tblstudenty tbody tr').each(function() {
+            let currentRow = $(this);
+            let id = currentRow.attr('data-id');
+            let obj = {
+                StudentEnrollment: currentRow.find('td:eq(2)').text(),
+                Status: currentRow.find('input[name="attendencetype20"]:checked').val(),
+                Note: $('#txtnote_' + id).val(),
+                Date: $('#fromdate').val(),
+                Progarm:$('#ddlprogram option:selected').val(),
+                Branch: $('#ddlbranch option:selected').val(),
+                Year: $('#ddlyear option:selected').val()
+            };
+            table.push(obj);
+        });
+        preloader.load();
+        $.post('/Attendance/SaveAttendance', { req: table }).done(function(result) {
+            preloader.remove();
+            alertnotify(result.statuscode, result.msg);
+        }).fail(function() {
+            alertnotify(-1, 'Server Error');
+        });
+    }
+</script>

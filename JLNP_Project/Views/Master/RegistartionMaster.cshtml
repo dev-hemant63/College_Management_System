@@ -276,7 +276,7 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <button class="btn btn-outline-primary" id="btnsubmit" onclick="Savedata()" style="margin-top: 21px;width: 43%; font-size: 11px;">Save</button>
-                                     <a href="/Master/RegistartionMaster" class="btn btn-outline-warning" id="btnsubmit" style="margin-top: 21px;width: 43%; font-size: 11px;">Back to list</a>
+                                    <a href="/Master/RegistartionMaster" class="btn btn-outline-warning" id="btnsubmit" style="margin-top: 21px;width: 43%; font-size: 11px;">Back to list</a>
                                 </div>
                             </div>
                         }
@@ -310,23 +310,25 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <select class="form-control" id="ddlprogram" onchange="Bindbranch()" asp-for="@Model.data.Program">
-                                                <option value="0">:: Select Program ::</option>
-                                                @foreach (var item in Model.ProgramMasters)
-                                                {
-                                                    <option value="@item.Id">@item.Program</option>
-                                                }
-                                            </select>
-                                            <select class="form-control" id="ddlbranch" asp-for="@Model.data.Branch">
-                                                <option value="0">:: Select Branch ::</option>
-                                            </select>
-                                            <select class="form-control" id="ddlbranch" asp-for="@Model.data.Year" onchange="UpdateType()">
-                                                <option value="0">:: Select Year ::</option>
-                                                <option value="1">First Year</option>
-                                                <option value="2">Seccond Year</option>
-                                                <option value="3">Third Year</option>
-                                                <option value="4">Final Year</option>
-                                            </select>
+                                            <div class="d-flex">
+                                                <select class="form-control" id="ddlprogram" onchange="Bindbranch()" asp-for="@Model.data.Program">
+                                                    <option value="0">:: Select Program ::</option>
+                                                    @foreach (var item in Model.ProgramMasters)
+                                                    {
+                                                        <option value="@item.Id">@item.Program</option>
+                                                    }
+                                                </select>
+                                                <select class="form-control" id="ddlbranch" asp-for="@Model.data.Branch">
+                                                    <option value="0">:: Select Branch ::</option>
+                                                </select>
+                                                <select class="form-control" id="ddlyear" asp-for="@Model.data.Year" onchange="UpdateType()">
+                                                    <option value="0">:: Select Year ::</option>
+                                                    <option value="1">First Year</option>
+                                                    <option value="2">Seccond Year</option>
+                                                    <option value="3">Third Year</option>
+                                                    <option value="4">Final Year</option>
+                                                </select>
+                                            </div>
                                         </td>
                                         <td>
                                             <a href="/Master/RegistartionMaster?Id=@Model.data.ID" class="tabledit-edit-button btn btn-sm btn-success btn_edit" style="float: none; margin: 4px;"><span class="ti-pencil"></span></a>
@@ -342,6 +344,9 @@
     </div>
 </div>
 <script>
+    $(document).ready(function() {
+        Bindbranch();
+    });
     var Savedata = () => {
         let obj = {
             Startdate: $('#txtRegistrationStart').val(),
@@ -365,18 +370,18 @@
             $('#txtalllimitsp').removeClass('d-none');
             return false;
         }
-        $.post('/Master/SaveRegistartionMaster',obj).done(function(res) {
-            alertnotify(res.statuscode,res.mag);
+        $.post('/Master/SaveRegistartionMaster', obj).done(function(res) {
+            alertnotify(res.statuscode, res.mag);
         }).fail(function() {
-            alertnotify(-1,'Server Error');
+            alertnotify(-1, 'Server Error');
         });
     }
-    var UpdateType = () =>{
+    var UpdateType = () => {
         let is = $('#isopen').is(":checked");
-        $.post('/Master/UpdateRegistartionMasterType', {Is:is}).done(function(res) {
-            alertnotify(res.statuscode,res.mag);
+        $.post('/Master/UpdateRegistartionMasterType', { Is: is, Program: $('#ddlprogram').val(), Branch: $('#ddlbranch').val(), Year: $('#ddlyear').val() }).done(function(res) {
+            alertnotify(res.statuscode, res.mag);
         }).fail(function() {
-            alertnotify(-1,'Server Error');
+            alertnotify(-1, 'Server Error');
         });
     }
     var Bindbranch = () => {

@@ -14,7 +14,15 @@ namespace JLNP_Project.Controllers
         SendEmail _email = new SendEmail();
         public IActionResult UsersLogin()
         {
-            return View();
+            if (SyatemSetting.LoginTheme == 1)
+            {
+                return View("UsersLogin");
+            }
+            if (SyatemSetting.LoginTheme == 2)
+            {
+                return View("UsersLogin2");
+            }
+            return Ok();
         }
         [HttpPost]
         public IActionResult Login(Account account)
