@@ -566,6 +566,9 @@ namespace JLNP_Project.AppCode.DL
                     res.Alllimit = Convert.ToInt32(dt.Rows[0]["Alllimit"] is DBNull ? 0 : dt.Rows[0]["Alllimit"]);
                     res.Entrydate = Convert.ToString(dt.Rows[0]["Entrydate"] is DBNull ? "" : dt.Rows[0]["Entrydate"].ToString());
                     res.IsOpen = Convert.ToBoolean(dt.Rows[0]["IsOpen"] is DBNull ? false : dt.Rows[0]["IsOpen"]);
+                    res.Program = Convert.ToInt32(dt.Rows[0]["Program"] is DBNull ? 0 : dt.Rows[0]["Program"]);
+                    res.Branch = Convert.ToInt32(dt.Rows[0]["Branch"] is DBNull ? 0 : dt.Rows[0]["Branch"]);
+                    res.Year = Convert.ToInt32(dt.Rows[0]["Year"] is DBNull ? 0 : dt.Rows[0]["Year"]);
                 }
             }
             catch (Exception ex)
@@ -616,20 +619,20 @@ namespace JLNP_Project.AppCode.DL
             string ProcName = "";
             if (!req.IsAdmission)
             {
-                ProcName = "Update tbl_RegistrationMaster set IsOpen = @Isopen,Modifydate = GETDATE(),Program = @Program,Branch = @Branch,Year = @Year" +
+                ProcName = "Update tbl_RegistrationMaster set IsOpen = @Isopens,Modifydate = GETDATE(),Program = @Programs,Branch = @Branchs,Year = @Years;" +
                 "Select 1 Statuscode,'Status updated successfully!' Msg ";
             }
             else
             {
-                ProcName = "Update tbl_AdmissionMaster set IsOpen = @Isopen,Modifydate = GETDATE(),Program = @Program,Branch = @Branch,Year = @Year" +
+                ProcName = "Update tbl_AdmissionMaster set IsOpen = @Isopens,Modifydate = GETDATE(),Program = @Programs,Branch = @Branchs,Year = @Years;" +
                 "Select 1 Statuscode,'Status updated successfully!' Msg ";
             }// Query
             SqlParameter[] Param = new SqlParameter[]
             {
-                new SqlParameter("@Isopen",req.IsOpen),
-                new SqlParameter("@Program",req.Program),
-                new SqlParameter("@Branch",req.Branch),
-                new SqlParameter("@Year",req.Year),
+                new SqlParameter("@Isopens",req.IsOpen),
+                new SqlParameter("@Programs",req.Program),
+                new SqlParameter("@Branchs",req.Branch),
+                new SqlParameter("@Years",req.Year),
             };
             try
             {

@@ -24,6 +24,7 @@ namespace JLNP_Project.AppCode.Helper
                 }
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 sda.Fill(dt);
+                cmd.Parameters.Clear();
             }
             catch(Exception ex)
             {
@@ -99,6 +100,7 @@ namespace JLNP_Project.AppCode.Helper
                 }
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 sda.Fill(dt);
+                cmd.Parameters.Clear();
             }
             catch (Exception ex)
             {
