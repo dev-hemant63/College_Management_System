@@ -191,7 +191,7 @@ namespace JLNP_Project.Controllers
             {
                 try
                 {
-                    string filepath = @"Syllabus\" + Year;
+                    string filepath = @"Syllabus\" + Program;
                     StringBuilder uploadsFolder = new StringBuilder(Path.Combine(_webHostEnvironment.WebRootPath, filepath));
                     if (!Directory.Exists(uploadsFolder.ToString()))
                         Directory.CreateDirectory(uploadsFolder.ToString());

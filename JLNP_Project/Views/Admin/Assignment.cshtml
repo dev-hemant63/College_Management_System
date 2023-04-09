@@ -42,9 +42,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <label>Assignment<span style="color:red;">*</span></label>
                                 <input type="text" class="form-control" id="txtassignment" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Upload(Optional)<span style="color:red;">*</span></label>
+                                <input type="file" class="form-control" id="fileassignment" />
                             </div>
                             <div class="col-sm-3">
                                 <button class="btn btn-outline-primary" onclick="btnsubmit()" style="margin-top: 29px;width: 43%;">Save</button>
@@ -136,7 +140,7 @@
             Action: 'Add'
         }
         preloader.load();
-        $.post('/Admin/SaveAssignment', obj).done(function(result) {
+        $.post('/Admin/SaveAssignment', {subjectMaster:obj,file:$('#fileassignment').prop('files')[0]}).done(function(result) {
             preloader.remove();
             alertnotify(result.statuscode,result.msg);
         }).fail(function(xhr) {

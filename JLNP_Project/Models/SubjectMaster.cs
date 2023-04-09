@@ -39,6 +39,8 @@
         public int PracticalPassingMarks { get; set; }
         public List<SubjectMaster> Assignlist { get; set; }
         public List<SubjectMaster> Bindlist { get; set; }
+        public IFormFile Files { get; set; }
+        public string Path { get; set; }
     }
     public class CommanMasterReq:LoginInfo
     {
