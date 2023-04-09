@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net;
 using System.Net.Mail;
+using System.Text;
 
 namespace JLNP_Project.Controllers
 {
@@ -45,13 +46,13 @@ namespace JLNP_Project.Controllers
             }
             return RedirectToAction("UsersLogin", "Account");
         }
-        public IActionResult GetTimeTable(int Program,int BranchId,int Year,string Day)
+        public IActionResult GetTimeTable(int Program, int BranchId, int Year, string Day)
         {
             Admin_BAL adbal = new Admin_BAL();
             TimeTableViewModel model = new TimeTableViewModel();
             model.SubjectList = adbal.Bind_Subject_Bal(Program, BranchId, Year);
             model.TeacherList = adbal.Bind_Teacher_Bal();
-            model.Timetable = adbal.GetTimeTable(Program, BranchId, Year, Day.Replace("tbl",""));
+            model.Timetable = adbal.GetTimeTable(Program, BranchId, Year, Day.Replace("tbl", ""));
             return PartialView("Partial/TimeTable/_AddTimeTable", model);
         }
         [HttpPost]
@@ -214,9 +215,28 @@ namespace JLNP_Project.Controllers
             return Json(res);
         }
         [HttpPost]
-        public IActionResult SaveAssignment(SubjectMaster subjectMaster)
+        public IActionResult SaveAssignment(SubjectMaster subjectMaster,IFormFile file)
         {
             Admin_BAL adbal = new Admin_BAL();
+            string filepath = string.Empty;
+            subjectMaster.Files = file;
+            if (subjectMaster.Files != null)
+            {
+                filepath = @"Assignment\" + subjectMaster.Program;
+                StringBuilder folderpath = new StringBuilder();
+                folderpath.Append(folderpath);
+                folderpath.Append(Path.Combine(@"\", subjectMaster.Files.FileName));
+                if (!Directory.Exists(folderpath.ToString()))
+                {
+                    Directory.CreateDirectory(folderpath.ToString());
+                }
+                using (FileStream str = System.IO.File.Create(folderpath.ToString()))
+                {
+                    subjectMaster.Files.CopyTo(str);
+                    str.Flush();
+                }
+            }
+            subjectMaster.Path = filepath + @"\" + subjectMaster.Files.FileName;
             var res = adbal.SaveAssignment_Bal(subjectMaster);
             return Json(res);
         }

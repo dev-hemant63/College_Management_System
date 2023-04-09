@@ -211,7 +211,8 @@ namespace JLNP_Project.AppCode.DAL
                 new SqlParameter("@Year",subjectMaster.BranchYear),
                 new SqlParameter("@SubjectId",subjectMaster.SubjectId),
                 new SqlParameter("@Assignment",subjectMaster.Assignment),
-                new SqlParameter("@Action",subjectMaster.Action)
+                new SqlParameter("@Action",subjectMaster.Action),
+                new SqlParameter("@Paths",subjectMaster.Path)
             };
             var dt = dbh.ExcProc(procanme, param);
             if (dt.Rows.Count > 0)

@@ -1,0 +1,1 @@
+﻿alter table tbl_Assignment add Paths varchar(100)
