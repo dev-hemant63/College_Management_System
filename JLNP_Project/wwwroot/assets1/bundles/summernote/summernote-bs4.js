@@ -7147,7 +7147,7 @@ $$1.summernote = $$1.extend($$1.summernote, {
             ['#630000', '#7B3900', '#846300', '#295218', '#083139', '#003163', '#21104A', '#4A1031']
         ],
         lineHeights: ['1.0', '1.2', '1.4', '1.5', '1.6', '1.8', '2.0', '3.0'],
-        tableClassName: 'table table-bordered',
+        tableClassName: 'table table-striped',
         insertTableMaxSize: {
             col: 10,
             row: 10

@@ -9,10 +9,6 @@ builder.Services.AddSession(options => {
     options.Cookie.IsEssential = true;
     options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v2",new OpenApiInfo { Title = "MVCCallWebAPI", Version = "v2" });
-});
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -24,7 +20,7 @@ if (!app.Environment.IsDevelopment())
 app.UseSwaggerUI();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v2/swagger.json", "MVCCallWebAPI");
+    c.SwaggerEndpoint("/swagger/v2/swagger.json", "API");
 });
 app.UseHttpsRedirection();
 app.UseStaticFiles();

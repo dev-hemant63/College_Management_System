@@ -198,7 +198,7 @@ label {
     background-color: #dcdbc1 !important;
 }
 
-.table thead th, .table-bordered td {
+.table thead th, .table-striped td {
     border: 1px solid #cfcfcf !important;
 }
 

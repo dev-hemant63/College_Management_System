@@ -19520,7 +19520,7 @@ body {
 /**=====================
      39. Table  CSS Start
 ==========================**/
-.table-bordered td, .table-bordered th {
+.table-striped td, .table-striped th {
     border-color: #e6edef !important;
 }
 
@@ -19650,7 +19650,7 @@ body {
         border-color: #fff;
     }
 
-    .table-inverse.table-bordered {
+    .table-inverse.table-striped {
         border: 0;
     }
 
@@ -19658,7 +19658,7 @@ body {
     background-color: rgba(245, 247, 250, 0.5);
 }
 
-.table-bordered td, .table-bordered th {
+.table-striped td, .table-striped th {
     border-color: #fdfeff;
 }
 
@@ -26790,7 +26790,7 @@ body.dark-only .page-wrapper.horizontal-wrapper .page-body-wrapper, body.dark-on
                     color: #fff;
                 }
 
-            body.dark-only .page-wrapper.horizontal-wrapper .page-body-wrapper .page-body .card .table-bordered td, body.dark-only .page-wrapper.horizontal-wrapper .page-body-wrapper .page-body .card .table-bordered th, body.dark-only .compact-wrapper .page-body-wrapper .page-body .card .table-bordered td, body.dark-only .compact-wrapper .page-body-wrapper .page-body .card .table-bordered th {
+            body.dark-only .page-wrapper.horizontal-wrapper .page-body-wrapper .page-body .card .table-striped td, body.dark-only .page-wrapper.horizontal-wrapper .page-body-wrapper .page-body .card .table-striped th, body.dark-only .compact-wrapper .page-body-wrapper .page-body .card .table-striped td, body.dark-only .compact-wrapper .page-body-wrapper .page-body .card .table-striped th {
                 border-color: rgba(36, 105, 92, 0.2) !important;
             }
 
@@ -28259,7 +28259,7 @@ body.dark-only .page-wrapper.horizontal-wrapper .breadcrumb, body.dark-only .com
     background-color: #202938;
 }
 
-body.dark-only .page-wrapper.horizontal-wrapper .table-bordered, body.dark-only .compact-wrapper .table-bordered {
+body.dark-only .page-wrapper.horizontal-wrapper .table-striped, body.dark-only .compact-wrapper .table-striped {
     border: 1px solid rgba(36, 105, 92, 0.2);
 }
 

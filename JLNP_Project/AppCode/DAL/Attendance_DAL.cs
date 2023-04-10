@@ -1,5 +1,6 @@
 ﻿using JLNP_Project.AppCode.Helper;
 using JLNP_Project.Models;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace JLNP_Project.AppCode.DAL
@@ -30,12 +31,12 @@ namespace JLNP_Project.AppCode.DAL
                 res.Msg = Convert.ToString(dt.Rows[0]["Msg"]);
                 if (res.statuscode == 1)
                 {
-                    foreach (var item in dt.Rows)
+                    foreach (DataRow item in dt.Rows)
                     {
                         var data = new Student
                         {
-                            Name = Convert.ToString(dt.Rows[0]["Name"]),
-                            Entrolment_No = Convert.ToString(dt.Rows[0]["EntrollmentNo"]),
+                            Name = Convert.ToString(item["Name"]),
+                            Entrolment_No = Convert.ToString(item["EntrollmentNo"]),
                         };
                         res.Studentlist.Add(data);
                     }
@@ -57,17 +58,17 @@ namespace JLNP_Project.AppCode.DAL
             var dt = _helpter.ExcProc(Proc, param);
             if (dt.Rows.Count > 0)
             {
-                foreach (var item in dt.Rows)
+                foreach (DataRow item in dt.Rows)
                 {
                     var data = new AttendanceReq
                     {
-                        Name = Convert.ToString(dt.Rows[0]["Name"]),
-                        EnrollmentNO = Convert.ToString(dt.Rows[0]["EnrollmentNo"]),
-                        Note = Convert.ToString(dt.Rows[0]["Note"]),
-                        Ispresent = Convert.ToBoolean(dt.Rows[0]["Ispresent"]),
-                        Isabsent = Convert.ToBoolean(dt.Rows[0]["Isabsent"]),
-                        Islate = Convert.ToBoolean(dt.Rows[0]["Islate"]),
-                        Isishalfday = Convert.ToBoolean(dt.Rows[0]["IsHalfday"]),
+                        Name = Convert.ToString(item["Name"]),
+                        EnrollmentNO = Convert.ToString(item["EnrollmentNo"]),
+                        Note = Convert.ToString(item["Note"]),
+                        Ispresent = Convert.ToBoolean(item["Ispresent"]),
+                        Isabsent = Convert.ToBoolean(item["Isabsent"]),
+                        Islate = Convert.ToBoolean(item["Islate"]),
+                        Isishalfday = Convert.ToBoolean(item["IsHalfday"]),
                     };
                     res.Add(data);
                 }
