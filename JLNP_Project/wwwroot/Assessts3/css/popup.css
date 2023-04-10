@@ -1841,17 +1841,17 @@ pre {
     padding: 0.3rem;
 }
 
-.table-bordered {
+.table-striped {
     border: 1px solid #dee2e6;
 }
 
-    .table-bordered th,
-    .table-bordered td {
+    .table-striped th,
+    .table-striped td {
         border: 1px solid #dee2e6;
     }
 
-    .table-bordered thead th,
-    .table-bordered thead td {
+    .table-striped thead th,
+    .table-striped thead td {
         border-bottom-width: 2px;
     }
 
@@ -2085,7 +2085,7 @@ pre {
         border-color: #454d55;
     }
 
-    .table-dark.table-bordered {
+    .table-dark.table-striped {
         border: 0;
     }
 
@@ -2106,7 +2106,7 @@ pre {
         -webkit-overflow-scrolling: touch;
     }
 
-        .table-responsive-sm > .table-bordered {
+        .table-responsive-sm > .table-striped {
             border: 0;
         }
 }
@@ -2119,7 +2119,7 @@ pre {
         -webkit-overflow-scrolling: touch;
     }
 
-        .table-responsive-md > .table-bordered {
+        .table-responsive-md > .table-striped {
             border: 0;
         }
 }
@@ -2132,7 +2132,7 @@ pre {
         -webkit-overflow-scrolling: touch;
     }
 
-        .table-responsive-lg > .table-bordered {
+        .table-responsive-lg > .table-striped {
             border: 0;
         }
 }
@@ -2145,7 +2145,7 @@ pre {
         -webkit-overflow-scrolling: touch;
     }
 
-        .table-responsive-xl > .table-bordered {
+        .table-responsive-xl > .table-striped {
             border: 0;
         }
 }
@@ -2157,7 +2157,7 @@ pre {
     -webkit-overflow-scrolling: touch;
 }
 
-    .table-responsive > .table-bordered {
+    .table-responsive > .table-striped {
         border: 0;
     }
 
@@ -11370,8 +11370,8 @@ a.text-dark:hover, a.text-dark:focus {
             background-color: #fff !important;
         }
 
-    .table-bordered th,
-    .table-bordered td {
+    .table-striped th,
+    .table-striped td {
         border: 1px solid #dee2e6 !important;
     }
 

@@ -1855,15 +1855,15 @@ pre {
     padding: .3rem
 }
 
-.table-bordered {
+.table-striped {
     border: 1px solid #dee2e6
 }
 
-    .table-bordered td, .table-bordered th {
+    .table-striped td, .table-striped th {
         border: 1px solid #dee2e6
     }
 
-    .table-bordered thead td, .table-bordered thead th {
+    .table-striped thead td, .table-striped thead th {
         border-bottom-width: 2px
     }
 
@@ -2041,7 +2041,7 @@ pre {
         border-color: #454d55
     }
 
-    .table-dark.table-bordered {
+    .table-dark.table-striped {
         border: 0
     }
 
@@ -2062,7 +2062,7 @@ pre {
         -webkit-overflow-scrolling: touch
     }
 
-        .table-responsive-sm > .table-bordered {
+        .table-responsive-sm > .table-striped {
             border: 0
         }
 }
@@ -2075,7 +2075,7 @@ pre {
         -webkit-overflow-scrolling: touch
     }
 
-        .table-responsive-md > .table-bordered {
+        .table-responsive-md > .table-striped {
             border: 0
         }
 }
@@ -2088,7 +2088,7 @@ pre {
         -webkit-overflow-scrolling: touch
     }
 
-        .table-responsive-lg > .table-bordered {
+        .table-responsive-lg > .table-striped {
             border: 0
         }
 }
@@ -2101,7 +2101,7 @@ pre {
         -webkit-overflow-scrolling: touch
     }
 
-        .table-responsive-xl > .table-bordered {
+        .table-responsive-xl > .table-striped {
             border: 0
         }
 }
@@ -2113,7 +2113,7 @@ pre {
     -webkit-overflow-scrolling: touch
 }
 
-    .table-responsive > .table-bordered {
+    .table-responsive > .table-striped {
         border: 0
     }
 
@@ -10366,7 +10366,7 @@ a.text-dark:focus, a.text-dark:hover {
             background-color: #fff !important
         }
 
-    .table-bordered td, .table-bordered th {
+    .table-striped td, .table-striped th {
         border: 1px solid #dee2e6 !important
     }
 

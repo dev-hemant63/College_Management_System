@@ -165,26 +165,26 @@
                                 <td>@item.Entrolment_No</td>
                                 <td style="display:flex; padding: 7px 8px;">
                                     <div class="radio radio-info radio-inline">
-                                        <input type="radio" id="attendencetype20-0" value="1" name="attendencetype20">
-                                        <label for="attendencetype20-0">
+                                        <input type="radio" id="attendencetype20-@i" value="1" name="attendencetype20_@i">
+                                        <label for="attendencetype20-@i">
                                             Present
                                         </label>
                                     </div>
                                     <div class="radio radio-info radio-inline">
-                                        <input type="radio" id="attendencetype20-1" value="3" name="attendencetype20">
-                                        <label for="attendencetype20-1">
+                                        <input type="radio" id="attendencetype20-@i+1" value="3" name="attendencetype20_@i">
+                                        <label for="attendencetype20-@i+1">
                                             Late
                                         </label>
                                     </div>
                                     <div class="radio radio-info radio-inline">
-                                        <input checked="" type="radio" id="attendencetype20-2" value="2" name="attendencetype20">
-                                        <label for="attendencetype20-2">
+                                        <input checked="" type="radio" id="attendencetype20-@i+2" value="2" name="attendencetype20_@i">
+                                        <label for="attendencetype20-@i+2">
                                             Absent
                                         </label>
                                     </div>
                                     <div class="radio radio-info radio-inline">
-                                        <input type="radio" id="attendencetype20-3" value="4" name="attendencetype20">
-                                        <label for="attendencetype20-3">
+                                        <input type="radio" id="attendencetype20-@i+3" value="4" name="attendencetype20_@i">
+                                        <label for="attendencetype20-@i+3">
                                             Half Day
                                         </label>
                                     </div>
@@ -208,7 +208,7 @@
             let id = currentRow.attr('data-id');
             let obj = {
                 StudentEnrollment: currentRow.find('td:eq(2)').text(),
-                Status: currentRow.find('input[name="attendencetype20"]:checked').val(),
+                Status: currentRow.find('input[name="attendencetype20_'+id+'"]:checked').val(),
                 Note: $('#txtnote_' + id).val(),
                 Date: $('#fromdate').val(),
                 Progarm:$('#ddlprogram option:selected').val(),

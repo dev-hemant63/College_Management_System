@@ -7186,7 +7186,7 @@ $$1.summernote = $$1.extend($$1.summernote, {
             ['Rosewood', 'Cinnamon', 'Olive', 'Parsley', 'Tiber', 'Midnight Blue', 'Valentino', 'Loulou']
         ],
         lineHeights: ['1.0', '1.2', '1.4', '1.5', '1.6', '1.8', '2.0', '3.0'],
-        tableClassName: 'table table-bordered',
+        tableClassName: 'table table-striped',
         insertTableMaxSize: {
             col: 10,
             row: 10
