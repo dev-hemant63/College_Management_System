@@ -33,20 +33,20 @@ namespace JLNP_Project.AppCode.BAL
                 {
                     SubjectMaster data = new SubjectMaster
                     {
-                        Id = Convert.ToInt32(row["Id"]),
-                        ProgramName = Convert.ToString(row["Program"].ToString()),
-                        Branch = Convert.ToString(row["Branch"].ToString()),
-                        Year = Convert.ToString(row["_Year"].ToString()),
-                        SubjectName = Convert.ToString(row["SubjectName"].ToString()),
-                        SubjectCode = Convert.ToString(row["SubjectCode"].ToString()),
-                        SubjectType = Convert.ToString(row["SubjectType"].ToString()),
-                        TheoryMarks = Convert.ToString(row["TheoryMarks"].ToString()),
-                        PracticalMarks = Convert.ToString(row["PracticalMarks"].ToString()),
-                        PracticalPassingMarks = Convert.ToInt32(row["PrecticalPassingMarks"]),
-                        PassingMarks = Convert.ToString(row["PassingMarks"].ToString()),
-                        IsPrectical = Convert.ToBoolean(row["IsPrectical"]),
-                        IsWritten = Convert.ToBoolean(row["Iswritten"]),
-                        EntryDate = Convert.ToString(row["EntryDate"].ToString())
+                        Id = Convert.ToInt32(row["Id"] is DBNull ? 0 : row["Id"]),
+                        ProgramName = Convert.ToString(row["Program"] is DBNull? "": row["Program"].ToString()),
+                        Branch = Convert.ToString(row["Branch"] is DBNull?"":row["Branch"].ToString()),
+                        Year = Convert.ToString(row["_Year"] is DBNull?"":row["_Year"].ToString()),
+                        SubjectName = Convert.ToString(row["SubjectName"] is DBNull?"": row["SubjectName"].ToString()),
+                        SubjectCode = Convert.ToString(row["SubjectCode"] is DBNull ? "": row["SubjectCode"].ToString()),
+                        SubjectType = Convert.ToString(row["SubjectType"] is DBNull ? "": row["SubjectType"].ToString()),
+                        TheoryMarks = Convert.ToString(row["TheoryMarks"] is DBNull ? "" : row["TheoryMarks"].ToString()),
+                        PracticalMarks = Convert.ToString(row["PracticalMarks"] is DBNull ? "" : row["PracticalMarks"].ToString()),
+                        PracticalPassingMarks = Convert.ToInt32(row["PrecticalPassingMarks"] is DBNull ? 0 : row["PrecticalPassingMarks"]),
+                        PassingMarks = Convert.ToString(row["PassingMarks"] is DBNull ? "": row["PassingMarks"].ToString()),
+                        IsPrectical = Convert.ToBoolean(row["IsPrectical"] is DBNull ? false : row["IsPrectical"]),
+                        IsWritten = Convert.ToBoolean(row["Iswritten"] is DBNull ? false : row["Iswritten"]),
+                        EntryDate = Convert.ToString(row["EntryDate"] is DBNull? "" : row["EntryDate"].ToString())
                     };
                     subjectlist.Add(data);
                 }

@@ -182,7 +182,7 @@
                             </div>
                             <div class="col-sm-2" style="display: flex;">
                                 <button class="btn btn-outline-primary" style="margin-top: 25px; margin-left: 3px;" onclick="loaddata()">Search</button>
-                                 <a href="/Master/SubjectMaster" class="btn btn-outline-danger" style="margin-top: 25px;">Add New +</a>
+                                <button class="btn btn-outline-danger" style="margin-top: 25px; margin-left: 3px;" onclick="SubjectMaster()">Add New +</button>
                             </div>
                         </div>
                         <div class="table-responsive" style="margin-top:13px;">
@@ -219,6 +219,9 @@
     $(document).ready(function() {
         loaddata();
     });
+    var SubjectMaster = () =>{
+        window.location.href = '/Master/SubjectMaster';
+    }
     var loaddata = () => {
         let obj = {
             Program:$('#ddlprogram option:selected').val(),
