@@ -193,6 +193,7 @@ namespace JLNP_Project.Controllers
             var res = adbal.SaveAssignSubject_Bal(obj);
             return Json(res);
         }
+
         [HttpPost]
         public IActionResult Assignsubject_List()
         {
