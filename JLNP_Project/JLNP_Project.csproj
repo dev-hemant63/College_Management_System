@@ -7,9 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\Content\**" />
     <Compile Remove="wwwroot\login\**" />
+    <Content Remove="wwwroot\Content\**" />
     <Content Remove="wwwroot\login\**" />
+    <EmbeddedResource Remove="wwwroot\Content\**" />
     <EmbeddedResource Remove="wwwroot\login\**" />
+    <None Remove="wwwroot\Content\**" />
     <None Remove="wwwroot\login\**" />
   </ItemGroup>
 
@@ -28,7 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Theme\" />
-    <Folder Include="wwwroot\Content\" />
   </ItemGroup>
 
   <ItemGroup>

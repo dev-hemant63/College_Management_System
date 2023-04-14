@@ -1,3 +1,5 @@
+using JLNP_Project.AppCode.Interface;
+using JLNP_Project.AppCode.Midlelayer;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,7 @@ builder.Services.AddSession(options => {
     options.Cookie.IsEssential = true;
     options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
+builder.Services.AddScoped<IExamination, Examination>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header bgred">
-                        <h4 style="color:white;">Assignment</h4>
+                        <h4 style="color:black;">Assignment</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -47,7 +47,7 @@
                                 <input type="text" class="form-control" id="txtassignment" />
                             </div>
                             <div class="col-sm-3">
-                                <label>Upload(Optional)<span style="color:red;">*</span></label>
+                                <label>Upload(Optional)</label>
                                 <input type="file" class="form-control" id="fileassignment" />
                             </div>
                             <div class="col-sm-3">
@@ -87,7 +87,7 @@
                                                     <td>@item.EntryDate</td>
                                                     <td>
                                                         <div class="btn-group btn-group-sm" style="float: none;">
-                                                            <a href="/Admin/GetByIdAssignment?Id=@item.Id" class="tabledit-edit-button btn btn-sm btn-success btn_edit"  onclick="editassignment(BranchId=@item.Id)" style="float: none; margin: 4px;"><span class="ti-pencil"></span></a>
+                                                            <a href="/Admin/GetByIdAssignment?Id=@item.Id" class="tabledit-edit-button btn btn-sm btn-success btn_edit" onclick="editassignment(BranchId=@item.Id)" style="float: none; margin: 4px;"><span class="ti-pencil"></span></a>
                                                             <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;" onclick="Deleteassignment(BranchId=@item.Id)"><span class="ti-trash"></span></button>
                                                         </div>
                                                     </td>
@@ -130,27 +130,36 @@
         });
     }
     var btnsubmit = () => {
-        let obj = {
-            Id:$('#hdnid').val(),
-            Program: $('#ddlprogram option:selected').val(),
-            BranchId: $('#ddlbranch option:selected').val(),
-            BranchYear: $('#ddlyear option:selected').val(),
-            SubjectId: $('#ddlsubject option:selected').val(),
-            Assignment: $('#txtassignment').val(),
-            Action: 'Add'
-        }
+        data = new FormData();
+        data.append("Id", $('#hdnid').val());
+        data.append("Program", $('#ddlprogram option:selected').val());
+        data.append("BranchId", $('#ddlbranch option:selected').val());
+        data.append("BranchYear", $('#ddlyear option:selected').val());
+        data.append("SubjectId", $('#ddlsubject option:selected').val());
+        data.append("Assignment", $('#txtassignment').val());
+        data.append("Action", 'Add');
+        data.append("Files", $('#fileassignment').prop('files')[0]);
         preloader.load();
-        $.post('/Admin/SaveAssignment', {subjectMaster:obj,file:$('#fileassignment').prop('files')[0]}).done(function(result) {
-            preloader.remove();
-            alertnotify(result.statuscode,result.msg);
-        }).fail(function(xhr) {
-            console.log(xhr.responseText);
-            alert("Server Error");
+        $.ajax({
+            type: "POST",
+            url: '/Admin/SaveAssignment',
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(result) {
+                preloader.remove();
+                alertnotify(result.statuscode, result.msg);
+            },
+            error: function() {
+                console.log(xhr.responseText);
+                alert("Server Error");
+            }
         });
     }
     var Deleteassignment = (AsId) => {
-        $.post('/Admin/DeleteAssignment', {Id:AsId}).done(function(result) {
-            alertnotify(result.statuscode,result.msg);
+        $.post('/Admin/DeleteAssignment', { Id: AsId }).done(function(result) {
+            alertnotify(result.statuscode, result.msg);
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert("Server Error");

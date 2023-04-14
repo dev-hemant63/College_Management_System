@@ -1,0 +1,32 @@
+﻿@model ExamType
+<div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Exam Type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <label>Exam Type<span style="color:red;">*</span></label>
+                <input type="text" class="form-control" id="txtexamtype" asp-for="@Model.ExamTypes" />
+                <input type="hidden" class="form-control" id="hdnid" asp-for="@Model.Id" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" onclick="AddExamtype()" id="btnsave">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var AddExamtype = () =>{
+        let obj = {
+            ExamTypes:$('#txtexamtype').val(),
+            Id:$('#hdnid').val(),
+        }
+        $.post('/Examination/SaveExamType', obj).done(function(result) {
+            alertnotify(result.statuscode,result.msg);
+        }).fail(function(xhr) {
+            console(xhr.responseText);
+        });
+    } 
+</script>

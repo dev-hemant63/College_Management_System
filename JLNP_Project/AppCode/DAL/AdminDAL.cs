@@ -199,7 +199,7 @@ namespace JLNP_Project.AppCode.DAL
         {
             ResponseStatus res = new ResponseStatus
             {
-                statuscode = 1,
+                statuscode = -1,
                 Msg = "Temp Error"
             };
             var procanme = "Proc_Assignment";//Procedure name

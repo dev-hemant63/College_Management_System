@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-header bgred">
-                        <h4 style="color:white;">Syllabus Master</h4>
+                        <h4 style="color:black;">Syllabus Master</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -47,6 +47,7 @@
                                             <option value="1">First Year</option>
                                             <option value="2">Second Year</option>
                                             <option value="3">Third Year</option>
+                                            <option value="4">Final Year</option>
                                         </select>
                                     </div>
                                     <small id="ddlyearsm" class="text-danger d-none">Please Select Year</small>
@@ -99,6 +100,7 @@
     }
     var BindSubject = () => {
         let obj = {
+            Program: $('#ddlprogram option:selected').val(),
             BranchId: $('#ddlbranch option:selected').val(),
             Year: $('#ddlyear option:selected').val(),
         }

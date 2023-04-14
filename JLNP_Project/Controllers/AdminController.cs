@@ -13,9 +13,10 @@ namespace JLNP_Project.Controllers
     public class AdminController : Controller
     {
         private readonly IHttpContextAccessor _accessor;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         LoginInfo _lr = new LoginInfo();
         Admin_BAL adbal = new Admin_BAL();
-        public AdminController(IHttpContextAccessor accessor)
+        public AdminController(IHttpContextAccessor accessor, IWebHostEnvironment webHostEnvironment)
         {
             _accessor = accessor;
             try
@@ -26,6 +27,7 @@ namespace JLNP_Project.Controllers
             {
                 throw;
             }
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
@@ -215,28 +217,31 @@ namespace JLNP_Project.Controllers
             return Json(res);
         }
         [HttpPost]
-        public IActionResult SaveAssignment(SubjectMaster subjectMaster,IFormFile file)
+        public IActionResult SaveAssignment(SubjectMaster subjectMaster)
         {
             Admin_BAL adbal = new Admin_BAL();
             string filepath = string.Empty;
-            subjectMaster.Files = file;
             if (subjectMaster.Files != null)
             {
-                filepath = @"Assignment\" + subjectMaster.Program;
-                StringBuilder folderpath = new StringBuilder();
-                folderpath.Append(folderpath);
-                folderpath.Append(Path.Combine(@"\", subjectMaster.Files.FileName));
-                if (!Directory.Exists(folderpath.ToString()))
+                try
                 {
-                    Directory.CreateDirectory(folderpath.ToString());
+                    filepath = @"Assignment\" + subjectMaster.Program;
+                    StringBuilder uploadsFolder = new StringBuilder(Path.Combine(_webHostEnvironment.WebRootPath, filepath));
+                    if (!Directory.Exists(uploadsFolder.ToString()))
+                        Directory.CreateDirectory(uploadsFolder.ToString());
+                    uploadsFolder.Append(Path.Combine(@"\", subjectMaster.Files.FileName.ToString()));
+                    using (FileStream fs = System.IO.File.Create(uploadsFolder.ToString()))
+                    {
+                        subjectMaster.Files.CopyTo(fs);
+                        fs.Flush();
+                    }
                 }
-                using (FileStream str = System.IO.File.Create(folderpath.ToString()))
+                catch (Exception ex)
                 {
-                    subjectMaster.Files.CopyTo(str);
-                    str.Flush();
+                    
                 }
+                subjectMaster.Path = filepath + @"\" + subjectMaster.Files.FileName;
             }
-            subjectMaster.Path = filepath + @"\" + subjectMaster.Files.FileName;
             var res = adbal.SaveAssignment_Bal(subjectMaster);
             return Json(res);
         }
