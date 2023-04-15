@@ -250,37 +250,35 @@
                         <h4 style="color:black;">Admission Master</h4>
                     </div>
                     <div class="card-body">
-                        @if (@Model.data.IsEdit)
-                        {
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <label>Start Date<span style="color:red;">*</span></label>
-                                    <input type="date" class="form-control" id="txtRegistrationStart" asp-for="@Model.data.Startdate" placeholder="Start Date" />
-                                    <span class="text-danger d-none" id="txtRegistrationStartsp">Please Enter Start Date</span>
-                                </div>
-                                <div class="col-sm-3">
-                                    <label>End Date<span style="color:red;">*</span></label>
-                                    <input type="date" class="form-control" id="txtRegistrationEnd" asp-for="@Model.data.Enddate" placeholder="End Date" />
-                                    <span class="text-danger d-none" id="txtRegistrationEndsp">Please Enter End Date</span>
-                                </div>
-                                <div class="col-sm-3">
-                                    <label>Day Limit<span style="color:red;">*</span></label>
-                                    <input type="number" class="form-control" id="txtdaylimit" asp-for="@Model.data.Daylimit" placeholder="Day Limit" />
-                                    <span class="text-danger d-none" id="txtdaylimitsp">Please Enter Day Limit</span>
-                                </div>
-                                <div class="col-sm-3">
-                                    <label>All Limit<span style="color:red;">*</span></label>
-                                    <input type="number" class="form-control" id="txtalllimit" asp-for="@Model.data.Alllimit" placeholder="All Limit" />
-                                    <span class="text-danger d-none" id="txtalllimitsp">Please Enter Day Limit</span>
-                                </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                 <input type="hidden" asp-for="@Model.data.FirstOrDefault().ID" id="hdnid"/>
+                                <label>Start Date<span style="color:red;">*</span></label>
+                                <input type="date" class="form-control" id="txtRegistrationStart" asp-for="@Model.data.FirstOrDefault().Startdate" placeholder="Start Date" />
+                                <span class="text-danger d-none" id="txtRegistrationStartsp">Please Enter Start Date</span>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <button class="btn btn-outline-primary" id="btnsubmit" onclick="Savedata()" style="margin-top: 21px;width: 43%; font-size: 11px;">Save</button>
-                                    <a href="/Master/AdmissionMaster" class="btn btn-outline-warning" id="btnsubmit" style="margin-top: 21px;width: 43%; font-size: 11px;">Back to list</a>
-                                </div>
+                            <div class="col-sm-3">
+                                <label>End Date<span style="color:red;">*</span></label>
+                                <input type="date" class="form-control" id="txtRegistrationEnd" asp-for="@Model.data.FirstOrDefault().Enddate" placeholder="End Date" />
+                                <span class="text-danger d-none" id="txtRegistrationEndsp">Please Enter End Date</span>
                             </div>
-                        }
+                            <div class="col-sm-3">
+                                <label>Day Limit<span style="color:red;">*</span></label>
+                                <input type="number" class="form-control" id="txtdaylimit" asp-for="@Model.data.FirstOrDefault().Daylimit" placeholder="Day Limit" />
+                                <span class="text-danger d-none" id="txtdaylimitsp">Please Enter Day Limit</span>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>All Limit<span style="color:red;">*</span></label>
+                                <input type="number" class="form-control" id="txtalllimit" asp-for="@Model.data.FirstOrDefault().Alllimit" placeholder="All Limit" />
+                                <span class="text-danger d-none" id="txtalllimitsp">Please Enter Day Limit</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <button class="btn btn-outline-primary" id="btnsubmit" onclick="Savedata()" style="margin-top: 21px;width: 43%; font-size: 11px;">Save</button>
+                                <a href="/Master/AdmissionMaster" class="btn btn-outline-warning" id="btnsubmit" style="margin-top: 21px;width: 43%; font-size: 11px;">Back to list</a>
+                            </div>
+                        </div>
                         <div class="table-responsive table-striped" style="margin-top:13px;">
                             <table class="table mb-0" id="tblprogram">
                                 <thead class="bg-primary">
@@ -297,44 +295,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>@Model.data.Startdate</td>
-                                        <td>@Model.data.Enddate</td>
-                                        <td>@Model.data.Daylimit</td>
-                                        <td>@Model.data.Alllimit</td>
-                                        <td>@Model.data.Entrydate</td>
-                                        <td>
-                                            <span class="switch switch-sm">
-                                                <input type="checkbox" class="switch" onchange="UpdateType()" id="isopen" @Html.Raw(Model.data.IsOpen ? "checked='checked'" : "")>
-                                                <label for="isopen"></label>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <select class="form-control" id="ddlprogram" onchange="Bindbranch()" asp-for="@Model.data.Program">
-                                                    <option value="0">:: Select Program ::</option>
-                                                    @foreach (var item in Model.ProgramMasters)
-                                                    {
-                                                        <option value="@item.Id">@item.Program</option>
-                                                    }
-                                                </select>
-                                                <select class="form-control" id="ddlbranch" asp-for="@Model.data.Branch">
-                                                    <option value="0">:: Select Branch ::</option>
-                                                </select>
-                                                <select class="form-control" id="ddlyear" asp-for="@Model.data.Year" onchange="UpdateType()">
-                                                    <option value="0">:: Select Year ::</option>
-                                                    <option value="1">First Year</option>
-                                                    <option value="2">Seccond Year</option>
-                                                    <option value="3">Third Year</option>
-                                                    <option value="4">Final Year</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="/Master/AdmissionMaster?Id=@Model.data.ID" class="tabledit-edit-button btn btn-sm btn-success btn_edit" style="float: none; margin: 4px;"><span class="ti-pencil"></span></a>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -347,13 +307,16 @@
 <script>
     $(document).ready(function() {
         Bindbranch();
+        loaddata();
     });
     var Savedata = () => {
         let obj = {
+            ID: $('#hdnid').val(),
             Startdate: $('#txtRegistrationStart').val(),
             Enddate: $('#txtRegistrationEnd').val(),
             Daylimit: $('#txtdaylimit').val(),
             Alllimit: $('#txtalllimit').val(),
+            IsAdmission:true
         }
         if (obj.Startdate == '' || obj.Startdate == undefined) {
             $('#txtRegistrationStartsp').removeClass('d-none');
@@ -377,9 +340,9 @@
             alertnotify(-1, 'Server Error');
         });
     }
-    var UpdateType = () => {
-        let is = $('#isopen').is(":checked");
-        $.post('/Master/UpdateAdmissionMasterType', { Is: is, Program: $('#ddlprogram option:selected').val(), Branch: $('#ddlbranch option:selected').val(), Year: $('#ddlyear option:selected').val() }).done(function(res) {
+    var UpdateType = (id) => {
+        let is = $('#isopen_'+id).is(":checked");
+        $.post('/Master/UpdateAdmissionMasterType', { ID:id,Is: is, Program: $('#ddlprogram option:selected').val(), Branch: $('#ddlbranch option:selected').val(), Year: $('#ddlyear option:selected').val() }).done(function(res) {
             alertnotify(res.statuscode, res.mag);
         }).fail(function() {
             alertnotify(-1, 'Server Error');
@@ -393,6 +356,14 @@
             }
         }).fail(function(xhr) {
             console.log(xhr.responseText)
+        });
+    }
+    var loaddata = () => {
+        $.post('/Master/GetAdmissionMaster').done(function(result) {
+            $('#tblprogram tbody').html(result);
+            Bindbranch();
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
         });
     }
 </script>

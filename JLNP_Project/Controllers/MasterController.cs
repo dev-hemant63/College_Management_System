@@ -498,24 +498,39 @@ namespace JLNP_Project.Controllers
             {
                 bool IsAdmission = false;
                 var mdl = new RegistrationViewModel();
+                IMasterML ml = new MasterML();
                 if (Id != 0)
                 {
-                    IMasterML ml = new MasterML();
-                    mdl.data = ml.GetRegistrationMaster(IsAdmission);
-                    mdl.ProgramMasters = ml.GetProgram();
-                    mdl.data.IsEdit = true;
-                    return View(mdl);
+                    mdl.data = ml.GetRegistrationMaster(IsAdmission, Id);
                 }
                 else
                 {
-                    IMasterML ml = new MasterML();
-                    mdl.data = ml.GetRegistrationMaster(IsAdmission);
-                    mdl.ProgramMasters = ml.GetProgram();
-                    mdl.data.IsEdit = false;
-                    return View(mdl);
+                    mdl.data = new List<RegistrationMaster>();
                 }
+                mdl.ProgramMasters = ml.GetProgram();
+                return View(mdl);
             }
             return RedirectToAction("UsersLogin", "Account");
+        }
+        [HttpPost]
+        public IActionResult GetRegistartionMaster()
+        {
+            IMasterML ml = new MasterML();
+            var mdl = new RegistrationViewModel();
+            bool IsAdmission = false;
+            mdl.data = ml.GetRegistrationMaster(IsAdmission, 0);
+            mdl.ProgramMasters = ml.GetProgram();
+            return PartialView("Partial/_GetRegistartionMaster", mdl);
+        }
+        [HttpPost]
+        public IActionResult GetAdmissionMaster()
+        {
+            IMasterML ml = new MasterML();
+            var mdl = new RegistrationViewModel();
+            bool IsAdmission = true;
+            mdl.data = ml.GetRegistrationMaster(IsAdmission, 0);
+            mdl.ProgramMasters = ml.GetProgram();
+            return PartialView("Partial/_GetAddmissionMaster", mdl);
         }
         [HttpPost]
         public IActionResult SaveRegistartionMaster(RegistrationMaster req)
@@ -525,7 +540,7 @@ namespace JLNP_Project.Controllers
             return Json(res);
         }
         [HttpPost]
-        public IActionResult UpdateRegistartionMasterType(bool Is, int Program = 0, int Branch = 0, int Year = 0)
+        public IActionResult UpdateRegistartionMasterType(int ID, bool Is, int Program = 0, int Branch = 0, int Year = 0)
         {
             IMasterML ml = new MasterML();
             var req = new RegistrationMaster
@@ -533,7 +548,8 @@ namespace JLNP_Project.Controllers
                 Program = Program,
                 Branch = Branch,
                 IsOpen = Is,
-                Year = Year
+                Year = Year,
+                ID= ID
             };
             var res = ml.UpdateRegistrationMaster(req);
             return Json(res);
@@ -548,24 +564,22 @@ namespace JLNP_Project.Controllers
                 if (Id != 0)
                 {
                     IMasterML ml = new MasterML();
-                    mdl.data = ml.GetRegistrationMaster(IsAdmission);
+                    mdl.data = ml.GetRegistrationMaster(IsAdmission, Id);
                     mdl.ProgramMasters = ml.GetProgram();
-                    mdl.data.IsEdit = true;
                     return View(mdl);
                 }
                 else
                 {
                     IMasterML ml = new MasterML();
-                    mdl.data = ml.GetRegistrationMaster(IsAdmission);
+                    mdl.data = new List<RegistrationMaster>();
                     mdl.ProgramMasters = ml.GetProgram();
-                    mdl.data.IsEdit = false;
                     return View(mdl);
                 }
             }
             return RedirectToAction("UsersLogin", "Account");
         }
         [HttpPost]
-        public IActionResult UpdateAdmissionMasterType(bool Is, int Program = 0, int Branch = 0, int Year = 0)
+        public IActionResult UpdateAdmissionMasterType(int ID,bool Is, int Program = 0, int Branch = 0, int Year = 0)
         {
             IMasterML ml = new MasterML();
             var req = new RegistrationMaster
@@ -573,7 +587,8 @@ namespace JLNP_Project.Controllers
                 Program = Program,
                 Branch = Branch,
                 IsOpen = Is,
-                Year = Year
+                Year = Year,
+                ID= ID
             };
             req.IsAdmission = true;
             var res = ml.UpdateRegistrationMaster(req);

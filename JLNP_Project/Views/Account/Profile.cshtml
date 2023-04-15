@@ -1,0 +1,60 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+@model LoginInfo
+<div class="row">
+    <div class="col-xl-4 box-margin">
+        <div class="card">
+            <div class="card-header bgred">
+                <div class="row">
+                    <div class="col-sm-4 ">
+                        <h4 style="color:black;">Profile</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="profile-thumb-contact text-center">
+                    <div class="profile--tumb">
+                        <img src="/Assessts/img/member-img/3.png" alt="">
+                    </div>
+                    <h5 class="mt-15">@Model.Name</h5>
+                    <p class="mb-0">@Model.RoleId</p>
+                </div>
+                <div class="personal-information mt-30">
+                    <div class="name-text text-center">
+                        <h6 class="font-14"><span>Birthday :</span>@Model.DOB</h6>
+                        <h6 class="font-14"><span>Address :</span> @Model.Adress</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-8 box-margin">
+        <div class="card">
+            <div class="card-header bgred">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h4 style="color:black;">Edit Details</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <label>Name</label>
+                    <input type="text" class="form-control" asp-for="@Model.Name" placeholder="Name" id="textname" />
+                    <label>Mobile</label>
+                    <input type="text" class="form-control" asp-for="@Model.Phone" placeholder="Mobile" id="textMobile" />
+                </div>
+                <div class="row">
+                    <label>Email</label>
+                    <input type="email" class="form-control" asp-for="@Model.EMail" placeholder="Email" id="textEmail" />
+                    <label>Address</label>
+                    <input type="text" class="form-control" asp-for="@Model.Adress" placeholder="Address" id="textAddress" />
+                </div>
+                <div class="row">
+                    <button type="button" class="btn btn-success mt-3">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

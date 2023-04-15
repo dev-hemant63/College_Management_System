@@ -7,6 +7,7 @@
         public string FatherName { get; set; }
         public string MotherName { get; set; }
         public string DOB { get; set; }
+        public string Role { get; set; }
         public string Religion { get; set; }
         public string FatherOccupation { get; set; }
         public string EMail { get; set; }

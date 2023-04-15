@@ -20,7 +20,7 @@
         <div class="ecaps-sidemenu-area">
             <!-- Desktop Logo -->
             <div class="ecaps-logo">
-                <a href="index.html"><img class="desktop-logo" src="~/Assessts/img/core-img/logo.png" alt="Desktop Logo"> <img class="small-logo" src="~/Assessts/img/core-img/small-logo.png" alt="Mobile Logo"></a>
+                <a href="/"><img class="desktop-logo" src="~/Assessts/img/core-img/logo.png" alt="Desktop Logo"> <img class="small-logo" src="~/Assessts/img/core-img/logo.png" alt="Mobile Logo"></a>
             </div>
             <div class="ecaps-sidenav" id="ecapsSideNav">
                 <!-- Side Menu Area -->
@@ -131,7 +131,7 @@
                 <div class="left-side-content-area d-flex align-items-center">
                     <!-- Mobile Logo -->
                     <div class="mobile-logo mr-3 mr-sm-4">
-                        <a href="index.html"><img src="img/core-img/small-logo.png" alt="Mobile Logo"></a>
+                        <a href="/"><img src="~/Assessts/img/core-img/logo.png" alt="Mobile Logo"></a>
                     </div>
 
                     <!-- Triggers -->
@@ -161,26 +161,16 @@
 
                     <!-- Top Bar Nav -->
                     <ul class="right-side-content d-flex align-items-center">
-                        <li class="nav-item dropdown">
-                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-thumb-cu"><img src="img/core-img/l1.jpg" alt=""></span></button>
-                            <div class="dropdown-menu language-dropdown dropdown-menu-right">
-                                <a href="#" class="dropdown-item mb-15"><img src="img/core-img/l5.jpg" alt="Image"> <span>USA</span></a>
-                                <a href="#" class="dropdown-item mb-15"><img src="img/core-img/l2.jpg" alt="Image"> <span>German</span></a>
-                                <a href="#" class="dropdown-item mb-15"><img src="img/core-img/l3.jpg" alt="Image"> <span>Italian</span></a>
-                                <a href="#" class="dropdown-item"><img src="img/core-img/l4.jpg" alt="Image"> <span>Russian</span></a>
-                            </div>
-                        </li>
-
                         <!-- Full Screen Mode -->
                         <li class="full-screen-mode ml-1">
                             <a href="javascript:" id="fullScreenMode"><i class='bx bx-exit-fullscreen'></i></a>
                         </li>
                         <li class="nav-item dropdown">
-                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="img/member-img/contact-2.jpg" alt=""></button>
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/Assessts/img/member-img/contact-2.jpg" alt=""></button>
                             <div class="dropdown-menu profile dropdown-menu-right">
                                 <div class="user-profile-area">
-                                    <a href="#" class="dropdown-item"><i class="bx bx-user font-15" aria-hidden="true"></i> My profile</a>
-                                    <a href="#" class="dropdown-item"><i class="bx bx-wrench font-15" aria-hidden="true"></i> settings</a>
+                                    <a href="/Account/Profile" class="dropdown-item"><i class="bx bx-user font-15" aria-hidden="true"></i> My profile</a>
+                                    <a href="#" class="dropdown-item" onclick="ChangePassword()"><i class="bx bx-wrench font-15" aria-hidden="true"></i> settings</a>
                                     <a href="/Account/logout" class="dropdown-item"><i class="bx bx-power-off font-15" aria-hidden="true"></i> Sign-out</a>
                                 </div>
                             </div>
@@ -219,7 +209,6 @@
     <script src="~/dist/sweetalert2.all.js"></script>
     <script src="~/js/yearpicker.js"></script>
     <script src="~/js/jquery-ui.min.js"></script>
-    <script src="~/js/canvasjs.min.js"></script>
     <script>
         var $$host = '@(ViewData["Host"])';
         var ChangePassword = function(userid) {

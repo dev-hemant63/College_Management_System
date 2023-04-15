@@ -97,9 +97,9 @@ namespace JLNP_Project.AppCode.Midlelayer
             var response = _proc.ProcGetStudentResult(Enrollment);
             return response;
         }
-        public RegistrationMaster GetRegistrationMaster(bool IsAdmission)
+        public List<RegistrationMaster> GetRegistrationMaster(bool IsAdmission, int Id)
         {
-            var response = _proc.ProcGetGetRegistrationMaster(IsAdmission);
+            var response = _proc.ProcGetGetRegistrationMaster(IsAdmission, Id);
             return response;
         }
         public ResponseStatus SaveRegistrationMaster(RegistrationMaster req)

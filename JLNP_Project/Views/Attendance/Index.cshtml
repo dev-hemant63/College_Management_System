@@ -3,59 +3,57 @@
 }
 @model List<ProgramMaster>
 <div class="">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header bgred">
-                        <h5 style="color:black;">Mark Attendance</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <label>Program</label>
-                                <select class="form-control" id="ddlprogram" onchange="Bindbranch()">
-                                    <option value="0">:: Select Program ::</option>
-                                    @foreach (var item in Model)
-                                    {
-                                        <option value="@item.Id">@item.Program</option>
-                                    }
-                                </select>
-                                <input type="hidden" value="tblMonday" id="hdnid" />
-                                <small class="text-danger d-none" id="Program">Please select program..</small>
-                            </div>
-                            <div class="col-sm-3">
-                                <label>Branch</label>
-                                <select class="form-control" id="ddlbranch">
-                                    <option value="0">:: Select Branch ::</option>
-                                </select>
-                                <small class="text-danger d-none" id="branchv">Please select branch..</small>
-                            </div>
-                            <div class="col-sm-3">
-                                <label>Year</label>
-                                <select class="form-control" id="ddlyear">
-                                    <option value="0">:: Select Year ::</option>
-                                    <option value="1">First Year</option>
-                                    <option value="2">Seccond Year</option>
-                                    <option value="3">Third Year</option>
-                                    <option value="4">Final Year</option>
-                                </select>
-                                <small class="text-danger d-none" id="yearv">Please select year..</small>
-                            </div>
-                            <div class="col-sm-3">
-                                <label>Date</label>
-                                <input type="text" class="form-control" id="fromdate" />
-                            </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bgred">
+                    <h5 style="color:black;">Mark Attendance</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Program</label>
+                            <select class="form-control" id="ddlprogram" onchange="Bindbranch()">
+                                <option value="0">:: Select Program ::</option>
+                                @foreach (var item in Model)
+                                {
+                                    <option value="@item.Id">@item.Program</option>
+                                }
+                            </select>
+                            <input type="hidden" value="tblMonday" id="hdnid" />
+                            <small class="text-danger d-none" id="Program">Please select program..</small>
                         </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-sm-12" style="display: flex; justify-content: flex-end;">
-                                <button class="btn btn-outline-warning" onclick="Search()">Search</button>
-                            </div>
+                        <div class="col-sm-3">
+                            <label>Branch</label>
+                            <select class="form-control" id="ddlbranch">
+                                <option value="0">:: Select Branch ::</option>
+                            </select>
+                            <small class="text-danger d-none" id="branchv">Please select branch..</small>
                         </div>
-                        <hr />
-                        <div id="divttl"></div>
+                        <div class="col-sm-3">
+                            <label>Year</label>
+                            <select class="form-control" id="ddlyear">
+                                <option value="0">:: Select Year ::</option>
+                                <option value="1">First Year</option>
+                                <option value="2">Seccond Year</option>
+                                <option value="3">Third Year</option>
+                                <option value="4">Final Year</option>
+                            </select>
+                            <small class="text-danger d-none" id="yearv">Please select year..</small>
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Date</label>
+                            <input type="text" class="form-control" id="fromdate" />
+                        </div>
                     </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-12" style="display: flex; justify-content: flex-end;">
+                            <button class="btn btn-outline-warning" onclick="Search()">Search</button>
+                        </div>
+                    </div>
+                    <hr />
+                    <div id="divttl"></div>
                 </div>
             </div>
         </div>

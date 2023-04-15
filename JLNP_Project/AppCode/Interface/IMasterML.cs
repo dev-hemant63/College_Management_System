@@ -22,7 +22,7 @@ namespace JLNP_Project.AppCode.Interface
         ResponseStatus DeleteBatch(int Id);
         List<Branch> BindProgramWiseBranch(int ProgramId);
         List<StudentResult> StudentResultRes(string Enrollment);
-        RegistrationMaster GetRegistrationMaster(bool IsAdmission);
+        List<RegistrationMaster> GetRegistrationMaster(bool IsAdmission, int Id);
         ResponseStatus SaveRegistrationMaster(RegistrationMaster req);
         ResponseStatus UpdateRegistrationMaster(RegistrationMaster req);
     }
