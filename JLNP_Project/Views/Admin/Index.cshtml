@@ -8,86 +8,70 @@
 @{
     Layout = "_LayoutAdmin";
 }
-<link href="~/login/assets/libs/c3/c3.min.css" rel="stylesheet" type="text/css" />
-<link href="~/login/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
-<link href="~/login/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-<link href="~/login/assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet" />
-<link href="~/css/Dashboard.css" rel="stylesheet" type="text/css" id="app-stylesheet" />
-<div class="">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="page-title-box bgred">
-                    <div class="float-right hide-phone">
-                    </div>
-                    <h4 class="page-title" style="color: black;">Wellcome  @userdata.UserName</h4>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-3 col-sm-6 col-md-3">
-                <div class="card-box widget-box-two widget-two-custom" style="background-color:#ffffff">
-                    <div class="media">
-                        <div class="avatar-lg rounded-circle bg-primary widget-two-icon align-self-center">
-                            <i class="mdi mdi-account-multiple avatar-title font-30 text-white"></i>
-                        </div>
-                        <div class="wigdet-two-content media-body">
-                            <p class="m-0 text-uppercase font-weight-medium text-truncate" style="color:darkgray" title="Statistics">Teachers</p>
-                            <h3 class="font-weight-medium my-2">
-                                @Model.TeacherCount
-                            </h3>
-                            <p><a href="/Teacher/teacherlist" style="color:#007bff">ViewAllTeacher</a></p>
+<div class="main-content">
+    <div class="dashboard-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0 font-18">Dashboard</h4>
 
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item active">Welcome @userdata.Name</li>
+                            </ol>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- end col -->
-            <div class="col-xl-3 col-sm-6 col-md-3">
-                <div class="card-box widget-box-two widget-two-custom" style="background-color:#ffffff">
-                    <div class="media">
-                        <div class="avatar-lg rounded-circle bg-primary widget-two-icon align-self-center">
-                            <i class="mdi mdi-crown avatar-title font-30 text-white"></i>
-                        </div>
-                        <div class="wigdet-two-content media-body">
-                            <p class="m-0 text-uppercase font-weight-medium text-truncate" style="color:darkgray" title="Statistics">Registration</p>
-                            <h3 class="font-weight-medium my-2">
-                                @Model.RegistrationCount
-                            </h3>
-                            <p><a href="/Student/StudentList" style="color:#007bff">ViewAllRegistration</a></p>
+
+                <!-- Single Widget -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="single-widger-cart mb-30">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="float-right"><i class="bx bxs-user-rectangle single-widget-icon"></i></div>
+                                <h5 class="font-14 mt-0">Teachers</h5>
+                                <h3 class="mt-3 mb-3 font-20">@Model.TeacherCount</h3>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- end col -->
-            <div class="col-xl-3 col-sm-6 col-md-3">
-                <div class="card-box widget-box-two widget-two-custom" style="background-color:#ffffff">
-                    <div class="media">
-                        <div class="avatar-lg rounded-circle bg-primary widget-two-icon align-self-center">
-                            <i class="mdi mdi-auto-fix  avatar-title font-30 text-white"></i>
-                        </div>
-                        <div class="wigdet-two-content media-body">
-                            <p class="m-0 text-uppercase font-weight-medium text-truncate" style="color:darkgray" title="Statistics">Branch</p>
-                            <h3 class="font-weight-medium my-2">
-                                @Model.BranchCount
-                            </h3>
-                            <p><a href="/Branch/BranchList" style="color:#007bff">ViewAllBranch</a></p>
+
+                <!-- Single Widget -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="single-widger-cart mb-30">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="float-right"><i class="bx bx-cart single-widget-icon"></i></div>
+                                <h5 class="font-14 mt-0">Registartions</h5>
+                                <h3 class="mt-3 mb-3 font-20">@Model.RegistrationCount</h3>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-md-3">
-                <div class="card-box widget-box-two widget-two-custom" style="background-color:#ffffff">
-                    <div class="media">
-                        <div class="avatar-lg rounded-circle bg-primary widget-two-icon align-self-center">
-                            <i class="mdi mdi-auto-fix  avatar-title font-30 text-white"></i>
+
+                <!-- Single Widget -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="single-widger-cart mb-30">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="float-right"><i class="bx bx-dollar single-widget-icon"></i></div>
+                                <h5 class="font-14 mt-0">Branches</h5>
+                                <h3 class="mt-3 mb-3 font-20">@Model.BranchCount</h3>
+                            </div>
                         </div>
-                        <div class="wigdet-two-content media-body">
-                            <p class="m-0 text-uppercase font-weight-medium text-truncate" style="color:darkgray" title="Statistics">Admission</p>
-                            <h3 class="font-weight-medium my-2">
-                                @Model.AdmissionCount
-                            </h3>
-                            <p><a href="/Report/AdmissionReport" style="color:#007bff">ViewAllAdmissions</a></p>
+                    </div>
+                </div>
+
+                <!-- Single Widget -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="single-widger-cart mb-30">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="float-right"><i class="bx bx-bar-chart-alt single-widget-icon"></i></div>
+                                <h5 class="font-14 mt-0">Addmission</h5>
+                                <h3 class="mt-3 mb-3 font-20">@Model.AdmissionCount</h3>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -95,70 +79,3 @@
         </div>
     </div>
 </div>
-<script>
-    window.onload = function() {
-
-        var chart = new CanvasJS.Chart("chartContainer", {
-            title: {
-                text: "Fees Collection"
-            },
-            axisY: {
-                title: "Temperature (°C)",
-                includeZero: true,
-                suffix: " °C"
-            },
-            data: [{
-                type: "column",
-                yValueFormatString: "#,### °C",
-                indexLabel: "{y}",
-                dataPoints: [
-                    { label: "boiler1", y: 206 },
-                    { label: "boiler2", y: 163 },
-                    { label: "boiler3", y: 154 },
-                    { label: "boiler4", y: 176 },
-                    { label: "boiler5", y: 184 },
-                    { label: "boiler6", y: 122 }
-                ]
-            }]
-        });
-
-        function updateChart() {
-            var boilerColor, deltaY, yVal;
-            var dps = chart.options.data[0].dataPoints;
-            for (var i = 0; i < dps.length; i++) {
-                deltaY = Math.round(2 + Math.random() * (-2 - 2));
-                yVal = deltaY + dps[i].y > 0 ? dps[i].y + deltaY : 0;
-                boilerColor = yVal > 200 ? "#FF2500" : yVal >= 170 ? "#FF6000" : yVal < 170 ? "#6B8E23 " : null;
-                dps[i] = { label: "Boiler " + (i + 1), y: yVal, color: boilerColor };
-            }
-            chart.options.data[0].dataPoints = dps;
-            chart.render();
-        };
-        updateChart();
-
-        var chart = new CanvasJS.Chart("chartContainer2", {
-            animationEnabled: true,
-            title: {
-                text: "Program Wise Student",
-                horizontalAlign: "left"
-            },
-            data: [{
-                type: "doughnut",
-                startAngle: 60,
-                //innerRadius: 60,
-                indexLabelFontSize: 17,
-                indexLabel: "{label} - #percent%",
-                toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-                dataPoints: [
-                    { y: 67, label: "Inbox" },
-                    { y: 28, label: "Archives" },
-                    { y: 10, label: "Labels" },
-                    { y: 7, label: "Drafts" },
-                    { y: 15, label: "Trash" },
-                    { y: 6, label: "Spam" }
-                ]
-            }]
-        });
-        chart.render();
-    }
-</script>

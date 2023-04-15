@@ -1,6 +1,6 @@
 ﻿namespace JLNP_Project.Models
 {
-    public class SubjectMaster: LoginInfo
+    public class SubjectMaster : LoginInfo
     {
         public int Id { get; set; }
         public int SubjectId { get; set; }
@@ -42,7 +42,7 @@
         public IFormFile Files { get; set; }
         public string Path { get; set; }
     }
-    public class CommanMasterReq:LoginInfo
+    public class CommanMasterReq : LoginInfo
     {
         public int Id { get; set; }
         public int BranchId { get; set; }
@@ -74,7 +74,7 @@
         public SubjectMaster data { get; set; }
         public List<ProgramMaster> programs { get; set; }
     }
-    public class StudentResult: SubjectMaster
+    public class StudentResult : SubjectMaster
     {
         public int TotalMarks { get; set; }
         public int ObtainMarks { get; set; }
@@ -91,23 +91,23 @@
     }
     public class RegistrationMaster
     {
-        public string Startdate { get; set; }
-        public string Enddate { get; set; }
-        public string Entrydate { get; set; }
-        public int Daylimit { get; set; }
-        public int Alllimit { get; set; }
-        public int ID { get; set; }
-        public bool IsEdit { get; set; }
-        public bool IsOpen { get; set; }
-        public bool IsAdmission { get; set; }
-        public int Program { get; set; }
-        public int Branch { get; set; }
-        public int Year { get; set; }
+        public string Startdate { get; set; } = "";
+        public string Enddate { get; set; } = "";
+        public string Entrydate { get; set; } = "";
+        public int Daylimit { get; set; } = 0;
+        public int Alllimit { get; set; } = 0;
+        public int ID { get; set; } = 0;
+        public bool IsEdit { get; set; } = false;
+        public bool IsOpen { get; set; } = false;
+        public bool IsAdmission { get; set; } = false;
+        public int Program { get; set; } = 0;
+        public int Branch { get; set; } = 0;
+        public int Year { get; set; } = 0;
 
     }
     public class RegistrationViewModel
     {
-        public RegistrationMaster data { get; set; }
+        public List<RegistrationMaster> data { get; set; }
         public List<ProgramMaster> ProgramMasters { get; set; }
     }
 }

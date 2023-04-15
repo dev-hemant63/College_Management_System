@@ -50,10 +50,12 @@ namespace JLNP_Project.Controllers
             return Json(res);
         }
         #endregion
-        //public IActionResult ExamGroup()
-        //{
-        //    return View();
-        //}
+        [HttpPost]
+        public IActionResult GetExamGroup()
+        {
+            var res = _exam.GetExamGroup(0);
+            return PartialView(res);
+        }
         public IActionResult AddExamGroup(int ID)
         {
             var model = new ExamGroupe();
@@ -67,6 +69,7 @@ namespace JLNP_Project.Controllers
         }
         public IActionResult SaveExamGroup(ExamGroupe req)
         {
+            req.UserID = _lr.UserId;
             var res = _exam.SaveExamGroup(req);
             return Json(res);
         }

@@ -105,10 +105,11 @@ namespace JLNP_Project.AppCode.Midlelayer
         public List<ExamGroupe> GetExamGroup(int id)
         {
             var res = new List<ExamGroupe>();
-            string sp = "select * from tbl_ExamGroup where Id = IIF(@Id = 0,Id,@Id)";
+            string sp = @"select t1.*,t2.ExamType ExamTypename from tbl_ExamGroup t1
+                    inner join tbl_ExamType t2 on t1.ExamType = t2.Id  where t1.Id = IIF(@ExamID = 0,t1.Id,@ExamID)";
             SqlParameter[] param = new SqlParameter[]
             {
-                new SqlParameter("@id",id)
+                new SqlParameter("@ExamID",id)
             };
             try
             {
@@ -124,6 +125,7 @@ namespace JLNP_Project.AppCode.Midlelayer
                             ExamGroupes = Convert.ToString(item["ExamGroup"]),
                             Entrydate = Convert.ToString(item["Entrydate"]),
                             Description = Convert.ToString(item["Description"]),
+                            ExamTypeName = Convert.ToString(item["ExamTypename"]),
                         };
                         res.Add(data);
                     }
@@ -143,7 +145,7 @@ namespace JLNP_Project.AppCode.Midlelayer
             if (req.Id == 0)
             {
                 sp = @"insert into tbl_ExamGroup(ExamType,ExamGroup,Description,EntryDate,EntryBy)
-                        values(@ExamType,@ExamGroup,@Description,GETDATE(),@EntryBy);";
+                        values(@ExamTypes,@ExamGroups,@Description,GETDATE(),@EntryBy)";
             }
             else
             {
@@ -152,16 +154,24 @@ namespace JLNP_Project.AppCode.Midlelayer
             SqlParameter[] param = new SqlParameter[]
             {
                 new SqlParameter("@id",req.Id),
-                new SqlParameter("@ExamType",req.ExamTypes),
-                new SqlParameter("@EntryBy",1),
-                new SqlParameter("@ExamGroup",req.ExamGroupes),
+                new SqlParameter("@ExamTypes",req.ExamTypes),
+                new SqlParameter("@EntryBy",req.UserID),
+                new SqlParameter("@ExamGroups",req.ExamGroupes),
                 new SqlParameter("@Description",req.Description),
             };
             try
             {
-                var dt = _helper.ExcQuery(sp, param);
-                res.statuscode = 1;
-                res.Msg = "ExamGroup saved successfully";
+                var _is = _helper.ExcQuery(sp, param);
+                if (_is)
+                {
+                    res.statuscode = 1;
+                    res.Msg = "ExamGroup saved successfully";
+                }
+                else
+                {
+                    res.statuscode = -1;
+                    res.Msg = "TempError";
+                }
             }
             catch (Exception)
             {

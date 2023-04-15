@@ -1224,7 +1224,7 @@ div.tagsinput span.tag a {
   align-items: center; }
 
 .ecaps-logo a img {
-  max-height: 22px;
+  /*max-height: 22px;*/
   width: auto;
   margin: auto; }
 

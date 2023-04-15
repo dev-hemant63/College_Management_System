@@ -46,7 +46,13 @@ namespace JLNP_Project.Controllers
                         options.Expires = DateTime.Now.AddMinutes(30);
 
                         _lr.LoginTypeId = Convert.ToInt32(dt.Rows[0]["LoginTypeId"]);
-                        _lr.UserName = Convert.ToString(dt.Rows[0]["Name"].ToString());
+                        _lr.UserName = Convert.ToString(dt.Rows[0]["Email"].ToString());
+                        _lr.EMail = Convert.ToString(dt.Rows[0]["Email"].ToString());
+                        _lr.Name = Convert.ToString(dt.Rows[0]["Name"].ToString());
+                        _lr.Phone = Convert.ToString(dt.Rows[0]["Mobile"].ToString());
+                        _lr.Adress = Convert.ToString(dt.Rows[0]["Address"].ToString());
+                        _lr.DOB = Convert.ToString(dt.Rows[0]["DOB"].ToString());
+                        _lr.Role = Convert.ToString(dt.Rows[0]["Role"].ToString());
                         _lr.UserId = Convert.ToInt32(dt.Rows[0]["_UId"]);
                         TempData["UserId"] = _lr.UserId;
                         Response.Cookies.Append("Role", _lr.LoginTypeId.ToString(), options);
@@ -96,26 +102,31 @@ namespace JLNP_Project.Controllers
             }
             return Json(res);
         }
-        [HttpPost]
-        public IActionResult ForgetPassword(string Enrollment, string Mobile = "")
+        [HttpGet]
+        public IActionResult ForgetPassword()
         {
-            if (!string.IsNullOrEmpty(Enrollment))
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ForgetPasswordPost(string Enrollment= "", string Mobile = "")
+        {
+            Account_BAL AC_BAL = new Account_BAL();
+            var res = AC_BAL.ForgetPassword_BAL(Enrollment, Mobile);
+            if (res.statuscode == 1)
             {
-                Account_BAL AC_BAL = new Account_BAL();
-                var res = AC_BAL.ForgetPassword_BAL(Enrollment, Mobile);
-                if (res.statuscode == 1)
-                {
-                    string title = "Jawahar lal neharu polytechnic";
-                    string Msg = "Dear Student" + "Your Password Is " + "<b>" + res.password;
-                    var _ = _email.SendMail(res.UserEmail, title, Msg);
-                }
-                return Json(res);
+                string title = "Jawahar lal neharu polytechnic";
+                string Msg = "Dear Student" + "Your Password Is " + "<b>" + res.password;
+                var _ = _email.SendMail(res.UserEmail, title, Msg);
             }
-            else
-            {
-                return PartialView("Partial/ForgetPassword");
-            }
-            return Ok();
+            return Json(res);
+        }
+        [HttpGet]
+        public IActionResult Profile()
+        {
+            LoginInfo lr = new LoginInfo();
+            IHttpContextAccessor acc = new HttpContextAccessor();
+            lr = JsonConvert.DeserializeObject<LoginInfo>(acc.HttpContext.Session.GetString("Userdata"));
+            return View(lr);
         }
     }
 }
