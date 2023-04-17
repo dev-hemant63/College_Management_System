@@ -20,4 +20,9 @@
         public string Description { get; set; }
         public int UserID { get; set; }
     }
+    public class AddExam
+    {
+        public List<ExamGroupe> ExamGroup { get; set; }
+        public int GroupID { get; set; }
+    }
 }
