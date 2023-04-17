@@ -1,39 +1,26 @@
-﻿@{
-    Layout = "_LayoutAdmin";
-}
-<div class="">
-    <div class="">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header bgred">
-                        <h4 style="color:black;">Add Exam</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row" style="display:flex">
-                            <div style="float:right">
-                                <button class="btn btn-outline-primary" id="btnsubmit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="AddNew()" style="float: right;
-    width: 10%;">
-                                    + Add New
-                                </button>
-                            </div>
-                        </div>
-                        <div class="table-responsive table-striped" style="margin-top:13px;">
-                            <table class="table mb-0" id="tblbatch">
-                                <thead class="bg-primary">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Exam</th>
-                                        <th>Exam Group</th>
-                                        <th>Entry Date</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+﻿@model AddExam
+<div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Exam</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <label>Exam<span style="color:red;">*</span></label>
+                <input type="text" class="form-control" id="txtexam"/>
+                <input type="hidden" class="form-control" id="hdnid" asp-for="@Model.GroupID"  />
+                <label>Exam Group<span style="color:red;">*</span></label>
+                <select id="ddlgroup" class="form-control" asp-for="@Model.GroupID">
+                    <option value="0">:: Select Group ::</option>
+                    @foreach (var item in Model.ExamGroup)
+                    {
+                        <option value="@item.Id">@item.ExamGroupes</option>
+                    }
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" onclick="SaveExam()" id="btnsave">Save</button>
             </div>
         </div>
     </div>

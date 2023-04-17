@@ -149,12 +149,12 @@ namespace JLNP_Project.AppCode.Midlelayer
             }
             else
             {
-                sp = @"Update tbl_ExamGroup set ExamType = @ExamType,ExamGroup = @ExamGroup.Description = @Description where ID = @id;";
+                sp = @"Update tbl_ExamGroup set ExamType = @ExamTypes,ExamGroup = @ExamGroups, Description = @Description where ID = @id;";
             }
             SqlParameter[] param = new SqlParameter[]
             {
                 new SqlParameter("@id",req.Id),
-                new SqlParameter("@ExamTypes",req.ExamTypes),
+                new SqlParameter("@ExamTypes",req.ExamType),
                 new SqlParameter("@EntryBy",req.UserID),
                 new SqlParameter("@ExamGroups",req.ExamGroupes),
                 new SqlParameter("@Description",req.Description),

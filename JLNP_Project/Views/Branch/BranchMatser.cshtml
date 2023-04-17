@@ -6,55 +6,53 @@
         <div class="row">
             <div class="col-12">
                 <div class="card m-b-30">
-                        <div class="card-header bgred">
-                            <h4 style="color:black;">Branch Master</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="p-20">
-                                        <div class="form-group"><label>Branch Name</label> <input type="text" placeholder="Branch Name" class="form-control" id="name"> </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="p-20">
-                                        <div class="form-group"><label>Branch Code</label> <input type="number" maxlength="4" placeholder="Branch Code" class="form-control" id="code"> </div>
-                                    </div>
-                                </div>
-                                <button type="button" style="width: 12%; margin-left: 35px; margin-top: -12px;" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit()">Submit</button>
+                    <div class="card-header bgred">
+                        <h4 style="color:black;">Branch Master</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Branch Name</label>
+                                <input type="text" placeholder="Branch Name" class="form-control" id="name">
                             </div>
-
-
-                            <!-- end row -->
+                            <div class="col-md-6">
+                                <label>Branch Code</label>
+                                <input type="number" maxlength="4" placeholder="Branch Code" class="form-control" id="code">
+                            </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="display: flex; justify-content: flex-end; margin-bottom: 12px;">
+                            <button type="button" style="margin-right: 20px;" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit()">Submit</button>
+                        </div>
+                    </div>
                 </div>
-                <!-- end col -->
             </div>
         </div>
     </div>
 </div>
-    <script>
-        var btnsubmit = function() {
-            if ($('#name').val() == '') {
-                alert("Please Enter Branch");
-                $('#name').focus();
-                return false;
-            }
-            if ($('#code').val() == '') {
-                alert("Please Enter Branch Code");
-                $('#code').focus();
-                return false;
-            }
-            let data = {
-                BranchName: $('#name').val(),
-                BranchCode: $('#code').val()
-            }
-            preloader.load();
-            $.post('/Branch/_BranchMatser', data).done(function(result) {
-                preloader.remove();
-                alertnotify(result.statuscode,result.msg);
-            }).fail(function(xhr) {
-                console.log(xhr.responseText)
-            });
+<script>
+    var btnsubmit = function() {
+        if ($('#name').val() == '') {
+            alert("Please Enter Branch");
+            $('#name').focus();
+            return false;
         }
-    </script>
+        if ($('#code').val() == '') {
+            alert("Please Enter Branch Code");
+            $('#code').focus();
+            return false;
+        }
+        let data = {
+            BranchName: $('#name').val(),
+            BranchCode: $('#code').val()
+        }
+        preloader.load();
+        $.post('/Branch/_BranchMatser', data).done(function(result) {
+            preloader.remove();
+            alertnotify(result.statuscode, result.msg);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+</script>

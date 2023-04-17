@@ -2680,7 +2680,7 @@ bx-tada {
     .btn {
       font-size: 13px; } }
   .btn:focus, .btn:hover {
-    font-size: 14px; }
+    /*font-size: 14px;*/ }
     @media only screen and (max-width: 767px) {
       .btn:focus, .btn:hover {
         font-size: 13px; } }
@@ -6312,7 +6312,6 @@ Main Components
 
 /* :: Form CSS */
 .form-group label {
-  font-size: .8125rem;
   font-weight: 500; }
 
 .form-control {

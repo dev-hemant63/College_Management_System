@@ -82,8 +82,8 @@ $(document).ready(function() {
 });
     var AddExamgroupe = () => {
         let obj = {
-            ExamGroups: $('#name').val(),
-            ExamTypes: $('#ddlexamtype').val(),
+            ExamGroupes: $('#name').val(),
+            ExamType: $('#ddlexamtype').val(),
             Id: $('#hdnid').val(),
             Description: $('#description').val(),
         }
@@ -97,6 +97,9 @@ $(document).ready(function() {
         }
         $.post('/Examination/SaveExamGroup', obj).done(function(result) {
             alertnotify(result.statuscode, result.msg);
+            if (result.statuscode == 1) {
+                window.location.href = '/Examination/AddExamGroup';
+            }
         }).fail(function(xhr) {
             console(xhr.responseText);
         });
@@ -104,6 +107,13 @@ $(document).ready(function() {
     var loaddata = () => {
         $.post('/Examination/GetExamGroup').done(function(result) {
             $('#tblexamgroup tbody').html(result);
+        }).fail(function(xhr) {
+            console(xhr.responseText);
+        });
+    }
+    var AddExam = (id) =>{
+        $.post('/Examination/AddExam', {ExamGID:id}).done(function(result) {
+            showModel(result);
         }).fail(function(xhr) {
             console(xhr.responseText);
         });
