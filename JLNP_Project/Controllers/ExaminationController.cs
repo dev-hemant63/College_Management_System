@@ -50,6 +50,7 @@ namespace JLNP_Project.Controllers
             return Json(res);
         }
         #endregion
+        #region ExamGroup
         [HttpPost]
         public IActionResult GetExamGroup()
         {
@@ -81,6 +82,7 @@ namespace JLNP_Project.Controllers
             var res = _exam.SaveExamGroup(req);
             return Json(res);
         }
+        #endregion
         [HttpPost]
         public IActionResult AddExam(int ExamGID)
         {
