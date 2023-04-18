@@ -994,8 +994,8 @@ button:focus {
   background-color: transparent; }
 
 .page-title-box {
-  padding-bottom: 30px; }
-
+    padding-bottom: 7px;
+}
 .page-title-box .breadcrumb {
   margin-bottom: 0;
   padding: 0;
