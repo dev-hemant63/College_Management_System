@@ -1,4 +1,6 @@
-﻿using JLNP_Project.AppCode.Interface;
+﻿using JLNP_Project.AppCode.BAL;
+using JLNP_Project.AppCode.Interface;
+using JLNP_Project.AppCode.Midlelayer;
 using JLNP_Project.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -131,6 +133,22 @@ namespace JLNP_Project.Controllers
         public IActionResult Exam()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult AssignExam(int Id)
+        {
+            var res = new AssignExam();
+            res.ExamID = Id;
+            IMasterML ml = new MasterML();
+            res.Program = ml.GetProgram();
+            return PartialView(res);
+        }
+        [HttpPost]
+        public IActionResult GetStudent(int BranchId, int Program,int Year)
+        {
+            Attendance_BAL _bal = new Attendance_BAL();
+            var res = _bal.GetStudentforAttendance(BranchId, Program, Year);
+            return PartialView(res);
         }
         #endregion
     }

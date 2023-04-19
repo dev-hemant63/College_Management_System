@@ -51,18 +51,52 @@
             console.log(xhr.responseText);
         });
     }
-    var AddExam = (id) =>{
-        $.post('/Examination/AddExam', {Id:id}).done(function(result) {
+    var AddExam = (id) => {
+        $.post('/Examination/AddExam', { Id: id }).done(function(result) {
             showModel(result);
         }).fail(function(xhr) {
             console(xhr.responseText);
         });
     }
-    var DeleteExam = (id) =>{
-        $.post('/Examination/DeleteExams', {Id:id}).done(function(result) {
-            alertnotify(result.statuscode,result.msg);
+    var DeleteExam = (id) => {
+        $.post('/Examination/DeleteExams', { Id: id }).done(function(result) {
+            alertnotify(result.statuscode, result.msg);
         }).fail(function(xhr) {
             console(xhr.responseText);
+        });
+    }
+    var AssignExam = (id) => {
+        $.post('/Examination/AssignExam', { Id: id }).done(function(result) {
+            showModel(result);
+        }).fail(function(xhr) {
+            console(xhr.responseText);
+        });
+    }
+    var SearchStudent = () => {
+        let obj = {
+            BranchId: $('#ddlbranch option:selected').val(),
+            Program: $('#ddlprogram option:selected').val(),
+            Year: $('#ddlyear option:selected').val()
+        }
+        if (obj.Program == '0' || obj.Program == undefined) {
+            alert('Please select program');
+            return false;
+        }
+        if (obj.BranchId == '0' || obj.BranchId == undefined) {
+            alert('Please select barnch');
+            return false;
+        }
+        if (obj.Year == '0' || obj.Year == undefined) {
+            alert('Please select year');
+            return false;
+        }
+        else {
+            $('#yearv').addClass('d-none');
+        }
+        $.post('/Examination/GetStudent', obj).done(function(result) {
+            $('#tblstudent').html(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
         });
     }
 </script>
