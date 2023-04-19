@@ -19,10 +19,22 @@
         public string Entrydate { get; set; }
         public string Description { get; set; }
         public int UserID { get; set; }
+        public int ExamCount { get; set; }
     }
     public class AddExam
     {
         public List<ExamGroupe> ExamGroup { get; set; }
         public int GroupID { get; set; }
+        public string Exam { get; set; }
+        public int Id { get; set; }
+    }
+    public class Exam
+    {
+        public int Id { get; set; }
+        public int GroupId { get; set; }
+        public int UserID { get; set; }
+        public string ExamTitle { get; set; }
+        public string ExamGroup { get; set; }
+        public string EntryDate { get; set; }
     }
 }

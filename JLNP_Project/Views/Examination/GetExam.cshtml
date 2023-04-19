@@ -1,0 +1,22 @@
+﻿@model List<Exam>
+@{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        i++;
+        <tr data-id="@item.Id">
+            <td>@i</td>
+            <td>@item.ExamTitle</td>
+            <td>@item.ExamGroup</td>
+            <td>@item.EntryDate</td>
+            <td>
+                <div class="btn-group btn-group-sm" style="float: none;">
+                    <button class="tabledit-edit-button btn btn-sm btn-warning btn_edit" style="float: none; margin: 4px;"><span class="ti-tag"></span></button>
+                    <button class="tabledit-edit-button btn btn-sm btn-secondary btn_edit" style="float: none; margin: 4px;"><span class="ti-book"></span></button>
+                    <button class="tabledit-edit-button btn btn-sm btn-success btn_edit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="AddExam('@item.Id')" style="float: none; margin: 4px;"><span class="ti-pencil"></span></button>
+                    <button class="tabledit-delete-button btn btn-sm btn-danger" onclick="DeleteExam('@item.Id')" style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
+                </div>
+            </td>
+        </tr>
+    }
+}

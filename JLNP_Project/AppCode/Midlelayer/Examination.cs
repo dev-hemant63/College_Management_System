@@ -105,7 +105,7 @@ namespace JLNP_Project.AppCode.Midlelayer
         public List<ExamGroupe> GetExamGroup(int id)
         {
             var res = new List<ExamGroupe>();
-            string sp = @"select t1.*,t2.ExamType ExamTypename from tbl_ExamGroup t1
+            string sp = @"select t1.*,ISNULL(t1.ExamCount,0) ExamCount,t2.ExamType ExamTypename from tbl_ExamGroup t1
                     inner join tbl_ExamType t2 on t1.ExamType = t2.Id  where t1.Id = IIF(@ExamID = 0,t1.Id,@ExamID)";
             SqlParameter[] param = new SqlParameter[]
             {
@@ -126,12 +126,13 @@ namespace JLNP_Project.AppCode.Midlelayer
                             Entrydate = Convert.ToString(item["Entrydate"]),
                             Description = Convert.ToString(item["Description"]),
                             ExamTypeName = Convert.ToString(item["ExamTypename"]),
+                            ExamCount = Convert.ToInt32(item["ExamCount"] is DBNull ? 0: item["ExamCount"]),
                         };
                         res.Add(data);
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
@@ -192,6 +193,103 @@ namespace JLNP_Project.AppCode.Midlelayer
             else
             {
                 sp = @"Delete from tbl_ExamGroup where ID = @id;";
+            }
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@id",id),
+            };
+            try
+            {
+                var dt = _helper.ExcQuery(sp, param);
+                res.statuscode = 1;
+                res.Msg = "Examgroup deleted successfully";
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return res;
+        }
+        public ResponseStatus AddExam(Exam req)
+        {
+            var res = new ResponseStatus();
+            string sp = "";
+            if (req.Id == 0)
+            {
+                sp = @"insert into tbl_Exam (Exam,GroupId,EntryDate,EntryBy) values(@Exam,@GroupId,GETDATE(),@EntryBy)
+                    Update tbl_ExamGroup set ExamCount = (ISNULL(ExamCount,0) + 1) where Id = @GroupId";
+            }
+            else
+            {
+                sp = @"Update tbl_Exam set Exam = @Exam,GroupId = @GroupId,EntryBy= @EntryBy where Id = @id;";
+            }
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@id",req.Id),
+                new SqlParameter("@Exam",req.ExamTitle),
+                new SqlParameter("@GroupId",req.GroupId),
+                new SqlParameter("@EntryBy",req.UserID)
+            };
+            try
+            {
+                var dt = _helper.ExcQuery(sp, param);
+                res.statuscode = 1;
+                res.Msg = "Record saved successfully";
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return res;
+        }
+        public List<Exam> GetExam(int id)
+        {
+            var res = new List<Exam>();
+            string sp = "select t1.*,t2.ExamGroup from tbl_Exam t1 inner join tbl_ExamGroup t2 on t1.GroupId = t2.id where t1.Id = IIF(@id = 0,t1.Id,@id) order by Id desc";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@id",id)
+            };
+            try
+            {
+                var dt = _helper.ExcQueryDT(sp, param);
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow item in dt.Rows)
+                    {
+                        var data = new Exam
+                        {
+                            Id = Convert.ToInt32(item["Id"]),
+                            ExamTitle = Convert.ToString(item["Exam"]),
+                            ExamGroup= Convert.ToString(item["ExamGroup"]),
+                            EntryDate= Convert.ToString(item["EntryDate"]),
+                            GroupId= Convert.ToInt32(item["GroupId"]),
+                        };
+                        res.Add(data);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return res;
+        }
+        public ResponseStatus DeleteExam(int id)
+        {
+            var res = new ResponseStatus();
+            string sp = "";
+            if (id == 0)
+            {
+                res.statuscode = -1;
+                res.Msg = "Examgroup deletion failed";
+            }
+            else
+            {
+                sp = @"Delete from tbl_Exam where Id = @id;";
             }
             SqlParameter[] param = new SqlParameter[]
             {

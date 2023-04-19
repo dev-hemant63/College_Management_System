@@ -7999,13 +7999,14 @@ table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child::
   font-weight: 600;
   color: #495057; }
 
-.table td,
-.table th {
-  padding: .95rem;
-  vertical-align: top;
-  border-top: 1px solid #e3eaef;
-  font-size: 14px;
-  font-weight: 400; }
+    .table td,
+    .table th {
+        padding: 0.3rem;
+        vertical-align: middle;
+        border-top: 1px solid #e3eaef;
+        font-size: 14px;
+        font-weight: 400;
+    }
   @media only screen and (max-width: 767px) {
     .table td,
     .table th {

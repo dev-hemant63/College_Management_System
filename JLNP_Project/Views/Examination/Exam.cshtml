@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+<div class="">
+    <div class="">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bgred">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h4 style="color:black;">Exam List</h4>
+                            </div><div class="col-sm-9">
+                                <button class="btn btn-outline-primary" id="btnsubmit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="AddExam()" style="float: right;">
+                                    + Add New
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive table-striped" style="margin-top:13px;">
+                            <table class="table mb-0" id="tblexam">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Exam</th>
+                                        <th>Exam GoupID</th>
+                                        <th>EntryDate</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        loaddata();
+    });
+    var loaddata = () => {
+        $.post('/Examination/GetExams').done(function(result) {
+            console.log(result);
+            $('#tblexam tbody').html(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+    }
+    var AddExam = (id) =>{
+        $.post('/Examination/AddExam', {Id:id}).done(function(result) {
+            showModel(result);
+        }).fail(function(xhr) {
+            console(xhr.responseText);
+        });
+    }
+    var DeleteExam = (id) =>{
+        $.post('/Examination/DeleteExams', {Id:id}).done(function(result) {
+            alertnotify(result.statuscode,result.msg);
+        }).fail(function(xhr) {
+            console(xhr.responseText);
+        });
+    }
+</script>
