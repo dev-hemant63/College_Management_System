@@ -1,0 +1,42 @@
+﻿@model Attendance
+@{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th><input type="checkbox" class="radiocus" id="assign-all" onclick="Checkall()" value="1"> Action</th>
+                <th>Enrollment</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 0;
+                foreach (var item in Model.Studentlist)
+                {
+                    i++;
+                    <tr data-id="@item.Entrolment_No">
+                        <td>@i</td>
+                        <td>
+                            <div class="radio radio-info radio-inline">
+                                <input type="checkbox" class="radiocus" id="assign-@i" value="1" name="assign_@i">
+                            </div>
+                        </td>
+                        <td>@item.Entrolment_No</td>
+                        <td>@item.Name</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+<script>
+    var Checkall = () => {
+        if ($('#assign-all').is(':checked')) {
+            $('.radiocus').attr('checked', true);
+        }
+        else {
+            $('.radiocus').attr('checked', false);
+        }
+    }
+</script>

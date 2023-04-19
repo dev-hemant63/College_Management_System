@@ -37,4 +37,9 @@
         public string ExamGroup { get; set; }
         public string EntryDate { get; set; }
     }
+    public class AssignExam
+    {
+        public List<ProgramMaster> Program { get; set; }
+        public int ExamID { get; set; }
+    }
 }

@@ -6,7 +6,7 @@ namespace JLNP_Project.AppCode.BAL
     public class Attendance_BAL
     {
         Attendance_DAL _dal = new Attendance_DAL();
-        public Attendance GetStudentforAttendance(int BranchId, int Program, int Year, string Date)
+        public Attendance GetStudentforAttendance(int BranchId, int Program, int Year, string Date= "")
         {
             var res = _dal.GetStudentList(BranchId, Program, Year, Date);
             return res;
