@@ -83,13 +83,55 @@ namespace JLNP_Project.Controllers
             return Json(res);
         }
         #endregion
+        #region Exam
         [HttpPost]
-        public IActionResult AddExam(int ExamGID)
+        public IActionResult AddExam(int ExamGID = 0,int Id=0)
         {
             var model = new AddExam();
             model.ExamGroup = _exam.GetExamGroup(0);
-            model.GroupID = ExamGID;
+            if (Id !=0)
+            {
+                var res = _exam.GetExam(Id).FirstOrDefault();
+                model.GroupID = res.GroupId;
+                model.Exam = res.ExamTitle;
+                model.Id = res.Id;
+            }
+            else
+            {
+                 model.GroupID = ExamGID;
+            }
             return PartialView(model);
         }
+        [HttpPost]
+        public IActionResult SaveExam(Exam req)
+        {
+            req.UserID = _lr.UserId;
+            var res = _exam.AddExam(req);
+            return Json(res);
+        }
+        [HttpPost]
+        public IActionResult GetExam(Exam req)
+        {
+            var res = _exam.GetExam(0);
+            return PartialView(res);
+        }
+        [HttpPost]
+        public IActionResult GetExams()
+        {
+            var res = _exam.GetExam(0);
+            return PartialView("GetExam", res);
+        }
+        [HttpPost]
+        public IActionResult DeleteExams(int Id)
+        {
+            var res = _exam.DeleteExam(Id);
+            return Json(res);
+        }
+        [HttpGet]
+        public IActionResult Exam()
+        {
+            return View();
+        }
+        #endregion
     }
 }

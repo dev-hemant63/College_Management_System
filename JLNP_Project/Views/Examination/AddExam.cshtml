@@ -8,8 +8,8 @@
             </div>
             <div class="modal-body">
                 <label>Exam<span style="color:red;">*</span></label>
-                <input type="text" class="form-control" id="txtexam"/>
-                <input type="hidden" class="form-control" id="hdnid" asp-for="@Model.GroupID"  />
+                <input type="text" class="form-control" id="txtexam" asp-for="@Model.Exam"/>
+                <input type="hidden" class="form-control" id="hdnid" asp-for="@Model.Id"  />
                 <label>Exam Group<span style="color:red;">*</span></label>
                 <select id="ddlgroup" class="form-control" asp-for="@Model.GroupID">
                     <option value="0">:: Select Group ::</option>
@@ -25,3 +25,25 @@
         </div>
     </div>
 </div>
+<script>
+    var SaveExam = () =>{
+        let obj = {
+            Id:$('#hdnid').val(),
+            GroupId:$('#ddlgroup').val(),
+            ExamTitle:$('#txtexam').val(),
+        }
+        if(obj.ExamTitle == ''){
+            alert('Please enter Exam');
+            return false;
+        }
+        if(obj.GroupId == '0'){
+            alert('Please select ExamGroup');
+            return false;
+        }
+        $.post('/Examination/SaveExam', obj).done(function(result) {
+            alertnotify(result.statuscode,result.msg);
+        }).fail(function(xhr) {
+            console(xhr.responseText);
+        });
+    }
+</script>
