@@ -41,5 +41,23 @@
     {
         public List<ProgramMaster> Program { get; set; }
         public int ExamID { get; set; }
+        public string EnrollemntNo { get; set; }
+        public int ProgramId { get; set; }
+        public int Branch { get; set; }
+        public int Year { get; set; }
+        public bool IsAssign { get; set; }
+    }
+    public class ExamDetail
+    {
+        public int Id { get; set; }
+        public int ExamID { get; set; }
+        public int SubjectId { get; set; }
+        public string Date { get; set; }
+        public string Time { get; set; }
+        public int Duration { get; set; }
+        public string RoomNo { get; set; }
+        public int MinMarks { get; set; }
+        public int MaxMarks { get; set; }
+        public string Entrydate { get; set; }
     }
 }

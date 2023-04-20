@@ -24,10 +24,10 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
-                                        <th>Exam</th>
-                                        <th>Exam GoupID</th>
-                                        <th>EntryDate</th>
-                                        <th>Action</th>
+                                        <th><span style="float: right;">Exam</span></th>
+                                        <th><span style="float: right;">Exam Group</span></th>
+                                        <th><span style="float: right;">EntryDate</span></th>
+                                        <th><span style="float: right;">Action</span></th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -45,7 +45,6 @@
     });
     var loaddata = () => {
         $.post('/Examination/GetExams').done(function(result) {
-            console.log(result);
             $('#tblexam tbody').html(result);
         }).fail(function(xhr) {
             console.log(xhr.responseText);
@@ -72,11 +71,20 @@
             console(xhr.responseText);
         });
     }
-    var SearchStudent = () => {
+    var AddSubject = (id) => {
+        $.post('/Examination/AddExamSubject', { Id: id }).done(function(result) {
+            showModel(result);
+            loadsubject();
+        }).fail(function(xhr) {
+            console(xhr.responseText);
+        });
+    }
+    var SearchStudent = (examid) => {
         let obj = {
             BranchId: $('#ddlbranch option:selected').val(),
             Program: $('#ddlprogram option:selected').val(),
-            Year: $('#ddlyear option:selected').val()
+            Year: $('#ddlyear option:selected').val(),
+            ExamID: examid
         }
         if (obj.Program == '0' || obj.Program == undefined) {
             alert('Please select program');
@@ -95,6 +103,17 @@
         }
         $.post('/Examination/GetStudent', obj).done(function(result) {
             $('#tblstudent').html(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var loadsubject = () =>{
+        $.post('/Examination/GetSubject').done(function(result) {
+            $('.ddlsubject').empty();
+            $('.ddlsubject').append('<option value="0">:: Select Subject ::</option>');
+            for (var i = 0; i < result.length; i++) {
+                $('.ddlsubject').append('<option value="' + result[i].subjectId + '">' + result[i].subjectName + '</option>')
+            }
         }).fail(function(xhr) {
             console.log(xhr.responseText)
         });

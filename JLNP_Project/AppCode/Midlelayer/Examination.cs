@@ -308,5 +308,102 @@ namespace JLNP_Project.AppCode.Midlelayer
             }
             return res;
         }
+        public ResponseStatus AssignExam(AssignExam req)
+        {
+            var res = new ResponseStatus();
+            string sp = @"if Exists(select 1 from tbl_AssignExam where EnrollemntNo = @EnrollemntNo and ExamID = @ExamID )
+                                begin Update tbl_AssignExam set ExamID = @ExamID,Program =@Program,Branch=@Branch,Year=@Year,IsAssign=@IsAssign where EnrollemntNo = @EnrollemntNo and ExamID = @ExamID end
+                                else begin Insert into tbl_AssignExam(EnrollemntNo,ExamID,Program,Branch,Year,EntryDate,IsAssign) values(@EnrollemntNo,@ExamID,@Program,@Branch,@Year,GETDATE(),@IsAssign) end";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@EnrollemntNo",req.EnrollemntNo),
+                new SqlParameter("@ExamID",req.ExamID),
+                new SqlParameter("@Program",req.ProgramId),
+                new SqlParameter("@Branch",req.Branch),
+                new SqlParameter("@Year",req.Year),
+                new SqlParameter("@IsAssign",req.IsAssign),
+            };
+            try
+            {
+                var _is = _helper.ExcQuery(sp, param);
+                if (_is)
+                {
+                    res.statuscode = 1;
+                    res.Msg = "Exam assigned successfully";
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return res;
+        }
+        public List<SubjectMaster> GetSubject()
+        {
+            var res = new List<SubjectMaster>();
+            string sp = "select * from tbl_SubjectMaster order by SubjectName";
+            try
+            {
+                var dt = _helper.ExcQueryWithoutParam(sp);
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow item in dt.Rows)
+                    {
+                        var data = new SubjectMaster
+                        {
+                            SubjectId = Convert.ToInt32(item["Id"]),
+                            SubjectName = Convert.ToString(item["SubjectName"]),
+                        };
+                        res.Add(data);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return res;
+        }
+        public ResponseStatus AddExamDetail(ExamDetail req)
+        {
+            var res = new ResponseStatus();
+            string sp = @"if Exists(select 1 from tbl_ExamDetail where ExamID = @ExamID and SubjectId = @SubjectId) begin Update tbl_ExamDetail set ExamID = @ExamID,SubjectId=@SubjectId,Date=@Date,Time = @Time,Duration = @Duration,RoomNo = @RoomNo,
+                            MinMarks=@MinMarks,MaxMarks = @MaxMarks where ExamID = @ExamId and SubjectId = @SubjectId end else begin insert into tbl_ExamDetail(ExamID,SubjectId,Date,Time,Duration,RoomNo,MinMarks,MaxMarks,Entrydate)
+                                values(@ExamID,@SubjectId,@Date,@Time,@Duration,@RoomNo,@MinMarks,@MaxMarks,GETDATE()) end";
+            
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@ExamID",req.ExamID),
+                new SqlParameter("@SubjectId",req.SubjectId),
+                new SqlParameter("@Date",req.Date),
+                new SqlParameter("@Time",req.Time),
+                new SqlParameter("@Duration",req.Duration),
+                new SqlParameter("@RoomNo",req.RoomNo),
+                new SqlParameter("@MinMarks",req.MinMarks),
+                new SqlParameter("@MaxMarks",req.MaxMarks)
+            };
+            try
+            {
+                var _is = _helper.ExcQuery(sp, param);
+                if (_is)
+                {
+                    res.statuscode = 1;
+                    res.Msg = "Exam detail saved successfully";
+                }
+                else
+                {
+                    res.statuscode = -1;
+                    res.Msg = "Exam detail saved failed";
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return res;
+        }
     }
 }

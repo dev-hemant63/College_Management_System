@@ -35,12 +35,11 @@
                 <hr />
                 <div class="row">
                     <div class="col-sm-12" style="display: flex; flex-direction: row-reverse;">
-                        <button type="button" class="btn btn-outline-primary mt-2" onclick="SearchStudent()" id="btnsearch">Search</button>
+                        <button type="button" class="btn btn-outline-primary mt-2" onclick="SearchStudent('@Model.ExamID')" id="btnsearch">Search</button>
                     </div>
                 </div>
                 <hr />
                 <div class="table-responsive" id="tblstudent">
-
                 </div>
                 <input type="hidden" class="form-control" id="hdnid" asp-for="@Model.ExamID" />
             </div>
@@ -54,6 +53,26 @@
             for (var i = 0; i < result.length; i++) {
                 $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
             }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var AssignExam = (i) => {
+        let table = [];
+        $('#tblstudent tbody tr').each(function() {
+            let curentrow = $(this);
+            let obj = {
+                ProgramId: $('#ddlprogram').val(),
+                Branch: $('#ddlbranch').val(),
+                Year: $('#ddlyear').val(),
+                EnrollemntNo: curentrow.find('td:eq(2)').text(),
+                IsAssign:$('#assign-'+i).is(':checked'),
+                ExamID:$('#hdnid').val()
+            };
+            table.push(obj);
+        });
+        $.post('/Examination/SaveAssignExam', {req:table}).done(function(result) {
+            alertnotify(result.statuscode,result.msg);
         }).fail(function(xhr) {
             console.log(xhr.responseText)
         });

@@ -6,13 +6,13 @@
         i++;
         <tr data-id="@item.Id">
             <td>@i</td>
-            <td>@item.ExamTitle</td>
-            <td>@item.ExamGroup</td>
-            <td>@item.EntryDate</td>
+            <td><span style="float: right;">@item.ExamTitle</span></td>
+            <td><span style="float: right;">@item.ExamGroup</span></td>
+            <td><span style="float: right;">@item.EntryDate</span></td>
             <td>
-                <div class="btn-group btn-group-sm" style="float: none;">
+                <div class="btn-group btn-group-sm" style="float: none; float: right;">
                     <button class="tabledit-edit-button btn btn-sm btn-warning btn_edit" title="Assign Exam" data-animation="pulse" title="Edit"  data-toggle="modal" data-target="#exampleModalLong-1" onclick="AssignExam('@item.Id')" style="float: none; margin: 4px;"><span class="ti-tag"></span></button>
-                    <button class="tabledit-edit-button btn btn-sm btn-secondary btn_edit" data-animation="pulse" title="Edit"  data-toggle="modal" data-target="#exampleModalLong-1" onclick="AddSubject('@item.Id')" title="Add Subject" style="float: none; margin: 4px;"><span class="ti-book"></span></button>
+                    <button class="tabledit-edit-button btn btn-sm btn-secondary btn_edit" data-animation="pulse" title="Add Subject"  data-toggle="modal" data-target="#exampleModalLong-1" onclick="AddSubject('@item.Id')" title="Add Subject" style="float: none; margin: 4px;"><span class="ti-book"></span></button>
                     <button class="tabledit-edit-button btn btn-sm btn-success btn_edit" data-animation="pulse" title="Edit"  data-toggle="modal" data-target="#exampleModalLong-1" onclick="AddExam('@item.Id')" style="float: none; margin: 4px;"><span class="ti-pencil"></span></button>
                     <button class="tabledit-delete-button btn btn-sm btn-danger" onclick="DeleteExam('@item.Id')" title="Delete"  style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
                 </div>

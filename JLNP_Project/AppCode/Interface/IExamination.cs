@@ -12,6 +12,9 @@ namespace JLNP_Project.AppCode.Interface
         ResponseStatus DeleteExamGroup(int id);
         ResponseStatus AddExam(Exam req);
         List<Exam> GetExam(int id);
+        List<SubjectMaster> GetSubject();
         ResponseStatus DeleteExam(int id);
+        ResponseStatus AssignExam(AssignExam req);
+        ResponseStatus AddExamDetail(ExamDetail req);
     }
 }

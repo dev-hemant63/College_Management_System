@@ -8,7 +8,7 @@ namespace JLNP_Project.AppCode.DAL
     public class Attendance_DAL
     {
         DBHelper _helpter = new DBHelper();
-        public Attendance GetStudentList(int BranchId, int Program, int Year, string Date)
+        public Attendance GetStudentList(int BranchId, int Program, int Year, string Date,int ExamId = 0)
         {
             var res = new Attendance
             {
@@ -22,7 +22,8 @@ namespace JLNP_Project.AppCode.DAL
                 new SqlParameter("@Branch",BranchId),
                 new SqlParameter("@Program",Program),
                 new SqlParameter("@Year",Year),
-                new SqlParameter("@Date",Date)
+                new SqlParameter("@Date",Date),
+                new SqlParameter("@examId",ExamId)
             };
             var dt = _helpter.ExcProc(Proc, param);
             if (dt.Rows.Count > 0)
@@ -37,6 +38,8 @@ namespace JLNP_Project.AppCode.DAL
                         {
                             Name = Convert.ToString(item["Name"]),
                             Entrolment_No = Convert.ToString(item["EntrollmentNo"]),
+                            IsAssign = Convert.ToBoolean(item["IsAssign"]),
+                            ExamId = Convert.ToInt16(item["ExamID"]),
                         };
                         res.Studentlist.Add(data);
                     }

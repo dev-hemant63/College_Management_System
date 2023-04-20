@@ -21,6 +21,8 @@
         public int Program { get; set; }
         public string Action { get; set; }
         public string ProgramName { get; set; }
+        public bool IsAssign { get; set; }
+        public int ExamId { get; set; }
     }
     public class StudentFineMdl: Student
     {
