@@ -19,7 +19,7 @@
                         <td>@i</td>
                         <td>
                             <div class="radio radio-info radio-inline">
-                                <input type="checkbox" class="radiocus" id="assign-@i" value="1" name="assign_@i">
+                                <input type="checkbox" class="radiocus" id="assign-@i" value="1" name="assign_@i" @Html.Raw(item.IsAssign ? "checked='checked'" : "")>
                             </div>
                         </td>
                         <td>@item.Entrolment_No</td>
@@ -29,6 +29,11 @@
             }
         </tbody>
     </table>
+    <div class="row">
+        <div class="col-sm-12" style="display: flex; flex-direction: row-reverse;">
+            <button type="button" class="btn btn-outline-primary mt-2" onclick="AssignExam('@i')" id="tbl">Save</button>
+        </div>
+    </div>
 }
 <script>
     var Checkall = () => {

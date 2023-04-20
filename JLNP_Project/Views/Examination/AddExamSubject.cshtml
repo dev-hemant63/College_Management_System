@@ -1,0 +1,147 @@
+﻿@model AssignExam
+<div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Assign Exam</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-sm-12" style="display: flex; flex-direction: row-reverse;">
+                        <button type="button" class="btn btn-outline-info mt-2" onclick="Addnewrow()" id="btnsearch">+ Add New</button>
+                    </div>
+                </div>
+                <p class="text-danger my-2"><b>Note: </b>Please enter duration in minutes and marks in numeric</p>
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="tbladdsubject">
+                            <thead class="bg-dark" style="color: white;">
+                                <tr>
+                                    <td>Subject</td>
+                                    <td>Date</td>
+                                    <td>Time</td>
+                                    <td>Duration</td>
+                                    <td>RoomNo</td>
+                                    <td>Marks(Min)</td>
+                                    <td>Marks(Max)</td>
+                                    <td>Action</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select class="form-control ddlsubject">
+                                            <option value="0">:: Select Subject ::</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="date" class="form-control date" />
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control time" />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control duration" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control room" />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control minmarks" />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control maxmarks" />
+                                    </td>
+                                    <td><i class="fa fa-times mx-3 text-danger deleterow" onclick="Deleterow()" style="font-size: 20px; cursor: pointer;" aria-hidden="true"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="display: flex; flex-direction: row-reverse;">
+                        <button type="button" class="btn btn-outline-primary mt-2" onclick="SaveExamDetails('@Model.ExamID')" id="btnsearch">Save</button>
+                    </div>
+                </div>
+                <hr />
+                <input type="hidden" class="form-control" id="hdnid" asp-for="@Model.ExamID" />
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#deleterow').click(function() {
+            $(this).closest('tr').remove();
+        });
+    });
+    var Addnewrow = () => {
+        $('#tbladdsubject tbody').append(`<tr> <td>  <select class="form-control ddlsubject" id="ddlsubject"> <option value="0">:: Select Subject ::</option> </select> </td>
+                                                        <td> <input type="date" class="form-control date" name="date" /> </td> <td> <input type="time" name="time" class="form-control time" /> </td>
+                                                        <td> <input type="number" class="form-control duration" name="number" /> </td> <td> <input type="text" name="room" class="form-control room" /> </td>
+                                                        <td> <input type="number" class="form-control minmarks" name="min"  /> </td> <td> <input type="number" name="max" class="form-control maxmarks" /> </td>
+                                                        <td><i class="fa fa-times mx-3 text-danger deleterow" onclick="Deleterow()" style="font-size: 20px; cursor: pointer;" aria-hidden="true"></i></td> </tr>`);
+        loadsubject();
+    }
+    //var Deleterow = () => {
+    //    alert(1);
+    //    $(this).closest('tr').remove();
+    //}
+    var SaveExamDetails = (ExamID) => {
+        var table = [];
+        let Isverify = false;
+        $('#tbladdsubject tbody tr').each(function() {
+            let curentrow = $(this);
+            let obj = {
+                ExamID:ExamID,
+                SubjectId: curentrow.find('.ddlsubject').val(),
+                Date: curentrow.find('.date').val(),
+                Time: curentrow.find('.time').val(),
+                Duration: curentrow.find('.duration').val(),
+                RoomNo: curentrow.find('.room').val(),
+                MinMarks: curentrow.find('.minmarks').val(),
+                MaxMarks: curentrow.find('.maxmarks').val(),
+            }
+            if (obj.SubjectId == '0') {
+                alert('Please select subject');
+                return false;
+            }
+            if (obj.Date == '') {
+                alert('Please select date');
+                return false;
+            }
+            if (obj.Time == '') {
+                alert('Please select time');
+                return false;
+            }
+            if (obj.Duration == '') {
+                alert('Please enter duration');
+                return false;
+            }
+            if (obj.Room == '') {
+                alert('Please enter room');
+                return false;
+            }
+            if (obj.MinMarks == '') {
+                alert('Please enter minmarks');
+                return false;
+            }
+            if (obj.MaxMarks == '') {
+                alert('Please enter maxmarks');
+                return false;
+            }
+            else{
+                Isverify = true;
+            }
+            table.push(obj);
+        });
+        if (Isverify) {
+            $.post('/Examination/SaveExamDetail', { req: table }).done(function(result) {
+                alertnotify(result.statuscode,result.msg);
+            }).fail(function(xhr) {
+                console(xhr.responseText);
+            });
+        }
+    }
+</script>

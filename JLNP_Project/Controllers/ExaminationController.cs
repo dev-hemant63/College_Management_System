@@ -144,11 +144,46 @@ namespace JLNP_Project.Controllers
             return PartialView(res);
         }
         [HttpPost]
-        public IActionResult GetStudent(int BranchId, int Program,int Year)
+        public IActionResult GetStudent(int BranchId, int Program,int Year,int ExamID)
         {
             Attendance_BAL _bal = new Attendance_BAL();
-            var res = _bal.GetStudentforAttendance(BranchId, Program, Year);
+            var res = _bal.GetStudentforAttendance(BranchId, Program, Year, "", ExamID);
             return PartialView(res);
+        }
+        [HttpPost]
+        public IActionResult SaveAssignExam(List<AssignExam> req)
+        {
+            var res = new ResponseStatus();
+            foreach (var item in req)
+            {
+                res = _exam.AssignExam(item);
+            }
+            return Json(res);
+        }
+        [HttpPost]
+        public IActionResult AddExamSubject(int Id)
+        {
+            var res = new AssignExam();
+            res.ExamID = Id;
+            IMasterML ml = new MasterML();
+            res.Program = ml.GetProgram();
+            return PartialView(res);
+        }
+        [HttpPost]
+        public IActionResult GetSubject()
+        {
+            var res = _exam.GetSubject();
+            return Json(res);
+        }
+        [HttpPost]
+        public IActionResult SaveExamDetail(List<ExamDetail> req)
+        {
+            var res = new ResponseStatus();
+            foreach (var item in req)
+            {
+                res = _exam.AddExamDetail(item);
+            }
+            return Json(res);
         }
         #endregion
     }
