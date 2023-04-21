@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+@model List<ExamGroupe>
+<div class="">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bgred">
+                    <h5 style="color:black;">Exam Schedule</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Exam Group</label>
+                            <select class="form-control" id="ddlexamgroup" onchange="bindexam()">
+                                <option value="0">:: Select Group ::</option>
+                                @{
+                                    foreach (var item in Model)
+                                    {
+                                            <option value="@item.Id">@item.ExamGroupes</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Exam</label>
+                            <select class="form-control" id="ddlexam">
+                                <option value="0">:: Select Exam ::</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 mt-4">
+                            <button class="btn btn-outline-warning btn-sm" onclick="loaddata()">Search</button>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="tblexamschedule">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Exam</th>
+                                    <th>Subject</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Duration(Mins)</th>
+                                    <th>RoomNo</th>
+                                    <th>MinMarks</th>
+                                    <th>MaxMarks</th>
+                                    <th>EntryDate</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var loaddata = () => {
+        $.post('/Examination/GetExamSchedule', { ExamId: $('#ddlexam').val() }).done(function(result) {
+            $('#tblexamschedule tbody').html(result);
+        }).fail(function(xhr) {
+            console(xhr.responseText);
+        });
+    }
+    var bindexam = () =>{
+        $.post('/Examination/BindExam', {Groupid:$('#ddlexamgroup').val()}).done(function(result) {
+            $('#ddlexam').empty();
+            $('#ddlexam').append('<option value="0">:: Select Exam ::</option>');
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlexam').append('<option value="' + result[i].id + '">' + result[i].examTitle + '</option>')
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+</script>

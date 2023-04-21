@@ -278,6 +278,37 @@ namespace JLNP_Project.AppCode.Midlelayer
             }
             return res;
         }
+        public List<Exam> BindExam(int Groupid)
+        {
+            var res = new List<Exam>();
+            string sp = "select t1.* from tbl_Exam t1 where t1.GroupId = IIF(@id = 0,t1.GroupId,@id) order by Id desc";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@id",Groupid)
+            };
+            try
+            {
+                var dt = _helper.ExcQueryDT(sp, param);
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow item in dt.Rows)
+                    {
+                        var data = new Exam
+                        {
+                            Id = Convert.ToInt32(item["Id"]),
+                            ExamTitle = Convert.ToString(item["Exam"])
+                        };
+                        res.Add(data);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return res;
+        }
         public ResponseStatus DeleteExam(int id)
         {
             var res = new ResponseStatus();
@@ -401,6 +432,46 @@ namespace JLNP_Project.AppCode.Midlelayer
             catch (Exception)
             {
 
+                throw;
+            }
+            return res;
+        }
+        public List<ExamDetail> GetExamdetail(int ExamId)
+        {
+            var res = new List<ExamDetail>();
+            string sp = @"select t1.*,t2.SubjectName,t3.Exam from tbl_ExamDetail t1
+                    inner join tbl_SubjectMaster t2 on t1.SubjectId = t2.Id
+					inner join tbl_Exam t3 on t1.ExamID = t3.Id where t1.ExamId = @Id";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@Id",ExamId)
+            };
+            try
+            {
+                var dt = _helper.ExcQueryDT(sp, param);
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow item in dt.Rows)
+                    {
+                        var data = new ExamDetail
+                        {
+                            ExamID = Convert.ToInt32(item["ExamID"]),
+                            Exam = Convert.ToString(item["Exam"]),
+                            Subjectname = Convert.ToString(item["SubjectName"]),
+                            Date = Convert.ToString(item["Date"]),
+                            Time = Convert.ToString(item["Time"]),
+                            Duration = Convert.ToInt32(item["Duration"]),
+                            RoomNo = Convert.ToString(item["RoomNo"]),
+                            MinMarks = Convert.ToInt32(item["MinMarks"]),
+                            MaxMarks = Convert.ToInt32(item["MaxMarks"]),
+                            Entrydate = Convert.ToString(item["Entrydate"]),
+                        };
+                        res.Add(data);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
                 throw;
             }
             return res;

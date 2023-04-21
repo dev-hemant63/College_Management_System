@@ -1,0 +1,20 @@
+﻿@model List<ExamDetail>
+@{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        i++;
+        <tr data-id="@item.Id">
+            <td>@i</td>
+            <td>@item.ExamID</td>
+            <td>@item.Subjectname</td>
+            <td>@item.Date</td>
+            <td>@item.Time</td>
+            <td>@item.Duration</td>
+            <td>@item.RoomNo</td>
+            <td>@item.MinMarks</td>
+            <td>@item.MaxMarks</td>
+            <td>@item.Entrydate</td>
+        </tr>
+    }
+}
