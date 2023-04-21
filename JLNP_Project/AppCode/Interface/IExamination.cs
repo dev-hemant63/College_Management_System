@@ -16,5 +16,7 @@ namespace JLNP_Project.AppCode.Interface
         ResponseStatus DeleteExam(int id);
         ResponseStatus AssignExam(AssignExam req);
         ResponseStatus AddExamDetail(ExamDetail req);
+        List<ExamDetail> GetExamdetail(int ExamId);
+        List<Exam> BindExam(int Groupid);
     }
 }

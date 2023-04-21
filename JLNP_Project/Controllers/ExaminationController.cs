@@ -163,10 +163,10 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult AddExamSubject(int Id)
         {
-            var res = new AssignExam();
+            var res = new ExamDetailViewModel();
+            res.subject = _exam.GetSubject();
+            res.data = _exam.GetExamdetail(Id);
             res.ExamID = Id;
-            IMasterML ml = new MasterML();
-            res.Program = ml.GetProgram();
             return PartialView(res);
         }
         [HttpPost]
@@ -183,6 +183,24 @@ namespace JLNP_Project.Controllers
             {
                 res = _exam.AddExamDetail(item);
             }
+            return Json(res);
+        }
+        [HttpGet]
+        public IActionResult ExamSchedule()
+        {
+            var res = _exam.GetExamGroup(0);
+            return View(res);
+        }
+        [HttpPost]
+        public IActionResult GetExamSchedule(int ExamId)
+        {
+            var res = _exam.GetExamdetail(ExamId);
+            return PartialView(res);
+        }
+        [HttpPost]
+        public IActionResult BindExam(int Groupid)
+        {
+            var res = _exam.BindExam(Groupid);
             return Json(res);
         }
         #endregion

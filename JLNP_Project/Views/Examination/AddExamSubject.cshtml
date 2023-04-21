@@ -1,4 +1,4 @@
-﻿@model AssignExam
+﻿@model ExamDetailViewModel
 <div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
@@ -29,32 +29,43 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <select class="form-control ddlsubject">
-                                            <option value="0">:: Select Subject ::</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="date" class="form-control date" />
-                                    </td>
-                                    <td>
-                                        <input type="time" class="form-control time" />
-                                    </td>
-                                    <td>
-                                        <input type="number" class="form-control duration" />
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control room" />
-                                    </td>
-                                    <td>
-                                        <input type="number" class="form-control minmarks" />
-                                    </td>
-                                    <td>
-                                        <input type="number" class="form-control maxmarks" />
-                                    </td>
-                                    <td><i class="fa fa-times mx-3 text-danger deleterow" onclick="Deleterow()" style="font-size: 20px; cursor: pointer;" aria-hidden="true"></i></td>
-                                </tr>
+                                @{
+                                    foreach (var item in Model.data)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <select class="form-control ddlsubject" asp-for="@item.SubjectId">
+                                                    <option value="0">:: Select Subject ::</option>
+                                                    @{
+                                                        foreach (var items in Model.subject)
+                                                        {
+                                                            <option value="@items.SubjectId">@items.SubjectName</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="date" class="form-control date" asp-for="@item.Date" />
+                                            </td>
+                                            <td>
+                                                <input type="time" class="form-control time" asp-for="@item.Time" />
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control duration"  asp-for="@item.Duration"/>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control room" asp-for="@item.RoomNo" />
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control minmarks" asp-for="@item.MinMarks" />
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control maxmarks" asp-for="@item.MaxMarks" />
+                                            </td>
+                                            <td><i class="fa fa-times mx-3 text-danger deleterow" onclick="Deleterow()" style="font-size: 20px; cursor: pointer;" aria-hidden="true"></i></td>
+                                        </tr>
+                                    }
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -78,10 +89,10 @@
     });
     var Addnewrow = () => {
         $('#tbladdsubject tbody').append(`<tr> <td>  <select class="form-control ddlsubject" id="ddlsubject"> <option value="0">:: Select Subject ::</option> </select> </td>
-                                                        <td> <input type="date" class="form-control date" name="date" /> </td> <td> <input type="time" name="time" class="form-control time" /> </td>
-                                                        <td> <input type="number" class="form-control duration" name="number" /> </td> <td> <input type="text" name="room" class="form-control room" /> </td>
-                                                        <td> <input type="number" class="form-control minmarks" name="min"  /> </td> <td> <input type="number" name="max" class="form-control maxmarks" /> </td>
-                                                        <td><i class="fa fa-times mx-3 text-danger deleterow" onclick="Deleterow()" style="font-size: 20px; cursor: pointer;" aria-hidden="true"></i></td> </tr>`);
+                                                            <td> <input type="date" class="form-control date" name="date" /> </td> <td> <input type="time" name="time" class="form-control time" /> </td>
+                                                            <td> <input type="number" class="form-control duration" name="number" /> </td> <td> <input type="text" name="room" class="form-control room" /> </td>
+                                                            <td> <input type="number" class="form-control minmarks" name="min"  /> </td> <td> <input type="number" name="max" class="form-control maxmarks" /> </td>
+                                                            <td><i class="fa fa-times mx-3 text-danger deleterow" onclick="Deleterow()" style="font-size: 20px; cursor: pointer;" aria-hidden="true"></i></td> </tr>`);
         loadsubject();
     }
     //var Deleterow = () => {
@@ -94,7 +105,7 @@
         $('#tbladdsubject tbody tr').each(function() {
             let curentrow = $(this);
             let obj = {
-                ExamID:ExamID,
+                ExamID: ExamID,
                 SubjectId: curentrow.find('.ddlsubject').val(),
                 Date: curentrow.find('.date').val(),
                 Time: curentrow.find('.time').val(),
@@ -131,14 +142,14 @@
                 alert('Please enter maxmarks');
                 return false;
             }
-            else{
+            else {
                 Isverify = true;
             }
             table.push(obj);
         });
         if (Isverify) {
             $.post('/Examination/SaveExamDetail', { req: table }).done(function(result) {
-                alertnotify(result.statuscode,result.msg);
+                alertnotify(result.statuscode, result.msg);
             }).fail(function(xhr) {
                 console(xhr.responseText);
             });

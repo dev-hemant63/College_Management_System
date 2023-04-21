@@ -51,7 +51,9 @@
     {
         public int Id { get; set; }
         public int ExamID { get; set; }
+        public string Exam { get; set; }
         public int SubjectId { get; set; }
+        public string Subjectname { get; set; }
         public string Date { get; set; }
         public string Time { get; set; }
         public int Duration { get; set; }
@@ -59,5 +61,11 @@
         public int MinMarks { get; set; }
         public int MaxMarks { get; set; }
         public string Entrydate { get; set; }
+    }
+    public class ExamDetailViewModel
+    {
+        public List<ExamDetail> data { get; set; }
+        public List<SubjectMaster> subject { get; set; }
+        public int ExamID { get; set; }
     }
 }
