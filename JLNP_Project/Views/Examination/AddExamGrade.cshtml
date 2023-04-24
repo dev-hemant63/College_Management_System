@@ -1,0 +1,29 @@
+﻿<div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Exam Grade</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <label>Exam Type<span style="color:red;">*</span></label>
+                <select class="form-control">
+                    <option value="0">:: Select ExamType ::</option>
+                </select>
+                <label>Grade Name</label>
+                <input type="text" class="form-control" id="textgradename" />
+                <label>Precent Upto(%)</label>
+                <input type="number" class="form-control" id="textprecentupto" />
+                <label>Precent From(%)</label>
+                <input type="number" class="form-control" id="textprecentfrom" />
+                <label>Grade Point</label>
+                <input type="number" class="form-control" id="txtgradepoint" />
+                <label>Description</label>
+                <textarea type="text" class="form-control" id="description"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" onclick="AddExamgrade()" id="btnsave">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

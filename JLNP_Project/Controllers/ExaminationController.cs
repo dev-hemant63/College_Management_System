@@ -204,5 +204,17 @@ namespace JLNP_Project.Controllers
             return Json(res);
         }
         #endregion
+        #region ExamGrade
+        [HttpGet]
+        public IActionResult ExamGrade()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddExamGrade(int Id)
+        {
+            return PartialView();
+        }
+        #endregion
     }
 }
