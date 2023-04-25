@@ -132,6 +132,21 @@ namespace JLNP_Project.Controllers
             return PartialView("GetExam", res);
         }
         [HttpPost]
+        public IActionResult ExamMarks(int ExamId)
+        {
+            var res = new AssignExam();
+            res.ExamID = ExamId;
+            IMasterML ml = new MasterML();
+            res.Program = ml.GetProgram();
+            return PartialView(res);
+        }
+        [HttpPost]
+        public IActionResult ExamSubjects(int ExamId)
+        {
+            var res = _exam.GetExamdetail(ExamId);
+            return PartialView(res);
+        }
+        [HttpPost]
         public IActionResult DeleteExams(int Id)
         {
             var res = _exam.DeleteExam(Id);
@@ -156,10 +171,11 @@ namespace JLNP_Project.Controllers
             return PartialView(res);
         }
         [HttpPost]
-        public IActionResult GetStudent(int BranchId, int Program,int Year,int ExamID)
+        public IActionResult GetStudent(int BranchId, int Program,int Year,int ExamID,bool IsMarks)
         {
             Attendance_BAL _bal = new Attendance_BAL();
             var res = _bal.GetStudentforAttendance(BranchId, Program, Year, "", ExamID);
+            res.IsMarks = IsMarks;
             return PartialView(res);
         }
         [HttpPost]

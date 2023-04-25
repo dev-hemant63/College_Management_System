@@ -1,0 +1,60 @@
+﻿@model AssignExam
+<div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Exam Marks</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <select class="form-control" id="ddlprogram" onchange="Bindbranch()">
+                            <option value="0">:: Select Progarm ::</option>
+                            @foreach (var item in Model.Program)
+                            {
+                                <option value="@item.Id">@item.Program</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="ddlbranch">
+                            <option value="0">:: Select Branch ::</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="ddlyear">
+                            <option value="0">:: Select Year ::</option>
+                            <option value="1">First Year</option>
+                            <option value="2">Second Year</option>
+                            <option value="3">Third Year</option>
+                            <option value="4">Final Year</option>
+                        </select>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-12" style="display: flex; flex-direction: row-reverse;">
+                        <button type="button" class="btn btn-outline-primary mt-2" onclick="SearchStudent('@Model.ExamID','true')" id="btnsearch">Search</button>
+                    </div>
+                </div>
+                <hr />
+                <div class="table-responsive" id="tblstudent">
+                </div>
+                <input type="hidden" class="form-control" id="hdnid" asp-for="@Model.ExamID" />
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var Bindbranch = () => {
+        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlprogram option:selected').val() }).done(function(result) {
+            $('#ddlbranch').empty();
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+</script>

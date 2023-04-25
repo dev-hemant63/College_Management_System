@@ -4,9 +4,18 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th><input type="checkbox" class="radiocus" id="assign-all" onclick="Checkall()" value="1"> Action</th>
+                @if (!Model.IsMarks)
+                {
+                    <th><input type="checkbox" class="radiocus" id="assign-all" onclick="Checkall()" value="1"> Action</th>
+                }
                 <th>Enrollment</th>
                 <th>Name</th>
+                @if (Model.IsMarks)
+                {
+                    <th>Attendance</th>
+                    <th>Marks</th>
+                    <th>Note</th>
+                }
             </tr>
         </thead>
         <tbody>
@@ -17,13 +26,26 @@
                     i++;
                     <tr data-id="@item.Entrolment_No">
                         <td>@i</td>
-                        <td>
-                            <div class="radio radio-info radio-inline">
-                                <input type="checkbox" class="radiocus" id="assign-@i" value="1" name="assign_@i" @Html.Raw(item.IsAssign ? "checked='checked'" : "")>
-                            </div>
-                        </td>
+                        @if (!Model.IsMarks)
+                        {
+                            <td>
+                                <div class="radio radio-info radio-inline">
+                                    <input type="checkbox" class="radiocus" id="assign-@i" value="1" name="assign_@i" @Html.Raw(item.IsAssign ? "checked='checked'" : "")>
+                                </div>
+                            </td>
+                        }
                         <td>@item.Entrolment_No</td>
                         <td>@item.Name</td>
+                        @if (Model.IsMarks)
+                        {
+                            <td>
+                                <div class="radio radio-info radio-inline">
+                                    <input type="checkbox" class="radiocus" id="absent_@i" value="1" name="absent_@i">
+                                </div>
+                            </td>
+                            <td><input type="number" class="form-control" id="marks_@i"></td>
+                            <td><input type="text" class="form-control" id="note_@i"></td>
+                        }
                     </tr>
                 }
             }
@@ -31,7 +53,13 @@
     </table>
     <div class="row">
         <div class="col-sm-12" style="display: flex; flex-direction: row-reverse;">
-            <button type="button" class="btn btn-outline-primary mt-2" onclick="AssignExam('@i')" id="tbl">Save</button>
+            @if (Model.IsMarks)
+            {
+                <button type="button" class="btn btn-outline-primary mt-2" onclick="Savemarks('@i')" id="tbl">Save</button>
+            }
+            else{
+                <button type="button" class="btn btn-outline-primary mt-2" onclick="AssignExam('@i')" id="tbl">Save</button>
+            }
         </div>
     </div>
 }
