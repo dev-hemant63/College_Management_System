@@ -29,8 +29,12 @@ namespace JLNP_Project.Controllers
         #region ExamType
         public IActionResult ExamType()
         {
-            var res = _exam.GetExamType(0);
-            return View(res);
+            if (_lr.LoginTypeId == 1)
+            {
+                var res = _exam.GetExamType(0);
+                return View(res);
+            }
+            return RedirectToAction("Error", "Home");
         }
         public IActionResult AddExamType(int ID)
         {
@@ -60,16 +64,20 @@ namespace JLNP_Project.Controllers
             return PartialView(res);
         }
         public IActionResult AddExamGroup(int ID)
-        {
-            var model = new ExamGroupe();
-            model.ExamTypes = _exam.GetExamType(0);
-            if (ID != 0)
+        {            
+            if (_lr.LoginTypeId == 1)
             {
-                var res = _exam.GetExamGroup(ID);
-                model = res.FirstOrDefault();
+                var model = new ExamGroupe();
                 model.ExamTypes = _exam.GetExamType(0);
+                if (ID != 0)
+                {
+                    var res = _exam.GetExamGroup(ID);
+                    model = res.FirstOrDefault();
+                    model.ExamTypes = _exam.GetExamType(0);
+                }
+                return View(model);
             }
-            return View(model);
+            return RedirectToAction("Error", "Home");
         }
         public IActionResult DeleteExamGroup(int ID)
         {
@@ -147,7 +155,11 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult Exam()
         {
-            return View();
+            if (_lr.LoginTypeId == 1)
+            {
+                return View();
+            }
+            return RedirectToAction("Error", "Home");
         }
         [HttpPost]
         public IActionResult AssignExam(int Id)
@@ -204,8 +216,12 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult ExamSchedule()
         {
-            var res = _exam.GetExamGroup(0);
-            return View(res);
+            if (_lr.LoginTypeId == 1)
+            {
+                var res = _exam.GetExamGroup(0);
+                return View(res);
+            }
+            return RedirectToAction("Error", "Home");
         }
         [HttpPost]
         public IActionResult GetExamSchedule(int ExamId)
@@ -218,6 +234,22 @@ namespace JLNP_Project.Controllers
         {
             var res = _exam.BindExam(Groupid);
             return Json(res);
+        }
+        #endregion
+        #region ExamGrade
+        [HttpGet]
+        public IActionResult ExamGrade()
+        {
+            if (_lr.LoginTypeId == 1)
+            {
+                return View();
+            }
+            return RedirectToAction("Error","Home");
+        }
+        [HttpPost]
+        public IActionResult AddExamGrade(int Id)
+        {
+            return PartialView();
         }
         #endregion
     }

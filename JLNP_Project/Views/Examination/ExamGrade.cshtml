@@ -1,0 +1,54 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+@model List<ExamGroupe>
+<div class="">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bgred">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h4 style="color:black;">Exam Grade</h4>
+                        </div>
+                        <div class="col-sm-9">
+                            <button class="btn btn-outline-primary" id="Addnew" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="AddNew(0)" style="float: right;">
+                                + Add New
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="tblexamschedule">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Exam Type</th>
+                                            <th>Grade Name</th>
+                                            <th>Precent From/Upto</th>
+                                            <th>Grade Point</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var AddNew = (id) => {
+        $.post('/Examination/AddExamGrade', { Id: id }).done(function(result) {
+            showModel(result);
+        }).fail(function(xhr) {
+            console(xhr.responseText);
+        });
+    }
+</script>

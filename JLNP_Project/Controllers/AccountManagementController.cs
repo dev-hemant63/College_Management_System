@@ -32,9 +32,13 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                IMasterML ml = new MasterML();
-                var res = ml.GetProgram();
-                return View(res);
+                if (_lr.LoginTypeId == 1)
+                {
+                    IMasterML ml = new MasterML();
+                    var res = ml.GetProgram();
+                    return View(res);
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -69,9 +73,13 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                IMasterML ml = new MasterML();
-                var res = ml.GetProgram();
-                return View(res);
+                if(_lr.LoginTypeId == 1)
+                {
+                    IMasterML ml = new MasterML();
+                    var res = ml.GetProgram();
+                    return View(res);
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -123,11 +131,15 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                FeesViewModel model = new FeesViewModel();
-                IMasterML ml = new MasterML();
-                model.program = ml.GetProgram();
-                model.RoleID = _lr.UserId;
-                return View(model);
+                if (_lr.LoginTypeId == 1)
+                {
+                    FeesViewModel model = new FeesViewModel();
+                    IMasterML ml = new MasterML();
+                    model.program = ml.GetProgram();
+                    model.RoleID = _lr.UserId;
+                    return View(model);
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -215,7 +227,11 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                return View();
+                if (_lr.LoginTypeId == 1)
+                {
+                    return View();
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -231,9 +247,13 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                AccountManagement_BAL AmDAL = new AccountManagement_BAL();
-                var dt = AmDAL.FeesStructure();
-                return View(dt);
+                if (_lr.LoginTypeId == 1)
+                {
+                    AccountManagement_BAL AmDAL = new AccountManagement_BAL();
+                    var dt = AmDAL.FeesStructure();
+                    return View(dt);
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -242,26 +262,34 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                AccountManagement_BAL AmDAL = new AccountManagement_BAL();
-                var dt = AmDAL.FeesStructure();
-                return View(dt);
+                if (_lr.LoginTypeId == 1)
+                {
+                    AccountManagement_BAL AmDAL = new AccountManagement_BAL();
+                    var dt = AmDAL.FeesStructure();
+                    return View(dt);
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
         [HttpGet]
         public IActionResult GetFeesHeadById(int ID)
         {
-            AccountManagement accountManagement = new AccountManagement
+            if(_lr.LoginTypeId == 1)
             {
-                Id = ID
-            };
-            AccountManagement_BAL AmDAL = new AccountManagement_BAL();
-            EditFeesHead model = new EditFeesHead();
-            accountManagement.Action = "GetById";
-            IMasterML ml = new MasterML();
-            model.program = ml.GetProgram();
-            model.data= AmDAL.GetFeesHeadById_BAL(accountManagement);
-            return View(model);
+                AccountManagement accountManagement = new AccountManagement
+                {
+                    Id = ID
+                };
+                AccountManagement_BAL AmDAL = new AccountManagement_BAL();
+                EditFeesHead model = new EditFeesHead();
+                accountManagement.Action = "GetById";
+                IMasterML ml = new MasterML();
+                model.program = ml.GetProgram();
+                model.data = AmDAL.GetFeesHeadById_BAL(accountManagement);
+                return View(model);
+            }            
+            return RedirectToAction("Error", "Home");
         }
         [HttpPost]
         public IActionResult SaveFeesHead(AccountManagement accountManagement)

@@ -33,8 +33,12 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                var res = adbal.DashboardSummary_Bal();
-                return View(res);
+                if (_lr.LoginTypeId == 1)
+                {
+                    var res = adbal.DashboardSummary_Bal();
+                    return View(res);
+                }                
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -42,9 +46,13 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                IMasterML ml = new MasterML();
-                var res = ml.GetProgram();
-                return View(res);
+                if (_lr.LoginTypeId == 1)
+                {
+                    IMasterML ml = new MasterML();
+                    var res = ml.GetProgram();
+                    return View(res);
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -112,9 +120,13 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                IMasterML ml = new MasterML();
-                var res = ml.GetProgram();
-                return View(res);
+                if(_lr.LoginTypeId == 1)
+                {
+                    IMasterML ml = new MasterML();
+                    var res = ml.GetProgram();
+                    return View(res);
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -136,12 +148,16 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                AssignSubjectViewModel model = new AssignSubjectViewModel();
-                IMasterML ml = new MasterML();
-                Admin_BAL adbal = new Admin_BAL();
-                model.Teachers = adbal.Bind_Teacher_Bal();
-                model.ProgramMasters = ml.GetProgram();
-                return View(model);
+                if (_lr.LoginTypeId == 1)
+                {
+                    AssignSubjectViewModel model = new AssignSubjectViewModel();
+                    IMasterML ml = new MasterML();
+                    Admin_BAL adbal = new Admin_BAL();
+                    model.Teachers = adbal.Bind_Teacher_Bal();
+                    model.ProgramMasters = ml.GetProgram();
+                    return View(model);
+                }                
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -149,9 +165,13 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                Admin_BAL adbal = new Admin_BAL();
-                var res = adbal.GetAssignment_Bal();
-                return View(res);
+                if(_lr.LoginTypeId == 1)
+                {
+                    Admin_BAL adbal = new Admin_BAL();
+                    var res = adbal.GetAssignment_Bal();
+                    return View(res);
+                }                
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -159,10 +179,14 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                string Action = "Get";
-                IStudent resq = new StudentML();
-                var respons = resq.GetStudentFines(Action);
-                return View(respons);
+                if (_lr.LoginTypeId == 1)
+                {
+                    string Action = "Get";
+                    IStudent resq = new StudentML();
+                    var respons = resq.GetStudentFines(Action);
+                    return View(respons);
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -262,7 +286,11 @@ namespace JLNP_Project.Controllers
         }
         public IActionResult GetUsers()
         {
-            return View();
+            if (_lr.LoginTypeId == 1)
+            {
+                return View();
+            }
+            return RedirectToAction("Error", "Home");
         }
         [HttpPost]
         public IActionResult _GetUsers(string UserName = "", string Mobile = "")
@@ -278,6 +306,11 @@ namespace JLNP_Project.Controllers
             Admin_BAL adbal = new Admin_BAL();
             var response = adbal.UpdateUserStatus(UserID, IsActive);
             return Json(response);
+        }
+        [HttpGet]
+        public IActionResult TeacherDash()
+        {
+            return View();
         }
     }
 }

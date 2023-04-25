@@ -29,9 +29,13 @@ namespace JLNP_Project.Controllers
         {
             if (_lr != null)
             {
-                IMasterML ml = new MasterML();
-                var res = ml.GetProgram();
-                return View(res);
+                if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
+                {
+                    IMasterML ml = new MasterML();
+                    var res = ml.GetProgram();
+                    return View(res);
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -52,9 +56,13 @@ namespace JLNP_Project.Controllers
         {
             if (_lr != null)
             {
-                IMasterML ml = new MasterML();
-                var res = ml.GetProgram();
-                return View(res);
+                if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
+                {
+                    IMasterML ml = new MasterML();
+                    var res = ml.GetProgram();
+                    return View(res);
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -69,9 +77,13 @@ namespace JLNP_Project.Controllers
         {
             if (_lr != null)
             {
-                IMasterML ml = new MasterML();
-                var res = ml.GetProgram();
-                return View(res);
+                if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
+                {
+                    IMasterML ml = new MasterML();
+                    var res = ml.GetProgram();
+                    return View(res);
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
