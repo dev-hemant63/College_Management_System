@@ -14,7 +14,14 @@ namespace JLNP_Project.Controllers
         public TeacherController(IHttpContextAccessor accessor)
         {
             _accessor = accessor;
-            _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString("Userdata"));
+            if (_accessor.HttpContext.Session.GetString("Userdata") != null)
+            {
+                _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString("Userdata"));
+            }
+            else
+            {
+                RedirectToAction("SessionExpired", "Home");
+            }
         }
         public IActionResult teacherlist()
         {

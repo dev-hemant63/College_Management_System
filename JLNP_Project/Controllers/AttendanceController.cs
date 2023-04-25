@@ -17,7 +17,14 @@ namespace JLNP_Project.Controllers
             _accessor = accessor;
             try
             {
-                _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString("Userdata"));
+                if (_accessor.HttpContext.Session.GetString("Userdata") != null)
+                {
+                    _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString("Userdata"));
+                }
+                else
+                {
+                    RedirectToAction("SessionExpired", "Home");
+                }
             }
             catch (Exception ex)
             {

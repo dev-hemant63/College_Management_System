@@ -129,5 +129,10 @@ namespace JLNP_Project.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult SessionExpired()
+        {
+            return View();
+        }
     }
 }
