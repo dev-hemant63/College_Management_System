@@ -79,12 +79,13 @@
             console(xhr.responseText);
         });
     }
-    var SearchStudent = (examid) => {
+    var SearchStudent = (examid,_is) => {
         let obj = {
             BranchId: $('#ddlbranch option:selected').val(),
             Program: $('#ddlprogram option:selected').val(),
             Year: $('#ddlyear option:selected').val(),
-            ExamID: examid
+            ExamID: examid,
+            IsMarks:_is
         }
         if (obj.Program == '0' || obj.Program == undefined) {
             alert('Please select program');
@@ -116,6 +117,22 @@
             }
         }).fail(function(xhr) {
             console.log(xhr.responseText)
+        });
+    }
+    var ExamSubject = (id) =>{
+        $.post('/Examination/ExamSubjects', { ExamId: id }).done(function(result) {
+            showModel(result);
+            loadsubject();
+        }).fail(function(xhr) {
+            console(xhr.responseText);
+        });
+    }
+    var ExamMarks = (id) =>{
+        $.post('/Examination/ExamMarks', { ExamId: id }).done(function(result) {
+            showModel(result);
+            loadsubject();
+        }).fail(function(xhr) {
+            console(xhr.responseText);
         });
     }
 </script>

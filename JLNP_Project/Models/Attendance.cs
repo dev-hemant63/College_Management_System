@@ -3,6 +3,7 @@
     public class Attendance:ResponseStatus
     {
         public List<Student> Studentlist { get; set; }
+        public bool IsMarks { get; set; }
     }
     public class AttendanceReq:LoginInfo
     {

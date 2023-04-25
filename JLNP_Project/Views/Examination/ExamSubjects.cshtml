@@ -1,0 +1,54 @@
+﻿@model List<ExamDetail>
+<div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Exam Subjects</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="tblexamschedule">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Subject</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Duration(Mins)</th>
+                                    <th>RoomNo</th>
+                                    <th>MinMarks</th>
+                                    <th>MaxMarks</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int i = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        i++;
+                                        <tr data-id="@item.Id">
+                                            <td>@i</td>
+                                            <td>@item.Subjectname</td>
+                                            <td>@item.Date</td>
+                                            <td>@item.Time</td>
+                                            <td>@item.Duration</td>
+                                            <td>@item.RoomNo</td>
+                                            <td>@item.MinMarks</td>
+                                            <td>@item.MaxMarks</td>
+                                            <td>
+                                                <button class="tabledit-edit-button btn btn-sm btn-secondary btn_edit" data-animation="pulse" title="Exam Marks" data-toggle="modal" data-target="#exampleModalLong-1" onclick="ExamMarks('@Model.FirstOrDefault().ExamID')" title="Add Subject" style="float: none; margin: 4px;"><span class="ti-book"></span></button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
