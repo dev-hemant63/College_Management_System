@@ -29,9 +29,13 @@ namespace JLNP_Project.Controllers
         {
             if (Request.Cookies["UserName"] != null)
             {
-                IMasterML ml = new MasterML();
-                var res = ml.GetProgram();
-                return View(res);
+                if (_lr.LoginTypeId == 1)
+                {
+                    IMasterML ml = new MasterML();
+                    var res = ml.GetProgram();
+                    return View(res);
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }

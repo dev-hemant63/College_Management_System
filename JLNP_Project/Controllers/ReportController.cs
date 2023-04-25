@@ -22,7 +22,11 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                return View();
+                if (_lr.LoginTypeId ==1 || _lr.LoginTypeId == 2)
+                {
+                    return View();
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -30,7 +34,11 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                return View();
+                if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
+                {
+                    return View();
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -74,9 +82,13 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                IMasterML ml = new MasterML();
-                var res = ml.GetProgram();
-                return View(res);
+                if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
+                {
+                    IMasterML ml = new MasterML();
+                    var res = ml.GetProgram();
+                    return View(res);
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -102,7 +114,11 @@ namespace JLNP_Project.Controllers
             var resp = rep.GetAttandanceReport_Bal();
             if (_lr.UserName != null)
             {
-                return View(resp);
+                if (_lr.LoginTypeId == 1)
+                {
+                    return View(resp);
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -112,7 +128,11 @@ namespace JLNP_Project.Controllers
             var resp = rep.GetFilterAttandanceReport_Bal(BranchId, Year, SubjectId, Date, Action);
             if (_lr.UserName != null)
             {
-                return View("GetAttandanceReport", resp);
+                if (_lr.LoginTypeId == 1)
+                {
+                    return View("GetAttandanceReport", resp);
+                }                
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -120,14 +140,22 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                return View();
+                if (_lr.LoginTypeId ==1)
+                {
+                    return View();
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
         [HttpGet]
         public IActionResult SyllabusReport()
         {
-            return View();
+            if (_lr.LoginTypeId == 1)
+            {
+                return View();
+            }
+            return RedirectToAction("Error", "Home");
         }
         [HttpPost]
         public IActionResult GetSyllabusMaster(int ID = 0, string Path = "", int BranchID = 0)
@@ -141,7 +169,11 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                return View();
+                if (_lr.LoginTypeId == 1)
+                {
+                    return View();
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
