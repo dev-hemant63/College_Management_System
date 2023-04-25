@@ -98,10 +98,7 @@
             preloader.load();
             $.post('/Teacher/_AddTeacher', obj).done(function(result) {
                 preloader.remove();
-                window.location.replace("/Teacher/teacherlist");
-                if (result.statuscode == "1") {
-                    alertnotify(result.statuscode,result.msg);
-                }
+                alertnotify(result.statuscode,result.msg);
             }).fail(function(xhr) {
                 console.log(xhr.responseText);
             });

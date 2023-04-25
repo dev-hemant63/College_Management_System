@@ -34,9 +34,13 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                IMasterML ml = new MasterML();
-                var res = ml.GetProgram();
-                return View(res);
+                if (_lr.LoginTypeId == 1)
+                {
+                    IMasterML ml = new MasterML();
+                    var res = ml.GetProgram();
+                    return View(res);
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -44,9 +48,13 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                IMasterML ml = new MasterML();
-                var res = ml.GetProgram();
-                return View(res);
+                if (_lr.LoginTypeId == 1)
+                {
+                    IMasterML ml = new MasterML();
+                    var res = ml.GetProgram();
+                    return View(res);
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -82,13 +90,17 @@ namespace JLNP_Project.Controllers
         }
         public IActionResult GetSubjectMaster_ById(SubjectMaster subjectMaster)
         {
-            EditSubjectViewModel obj = new EditSubjectViewModel();
-            Master_BAL msdal = new Master_BAL();
-            IMasterML ml = new MasterML();
-            obj.programs = ml.GetProgram();
-            subjectMaster.Action = "GetById";
-            obj.data = msdal.GetSubject_Bal_ById(subjectMaster);
-            return View(obj);
+            if (_lr.LoginTypeId == 1)
+            {
+                EditSubjectViewModel obj = new EditSubjectViewModel();
+                Master_BAL msdal = new Master_BAL();
+                IMasterML ml = new MasterML();
+                obj.programs = ml.GetProgram();
+                subjectMaster.Action = "GetById";
+                obj.data = msdal.GetSubject_Bal_ById(subjectMaster);
+                return View(obj);
+            }
+            return RedirectToAction("Error", "Home");
         }
         [HttpPost]
         public IActionResult EditSubjectMaster(SubjectMaster subjectMaster)
@@ -109,7 +121,11 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult NotificationMaster()
         {
-            return View();
+            if (_lr.LoginTypeId != 3)
+            {
+                return View();
+            }
+            return RedirectToAction("Error", "Home");
         }
         [HttpPost]
         public IActionResult NotificationMaster(NotificationMaster model)
@@ -175,9 +191,13 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult SyllabusMaster()
         {
-            IMasterML ml = new MasterML();
-            var res = ml.GetProgram();
-            return View(res);
+            if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
+            {
+                IMasterML ml = new MasterML();
+                var res = ml.GetProgram();
+                return View(res);
+            }
+            return RedirectToAction("Error", "Home");
         }
         [HttpPost]
         public IActionResult SyllabusMaster(IFormFile Files, int Branch, int Subject, int Year, int Program)
@@ -323,9 +343,13 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult VideoLecture()
         {
-            IMasterML ml = new MasterML();
-            var res = ml.GetProgram();
-            return View(res);
+            if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
+            {
+                IMasterML ml = new MasterML();
+                var res = ml.GetProgram();
+                return View(res);
+            }
+            return RedirectToAction("Error", "Home");
         }
         [HttpPost]
         public IActionResult SaveAndUpdateVideoLecture(CommanMasterReq request)
@@ -366,7 +390,11 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult ProgramMaster()
         {
-            return View();
+            if (_lr.LoginTypeId == 1)
+            {
+                return View();
+            }
+            return RedirectToAction("Error", "Home");
         }
         [HttpPost]
         public IActionResult AddAndUpdateProgram(ProgramMaster programMaster)
@@ -400,9 +428,13 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult ProgramBranchMapping()
         {
-            IMasterML ml = new MasterML();
-            var res = ml.GetProgram();
-            return View(res);
+            if (_lr.LoginTypeId ==1)
+            {
+                IMasterML ml = new MasterML();
+                var res = ml.GetProgram();
+                return View(res);
+            }
+            return RedirectToAction("Error", "Home");
         }
         [HttpPost]
         public IActionResult SaveProgramBranchMapping(ProgramBranchMapping req)
@@ -441,7 +473,11 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult BatchMaster()
         {
-            return View();
+            if (_lr.LoginTypeId == 1)
+            {
+                return View();
+            }
+            return RedirectToAction("Error", "Home");
         }
         [HttpPost]
         public IActionResult AddBatchMaster(int Id = 0)
@@ -487,28 +523,36 @@ namespace JLNP_Project.Controllers
             }
             else
             {
-                return View();
+                if (_lr.LoginTypeId ==1)
+                {
+                    return View();
+                }
+                return RedirectToAction("Error", "Home");
             }
-            return Ok();
+            return RedirectToAction("Error", "Home");
         }
         [HttpGet]
         public IActionResult RegistartionMaster(int Id = 0)
         {
             if (_lr != null)
             {
-                bool IsAdmission = false;
-                var mdl = new RegistrationViewModel();
-                IMasterML ml = new MasterML();
-                if (Id != 0)
+                if(_lr.LoginTypeId == 1)
                 {
-                    mdl.data = ml.GetRegistrationMaster(IsAdmission, Id);
+                    bool IsAdmission = false;
+                    var mdl = new RegistrationViewModel();
+                    IMasterML ml = new MasterML();
+                    if (Id != 0)
+                    {
+                        mdl.data = ml.GetRegistrationMaster(IsAdmission, Id);
+                    }
+                    else
+                    {
+                        mdl.data = new List<RegistrationMaster>();
+                    }
+                    mdl.ProgramMasters = ml.GetProgram();
+                    return View(mdl);
                 }
-                else
-                {
-                    mdl.data = new List<RegistrationMaster>();
-                }
-                mdl.ProgramMasters = ml.GetProgram();
-                return View(mdl);
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -559,22 +603,26 @@ namespace JLNP_Project.Controllers
         {
             if (_lr != null)
             {
-                bool IsAdmission = true;
-                var mdl = new RegistrationViewModel();
-                if (Id != 0)
+                if(_lr.LoginTypeId ==1 )
                 {
-                    IMasterML ml = new MasterML();
-                    mdl.data = ml.GetRegistrationMaster(IsAdmission, Id);
-                    mdl.ProgramMasters = ml.GetProgram();
-                    return View(mdl);
+                    bool IsAdmission = true;
+                    var mdl = new RegistrationViewModel();
+                    if (Id != 0)
+                    {
+                        IMasterML ml = new MasterML();
+                        mdl.data = ml.GetRegistrationMaster(IsAdmission, Id);
+                        mdl.ProgramMasters = ml.GetProgram();
+                        return View(mdl);
+                    }
+                    else
+                    {
+                        IMasterML ml = new MasterML();
+                        mdl.data = new List<RegistrationMaster>();
+                        mdl.ProgramMasters = ml.GetProgram();
+                        return View(mdl);
+                    }
                 }
-                else
-                {
-                    IMasterML ml = new MasterML();
-                    mdl.data = new List<RegistrationMaster>();
-                    mdl.ProgramMasters = ml.GetProgram();
-                    return View(mdl);
-                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }

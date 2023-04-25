@@ -20,7 +20,11 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                return View();
+                if (_lr.LoginTypeId == 1)
+                {
+                    return View();
+                }                
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
@@ -28,7 +32,11 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                return View();
+                if (_lr.LoginTypeId == 1)
+                {
+                    return View();
+                }
+                return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
         }
