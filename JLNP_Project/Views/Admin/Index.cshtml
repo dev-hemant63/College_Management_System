@@ -3,7 +3,14 @@
 @using Newtonsoft.Json
 @inject IHttpContextAccessor accessor
 @{
-    var userdata = JsonConvert.DeserializeObject<LoginInfo>(accessor.HttpContext.Session.GetString("Userdata"));
+    var userdata = new LoginInfo();
+    var IsSession = false;
+    if (accessor.HttpContext.Session.GetString("Userdata") != null)
+    {
+        userdata = JsonConvert.DeserializeObject<LoginInfo>(accessor.HttpContext.Session.GetString("Userdata"));
+        IsSession = true;
+    }
+
 }
 @{
     Layout = "_LayoutAdmin";
@@ -77,16 +84,18 @@
     .apexcharts-inactive-legend {
         opacity: 0.45;
     }
-    .marqueetext{
-        background:white;
-        font-size:20px;
-        color:red;
-        font-weight:bold;
+
+    .marqueetext {
+        background: white;
+        font-size: 20px;
+        color: red;
+        font-weight: bold;
         width: calc(100vw - 350px);
-        padding:11px
+        padding: 11px
     }
-    @@media (min-width:200px) and (max-width:800px){
-        .marqueetext{
+
+    @@media (min-width:200px) and (max-width:800px) {
+        .marqueetext {
             width: 100%;
         }
     }

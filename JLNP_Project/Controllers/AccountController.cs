@@ -12,6 +12,7 @@ namespace JLNP_Project.Controllers
     {
         DataTable dt = new DataTable();
         SendEmail _email = new SendEmail();
+        [HttpGet]
         public IActionResult UsersLogin()
         {
             if (SyatemSetting.LoginTheme == 1)
@@ -40,11 +41,9 @@ namespace JLNP_Project.Controllers
                 {
                     if (sts == 1)
                     {
-                        string redirectURl = Url.Content("~/");
                         LoginInfo _lr = new LoginInfo();
                         CookieOptions options = new CookieOptions();
                         options.Expires = DateTime.Now.AddMinutes(30);
-
                         _lr.LoginTypeId = Convert.ToInt32(dt.Rows[0]["LoginTypeId"]);
                         _lr.UserName = Convert.ToString(dt.Rows[0]["Email"].ToString());
                         _lr.EMail = Convert.ToString(dt.Rows[0]["Email"].ToString());
@@ -55,10 +54,10 @@ namespace JLNP_Project.Controllers
                         _lr.Role = Convert.ToString(dt.Rows[0]["Role"].ToString());
                         _lr.UserId = Convert.ToInt32(dt.Rows[0]["_UId"]);
                         TempData["UserId"] = _lr.UserId;
-                        Response.Cookies.Append("Role", _lr.LoginTypeId.ToString(), options);
-                        Response.Cookies.Append("UserName", _lr.UserName.ToString(), options);
-                        HttpContext.Session.SetString("Userdata", JsonConvert.SerializeObject(_lr));
                         res.LoginTypeId = _lr.LoginTypeId;
+                        _lr.SessionExpireTime = DateTime.Now.ToString("hh:mm:ss");
+                        Response.Cookies.Append("ApplicationCookies", JsonConvert.SerializeObject(_lr), options);
+                        HttpContext.Session.SetString("Userdata", JsonConvert.SerializeObject(_lr));
                         var _ = AC_BAL.Saveloginsession(HttpContext.Session.Id, _lr.UserId, RequestMode.Web);
                     }
                     else
@@ -78,7 +77,7 @@ namespace JLNP_Project.Controllers
         }
         public IActionResult logout()
         {
-            Response.Cookies.Delete("UserName");
+            HttpContext.Response.Cookies.Delete("ApplicationCookies");
             HttpContext.Session.Clear();
             return RedirectToAction("UsersLogin");
         }
@@ -97,7 +96,7 @@ namespace JLNP_Project.Controllers
             if (res.statuscode == 1)
             {
                 string title = "Password Changed Successfully";
-                string Msg = res.UserId == 1 ? "Dear Admin" + "Your Password Changed Successfully.. <b />And Your Current Password Is " + "<b>"+account.Password+ "</b>" : "Dear Student" + "Your Password Changed Successfully.. <b />And Your Current Password Is"+ "<b>" + account.Password + "</b>";
+                string Msg = res.UserId == 1 ? "Dear Admin" + "Your Password Changed Successfully.. <b />And Your Current Password Is " + "<b>" + account.Password + "</b>" : "Dear Student" + "Your Password Changed Successfully.. <b />And Your Current Password Is" + "<b>" + account.Password + "</b>";
                 var _ = _email.SendMail(res.UserEmail, title, Msg);
             }
             return Json(res);
@@ -108,7 +107,7 @@ namespace JLNP_Project.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult ForgetPasswordPost(string Enrollment= "", string Mobile = "")
+        public IActionResult ForgetPasswordPost(string Enrollment = "", string Mobile = "")
         {
             Account_BAL AC_BAL = new Account_BAL();
             var res = AC_BAL.ForgetPassword_BAL(Enrollment, Mobile);
