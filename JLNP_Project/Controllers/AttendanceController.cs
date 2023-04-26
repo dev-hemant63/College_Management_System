@@ -34,7 +34,7 @@ namespace JLNP_Project.Controllers
         [HttpGet("/Attendance/MarkAttendance")]
         public IActionResult Index()
         {
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
                 {
@@ -61,7 +61,7 @@ namespace JLNP_Project.Controllers
         [HttpGet("/Attendance/attendencereport")]
         public IActionResult attendencereport()
         {
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
                 {
@@ -82,7 +82,7 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult ApproveLeave()
         {
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
                 {

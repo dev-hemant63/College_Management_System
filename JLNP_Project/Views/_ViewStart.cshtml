@@ -3,31 +3,3 @@
 }
 <link rel="stylesheet" href="~/css/font-awesome.min.css">
 <script src="~/js/jquery.min.js"></script>
-<script src="~/js/moment.min.js"></script>
-<script>
-    $(document).ready(function() {
-        debugger
-        var CheckValidSession = () => {
-            var times = $('#sessiontime').val();
-            if (times != '') {
-                localStorage.setItem('SessionExpireTime', times);
-                setInterval(() => {
-                    let datetiem = new Date().toTimeString();
-                    let sessiondate = localStorage.getItem('SessionExpireTime').split(' ')[0];
-                    let curentdate = datetiem.split(' ')[0];
-
-                    let sesdate = moment(sessiondate, "hh:mm:ss").add(2, 'minutes').format('hh:mm:ss');
-                    console.log(sesdate);
-                    console.log(curentdate);
-                    if ( curentdate > sesdate) {
-                        window.location.href = '/Home/SessionExpired';
-                    }
-                }, 1000);
-            }
-            else {
-                window.location.href = '/Home/SessionExpired';
-            }
-        }
-        CheckValidSession();
-    });
-</script>

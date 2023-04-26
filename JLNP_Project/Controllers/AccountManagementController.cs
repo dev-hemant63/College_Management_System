@@ -52,7 +52,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult DefineFeesStructure(DefineFeesStructureReqRes req)
         {
-            if(_lr != null)
+            if(_lr.UserName != null)
             {
                 var res = _accountBAL.SaveFeesType(req);
                 return Json(res);
@@ -62,7 +62,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult GetFeesType()
         {
-            if(_lr != null)
+            if(_lr.UserName != null)
             {
                 var res = _accountBAL.GetFeesType();
                 return PartialView("Partial/_GetFeesType", res);
@@ -72,7 +72,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult EditFeesType(int Id)
         {
-            if(_lr != null)
+            if(_lr.UserName != null)
             {
                 DefineFeesStructureViewModel res = new DefineFeesStructureViewModel();
                 res.data = _accountBAL.GetFeesType(Id).FirstOrDefault();
@@ -85,7 +85,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult deleteFeesType(int Id)
         {
-            if(_lr != null)
+            if(_lr.UserName != null)
             {
                 var res = _accountBAL.DeleteFeesType(Id);
                 return Json(res);
@@ -109,7 +109,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult FeesHead(AccountManagement accountManagement)
         {
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 AccountManagement_BAL AmDAL = new AccountManagement_BAL();
                 var dt = AmDAL.FeesHead_BAL(accountManagement);
@@ -130,7 +130,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult GetFeesHead()
         {           
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 AccountManagement accountManagement = new AccountManagement();
                 AccountManagement_BAL AmDAL = new AccountManagement_BAL();
@@ -143,7 +143,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult BindAmount(AccountManagement accountManagement)
         {            
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 AccountManagement_BAL AmDAL = new AccountManagement_BAL();
                 var dt = AmDAL.BindAmount_BAL(accountManagement);
@@ -158,7 +158,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult BindFeesSubmissionMode()
         {            
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 var res = new AccountManagement_BAL();
                 var data = res.BindFeesSubmissionMode();
@@ -185,7 +185,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult BindBranch()
         {            
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 Branch_BAL BrBal = new Branch_BAL();
                 string Action = "Get";
@@ -212,7 +212,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult Feessubmition(AccountManagement accountManagement)
         {            
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 AccountManagement_BAL AmDAL = new AccountManagement_BAL();
                 ResponseStatus res = new ResponseStatus
@@ -250,7 +250,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult SendFeesReceipt(string Req,string email)
         {            
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 var ml = new SendEmail();
                 string title = $"Fees Receipt";
@@ -274,7 +274,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult GetTransctionHistory(string EnrollmentNo)
         {
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 AccountManagement_BAL AmDAL = new AccountManagement_BAL();
                 var res = AmDAL.GetTransctionHistory(EnrollmentNo);
@@ -297,7 +297,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult StudentSubmitFees(AccountManagement accountManagement)
         {
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 AccountManagement_BAL AmDAL = new AccountManagement_BAL();
                 accountManagement.Action = "Get";
@@ -357,7 +357,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult SaveFeesHead(AccountManagement accountManagement)
         {
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 AccountManagement_BAL AmDAL = new AccountManagement_BAL();
                 accountManagement.Action = "Edit";
@@ -379,7 +379,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult DeleteFeesHead(int ID)
         {
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 AccountManagement accountManagement = new AccountManagement
                 {
@@ -405,7 +405,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult BindfeestypeByYear(int Year, int ProgramId, int Branch)
         {
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 var res = _accountBAL.BindFeesTypeByYear(Year, ProgramId, Branch);
                 return Json(res);
@@ -415,7 +415,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult Bindfeestype(int Year,int ProgramId,int Branch, string EnrollmentNo = "")
         {
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 var res = _accountBAL.BindFeesType(Year, ProgramId, Branch, EnrollmentNo);
                 return Json(res);
