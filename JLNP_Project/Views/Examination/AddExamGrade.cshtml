@@ -1,4 +1,5 @@
-﻿<div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
+﻿@model List<ExamType>
+<div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,8 +8,12 @@
             </div>
             <div class="modal-body">
                 <label>Exam Type<span style="color:red;">*</span></label>
-                <select class="form-control">
+                <select class="form-control" id="ddlexamtype">
                     <option value="0">:: Select ExamType ::</option>
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.Id">@item.ExamTypes</option>
+                    }
                 </select>
                 <label>Grade Name</label>
                 <input type="text" class="form-control" id="textgradename" />
@@ -22,8 +27,46 @@
                 <textarea type="text" class="form-control" id="description"></textarea>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-primary" onclick="AddExamgrade()" id="btnsave">Save</button>
+                <button type="button" class="btn btn-outline-primary" onclick="AddExamgrade('0')" id="btnsave">Save</button>
             </div>
         </div>
     </div>
 </div>
+<script>
+    var AddExamgrade = (id) =>{
+        let obj = {
+            Id:id,
+            ExamType:$('#ddlexamtype').val(),
+            GradeName: $('#textgradename').val(),
+            PrecentUpto:$('#textprecentupto').val(),
+            PrecentFrom:$('#textprecentfrom').val(),
+            Point:$('#txtgradepoint').val(),
+            Discreption:$('#description').val()
+        }
+        if(obj.ExamType == '0'){
+            alert('Please select exam type');
+            return false;
+        }
+        if(obj.GradeName == ''){
+            alert('Please enter GradeName');
+            return false;
+        }
+        if(obj.PrecentUpto == ''){
+            alert('Please enter PrecentUpto');
+            return false;
+        }
+        if(obj.PrecentFrom == ''){
+            alert('Please enter PrecentFrom');
+            return false;
+        }
+        if(obj.Point == ''){
+            alert('Please enter GradePoint');
+            return false;
+        }
+        $.post('/Examination/SaveExamGrade', obj).done(function(result) {
+            alertnotify(result.statuscode,result.msg);
+        }).fail(function(xhr) {
+            console(xhr.responseText);
+        });
+    }
+</script>

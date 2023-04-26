@@ -249,7 +249,22 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult AddExamGrade(int Id)
         {
-            return PartialView();
+            if (Id != 0)
+            {
+
+            }
+            else
+            {
+                var res = _exam.GetExamType(0);
+                return PartialView(res);
+            }
+            return Ok();
+        }
+        [HttpPost]
+        public IActionResult SaveExamGrade(ExamModel req)
+        {
+            var res = _exam.AddExamGrade(req);
+            return Json(res);
         }
         #endregion
     }
