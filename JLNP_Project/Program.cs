@@ -7,6 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//builder.Services.AddControllers(option =>
+//{
+//    option.Filters.Add(new CheckUserNameFilter());
+//});
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSession(options => {
     options.Cookie.IsEssential = true;

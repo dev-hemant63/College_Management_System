@@ -4,6 +4,7 @@ using JLNP_Project.AppCode.Midlelayer;
 using JLNP_Project.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 using System.Data;
 using System.IO;
@@ -541,7 +542,7 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult RegistartionMaster(int Id = 0)
         {
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 if(_lr.LoginTypeId == 1)
                 {
@@ -608,7 +609,7 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult AdmissionMaster(int Id = 0)
         {
-            if (_lr != null)
+            if (_lr.UserName != null)
             {
                 if(_lr.LoginTypeId ==1 )
                 {
