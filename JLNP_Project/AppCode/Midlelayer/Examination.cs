@@ -476,5 +476,86 @@ namespace JLNP_Project.AppCode.Midlelayer
             }
             return res;
         }
+        public ResponseStatus AddExamGrade(ExamModel req)
+        {
+            var res = new ResponseStatus();
+            string sp = "";
+            if (req.Id != 0)
+            {
+                sp = @"Update tbl_Grade set ExamType = @ExamType,PrecentUpto = @PrecentUpto,GradeName = @GradeName, PrecentFrom =@PrecentFrom,GradePoint=@GradePoint,Discreption=@Discreption where Id = @Id";
+            }
+            else
+            {
+                sp = @"Insert into tbl_Grade(ExamType,PrecentUpto,PrecentFrom,GradePoint,Discreption,Entrydate,GradeName)
+                        Values(@ExamType,@PrecentUpto,@PrecentFrom,@GradePoint,@Discreption,GETDATE(),@GradeName)";
+            }
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@Id",req.Id),
+                new SqlParameter("@GradeName",req.GradeName),
+                new SqlParameter("@ExamType",req.ExamType),
+                new SqlParameter("@PrecentUpto",req.PrecentUpto),
+                new SqlParameter("@PrecentFrom",req.PrecentFrom),
+                new SqlParameter("@GradePoint",req.GradePoint),
+                new SqlParameter("@Discreption",req.Discreption??"")
+            };
+            try
+            {
+                var _is = _helper.ExcQuery(sp, param);
+                if (_is)
+                {
+                    res.statuscode = 1;
+                    res.Msg = "Exam grade saved successfully";
+                }
+                else
+                {
+                    res.statuscode = -1;
+                    res.Msg = "failed";
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return res;
+        }
+        public List<ExamModel> GetExamgrade(int Id)
+        {
+            var res = new List<ExamModel>();
+            string sp = @"select t1.*,t2.SubjectName,t3.Exam from tbl_ExamDetail t1
+                    inner join tbl_SubjectMaster t2 on t1.SubjectId = t2.Id
+					inner join tbl_Exam t3 on t1.ExamID = t3.Id where t1.ExamId = @Id";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@Id",Id)
+            };
+            try
+            {
+                var dt = _helper.ExcQueryDT(sp, param);
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow item in dt.Rows)
+                    {
+                        var data = new ExamModel
+                        {
+                            Id = Convert.ToInt32(item["ExamID"]),
+                            ExamTypeName = Convert.ToString(item["Exam"]),
+                            GradeName = Convert.ToString(item["SubjectName"]),
+                            PrecentFrom = Convert.ToInt32(item["Date"]),
+                            PrecentUpto = Convert.ToInt32(item["Time"]),
+                            GradePoint = Convert.ToInt32(item["Duration"]),
+                            Entrydate = Convert.ToString(item["Entrydate"])
+                        };
+                        res.Add(data);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return res;
+        }
     }
 }
