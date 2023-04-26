@@ -1,3 +1,4 @@
+using JLNP_Project.AppCode.Helper;
 using JLNP_Project.AppCode.Interface;
 using JLNP_Project.AppCode.Midlelayer;
 using Microsoft.OpenApi.Models;
@@ -9,7 +10,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSession(options => {
     options.Cookie.IsEssential = true;
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.IdleTimeout = TimeSpan.FromMinutes(2);
 });
 builder.Services.AddScoped<IExamination, Examination>();
 var app = builder.Build();
@@ -18,6 +19,11 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+else
+{
+    app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 app.UseSwaggerUI();
@@ -33,6 +39,7 @@ app.UseRouting();
 app.UseSession();
 
 app.UseAuthorization();
+//app.UseMiddleware<SessionMiddleware>();
 
 app.MapControllerRoute(
     name: "default",

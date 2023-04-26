@@ -9,5 +9,6 @@
         public string UserName { get; set; }
         public string UserEmail { get; set; }
         public string password { get; set; }
+        public string SessionExpireTime { get; set; }
     }
 }

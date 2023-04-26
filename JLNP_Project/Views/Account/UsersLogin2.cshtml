@@ -99,7 +99,6 @@
         }
         preloader.load();
         $.post('/Account/Login', obj).done(function(result) {
-            console.log(result);
             preloader.remove();
             if (result.loginTypeId == 1) {
                 window.location.replace("/Admin/Index");
