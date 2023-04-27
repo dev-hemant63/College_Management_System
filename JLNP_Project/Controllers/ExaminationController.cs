@@ -12,7 +12,7 @@ namespace JLNP_Project.Controllers
     {
         private readonly IHttpContextAccessor _accessor;
         private readonly IExamination _exam;
-        LoginInfo _lr = new LoginInfo();
+        private readonly LoginInfo _lr;
 
         public ExaminationController(IHttpContextAccessor accessor, IExamination exam)
         {
@@ -105,20 +105,24 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult AddExam(int ExamGID = 0,int Id=0)
         {
-            var model = new AddExam();
-            model.ExamGroup = _exam.GetExamGroup(0);
-            if (Id !=0)
+            if(_lr.LoginTypeId == 1)
             {
-                var res = _exam.GetExam(Id).FirstOrDefault();
-                model.GroupID = res.GroupId;
-                model.Exam = res.ExamTitle;
-                model.Id = res.Id;
+                var model = new AddExam();
+                model.ExamGroup = _exam.GetExamGroup(0);
+                if (Id != 0)
+                {
+                    var res = _exam.GetExam(Id).FirstOrDefault();
+                    model.GroupID = res.GroupId;
+                    model.Exam = res.ExamTitle;
+                    model.Id = res.Id;
+                }
+                else
+                {
+                    model.GroupID = ExamGID;
+                }
+                return PartialView(model);
             }
-            else
-            {
-                 model.GroupID = ExamGID;
-            }
-            return PartialView(model);
+            return RedirectToAction("SessionExpired", "Home");
         }
         [HttpPost]
         public IActionResult SaveExam(Exam req)
@@ -257,22 +261,40 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult AddExamGrade(int Id)
         {
-            if (Id != 0)
+            if(_lr.LoginTypeId == 1)
             {
+                if (Id != 0)
+                {
 
-            }
-            else
-            {
-                var res = _exam.GetExamType(0);
-                return PartialView(res);
-            }
-            return Ok();
+                }
+                else
+                {
+                    var res = _exam.GetExamType(0);
+                    return PartialView(res);
+                }
+            }            
+            return RedirectToAction("SessionExpired", "Home");
         }
         [HttpPost]
         public IActionResult SaveExamGrade(ExamModel req)
         {
-            var res = _exam.AddExamGrade(req);
-            return Json(res);
+            if (_lr.LoginTypeId == 1)
+            {
+                var res = _exam.AddExamGrade(req);
+                return Json(res);
+            }
+            return RedirectToAction("SessionExpired", "Home");
+        }
+        #endregion
+        #region Exam Result
+        [HttpGet("Examination/ExamResults")]
+        public IActionResult ExamResult()
+        {
+            if (_lr.LoginTypeId == 1)
+            {
+                return View();
+            }
+            return RedirectToAction("Error", "Home");
         }
         #endregion
     }

@@ -120,7 +120,7 @@
                                     <li><a href="/Examination/AddExamGroup">Exam Group</a></li>
                                     <li><a href="/Examination/Exam">Add Exam</a></li>
                                     <li><a href="/Examination/ExamSchedule">Exam Schedule</a></li>
-                                    <li><a href="#">Exam Result</a></li>
+                                    <li><a href="/Examination/ExamResults">Exam Result</a></li>
                                     <li><a href="#">Design Admit Card</a></li>
                                     <li><a href="#">Print Admit Card</a></li>
                                     <li><a href="#">Design Marksheet</a></li>
@@ -228,33 +228,32 @@
     <script src="~/js/jquery-ui.min.js"></script>
     <script src="~/js/moment.min.js"></script>
     <script>
-        var CheckValidSession = () => {
-            setInterval(() => {
-                var times = $('#sessiontime').val();
-                if (times != '' && times != undefined) {
-                    let datetiem = new Date().toTimeString();
-                    let sessiondate = times.split(' ')[0];
-                    let curentdate = datetiem.split(' ')[0];
-                    var timeArr = curentdate.split(':');
-                    var hours = parseInt(timeArr[0], 10);
-                    if (hours > 12) {
-                        hours -= 12;
-                    } else if (hours === 0) {
-                        hours = 12;
-                    }
-                    var newTimeStr = hours + ':' + timeArr[1] + ':' + timeArr[2];
-                    let sesdate = moment(sessiondate, "hh:mm:ss").add(@AppConsts.SessionTime., 'minutes').format('hh:mm:ss');
-                    if (newTimeStr > sesdate) {
-                        window.location.href = '/Home/SessionExpired';
-                    }
-                }
-                else {
-                    window.location.href = '/Home/SessionExpired';
-                }
-            }, 1000);
+        //var CheckValidSession = () => {
+        //    setInterval(() => {
+        //        var times = $('#sessiontime').val();
+        //        if (times != '' && times != undefined) {
+        //            let datetiem = new Date().toTimeString();
+        //            let sessiondate = times.split(' ')[0];
+        //            let curentdate = datetiem.split(' ')[0];
+        //            var timeArr = curentdate.split(':');
+        //            var hours = parseInt(timeArr[0], 10);
+        //            if (hours > 12) {
+        //                hours -= 12;
+        //            } else if (hours === 0) {
+        //                hours = 12;
+        //            }
+        //            var newTimeStr = hours + ':' + timeArr[1] + ':' + timeArr[2];
+        //            let sesdate = moment(sessiondate, "hh:mm:ss").add(@AppConsts.SessionTime., 'minutes').format('hh:mm:ss');
+        //            if (newTimeStr > sesdate) {
+        //                window.location.href = '/Home/SessionExpired';
+        //            }
+        //        }
+        //        else {
+        //            window.location.href = '/Home/SessionExpired';
+        //        }
+        //    }, 1000);
 
-        }
-        CheckValidSession();
+        //}
         var $$host = '@(ViewData["Host"])';
         var ChangePassword = function(userid) {
             $.post('/Account/_ChangePassword', { UserID: userid }).done(function(result) {
