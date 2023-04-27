@@ -7,6 +7,7 @@ using System.Net;
 using JLNP_Project.AppCode.Interface;
 using JLNP_Project.AppCode.Midlelayer;
 using Newtonsoft.Json;
+using JLNP_Project.AppCode.Helper;
 
 namespace JLNP_Project.Controllers
 {
@@ -22,9 +23,9 @@ namespace JLNP_Project.Controllers
             _accessor = accessor;
             try
             {
-                if (_accessor.HttpContext.Session.GetString("Userdata") != null)
+                if (_accessor.HttpContext.Session.GetString(AppConsts.AppSession) != null)
                 {
-                    _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString("Userdata"));
+                    _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString(AppConsts.AppSession));
                 }
                 else
                 {

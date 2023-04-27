@@ -1,12 +1,13 @@
-﻿@using Microsoft.AspNetCore.Http
+﻿@using JLNP_Project.AppCode.Helper
+@using Microsoft.AspNetCore.Http
 @using Newtonsoft.Json
 @inject IHttpContextAccessor accessor
 @{
     var userdata = new LoginInfo();
     var IsSession = "false";
-    if (accessor.HttpContext.Session.GetString("Userdata") != null)
+    if (accessor.HttpContext.Session.GetString(AppConsts.AppSession) != null)
     {
-        userdata = JsonConvert.DeserializeObject<LoginInfo>(accessor.HttpContext.Session.GetString("Userdata"));
+        userdata = JsonConvert.DeserializeObject<LoginInfo>(accessor.HttpContext.Session.GetString(AppConsts.AppSession));
         IsSession = "true";
     }
 }
@@ -242,7 +243,7 @@
                         hours = 12;
                     }
                     var newTimeStr = hours + ':' + timeArr[1] + ':' + timeArr[2];
-                    let sesdate = moment(sessiondate, "hh:mm:ss").add(2, 'minutes').format('hh:mm:ss');
+                    let sesdate = moment(sessiondate, "hh:mm:ss").add(@AppConsts.SessionTime., 'minutes').format('hh:mm:ss');
                     if (newTimeStr > sesdate) {
                         window.location.href = '/Home/SessionExpired';
                     }

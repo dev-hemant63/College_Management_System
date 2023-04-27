@@ -2,6 +2,7 @@
 using JLNP_Project.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using JLNP_Project.AppCode.Helper;
 using System.Data;
 
 namespace JLNP_Project.Controllers
@@ -14,9 +15,9 @@ namespace JLNP_Project.Controllers
         public BranchController(IHttpContextAccessor accessor)
         {
             _accessor = accessor;
-            if (_accessor.HttpContext.Session.GetString("Userdata") != null)
+            if (_accessor.HttpContext.Session.GetString(AppConsts.AppSession) != null)
             {
-                _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString("Userdata"));
+                _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString(AppConsts.AppSession));
             }
             else
             {

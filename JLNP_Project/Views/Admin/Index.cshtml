@@ -1,13 +1,14 @@
 ﻿@model JLNP_Project.Models.SubjectMaster
 @using Microsoft.AspNetCore.Http
 @using Newtonsoft.Json
+@using JLNP_Project.AppCode.Helper
 @inject IHttpContextAccessor accessor
 @{
     var userdata = new LoginInfo();
     var IsSession = false;
-    if (accessor.HttpContext.Session.GetString("Userdata") != null)
+    if (accessor.HttpContext.Session.GetString(AppConsts.AppSession) != null)
     {
-        userdata = JsonConvert.DeserializeObject<LoginInfo>(accessor.HttpContext.Session.GetString("Userdata"));
+        userdata = JsonConvert.DeserializeObject<LoginInfo>(accessor.HttpContext.Session.GetString(AppConsts.AppSession));
         IsSession = true;
     }
 

@@ -523,9 +523,7 @@ namespace JLNP_Project.AppCode.Midlelayer
         public List<ExamModel> GetExamgrade(int Id)
         {
             var res = new List<ExamModel>();
-            string sp = @"select t1.*,t2.SubjectName,t3.Exam from tbl_ExamDetail t1
-                    inner join tbl_SubjectMaster t2 on t1.SubjectId = t2.Id
-					inner join tbl_Exam t3 on t1.ExamID = t3.Id where t1.ExamId = @Id";
+            string sp = @"Select * from tbl_Grade where Id = IFF(@Id = 0,Id,@Id)";
             SqlParameter[] param = new SqlParameter[]
             {
                 new SqlParameter("@Id",Id)

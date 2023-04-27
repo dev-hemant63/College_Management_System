@@ -12,7 +12,7 @@ namespace JLNP_Project.AppCode.Helper
         }
         public async Task Invoke(HttpContext context)
         {
-            if (context.Session.GetString("Userdata") == null)
+            if (context.Session.GetString(AppConsts.AppSession) == null)
             {
                 context.Response.Clear();
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
