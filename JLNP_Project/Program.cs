@@ -14,7 +14,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSession(options => {
     options.Cookie.IsEssential = true;
-    options.IdleTimeout = TimeSpan.FromMinutes(2);
+    options.IdleTimeout = TimeSpan.FromMinutes(AppConsts.SessionTime);
 });
 builder.Services.AddScoped<IExamination, Examination>();
 var app = builder.Build();

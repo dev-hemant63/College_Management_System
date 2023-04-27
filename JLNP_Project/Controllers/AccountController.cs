@@ -56,8 +56,8 @@ namespace JLNP_Project.Controllers
                         TempData["UserId"] = _lr.UserId;
                         res.LoginTypeId = _lr.LoginTypeId;
                         _lr.SessionExpireTime = DateTime.Now.ToString("hh:mm:ss");
-                        Response.Cookies.Append("ApplicationCookies", JsonConvert.SerializeObject(_lr), options);
-                        HttpContext.Session.SetString("Userdata", JsonConvert.SerializeObject(_lr));
+                        Response.Cookies.Append(AppConsts.AppCookies, JsonConvert.SerializeObject(_lr), options);
+                        HttpContext.Session.SetString(AppConsts.AppSession, JsonConvert.SerializeObject(_lr));
                         var _ = AC_BAL.Saveloginsession(HttpContext.Session.Id, _lr.UserId, RequestMode.Web);
                     }
                     else
@@ -124,7 +124,7 @@ namespace JLNP_Project.Controllers
         {
             LoginInfo lr = new LoginInfo();
             IHttpContextAccessor acc = new HttpContextAccessor();
-            lr = JsonConvert.DeserializeObject<LoginInfo>(acc.HttpContext.Session.GetString("Userdata"));
+            lr = JsonConvert.DeserializeObject<LoginInfo>(acc.HttpContext.Session.GetString(AppConsts.AppSession));
             return View(lr);
         }
     }

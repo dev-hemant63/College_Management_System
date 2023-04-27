@@ -20,9 +20,9 @@ namespace JLNP_Project.Controllers
             _accessor = accessor;
             try
             {
-                if (_accessor.HttpContext.Session.GetString("Userdata") != null)
+                if (_accessor.HttpContext.Session.GetString(AppConsts.AppSession) != null)
                 {
-                    _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString("Userdata"));
+                    _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString(AppConsts.AppSession));
                 }
                 else
                 {
