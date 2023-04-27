@@ -11,19 +11,33 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-2">
                                 <label>Branch Name</label>
                                 <input type="text" placeholder="Branch Name" class="form-control" id="name">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-2">
                                 <label>Branch Code</label>
                                 <input type="number" maxlength="4" placeholder="Branch Code" class="form-control" id="code">
+                            </div>
+                            <div class="col-sm-2" style="padding-top: 27px;">
+                                <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit()">Save</button>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12" style="display: flex; justify-content: flex-end; margin-bottom: 12px;">
-                            <button type="button" style="margin-right: 20px;" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit()">Submit</button>
+                        <div class="table-responsive">
+                            <table class="table mb-0 table-striped" id="tblbranch">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Branch Name</th>
+                                        <th>Branch Code</th>
+                                        <th>EntryDate</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -32,6 +46,13 @@
     </div>
 </div>
 <script>
+    $(document).ready(function() {
+        $.post('/Branch/GetBranchDetail').done(function(result) {
+            $('#tblbranch tbody').html(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+    });
     var btnsubmit = function() {
         if ($('#name').val() == '') {
             alert("Please Enter Branch");

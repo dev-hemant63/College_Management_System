@@ -12,7 +12,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <label>Select Branch<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlprogram" onchange="Bindbranch()">
                                     <option value="">-- Select Program --</option>
@@ -23,7 +23,7 @@
                                 </select>
                                 <span class="text-danger d-none" id="programv">Please Select Program</span>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <input type="hidden" id="hdnid" value="" />
                                 <label>Select Branch<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlbranch">
@@ -31,7 +31,7 @@
                                 </select>
                                 <span class="text-danger d-none" id="branchv">Please Select Branch</span>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <label>Select Year<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlyear" onchange="BindSubject()">
                                     <option value="">-- Select Year --</option>
@@ -42,9 +42,7 @@
                                 </select>
                                 <span class="text-danger d-none" id="yearv">Please Select Year</span>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <label>Select Subject<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlsubject">
                                     <option value="">-- Select Subject --</option>
@@ -52,7 +50,7 @@
                                 </select>
                                 <span class="text-danger d-none" id="subjectv">Please Select Subject</span>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <label>Select Teacher<span style="color:red;">*</span></label>
                                 <select class="form-control" id="ddlteacher">
                                     <option value="">-- Select Teacher --</option>
@@ -63,8 +61,8 @@
                                 </select>
                                 <span class="text-danger d-none" id="teacherv">Please Select Teacher</span>
                             </div>
-                            <div class="col-sm-3">
-                                <button class="btn btn-outline-primary" id="btnsubmit" onclick="savedata()" style="margin-top: 29px;width: 43%;">Save</button>
+                            <div class="col-sm-2" style="padding-top: 27px;">
+                                <button class="btn btn-outline-primary" id="btnsubmit" onclick="savedata()" >Save</button>
                             </div>
                         </div>
                         <div class="table-responsive table-striped" style="margin-top:13px;">

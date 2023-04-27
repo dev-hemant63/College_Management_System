@@ -52,7 +52,6 @@
 <script>
 $(document).ready(function() {
     $.post('/Branch/GetBranchDetail').done(function(result) {
-        console.log(result);
         $('#tblbranch tbody').html(result);
     }).fail(function(xhr) {
         console.log(xhr.responseText);

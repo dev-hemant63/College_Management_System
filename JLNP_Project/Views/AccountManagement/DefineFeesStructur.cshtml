@@ -12,7 +12,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label>Select Program</label>
                                 <select id="ddlprogram" class="form-control" onchange="Bindbranch()">
                                     <option value="">--Select Program--</option>
@@ -23,14 +23,14 @@
                                 </select>
                                 <small class="text-danger d-none" id="ddlprogramsm">Please Select Program</small>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label>Select Branch</label>
                                 <select id="ddlbranch" class="form-control">
                                     <option value="">--Select Branch--</option>
                                 </select>
                                 <small class="text-danger d-none" id="ddlbranchsm">Please Select Branch</small>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label>Select Year</label>
                                 <select id="ddlyear" class="form-control">
                                     <option value="">--Select Year--</option>
@@ -40,18 +40,16 @@
                                 </select>
                                 <small class="text-danger d-none" id="ddlyearsm">Please Select Year</small>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label>Fees Type</label>
                                 <input type="text" placeholder="Fees" class="form-control" id="Fees">
                                 <small class="text-danger d-none" id="Feessm">Please Enter Fees Type</small>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <button type="button" style="width: 40%; margin-top: 10px; margin-bottom: 10px;" class="btn btn-outline-primary waves-effect waves-light" onclick="SaveData()">Save</button>
+                            <div class="col-sm-2"  style="padding-top: 27px;">
+                                <button type="button" class="btn btn-outline-primary" onclick="SaveData()">Save</button>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="table-responsive">
                                 <table class="table table-striped" id="tblFeestype">
                                     <thead class="bg-primary">
