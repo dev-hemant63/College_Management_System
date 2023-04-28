@@ -1,1 +1,27 @@
-﻿alter table tbl_Assignment add Paths varchar(100)
+﻿USE [DB_CollageManagement]
+GO
+/****** Object:  StoredProcedure [dbo].[Proc_GetDetailsforResult]    Script Date: 4/28/2023 10:34:01 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER proc [dbo].[Proc_GetDetailsforResult]
+@ExamId int,
+@Program int,
+@Branch int,
+@Year int
+AS
+BEGIN
+	--if Not exists(select 1 from tbl_Exam where Id = @ExamId)
+	--	begin
+	--		select 1 Statuscode,'Invaid examid' Msg
+	--		return
+	--	end
+	Select Id,SubjectName from tbl_SubjectMaster where Id in(select SubjectId from tbl_ExamDetail where ExamID = @ExamId)
+	Select t1.Id,t1.EnrollemntNo,t1.ExamID,t1.Year,t3.Program,t4.Branch_Name as Branch,t2.SubjectId from tbl_AssignExam t1
+	INNER JOIN tbl_Program t3 on t1.Program = t3.Id
+	INNER JOIN tbl_Branch t4 on t1.Branch = t4.BranchId
+	INNER JOIN tbl_ExamDetail t2 on t1.ExamID = t2.ExamID
+
+	Where t1.ExamID =  @ExamId and t1.Program = @Program and t1.Branch = @Branch and Year = @Year
+END

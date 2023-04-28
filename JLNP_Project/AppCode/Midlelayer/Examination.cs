@@ -588,5 +588,56 @@ namespace JLNP_Project.AppCode.Midlelayer
             }
             return res;
         }
+        public DetailsForResult GetDetailsForResult(SearchDetailsForResult req)
+        {
+            var response = new DetailsForResult();
+            string sp = "Proc_GetDetailsforResult";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@ExamId",req.ExamId),
+                new SqlParameter("@Program",req.Program),
+                new SqlParameter("@Branch",req.Branch),
+                new SqlParameter("@Year",req.Year),
+            };
+            try
+            {
+                var ds = _helper.ExcProc_Dataset(sp, param);
+                var dt = ds.Tables[0];
+                var dtt = ds.Tables[1];
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        var subject = new SubjectForResult
+                        {
+                            SubjectId = Convert.ToInt32(dr["Id"]),
+                            SubjectName = Convert.ToString(dr["SubjectName"]),
+                        };
+                        response.Subject.Add(subject);
+                    }
+                }
+                if (dtt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        var data = new StudentDetaisForResult
+                        {
+                            Id = Convert.ToInt32(dr["Id"]),
+                            EnrollmentNo = Convert.ToString(dr["Enrollemnt"]),
+                            Program = Convert.ToString(dr["Program"]),
+                            Branch = Convert.ToString(dr["Branch"]),
+                            Year = Convert.ToString(dr["Year"]),
+                            ExamId = Convert.ToInt32(dr["ExamID"]),
+                        };
+                        response.StudentDetais.Add(data);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+               
+            }
+            return response;
+        }
     }
 }

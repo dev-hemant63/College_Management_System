@@ -21,5 +21,6 @@ namespace JLNP_Project.AppCode.Interface
         ResponseStatus AddExamGrade(ExamModel req);
         List<ExamModel> GetExamgrade(int Id);
         ResponseStatus DeleteExamGrade(int Id);
+        DetailsForResult GetDetailsForResult(SearchDetailsForResult req);
     }
 }
