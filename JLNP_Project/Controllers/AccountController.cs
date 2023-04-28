@@ -99,6 +99,12 @@ namespace JLNP_Project.Controllers
             var expiresAt = session.Get(AppConsts.AppSession);//session.Get<DateTimeOffset>("ExpiresAt");
             return Ok(expiresAt);
         }
+        [HttpGet("DecryptToken")]
+        public IActionResult DecryptToken(string p)
+        {
+            var encrypted = Encreption.EncryptStringAES(p);
+            return Ok(encrypted);
+        }
         private ResponseStatus DoLogin(Account account)
         {
             var res = new ResponseStatus
@@ -132,7 +138,8 @@ namespace JLNP_Project.Controllers
                         Response.Cookies.Append(AppConsts.AppCookies, JsonConvert.SerializeObject(_lr), options);
                         HttpContext.Session.SetString(AppConsts.AppSession, JsonConvert.SerializeObject(_lr));
                         var _ = AC_BAL.Saveloginsession(HttpContext.Session.Id, _lr.UserId, RequestMode.Web);
-                        var token = Encoding.UTF8.GetString(_accessor.HttpContext.Session.Get(AppConsts.AppSession));
+                        var session = _accessor.HttpContext.Session.Get(AppConsts.AppSession);
+                        var token = Encoding.UTF8.GetString(session);
                         var encrypted = Encreption.EncryptStringAES(token.ToString());
                         Response.Cookies.Append(AppConsts.AppToken, encrypted);
                     }

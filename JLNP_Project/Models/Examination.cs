@@ -68,4 +68,9 @@
         public List<SubjectMaster> subject { get; set; }
         public int ExamID { get; set; }
     }
+    public class ResultViewModel
+    {
+        public List<ProgramMaster> Program { get; set; }
+        public List<ExamGroupe> ExamGroup { get; set; }
+    }
 }

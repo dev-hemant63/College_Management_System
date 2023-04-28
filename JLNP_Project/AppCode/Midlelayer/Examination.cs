@@ -523,7 +523,9 @@ namespace JLNP_Project.AppCode.Midlelayer
         public List<ExamModel> GetExamgrade(int Id)
         {
             var res = new List<ExamModel>();
-            string sp = @"Select * from tbl_Grade where Id = IFF(@Id = 0,Id,@Id)";
+            string sp = @"Select t1.*,t2.ExamType as ExamTypeName from tbl_Grade t1
+                            Inner join tbl_ExamType t2 on t1.ExamType = t2.Id
+                            where t1.Id = IIF(@Id = 0,t1.Id,@Id);";
             SqlParameter[] param = new SqlParameter[]
             {
                 new SqlParameter("@Id",Id)
@@ -537,13 +539,15 @@ namespace JLNP_Project.AppCode.Midlelayer
                     {
                         var data = new ExamModel
                         {
-                            Id = Convert.ToInt32(item["ExamID"]),
-                            ExamTypeName = Convert.ToString(item["Exam"]),
-                            GradeName = Convert.ToString(item["SubjectName"]),
-                            PrecentFrom = Convert.ToInt32(item["Date"]),
-                            PrecentUpto = Convert.ToInt32(item["Time"]),
-                            GradePoint = Convert.ToInt32(item["Duration"]),
-                            Entrydate = Convert.ToString(item["Entrydate"])
+                            Id = Convert.ToInt32(item["Id"]),
+                            ExamType = Convert.ToInt32(item["ExamType"]),
+                            ExamTypeName = Convert.ToString(item["ExamTypeName"]),
+                            GradeName = Convert.ToString(item["GradeName"]),
+                            PrecentFrom = Convert.ToInt32(item["PrecentFrom"]),
+                            PrecentUpto = Convert.ToInt32(item["PrecentUpto"]),
+                            GradePoint = Convert.ToInt32(item["GradePoint"]),
+                            Entrydate = Convert.ToString(item["Entrydate"]),
+                            Discreption = Convert.ToString(item["Discreption"]),
                         };
                         res.Add(data);
                     }
@@ -551,6 +555,35 @@ namespace JLNP_Project.AppCode.Midlelayer
             }
             catch (Exception ex)
             {
+                throw;
+            }
+            return res;
+        }
+        public ResponseStatus DeleteExamGrade(int Id)
+        {
+            var res = new ResponseStatus();
+            string sp = "Delete from tbl_Grade where Id =@Id";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@Id",Id)
+            };
+            try
+            {
+                var _is = _helper.ExcQuery(sp, param);
+                if (_is)
+                {
+                    res.statuscode = 1;
+                    res.Msg = "Exam grade delete successfully";
+                }
+                else
+                {
+                    res.statuscode = -1;
+                    res.Msg = "failed";
+                }
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
             return res;
