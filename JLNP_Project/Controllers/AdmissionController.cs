@@ -12,7 +12,7 @@ namespace JLNP_Project.Controllers
     public class AdmissionController : Controller
     {
         private readonly IHttpContextAccessor _accessor;
-        LoginInfo _lr = new LoginInfo();
+        private readonly LoginInfo _lr;
 
         public AdmissionController(IHttpContextAccessor accessor)
         {

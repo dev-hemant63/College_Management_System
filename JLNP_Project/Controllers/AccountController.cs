@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using System.Data;
 using Newtonsoft.Json;
 using JLNP_Project.AppCode.Helper;
+using System.Text;
+using JLNP_Project.AppCode.AppUtilty;
 
 namespace JLNP_Project.Controllers
 {
@@ -12,6 +14,11 @@ namespace JLNP_Project.Controllers
     {
         DataTable dt = new DataTable();
         SendEmail _email = new SendEmail();
+        private readonly IHttpContextAccessor _accessor;
+        public AccountController(IHttpContextAccessor accessor)
+        {
+            _accessor = accessor;
+        }
         [HttpGet]
         public IActionResult UsersLogin()
         {
@@ -28,56 +35,14 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult Login(Account account)
         {
-            ResponseStatus res = new ResponseStatus
-            {
-                LoginTypeId = -1,
-            };
-            Account_BAL AC_BAL = new Account_BAL();
-            DataTable dt = AC_BAL.Login_BAL_V1(account);
-            if (dt.Rows.Count > 0)
-            {
-                var sts = Convert.ToInt32(dt.Rows[0]["statuscode"]);
-                try
-                {
-                    if (sts == 1)
-                    {
-                        LoginInfo _lr = new LoginInfo();
-                        CookieOptions options = new CookieOptions();
-                        options.Expires = DateTime.Now.AddMinutes(30);
-                        _lr.LoginTypeId = Convert.ToInt32(dt.Rows[0]["LoginTypeId"]);
-                        _lr.UserName = Convert.ToString(dt.Rows[0]["Email"].ToString());
-                        _lr.EMail = Convert.ToString(dt.Rows[0]["Email"].ToString());
-                        _lr.Name = Convert.ToString(dt.Rows[0]["Name"].ToString());
-                        _lr.Phone = Convert.ToString(dt.Rows[0]["Mobile"].ToString());
-                        _lr.Adress = Convert.ToString(dt.Rows[0]["Address"].ToString());
-                        _lr.DOB = Convert.ToString(dt.Rows[0]["DOB"].ToString());
-                        _lr.Role = Convert.ToString(dt.Rows[0]["Role"].ToString());
-                        _lr.UserId = Convert.ToInt32(dt.Rows[0]["_UId"]);
-                        TempData["UserId"] = _lr.UserId;
-                        res.LoginTypeId = _lr.LoginTypeId;
-                        _lr.SessionExpireTime = DateTime.Now.ToString("hh:mm:ss");
-                        Response.Cookies.Append(AppConsts.AppCookies, JsonConvert.SerializeObject(_lr), options);
-                        HttpContext.Session.SetString(AppConsts.AppSession, JsonConvert.SerializeObject(_lr));
-                        var _ = AC_BAL.Saveloginsession(HttpContext.Session.Id, _lr.UserId, RequestMode.Web);
-                    }
-                    else
-                    {
-                        res.LoginTypeId = Convert.ToInt32(dt.Rows[0]["LoginTypeId"]);
-                        res.Msg = Convert.ToString(dt.Rows[0]["Msg"].ToString());
-                        res.statuscode = Convert.ToInt32(dt.Rows[0]["statuscode"]);
-                        ViewBag.msg = res.Msg;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    TempData["Msg"] = "Login Failed";
-                }
-            }
+            var res = DoLogin(account);
             return Json(res);
         }
         public IActionResult logout()
         {
-            HttpContext.Response.Cookies.Delete("ApplicationCookies");
+            HttpContext.Response.Cookies.Delete(AppConsts.AppCookies);
+            HttpContext.Response.Cookies.Delete(AppConsts.AppToken);
+            HttpContext.Response.Cookies.Delete(AppConsts.AppSession);
             HttpContext.Session.Clear();
             return RedirectToAction("UsersLogin");
         }
@@ -126,6 +91,65 @@ namespace JLNP_Project.Controllers
             IHttpContextAccessor acc = new HttpContextAccessor();
             lr = JsonConvert.DeserializeObject<LoginInfo>(acc.HttpContext.Session.GetString(AppConsts.AppSession));
             return View(lr);
+        }
+        [HttpGet("ExpiresAt")]
+        public IActionResult ExpiresAt()
+        {
+            var session = _accessor.HttpContext.Session;
+            var expiresAt = session.Get(AppConsts.AppSession);//session.Get<DateTimeOffset>("ExpiresAt");
+            return Ok(expiresAt);
+        }
+        private ResponseStatus DoLogin(Account account)
+        {
+            var res = new ResponseStatus
+            {
+                LoginTypeId = -1,
+            };
+            Account_BAL AC_BAL = new Account_BAL();
+            DataTable dt = AC_BAL.Login_BAL_V1(account);
+            if (dt.Rows.Count > 0)
+            {
+                var sts = Convert.ToInt32(dt.Rows[0]["statuscode"]);
+                try
+                {
+                    if (sts == 1)
+                    {
+                        LoginInfo _lr = new LoginInfo();
+                        CookieOptions options = new CookieOptions();
+                        options.Expires = DateTime.Now.AddMinutes(30);
+                        _lr.LoginTypeId = Convert.ToInt32(dt.Rows[0]["LoginTypeId"]);
+                        _lr.UserName = Convert.ToString(dt.Rows[0]["Email"].ToString());
+                        _lr.EMail = Convert.ToString(dt.Rows[0]["Email"].ToString());
+                        _lr.Name = Convert.ToString(dt.Rows[0]["Name"].ToString());
+                        _lr.Phone = Convert.ToString(dt.Rows[0]["Mobile"].ToString());
+                        _lr.Adress = Convert.ToString(dt.Rows[0]["Address"].ToString());
+                        _lr.DOB = Convert.ToString(dt.Rows[0]["DOB"].ToString());
+                        _lr.Role = Convert.ToString(dt.Rows[0]["Role"].ToString());
+                        _lr.UserId = Convert.ToInt32(dt.Rows[0]["_UId"]);
+                        TempData["UserId"] = _lr.UserId;
+                        res.LoginTypeId = _lr.LoginTypeId;
+                        _lr.SessionExpireTime = DateTime.Now.ToString("hh:mm:ss");
+                        Response.Cookies.Append(AppConsts.AppCookies, JsonConvert.SerializeObject(_lr), options);
+                        HttpContext.Session.SetString(AppConsts.AppSession, JsonConvert.SerializeObject(_lr));
+                        var _ = AC_BAL.Saveloginsession(HttpContext.Session.Id, _lr.UserId, RequestMode.Web);
+                        var token = Encoding.UTF8.GetString(_accessor.HttpContext.Session.Get(AppConsts.AppSession));
+                        var encrypted = Encreption.EncryptStringAES(token.ToString());
+                        Response.Cookies.Append(AppConsts.AppToken, encrypted);
+                    }
+                    else
+                    {
+                        res.LoginTypeId = Convert.ToInt32(dt.Rows[0]["LoginTypeId"]);
+                        res.Msg = Convert.ToString(dt.Rows[0]["Msg"].ToString());
+                        res.statuscode = Convert.ToInt32(dt.Rows[0]["statuscode"]);
+                        ViewBag.msg = res.Msg;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["Msg"] = "Login Failed";
+                }
+            }
+            return res;
         }
     }
 }

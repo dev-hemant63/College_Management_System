@@ -11,7 +11,7 @@ namespace JLNP_Project.Controllers
     public class AttendanceController : Controller
     {
         private readonly IHttpContextAccessor _accessor;
-        LoginInfo _lr = new LoginInfo();
+        private readonly LoginInfo _lr;
         Attendance_BAL _bal = new Attendance_BAL();
         public AttendanceController(IHttpContextAccessor accessor)
         {

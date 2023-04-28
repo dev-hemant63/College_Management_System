@@ -16,7 +16,7 @@ namespace JLNP_Project.Controllers
         Student_BAL StBAL = new Student_BAL();
         Student student = new Student();
         private readonly IHttpContextAccessor _accessor;
-        LoginInfo _lr = new LoginInfo();
+        private readonly LoginInfo _lr;
 
         public StudentController(IHttpContextAccessor accessor)
         {
