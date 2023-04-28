@@ -309,6 +309,12 @@ namespace JLNP_Project.Controllers
             }
             return RedirectToAction("Error", "Home");
         }
+        [HttpPost]
+        public IActionResult DetailsForResult(SearchDetailsForResult req)
+        {
+            var res = _exam.GetDetailsForResult(req);
+            return Json(res);
+        }
         #endregion
     }
 }

@@ -73,4 +73,30 @@
         public List<ProgramMaster> Program { get; set; }
         public List<ExamGroupe> ExamGroup { get; set; }
     }
+    public class DetailsForResult
+    {
+        public List<StudentDetaisForResult> StudentDetais { get; set; }
+        public List<SubjectForResult> Subject { get; set; }
+    }
+    public class StudentDetaisForResult
+    {
+        public int Id { get; set; }
+        public int ExamId { get; set; }
+        public string EnrollmentNo { get; set; }
+        public string Program { get; set; }
+        public string Branch { get; set; }
+        public string Year { get; set; }
+    }
+    public class SubjectForResult
+    {
+        public int SubjectId { get; set; }
+        public string SubjectName { get; set; }
+    }
+    public class SearchDetailsForResult
+    {
+        public int ExamId { get; set; }
+        public int Program { get; set; }
+        public int Branch { get; set; }
+        public int Year { get; set; }
+    }
 }

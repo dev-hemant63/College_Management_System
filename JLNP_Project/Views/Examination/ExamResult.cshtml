@@ -58,24 +58,12 @@
                             </select>
                         </div>
                         <div class="col-sm-2" style="padding-top: 27px;">
-                            <button class="btn btn-outline-primary btn-sm">Search</button>
+                            <button class="btn btn-outline-primary btn-sm" onclick="Search()">Search</button>
                         </div>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col-sm-12">
-                            <div class="table-responsive">
-                                <table class="table table-striped" id="tblexamschedule">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>EnrollmentNo</th>
-                                            <th>Student Name</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <hr />
+                    <div class="row mt-3" id="tblresult">
+                        
                     </div>
                 </div>
             </div>
@@ -100,6 +88,19 @@
             for (var i = 0; i < result.length; i++) {
                 $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
             }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var Search = () =>{
+        let obj = {
+            ExamId:$('#ddlexam').val(),
+            Program:$('#ddlprogram').val(),
+            Branch:$('#ddlbranch').val(),
+            Year:$('#ddlyear').val(),
+        }
+        $.post('/Examination/DetailsForResult',obj ).done(function(result) {
+            console.log(result);
         }).fail(function(xhr) {
             console.log(xhr.responseText)
         });
