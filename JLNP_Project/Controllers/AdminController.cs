@@ -15,7 +15,7 @@ namespace JLNP_Project.Controllers
     {
         private readonly IHttpContextAccessor _accessor;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        LoginInfo _lr = new LoginInfo();
+        private readonly LoginInfo _lr;
         Admin_BAL adbal = new Admin_BAL();
         public AdminController(IHttpContextAccessor accessor, IWebHostEnvironment webHostEnvironment)
         {
@@ -303,10 +303,14 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult _GetUsers(string UserName = "", string Mobile = "")
         {
-            Admin_BAL adbal = new Admin_BAL();
-            int UserID = _lr.UserId;
-            var res = adbal.GetUser_Bal(UserID, UserName, Mobile);
-            return PartialView("Partial/_GetUsers", res);
+            if (_lr.LoginTypeId == 1)
+            {
+                Admin_BAL adbal = new Admin_BAL();
+                int UserID = _lr.UserId;
+                var res = adbal.GetUser_Bal(UserID, UserName, Mobile);
+                return PartialView("Partial/_GetUsers", res);
+            }
+            return RedirectToAction("SessionExpired", "Home");
         }
         [HttpPost]
         public IActionResult UpdateUserStatus(int UserID, bool IsActive)

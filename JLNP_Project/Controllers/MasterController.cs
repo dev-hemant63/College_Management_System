@@ -17,7 +17,7 @@ namespace JLNP_Project.Controllers
     {
         private readonly IHttpContextAccessor _accessor;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        LoginInfo _lr = new LoginInfo();
+        private readonly LoginInfo _lr;
 
         public MasterController(IHttpContextAccessor accessor, IWebHostEnvironment webHostEnvironment)
         {

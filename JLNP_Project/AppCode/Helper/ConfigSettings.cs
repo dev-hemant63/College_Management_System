@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using JLNP_Project.AppCode.AppUtilty;
+using Microsoft.Extensions.Configuration;
 using System.IO;
 
 namespace Core.DAL
@@ -12,6 +13,7 @@ namespace Core.DAL
             string path = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.Development.json");
             configurationBuilder.AddJsonFile(path, false);
             conStr = configurationBuilder.Build().GetSection("ConnectionStrings:DBCon").Value;
+            Encreption.EncryptionKey = configurationBuilder.Build().GetSection("Encription:Key").Value;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace JLNP_Project.Controllers
     public class TeacherController : Controller
     {
         private readonly IHttpContextAccessor _accessor;
-        LoginInfo _lr = new LoginInfo();
+        private readonly LoginInfo _lr;
 
         public TeacherController(IHttpContextAccessor accessor)
         {

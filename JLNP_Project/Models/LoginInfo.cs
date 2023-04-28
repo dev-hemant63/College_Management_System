@@ -10,5 +10,6 @@
         public string UserEmail { get; set; }
         public string password { get; set; }
         public string SessionExpireTime { get; set; }
+        public string Token { get; set; }
     }
 }

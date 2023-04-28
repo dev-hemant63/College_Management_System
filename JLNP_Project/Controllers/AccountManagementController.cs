@@ -12,7 +12,7 @@ namespace JLNP_Project.Controllers
     public class AccountManagementController : Controller
     {
         private readonly IHttpContextAccessor _accessor;
-        LoginInfo _lr = new LoginInfo();
+        private readonly LoginInfo _lr;
         AccountManagement_BAL _accountBAL = new AccountManagement_BAL();
 
         public AccountManagementController(IHttpContextAccessor accessor)
