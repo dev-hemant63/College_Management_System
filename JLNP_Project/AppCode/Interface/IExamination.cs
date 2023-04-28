@@ -19,5 +19,7 @@ namespace JLNP_Project.AppCode.Interface
         List<ExamDetail> GetExamdetail(int ExamId);
         List<Exam> BindExam(int Groupid);
         ResponseStatus AddExamGrade(ExamModel req);
+        List<ExamModel> GetExamgrade(int Id);
+        ResponseStatus DeleteExamGrade(int Id);
     }
 }

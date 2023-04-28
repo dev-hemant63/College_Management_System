@@ -12,4 +12,9 @@
         public string Discreption { get; set; }
         public string Entrydate { get; set; }
     }
+    public class GradeViewModel
+    {
+        public ExamModel data { get; set; }
+        public List<ExamType> type { get; set; }
+    }
 }

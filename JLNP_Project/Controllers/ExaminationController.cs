@@ -72,7 +72,7 @@ namespace JLNP_Project.Controllers
             return PartialView(res);
         }
         public IActionResult AddExamGroup(int ID)
-        {            
+        {
             if (_lr.LoginTypeId == 1)
             {
                 var model = new ExamGroupe();
@@ -103,9 +103,9 @@ namespace JLNP_Project.Controllers
         #endregion
         #region Exam
         [HttpPost]
-        public IActionResult AddExam(int ExamGID = 0,int Id=0)
+        public IActionResult AddExam(int ExamGID = 0, int Id = 0)
         {
-            if(_lr.LoginTypeId == 1)
+            if (_lr.LoginTypeId == 1)
             {
                 var model = new AddExam();
                 model.ExamGroup = _exam.GetExamGroup(0);
@@ -183,7 +183,7 @@ namespace JLNP_Project.Controllers
             return PartialView(res);
         }
         [HttpPost]
-        public IActionResult GetStudent(int BranchId, int Program,int Year,int ExamID,bool IsMarks)
+        public IActionResult GetStudent(int BranchId, int Program, int Year, int ExamID, bool IsMarks)
         {
             Attendance_BAL _bal = new Attendance_BAL();
             var res = _bal.GetStudentforAttendance(BranchId, Program, Year, "", ExamID);
@@ -254,25 +254,24 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.LoginTypeId == 1)
             {
-                return View();
+                var res = _exam.GetExamgrade(0);
+                return View(res);
             }
-            return RedirectToAction("Error","Home");
+            return RedirectToAction("Error", "Home");
         }
         [HttpPost]
         public IActionResult AddExamGrade(int Id)
         {
-            if(_lr.LoginTypeId == 1)
+            if (_lr.LoginTypeId == 1)
             {
+                var model = new GradeViewModel();
                 if (Id != 0)
                 {
-
+                    model.data = _exam.GetExamgrade(Id).FirstOrDefault();
                 }
-                else
-                {
-                    var res = _exam.GetExamType(0);
-                    return PartialView(res);
-                }
-            }            
+                model.type = _exam.GetExamType(0);
+                return PartialView(model);
+            }
             return RedirectToAction("SessionExpired", "Home");
         }
         [HttpPost]
@@ -285,6 +284,16 @@ namespace JLNP_Project.Controllers
             }
             return RedirectToAction("SessionExpired", "Home");
         }
+        [HttpPost]
+        public IActionResult DeleteExamGrade(int Id)
+        {
+            if (_lr.LoginTypeId == 1)
+            {
+                var res = _exam.DeleteExamGrade(Id);
+                return Json(res);
+            }
+            return RedirectToAction("SessionExpired", "Home");
+        }
         #endregion
         #region Exam Result
         [HttpGet("Examination/ExamResults")]
@@ -292,7 +301,11 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.LoginTypeId == 1)
             {
-                return View();
+                var mdl = new ResultViewModel();
+                IMasterML ml = new MasterML();
+                mdl.ExamGroup = _exam.GetExamGroup(0);
+                mdl.Program = ml.GetProgram();
+                return View(mdl);
             }
             return RedirectToAction("Error", "Home");
         }

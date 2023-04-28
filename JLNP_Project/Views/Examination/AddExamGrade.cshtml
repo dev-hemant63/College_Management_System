@@ -1,4 +1,4 @@
-﻿@model List<ExamType>
+﻿@model GradeViewModel
 <div class="modal fade bs-example-modal-center show" tabindex="-1" id="myModalNew" role="dialog" aria-labelledby="mySmallModalLabel" aria-modal="true" style="display: block; padding-right: 17px;">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -8,39 +8,40 @@
             </div>
             <div class="modal-body">
                 <label>Exam Type<span style="color:red;">*</span></label>
-                <select class="form-control" id="ddlexamtype">
+                <select class="form-control" id="ddlexamtype" asp-for="@Model.data.ExamType">
                     <option value="0">:: Select ExamType ::</option>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.type)
                     {
                         <option value="@item.Id">@item.ExamTypes</option>
                     }
                 </select>
                 <label>Grade Name</label>
-                <input type="text" class="form-control" id="textgradename" />
+                <input type="text" class="form-control" id="textgradename" asp-for="@Model.data.GradeName" />
                 <label>Precent Upto(%)</label>
-                <input type="number" class="form-control" id="textprecentupto" />
+                <input type="number" class="form-control" id="textprecentupto" asp-for="@Model.data.PrecentUpto"/>
                 <label>Precent From(%)</label>
-                <input type="number" class="form-control" id="textprecentfrom" />
+                <input type="number" class="form-control" id="textprecentfrom" asp-for="@Model.data.PrecentFrom" />
                 <label>Grade Point</label>
-                <input type="number" class="form-control" id="txtgradepoint" />
+                <input type="number" class="form-control" id="txtgradepoint" asp-for="@Model.data.GradePoint" />
                 <label>Description</label>
-                <textarea type="text" class="form-control" id="description"></textarea>
+                <textarea type="text" class="form-control" id="description" asp-for="@Model.data.Discreption"></textarea>
+                <input type="hidden" id="txtid" asp-for="@Model.data.Id" />
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-primary" onclick="AddExamgrade('0')" id="btnsave">Save</button>
+                <button type="button" class="btn btn-outline-primary" onclick="AddExamgrade()" id="btnsave">Save</button>
             </div>
         </div>
     </div>
 </div>
 <script>
-    var AddExamgrade = (id) =>{
+    var AddExamgrade = () =>{
         let obj = {
-            Id:id,
+            Id:$('#txtid').val(),
             ExamType:$('#ddlexamtype').val(),
             GradeName: $('#textgradename').val(),
             PrecentUpto:$('#textprecentupto').val(),
             PrecentFrom:$('#textprecentfrom').val(),
-            Point:$('#txtgradepoint').val(),
+            GradePoint:$('#txtgradepoint').val(),
             Discreption:$('#description').val()
         }
         if(obj.ExamType == '0'){
