@@ -97,9 +97,6 @@ $(document).ready(function() {
         }
         $.post('/Examination/SaveExamGroup', obj).done(function(result) {
             alertnotify(result.statuscode, result.msg);
-            if (result.statuscode == 1) {
-                window.location.href = '/Examination/AddExamGroup';
-            }
         }).fail(function(xhr) {
             console(xhr.responseText);
         });

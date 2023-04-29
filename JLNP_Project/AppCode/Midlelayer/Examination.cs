@@ -591,6 +591,7 @@ namespace JLNP_Project.AppCode.Midlelayer
         public DetailsForResult GetDetailsForResult(SearchDetailsForResult req)
         {
             var response = new DetailsForResult();
+            response.StudentDetais = new List<StudentDetaisForResult>();
             string sp = "Proc_GetDetailsforResult";
             SqlParameter[] param = new SqlParameter[]
             {
@@ -603,30 +604,18 @@ namespace JLNP_Project.AppCode.Midlelayer
             {
                 var ds = _helper.ExcProc_Dataset(sp, param);
                 var dt = ds.Tables[0];
-                var dtt = ds.Tables[1];
                 if (dt.Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        var subject = new SubjectForResult
-                        {
-                            SubjectId = Convert.ToInt32(dr["Id"]),
-                            SubjectName = Convert.ToString(dr["SubjectName"]),
-                        };
-                        response.Subject.Add(subject);
-                    }
-                }
-                if (dtt.Rows.Count > 0)
                 {
                     foreach (DataRow dr in dt.Rows)
                     {
                         var data = new StudentDetaisForResult
                         {
                             Id = Convert.ToInt32(dr["Id"]),
-                            EnrollmentNo = Convert.ToString(dr["Enrollemnt"]),
+                            EnrollmentNo = Convert.ToString(dr["EnrollemntNo"]),
                             Program = Convert.ToString(dr["Program"]),
                             Branch = Convert.ToString(dr["Branch"]),
                             Year = Convert.ToString(dr["Year"]),
+                            SubjName = Convert.ToString(dr["SubjectName"]),
                             ExamId = Convert.ToInt32(dr["ExamID"]),
                         };
                         response.StudentDetais.Add(data);

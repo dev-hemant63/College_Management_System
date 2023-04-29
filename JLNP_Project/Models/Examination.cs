@@ -86,6 +86,7 @@
         public string Program { get; set; }
         public string Branch { get; set; }
         public string Year { get; set; }
+        public string SubjName { get; set; }
     }
     public class SubjectForResult
     {
