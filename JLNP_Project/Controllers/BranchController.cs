@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using JLNP_Project.AppCode.Helper;
 using System.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JLNP_Project.Controllers
 {
+    [Authorize]
     public class BranchController : Controller
     {
         private readonly IHttpContextAccessor _accessor;

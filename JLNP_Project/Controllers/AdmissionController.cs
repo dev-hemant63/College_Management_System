@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using JLNP_Project.AppCode.Helper;
 using Newtonsoft.Json;
 using System.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JLNP_Project.Controllers
 {
+    [Authorize]
     public class AdmissionController : Controller
     {
         private readonly IHttpContextAccessor _accessor;

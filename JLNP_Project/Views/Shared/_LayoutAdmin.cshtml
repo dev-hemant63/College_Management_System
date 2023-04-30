@@ -229,18 +229,18 @@
     <script src="~/js/moment.min.js"></script>
     <script src="~/js/jquery.cookie.min.js"></script>
     <script>
-        var ExpireAT = () => {
-            setInterval(() => {
-                $.get('/ExpiresAt').done(function(result) {
-                    if (result == undefined) {
-                        window.location.href = '/Home/SessionExpired';
-                    }
-                }).fail(function(xhr) {
-                    console.log(xhr.responseText);
-                });
-            }, 1000);
-        }
-        ExpireAT();
+        //var ExpireAT = () => {
+        //    setInterval(() => {
+        //        $.get('/ExpiresAt').done(function(result) {
+        //            if (result == undefined) {
+        //                window.location.href = '/Home/SessionExpired';
+        //            }
+        //        }).fail(function(xhr) {
+        //            console.log(xhr.responseText);
+        //        });
+        //    }, 1000);
+        //}
+        //ExpireAT();
         var $$host = '@(ViewData["Host"])';
         var ChangePassword = function(userid) {
             $.post('/Account/_ChangePassword', { UserID: userid }).done(function(result) {

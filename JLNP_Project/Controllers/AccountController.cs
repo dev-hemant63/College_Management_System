@@ -7,6 +7,10 @@ using Newtonsoft.Json;
 using JLNP_Project.AppCode.Helper;
 using System.Text;
 using JLNP_Project.AppCode.AppUtilty;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JLNP_Project.Controllers
 {
@@ -33,13 +37,47 @@ namespace JLNP_Project.Controllers
             return Ok();
         }
         [HttpPost]
-        public IActionResult Login(Account account)
+        public async Task<IActionResult> UsersLogin(Account account)
         {
-            var res = DoLogin(account);
-            return Json(res);
+            var res = await DoLoginAsync(account);
+            if (res.LoginTypeId == 1)
+            {
+                if (account.ReturnUrl == null || account.ReturnUrl == "/")
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+                    return Redirect(account.ReturnUrl);
+                }
+            }
+            else if(res.LoginTypeId == 2)
+            {
+                if (account.ReturnUrl == null || account.ReturnUrl == "/")
+                {
+                    return RedirectToAction("TeacherDash", "Admin");
+                }
+                else
+                {
+                    return Redirect(account.ReturnUrl);
+                }
+            }
+            else
+            {
+                if (account.ReturnUrl == null || account.ReturnUrl == "/")
+                {
+                    return RedirectToAction("Index", "Student");
+                }
+                else
+                {
+                    return Redirect(account.ReturnUrl);
+                }
+            }
+            return View();
         }
         public IActionResult logout()
         {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             HttpContext.Response.Cookies.Delete(AppConsts.AppCookies);
             HttpContext.Response.Cookies.Delete(AppConsts.AppToken);
             HttpContext.Response.Cookies.Delete(AppConsts.AppSession);
@@ -54,6 +92,7 @@ namespace JLNP_Project.Controllers
             return PartialView("Partial/ChangePassoword", lr);
         }
         [HttpPost]
+        [Authorize]
         public IActionResult ChangePassword(Account account)
         {
             Account_BAL AC_BAL = new Account_BAL();
@@ -105,14 +144,18 @@ namespace JLNP_Project.Controllers
             var encrypted = Encreption.EncryptStringAES(p);
             return Ok(encrypted);
         }
-        private ResponseStatus DoLogin(Account account)
+        private async Task<ResponseStatus> DoLoginAsync(Account account)
         {
             var res = new ResponseStatus
             {
                 LoginTypeId = -1,
             };
+            #region DBTomodel
             Account_BAL AC_BAL = new Account_BAL();
+            LoginInfo _lr = new LoginInfo();
+            CookieOptions options = new CookieOptions();
             DataTable dt = AC_BAL.Login_BAL_V1(account);
+            #endregion
             if (dt.Rows.Count > 0)
             {
                 var sts = Convert.ToInt32(dt.Rows[0]["statuscode"]);
@@ -120,8 +163,7 @@ namespace JLNP_Project.Controllers
                 {
                     if (sts == 1)
                     {
-                        LoginInfo _lr = new LoginInfo();
-                        CookieOptions options = new CookieOptions();
+                        #region DBToModel
                         options.Expires = DateTime.Now.AddMinutes(30);
                         _lr.LoginTypeId = Convert.ToInt32(dt.Rows[0]["LoginTypeId"]);
                         _lr.UserName = Convert.ToString(dt.Rows[0]["Email"].ToString());
@@ -135,6 +177,34 @@ namespace JLNP_Project.Controllers
                         TempData["UserId"] = _lr.UserId;
                         res.LoginTypeId = _lr.LoginTypeId;
                         _lr.SessionExpireTime = DateTime.Now.ToString("hh:mm:ss");
+                        #endregion
+
+                        #region SetIddentity
+                        // Identity login
+                        var claim = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name,_lr.Name),
+                            new Claim(ClaimTypes.Sid,Convert.ToString(_lr.LoginTypeId)),
+                            new Claim(ClaimTypes.Email,_lr.EMail),
+                            new Claim(ClaimTypes.UserData,_lr.UserName),
+                            new Claim(ClaimTypes.MobilePhone,_lr.Phone),
+                            new Claim(ClaimTypes.StreetAddress,_lr.Adress),
+                            new Claim(ClaimTypes.Role,_lr.Role.ToString()),
+                            new Claim(ClaimTypes.SerialNumber,_lr.UserId.ToString()),
+                        };
+                        var identity = new ClaimsIdentity(claim, CookieAuthenticationDefaults.AuthenticationScheme);
+                        var AuthProps = new AuthenticationProperties
+                        {
+                            AllowRefresh = true,
+                            IsPersistent = true,
+                            ExpiresUtc = DateTime.UtcNow.AddMinutes(30)
+                        };
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), AuthProps);
+                        #endregion
+
+                        #region SetCookies
+                        // Cookies And Session
+
                         Response.Cookies.Append(AppConsts.AppCookies, JsonConvert.SerializeObject(_lr), options);
                         HttpContext.Session.SetString(AppConsts.AppSession, JsonConvert.SerializeObject(_lr));
                         var _ = AC_BAL.Saveloginsession(HttpContext.Session.Id, _lr.UserId, RequestMode.Web);
@@ -142,13 +212,16 @@ namespace JLNP_Project.Controllers
                         var token = Encoding.UTF8.GetString(session);
                         var encrypted = Encreption.EncryptStringAES(token.ToString());
                         Response.Cookies.Append(AppConsts.AppToken, encrypted);
+                        #endregion
                     }
                     else
                     {
+                        #region InvalidUser
                         res.LoginTypeId = Convert.ToInt32(dt.Rows[0]["LoginTypeId"]);
                         res.Msg = Convert.ToString(dt.Rows[0]["Msg"].ToString());
                         res.statuscode = Convert.ToInt32(dt.Rows[0]["statuscode"]);
                         ViewBag.msg = res.Msg;
+                        #endregion
                     }
                 }
                 catch (Exception ex)
