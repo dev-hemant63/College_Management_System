@@ -1,6 +1,7 @@
 using JLNP_Project.AppCode.Helper;
 using JLNP_Project.AppCode.Interface;
 using JLNP_Project.AppCode.Midlelayer;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,12 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSession(options => {
     options.Cookie.IsEssential = true;
     options.IdleTimeout = TimeSpan.FromMinutes(AppConsts.SessionTime);
+});
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
+{
+    option.LoginPath = "/Account/UsersLogin";
+    option.LogoutPath = "/Account/Logout";
+    option.AccessDeniedPath = "/Home/SessionExpired";
 });
 builder.Services.AddScoped<IExamination, Examination>();
 var app = builder.Build();
@@ -38,6 +45,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
+app.UseAuthentication();
 app.UseAuthorization();
 //app.UseMiddleware<SessionMiddleware>();
 app.MapControllerRoute(

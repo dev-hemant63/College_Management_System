@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+@model Account
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -24,13 +25,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="login-inner-form">
-                        <div class="details">
+                        <form action="" method="post">
+                            <div class="details">
                             <a href="/">
                                 <img src="/Assessts/img/core-img/logo_red.png" alt="logo">
                             </a><br />
                             <small class="text-danger" id="msg"></small>
                             <div class="form-group form-box">
-                                <select class="form-control" id="ddlusertype">
+                                <select class="form-control" id="ddlusertype" asp-for="@Model.LoginTypeId">
                                     <option value="0">:: Select Login Type ::</option>
                                     <option value="1" selected>Institute</option>
                                     <option value="2">Teacher</option>
@@ -38,11 +40,11 @@
                                 </select>
                             </div>
                             <div class="form-group form-box">
-                                <input type="text" name="UserName" id="UserId" class="form-control" placeholder="User Name" aria-label="User Name">
+                                <input type="text" name="UserId" id="UserId" asp-for="@Model.UserId" class="form-control" placeholder="User Name" aria-label="User Name">
                                 <small class="d-none text-danger" id="UserIdsp">Enter UserName</small>
                             </div>
                             <div class="form-group form-box">
-                                <input type="password" id="password" name="password" class="form-control" autocomplete="off" placeholder="Password" aria-label="Password">
+                                <input type="password" id="password" name="password"  asp-for="@Model.Password" class="form-control" autocomplete="off" placeholder="Password" aria-label="Password">
                                 <span class="d-none text-danger" id="passwordsp">Enter Password</span>
                             </div>
                             <div class="checkbox form-group form-box clearfix">
@@ -55,9 +57,10 @@
                                 <a href="/Account/ForgetPassword">Forgot Password</a>
                             </div>
                             <div class="form-group mb-0">
-                                <button type="submit" class="btn-md btn-theme w-100" onclick="login()">Login</button>
+                                <button type="submit" class="btn-md btn-theme w-100">Login</button>
                             </div>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>

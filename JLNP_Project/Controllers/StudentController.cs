@@ -8,9 +8,11 @@ using JLNP_Project.AppCode.Interface;
 using JLNP_Project.AppCode.Midlelayer;
 using Newtonsoft.Json;
 using JLNP_Project.AppCode.Helper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JLNP_Project.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         Student_BAL StBAL = new Student_BAL();

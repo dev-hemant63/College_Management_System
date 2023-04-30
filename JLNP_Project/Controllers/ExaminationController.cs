@@ -3,11 +3,13 @@ using JLNP_Project.AppCode.Helper;
 using JLNP_Project.AppCode.Interface;
 using JLNP_Project.AppCode.Midlelayer;
 using JLNP_Project.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace JLNP_Project.Controllers
 {
+    [Authorize]
     public class ExaminationController : Controller
     {
         private readonly IHttpContextAccessor _accessor;

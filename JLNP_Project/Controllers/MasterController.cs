@@ -3,6 +3,7 @@ using JLNP_Project.AppCode.Helper;
 using JLNP_Project.AppCode.Interface;
 using JLNP_Project.AppCode.Midlelayer;
 using JLNP_Project.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -13,6 +14,7 @@ using System.Text;
 
 namespace JLNP_Project.Controllers
 {
+    [Authorize]
     public class MasterController : Controller
     {
         private readonly IHttpContextAccessor _accessor;

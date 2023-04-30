@@ -3,6 +3,7 @@ using JLNP_Project.AppCode.Helper;
 using JLNP_Project.AppCode.Interface;
 using JLNP_Project.AppCode.Midlelayer;
 using JLNP_Project.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net;
@@ -11,6 +12,7 @@ using System.Text;
 
 namespace JLNP_Project.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly IHttpContextAccessor _accessor;
@@ -22,7 +24,7 @@ namespace JLNP_Project.Controllers
             _accessor = accessor;
             try
             {
-                if(_accessor.HttpContext.Session.GetString(AppConsts.AppSession) != null)
+                if (_accessor.HttpContext.Session.GetString(AppConsts.AppSession) != null)
                 {
                     _lr = JsonConvert.DeserializeObject<LoginInfo>(_accessor.HttpContext.Session.GetString(AppConsts.AppSession));
                 }
@@ -39,16 +41,12 @@ namespace JLNP_Project.Controllers
         }
         public IActionResult Index()
         {
-            if (_lr.UserName != null)
+            if (_lr.LoginTypeId == 1)
             {
-                if (_lr.LoginTypeId == 1)
-                {
-                    var res = adbal.DashboardSummary_Bal();
-                    return View(res);
-                }                
-                return RedirectToAction("Error", "Home");
+                var res = adbal.DashboardSummary_Bal();
+                return View(res);
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Error", "Home");
         }
         public IActionResult TimeTable()
         {
@@ -128,7 +126,7 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                if(_lr.LoginTypeId == 1)
+                if (_lr.LoginTypeId == 1)
                 {
                     IMasterML ml = new MasterML();
                     var res = ml.GetProgram();
@@ -164,7 +162,7 @@ namespace JLNP_Project.Controllers
                     model.Teachers = adbal.Bind_Teacher_Bal();
                     model.ProgramMasters = ml.GetProgram();
                     return View(model);
-                }                
+                }
                 return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
@@ -173,12 +171,12 @@ namespace JLNP_Project.Controllers
         {
             if (_lr.UserName != null)
             {
-                if(_lr.LoginTypeId == 1)
+                if (_lr.LoginTypeId == 1)
                 {
                     Admin_BAL adbal = new Admin_BAL();
                     var res = adbal.GetAssignment_Bal();
                     return View(res);
-                }                
+                }
                 return RedirectToAction("Error", "Home");
             }
             return RedirectToAction("UsersLogin", "Account");
@@ -271,7 +269,7 @@ namespace JLNP_Project.Controllers
                 }
                 catch (Exception ex)
                 {
-                    
+
                 }
                 subjectMaster.Path = filepath + @"\" + subjectMaster.Files.FileName;
             }
