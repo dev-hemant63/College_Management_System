@@ -47,7 +47,7 @@ namespace JLNP_Project.Controllers
                 var model = ml.GetStudentDetails(_lr.UserId);
                 return View(model);
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
         public IActionResult StudentProfile()
         {
@@ -57,7 +57,7 @@ namespace JLNP_Project.Controllers
                 var model = ml.GetStudentDetails(_lr.UserId);
                 return View(model);
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
 
         public IActionResult StudentList()
@@ -66,7 +66,7 @@ namespace JLNP_Project.Controllers
             {
                 return View();
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
         public IActionResult AddStudent()
         {

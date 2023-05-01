@@ -47,7 +47,7 @@ namespace JLNP_Project.Controllers
                 }
                 return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
         [HttpPost]
         public IActionResult GetStudentDetails(int BranchId,int Program,int Year,string Date)
@@ -74,7 +74,7 @@ namespace JLNP_Project.Controllers
                 }
                 return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
         [HttpPost]
         public IActionResult Getattendancebydate(int BranchId, int Program, int Year, string Date)
@@ -95,7 +95,7 @@ namespace JLNP_Project.Controllers
                 }
                 return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
     }
 }

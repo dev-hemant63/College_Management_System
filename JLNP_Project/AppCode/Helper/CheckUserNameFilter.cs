@@ -11,7 +11,7 @@ namespace JLNP_Project.AppCode.Helper
         {
             if (context.HttpContext.Session.GetString("Userdata") == null)
             {
-                context.Result = new RedirectResult("/Account/UsersLogin");
+                context.Result = new RedirectResult("/Account/Login");
             }
         }
         public void OnActionExecuted(ActionExecutedContext context)

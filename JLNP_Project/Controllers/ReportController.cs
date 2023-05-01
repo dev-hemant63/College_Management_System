@@ -38,7 +38,7 @@ namespace JLNP_Project.Controllers
                 }
                 return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
         public IActionResult AdmissionReport()
         {
@@ -50,7 +50,7 @@ namespace JLNP_Project.Controllers
                 }
                 return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
         public IActionResult _AdmissionReport(AdmissionModel admissionModel)
         {
@@ -100,7 +100,7 @@ namespace JLNP_Project.Controllers
                 }
                 return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
         [HttpPost]
         public IActionResult SaveProjectReport(ProjectReport projectReport)
@@ -130,7 +130,7 @@ namespace JLNP_Project.Controllers
                 }
                 return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
         public IActionResult GetFilterAttandanceReport(int BranchId, int Year, int SubjectId, string Date, string Action)
         {
@@ -144,7 +144,7 @@ namespace JLNP_Project.Controllers
                 }                
                 return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
         public IActionResult Notifications()
         {
@@ -156,7 +156,7 @@ namespace JLNP_Project.Controllers
                 }
                 return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
         [HttpGet]
         public IActionResult SyllabusReport()
@@ -185,7 +185,7 @@ namespace JLNP_Project.Controllers
                 }
                 return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
     }
 }

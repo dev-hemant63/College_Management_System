@@ -120,7 +120,7 @@ namespace JLNP_Project.Controllers
             {
                 return View();
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

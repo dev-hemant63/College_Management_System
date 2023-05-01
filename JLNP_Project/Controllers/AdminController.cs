@@ -41,26 +41,14 @@ namespace JLNP_Project.Controllers
         }
         public IActionResult Index()
         {
-            if (_lr.LoginTypeId == 1)
-            {
-                var res = adbal.DashboardSummary_Bal();
-                return View(res);
-            }
-            return RedirectToAction("Error", "Home");
+            var res = adbal.DashboardSummary_Bal();
+            return View(res);
         }
         public IActionResult TimeTable()
         {
-            if (_lr.UserName != null)
-            {
-                if (_lr.LoginTypeId == 1)
-                {
-                    IMasterML ml = new MasterML();
-                    var res = ml.GetProgram();
-                    return View(res);
-                }
-                return RedirectToAction("Error", "Home");
-            }
-            return RedirectToAction("UsersLogin", "Account");
+            IMasterML ml = new MasterML();
+            var res = ml.GetProgram();
+            return View(res);
         }
         public IActionResult GetTimeTable(int Program, int BranchId, int Year, string Day)
         {
@@ -124,17 +112,9 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult TimetableRepot()
         {
-            if (_lr.UserName != null)
-            {
-                if (_lr.LoginTypeId == 1)
-                {
-                    IMasterML ml = new MasterML();
-                    var res = ml.GetProgram();
-                    return View(res);
-                }
-                return RedirectToAction("Error", "Home");
-            }
-            return RedirectToAction("UsersLogin", "Account");
+            IMasterML ml = new MasterML();
+            var res = ml.GetProgram();
+            return View(res);
         }
         [HttpPost]
         public IActionResult GetTimeTableReport(int Program, int BranchId, int Year)
@@ -152,49 +132,25 @@ namespace JLNP_Project.Controllers
         }
         public IActionResult AssignSubject()
         {
-            if (_lr.UserName != null)
-            {
-                if (_lr.LoginTypeId == 1)
-                {
-                    AssignSubjectViewModel model = new AssignSubjectViewModel();
-                    IMasterML ml = new MasterML();
-                    Admin_BAL adbal = new Admin_BAL();
-                    model.Teachers = adbal.Bind_Teacher_Bal();
-                    model.ProgramMasters = ml.GetProgram();
-                    return View(model);
-                }
-                return RedirectToAction("Error", "Home");
-            }
-            return RedirectToAction("UsersLogin", "Account");
+            AssignSubjectViewModel model = new AssignSubjectViewModel();
+            IMasterML ml = new MasterML();
+            Admin_BAL adbal = new Admin_BAL();
+            model.Teachers = adbal.Bind_Teacher_Bal();
+            model.ProgramMasters = ml.GetProgram();
+            return View(model);
         }
         public IActionResult Assignment()
         {
-            if (_lr.UserName != null)
-            {
-                if (_lr.LoginTypeId == 1)
-                {
-                    Admin_BAL adbal = new Admin_BAL();
-                    var res = adbal.GetAssignment_Bal();
-                    return View(res);
-                }
-                return RedirectToAction("Error", "Home");
-            }
-            return RedirectToAction("UsersLogin", "Account");
+            Admin_BAL adbal = new Admin_BAL();
+            var res = adbal.GetAssignment_Bal();
+            return View(res);
         }
         public IActionResult StudentFine()
         {
-            if (_lr.UserName != null)
-            {
-                if (_lr.LoginTypeId == 1)
-                {
-                    string Action = "Get";
-                    IStudent resq = new StudentML();
-                    var respons = resq.GetStudentFines(Action);
-                    return View(respons);
-                }
-                return RedirectToAction("Error", "Home");
-            }
-            return RedirectToAction("UsersLogin", "Account");
+            string Action = "Get";
+            IStudent resq = new StudentML();
+            var respons = resq.GetStudentFines(Action);
+            return View(respons);
         }
         [HttpPost]
         public IActionResult BindSubject(int BranchId)
@@ -292,23 +248,15 @@ namespace JLNP_Project.Controllers
         }
         public IActionResult GetUsers()
         {
-            if (_lr.LoginTypeId == 1)
-            {
-                return View();
-            }
-            return RedirectToAction("Error", "Home");
+            return View();
         }
         [HttpPost]
         public IActionResult _GetUsers(string UserName = "", string Mobile = "")
         {
-            if (_lr.LoginTypeId == 1)
-            {
-                Admin_BAL adbal = new Admin_BAL();
-                int UserID = _lr.UserId;
-                var res = adbal.GetUser_Bal(UserID, UserName, Mobile);
-                return PartialView("Partial/_GetUsers", res);
-            }
-            return RedirectToAction("SessionExpired", "Home");
+            Admin_BAL adbal = new Admin_BAL();
+            int UserID = _lr.UserId;
+            var res = adbal.GetUser_Bal(UserID, UserName, Mobile);
+            return PartialView("Partial/_GetUsers", res);
         }
         [HttpPost]
         public IActionResult UpdateUserStatus(int UserID, bool IsActive)

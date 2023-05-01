@@ -24,20 +24,12 @@ namespace JLNP_Project.Controllers
             _accessor = accessor;
         }
         [HttpGet]
-        public IActionResult UsersLogin()
+        public IActionResult Login()
         {
-            if (SyatemSetting.LoginTheme == 1)
-            {
-                return View("UsersLogin");
-            }
-            if (SyatemSetting.LoginTheme == 2)
-            {
-                return View("UsersLogin2");
-            }
-            return Ok();
+            return View();
         }
         [HttpPost]
-        public async Task<IActionResult> UsersLogin(Account account)
+        public async Task<IActionResult> Login(Account account)
         {
             var res = await DoLoginAsync(account);
             if (res.LoginTypeId == 1)
@@ -82,7 +74,7 @@ namespace JLNP_Project.Controllers
             HttpContext.Response.Cookies.Delete(AppConsts.AppToken);
             HttpContext.Response.Cookies.Delete(AppConsts.AppSession);
             HttpContext.Session.Clear();
-            return RedirectToAction("UsersLogin");
+            return RedirectToAction("Login");
         }
         [HttpPost]
         public IActionResult _ChangePassword(int UserID)
@@ -164,7 +156,7 @@ namespace JLNP_Project.Controllers
                     if (sts == 1)
                     {
                         #region DBToModel
-                        options.Expires = DateTime.Now.AddMinutes(30);
+                        options.Expires = DateTime.Now.AddMinutes(AppConsts.SessionTime);
                         _lr.LoginTypeId = Convert.ToInt32(dt.Rows[0]["LoginTypeId"]);
                         _lr.UserName = Convert.ToString(dt.Rows[0]["Email"].ToString());
                         _lr.EMail = Convert.ToString(dt.Rows[0]["Email"].ToString());
@@ -197,7 +189,7 @@ namespace JLNP_Project.Controllers
                         {
                             AllowRefresh = true,
                             IsPersistent = true,
-                            ExpiresUtc = DateTime.UtcNow.AddMinutes(30)
+                            ExpiresUtc = DateTime.UtcNow.AddMinutes(AppConsts.SessionTime)
                         };
                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), AuthProps);
                         #endregion
