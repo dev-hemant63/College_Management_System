@@ -37,17 +37,9 @@ namespace JLNP_Project.Controllers
         [HttpGet("/Attendance/MarkAttendance")]
         public IActionResult Index()
         {
-            if (_lr.UserName != null)
-            {
-                if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
-                {
-                    IMasterML ml = new MasterML();
-                    var res = ml.GetProgram();
-                    return View(res);
-                }
-                return RedirectToAction("Error", "Home");
-            }
-            return RedirectToAction("Login", "Account");
+            IMasterML ml = new MasterML();
+            var res = ml.GetProgram();
+            return View(res);
         }
         [HttpPost]
         public IActionResult GetStudentDetails(int BranchId,int Program,int Year,string Date)
@@ -64,17 +56,9 @@ namespace JLNP_Project.Controllers
         [HttpGet("/Attendance/attendencereport")]
         public IActionResult attendencereport()
         {
-            if (_lr.UserName != null)
-            {
-                if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
-                {
-                    IMasterML ml = new MasterML();
-                    var res = ml.GetProgram();
-                    return View(res);
-                }
-                return RedirectToAction("Error", "Home");
-            }
-            return RedirectToAction("Login", "Account");
+            IMasterML ml = new MasterML();
+            var res = ml.GetProgram();
+            return View(res);
         }
         [HttpPost]
         public IActionResult Getattendancebydate(int BranchId, int Program, int Year, string Date)
@@ -85,17 +69,9 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult ApproveLeave()
         {
-            if (_lr.UserName != null)
-            {
-                if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
-                {
-                    IMasterML ml = new MasterML();
-                    var res = ml.GetProgram();
-                    return View(res);
-                }
-                return RedirectToAction("Error", "Home");
-            }
-            return RedirectToAction("Login", "Account");
+            IMasterML ml = new MasterML();
+            var res = ml.GetProgram();
+            return View(res);
         }
     }
 }
