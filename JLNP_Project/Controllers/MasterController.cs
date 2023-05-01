@@ -53,7 +53,7 @@ namespace JLNP_Project.Controllers
                 }
                 return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
         public IActionResult SubjectMasterList()
         {
@@ -67,7 +67,7 @@ namespace JLNP_Project.Controllers
                 }
                 return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
         [HttpPost]
         public IActionResult SaveSubjectMaster(SubjectMaster subjectMaster)
@@ -484,11 +484,7 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult BatchMaster()
         {
-            if (_lr.LoginTypeId == 1)
-            {
-                return View();
-            }
-            return RedirectToAction("Error", "Home");
+            return View();
         }
         [HttpPost]
         public IActionResult AddBatchMaster(int Id = 0)
@@ -565,7 +561,7 @@ namespace JLNP_Project.Controllers
                 }
                 return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
         [HttpPost]
         public IActionResult GetRegistartionMaster()
@@ -635,7 +631,7 @@ namespace JLNP_Project.Controllers
                 }
                 return RedirectToAction("Error", "Home");
             }
-            return RedirectToAction("UsersLogin", "Account");
+            return RedirectToAction("Login", "Account");
         }
         [HttpPost]
         public IActionResult UpdateAdmissionMasterType(int ID,bool Is, int Program = 0, int Branch = 0, int Year = 0)

@@ -175,9 +175,6 @@
     <None Include="wwwroot\Logins2\js\bootstrap.bundle.min.js" />
     <None Include="wwwroot\Logins2\js\jquery.min.js" />
     <None Include="wwwroot\Logins2\js\popper.min.js" />
-    <None Include="wwwroot\logins\bootstrap.min.js" />
-    <None Include="wwwroot\logins\logo.svg" />
-    <None Include="wwwroot\logins\popper.min.js" />
   </ItemGroup>
 
 </Project>

@@ -19,7 +19,7 @@ builder.Services.AddSession(options => {
 });
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
 {
-    option.LoginPath = "/Account/UsersLogin";
+    option.LoginPath = "/Account/Login";
     option.LogoutPath = "/Account/Logout";
     option.AccessDeniedPath = "/Home/SessionExpired";
 });
@@ -50,5 +50,5 @@ app.UseAuthorization();
 //app.UseMiddleware<SessionMiddleware>();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=UsersLogin}/{id?}");
+    pattern: "{controller=Admin}/{action=Index}/{id?}");
 app.Run();
