@@ -24,10 +24,18 @@ var alertnotify = function (statuscode, msg) {
     if (statuscode == 1) {
         var notification = notifier.notify("success", "<b>Success</b> " + msg);
         var _ = notification.push();
+        $('.modal,.modal-backdrop').remove();
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
     }
     else {
         var notification = notifier.notify("error", "<b>Error</b> " + msg);
         notification.push();
+        $('.modal,.modal-backdrop').remove();
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
     }
 }
 //var alertnotify = function (statuscode, msg) {
