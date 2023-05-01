@@ -2,12 +2,34 @@
 // for details on configuring this project to bundle and minify static web assets.
 //var alertnotify = function (statuscode, msg) {
 //    if (statuscode == 1) {
-//        $.growl({ message: msg });
+//        SlimNotifierJs.notification('success', 'Successfully', msg, 3000);
+//        setTimeout(() => {
+//            window.location.reload();
+//        }, 3000);
 //    }
 //    else {
-//        $.growl.error({ message: msg });
+//        SlimNotifierJs.notification('error', 'Error', msg, 3000);
+//        setTimeout(() => {
+//            window.location.reload();
+//        }, 3000);
 //    }
 //}
+
+var alertnotify = function (statuscode, msg) {
+    var notifier = new Notifier({
+        position: 'top-right',
+        direction: 'top',
+        default_time: 3000,
+    });
+    if (statuscode == 1) {
+        var notification = notifier.notify("success", "<b>Success</b> " + msg);
+        var _ = notification.push();
+    }
+    else {
+        var notification = notifier.notify("error", "<b>Error</b> " + msg);
+        notification.push();
+    }
+}
 //var alertnotify = function (statuscode, msg) {
 //    if (statuscode == 1) {
 //        swal.fire({
