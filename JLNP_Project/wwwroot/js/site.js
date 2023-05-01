@@ -1,40 +1,48 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
-var alertnotify = function (statuscode, msg) {
-    if (statuscode == 1) {
-        swal.fire({
-            title: "Success",
-            text: msg,
-            icon: "success",
-            confirmButtonText: "GoBack"
-            //timer: 500000
-        }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-                window.location.reload();
-            } else if (result.isDenied) {
-                //timer: 70000
-                window.location.reload();
-            }
-        });
-    }
-    else {
-        swal.fire({
-            title: "Falied",
-            text: msg,
-            icon: "error",
-            confirmButtonText: "GoBack"
-            //timer: 500000
-        }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-            } else if (result.isDenied) {
-                //timer: 70000
-                window.location.reload();
-            }
-        });
-    }
-}
+//var alertnotify = function (statuscode, msg) {
+//    if (statuscode == 1) {
+//        $.growl({ message: msg });
+//    }
+//    else {
+//        $.growl.error({ message: msg });
+//    }
+//}
+//var alertnotify = function (statuscode, msg) {
+//    if (statuscode == 1) {
+//        swal.fire({
+//            title: "Success",
+//            text: msg,
+//            icon: "success",
+//            confirmButtonText: "GoBack"
+//            //timer: 500000
+//        }).then((result) => {
+//            /* Read more about isConfirmed, isDenied below */
+//            if (result.isConfirmed) {
+//                window.location.reload();
+//            } else if (result.isDenied) {
+//                //timer: 70000
+//                window.location.reload();
+//            }
+//        });
+//    }
+//    else {
+//        swal.fire({
+//            title: "Falied",
+//            text: msg,
+//            icon: "error",
+//            confirmButtonText: "GoBack"
+//            //timer: 500000
+//        }).then((result) => {
+//            /* Read more about isConfirmed, isDenied below */
+//            if (result.isConfirmed) {
+//            } else if (result.isDenied) {
+//                //timer: 70000
+//                window.location.reload();
+//            }
+//        });
+//    }
+//}
 var conformation = function (msg, IsConfirmedMethod, IsDeniedMethod) {
     Swal.fire({
         title: msg,
