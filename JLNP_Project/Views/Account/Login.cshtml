@@ -27,39 +27,43 @@
                     <div class="login-inner-form">
                         <form action="" method="post">
                             <div class="details">
-                            <a href="/">
-                                <img src="/Assessts/img/core-img/logo_red.png" alt="logo">
-                            </a><br />
-                            <small class="text-danger" id="msg"></small>
-                            <div class="form-group form-box">
-                                <select class="form-control" id="ddlusertype" asp-for="@Model.LoginTypeId">
-                                    <option value="0">:: Select Login Type ::</option>
-                                    <option value="1" selected>Institute</option>
-                                    <option value="2">Teacher</option>
-                                    <option value="3">Student</option>
-                                </select>
-                            </div>
-                            <div class="form-group form-box">
-                                <input type="text" name="UserId" id="UserId" asp-for="@Model.UserId" class="form-control" placeholder="User Name" aria-label="User Name">
-                                <small class="d-none text-danger" id="UserIdsp">Enter UserName</small>
-                            </div>
-                            <div class="form-group form-box">
-                                <input type="password" id="password" name="password"  asp-for="@Model.Password" class="form-control" autocomplete="off" placeholder="Password" aria-label="Password">
-                                <span class="d-none text-danger" id="passwordsp">Enter Password</span>
-                            </div>
-                            <div class="checkbox form-group form-box clearfix">
-                                <div class="form-check checkbox-theme">
-                                    <input class="form-check-input" type="checkbox" value="" id="rememberMe">
-                                    <label class="form-check-label" for="rememberMe">
-                                        Remember me
-                                    </label>
+                                <a href="/">
+                                    <img src="/Assessts/img/core-img/logo_red.png" alt="logo">
+                                </a><br />
+                                <small class="text-danger" id="msg"></small>
+                                <div class="form-group form-box">
+                                    <select class="form-control" id="ddlusertype" asp-for="@Model.LoginTypeId">
+                                        <option value="0">:: Select Login Type ::</option>
+                                        <option value="1" selected>Institute</option>
+                                        <option value="2">Teacher</option>
+                                        <option value="3">Student</option>
+                                    </select>
                                 </div>
-                                <a href="/Account/ForgetPassword">Forgot Password</a>
+                                <div class="form-group form-box">
+                                    <input type="text" name="UserId" id="UserId" asp-for="@Model.UserId" class="form-control" placeholder="User Name" aria-label="User Name">
+                                    <small class="d-none text-danger" id="UserIdsp">Enter UserName</small>
+                                </div>
+                                <div class="form-group form-box">
+                                    <input type="password" id="password" name="password" asp-for="@Model.Password" class="form-control" autocomplete="off" placeholder="Password" aria-label="Password">
+                                    <span class="d-none text-danger" id="passwordsp">Enter Password</span>
+                                </div>
+                                <div class="checkbox form-group form-box clearfix mt-0">
+                                    <div class="form-check checkbox-theme">
+                                        <input class="form-check-input" type="checkbox" value="" id="rememberMe">
+                                        <label class="form-check-label" for="rememberMe">
+                                            Remember me
+                                        </label>
+                                    </div>
+                                    <a href="/Account/ForgetPassword">Forgot Password</a>
+                                </div>
+                                @if (@TempData["ErrMsg"] != null)
+                                {
+                                    <small class="text-danger" style="margin-right: 150px;">@TempData["ErrMsg"]</small>
+                                }
+                                <div class="form-group mb-0">
+                                    <button type="submit" class="btn-md btn-theme w-100">Login</button>
+                                </div>
                             </div>
-                            <div class="form-group mb-0">
-                                <button type="submit" class="btn-md btn-theme w-100">Login</button>
-                            </div>
-                        </div>
                         </form>
                     </div>
                 </div>
@@ -73,68 +77,16 @@
     <script src="~/dist/sweetalert2.all.min.js"></script>
     <script src="~/dist/sweetalert2.all.js"></script>
     <script>
-    var login = function() {
-        let obj = {
-            LoginTypeId: $('#ddlusertype :selected').val(),
-            UserId: $('#UserId').val(),
-            Password: $('#password').val()
+        if (@TempData["ErrMsg"] != null) {
+            alertnotify(-1, @TempData["ErrMsg"]);
         }
-        if (obj.LoginTypeId == '') {
-            alert('Please select Login Type');
-            $('#ddlusertype').focus();
-            return false;
+        var ForgetPassword = function() {
+            $.post('/Account/ForgetPassword').done(function(result) {
+                showModel(result);
+            }).fail(function(xhr) {
+                console.log(xhr.responseText);
+            });
         }
-        if (obj.UserId == '') {
-            $('#UserIdsp').removeClass('d-none');
-            $('#UserId').focus();
-            return false;
-        }
-        else{
-            $('#UserIdsp').addClass('d-none');
-        }
-        if (obj.Password == '') {
-            $('#passwordsp').removeClass('d-none');
-            $('#password').focus();
-            return false;
-        }
-        else{
-            $('#passwordsp').addClass('d-none');
-        }
-        preloader.load();
-        $.post('/Account/Login', obj).done(function(result) {
-            preloader.remove();
-            if (result.loginTypeId == 1) {
-                window.location.replace("/Admin/Index");
-            }
-            else if (result.loginTypeId == 2) {
-                window.location.replace("/Admin/TeacherDash");
-            }
-            else if (result.loginTypeId == 3) {
-                window.location.replace("/Student/Index");
-            }
-            else if (result.loginTypeId == -1) {
-                $('#msg').text(result.msg);
-                return false;
-            }
-            else if (result.statuscode == -1) {
-                $('#msg').text(result.msg);
-                return false;
-            }
-            else {
-                window.location.reload();
-            }
-        }).fail(function(xhr) {
-            console.log(xhr);
-            //alert('server error');
-        })
-    }
-    var ForgetPassword = function() {
-        $.post('/Account/ForgetPassword').done(function(result) {
-            showModel(result);
-        }).fail(function(xhr) {
-            console.log(xhr.responseText);
-        });
-    }
-</script>
+    </script>
 </body>
 </html>

@@ -32,38 +32,45 @@ namespace JLNP_Project.Controllers
         public async Task<IActionResult> Login(Account account)
         {
             var res = await DoLoginAsync(account);
-            if (res.LoginTypeId == 1)
+            if (res.LoginTypeId > 0)
             {
-                if (account.ReturnUrl == null || account.ReturnUrl == "/")
+                if (res.LoginTypeId == 1)
                 {
-                    return RedirectToAction("Index", "Admin");
+                    if (account.ReturnUrl == null || account.ReturnUrl == "/")
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else
+                    {
+                        return Redirect(account.ReturnUrl);
+                    }
+                }
+                else if (res.LoginTypeId == 2)
+                {
+                    if (account.ReturnUrl == null || account.ReturnUrl == "/")
+                    {
+                        return RedirectToAction("TeacherDash", "Admin");
+                    }
+                    else
+                    {
+                        return Redirect(account.ReturnUrl);
+                    }
                 }
                 else
                 {
-                    return Redirect(account.ReturnUrl);
-                }
-            }
-            else if(res.LoginTypeId == 2)
-            {
-                if (account.ReturnUrl == null || account.ReturnUrl == "/")
-                {
-                    return RedirectToAction("TeacherDash", "Admin");
-                }
-                else
-                {
-                    return Redirect(account.ReturnUrl);
+                    if (account.ReturnUrl == null || account.ReturnUrl == "/")
+                    {
+                        return RedirectToAction("Index", "Student");
+                    }
+                    else
+                    {
+                        return Redirect(account.ReturnUrl);
+                    }
                 }
             }
             else
             {
-                if (account.ReturnUrl == null || account.ReturnUrl == "/")
-                {
-                    return RedirectToAction("Index", "Student");
-                }
-                else
-                {
-                    return Redirect(account.ReturnUrl);
-                }
+                TempData["ErrMsg"] = res.Msg;
             }
             return View();
         }
