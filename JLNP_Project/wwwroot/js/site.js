@@ -33,9 +33,6 @@ var alertnotify = function (statuscode, msg) {
         var notification = notifier.notify("error", "<b>Error</b> " + msg);
         notification.push();
         $('.modal,.modal-backdrop').remove();
-        setTimeout(() => {
-            window.location.reload();
-        }, 3000);
     }
 }
 //var alertnotify = function (statuscode, msg) {
@@ -73,19 +70,17 @@ var alertnotify = function (statuscode, msg) {
 //        });
 //    }
 //}
-var conformation = function (msg, IsConfirmedMethod, IsDeniedMethod) {
+var conformation = function (msg,btntext, IsConfirmedMethod) {
     Swal.fire({
-        title: msg,
-        showDenyButton: true,
+        text: msg,
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Ok',
-        denyButtonText: `Don't save`,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: btntext
     }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
             IsConfirmedMethod
-        } else if (result.isDenied) {
-            IsDeniedMethod
         }
     })
 }

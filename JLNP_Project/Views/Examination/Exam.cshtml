@@ -129,6 +129,7 @@
     }
     var ExamMarks = (id) =>{
         $.post('/Examination/ExamMarks', { ExamId: id }).done(function(result) {
+            $('.modal,.modal-backdrop').remove();
             showModel(result);
             loadsubject();
         }).fail(function(xhr) {

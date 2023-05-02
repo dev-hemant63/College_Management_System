@@ -32,45 +32,57 @@ namespace JLNP_Project.Controllers
         public async Task<IActionResult> Login(Account account)
         {
             var res = await DoLoginAsync(account);
-            if (res.LoginTypeId > 0)
+            if(account.RequestMode == RequestMode.Web)
             {
-                if (res.LoginTypeId == 1)
+                if (res.LoginTypeId > 0)
                 {
-                    if (account.ReturnUrl == null || account.ReturnUrl == "/")
+                    if (res.LoginTypeId == 1)
                     {
-                        return RedirectToAction("Index", "Admin");
+                        if (account.ReturnUrl == null || account.ReturnUrl == "/")
+                        {
+                            return RedirectToAction("Index", "Admin");
+                        }
+                        else
+                        {
+                            return Redirect(account.ReturnUrl);
+                        }
+                    }
+                    else if (res.LoginTypeId == 2)
+                    {
+                        if (account.ReturnUrl == null || account.ReturnUrl == "/")
+                        {
+                            return RedirectToAction("TeacherDash", "Admin");
+                        }
+                        else
+                        {
+                            return Redirect(account.ReturnUrl);
+                        }
                     }
                     else
                     {
-                        return Redirect(account.ReturnUrl);
-                    }
-                }
-                else if (res.LoginTypeId == 2)
-                {
-                    if (account.ReturnUrl == null || account.ReturnUrl == "/")
-                    {
-                        return RedirectToAction("TeacherDash", "Admin");
-                    }
-                    else
-                    {
-                        return Redirect(account.ReturnUrl);
+                        if (account.ReturnUrl == null || account.ReturnUrl == "/")
+                        {
+                            return RedirectToAction("Index", "Student");
+                        }
+                        else
+                        {
+                            return Redirect(account.ReturnUrl);
+                        }
                     }
                 }
                 else
                 {
-                    if (account.ReturnUrl == null || account.ReturnUrl == "/")
-                    {
-                        return RedirectToAction("Index", "Student");
-                    }
-                    else
-                    {
-                        return Redirect(account.ReturnUrl);
-                    }
+                    TempData["ErrMsg"] = res.Msg;
                 }
+                return View();
             }
             else
             {
-                TempData["ErrMsg"] = res.Msg;
+                if(res.LoginTypeId > 0)
+                {
+                    res.statuscode = 1;
+                    return Json(res);
+                }
             }
             return View();
         }
@@ -81,6 +93,8 @@ namespace JLNP_Project.Controllers
             HttpContext.Response.Cookies.Delete(AppConsts.AppToken);
             HttpContext.Response.Cookies.Delete(AppConsts.AppSession);
             HttpContext.Session.Clear();
+            HttpContext.Response.Cookies.Delete(".AspNetCore.Cookies");
+            HttpContext.Response.Cookies.Delete(".AspNetCore.Identity.Application");
             return RedirectToAction("Login");
         }
         [HttpPost]
@@ -133,9 +147,15 @@ namespace JLNP_Project.Controllers
         [HttpGet("ExpiresAt")]
         public IActionResult ExpiresAt()
         {
-            var session = _accessor.HttpContext.Session;
-            var expiresAt = session.Get(AppConsts.AppSession);//session.Get<DateTimeOffset>("ExpiresAt");
-            return Ok(expiresAt);
+            var res = HttpContext.Session.GetInt32("Timeout") ?? 0;
+            var lr = JsonConvert.DeserializeObject<LoginInfo>(HttpContext.Session.GetString(AppConsts.AppSession));
+            return Ok(new
+            {
+                Expiresat = res,
+                UserId = lr.UserName,
+                Password = lr.password,
+                LoginTypeId = lr.LoginTypeId,
+            });
         }
         [HttpGet("DecryptToken")]
         public IActionResult DecryptToken(string p)
@@ -172,6 +192,7 @@ namespace JLNP_Project.Controllers
                         _lr.Adress = Convert.ToString(dt.Rows[0]["Address"].ToString());
                         _lr.DOB = Convert.ToString(dt.Rows[0]["DOB"].ToString());
                         _lr.Role = Convert.ToString(dt.Rows[0]["Role"].ToString());
+                        _lr.password = Convert.ToString(dt.Rows[0]["Password"].ToString());
                         _lr.UserId = Convert.ToInt32(dt.Rows[0]["_UId"]);
                         TempData["UserId"] = _lr.UserId;
                         res.LoginTypeId = _lr.LoginTypeId;
@@ -206,6 +227,7 @@ namespace JLNP_Project.Controllers
 
                         Response.Cookies.Append(AppConsts.AppCookies, JsonConvert.SerializeObject(_lr), options);
                         HttpContext.Session.SetString(AppConsts.AppSession, JsonConvert.SerializeObject(_lr));
+                        HttpContext.Session.SetInt32("Timeout", AppConsts.SessionTime * 60);
                         var _ = AC_BAL.Saveloginsession(HttpContext.Session.Id, _lr.UserId, RequestMode.Web);
                         var session = _accessor.HttpContext.Session.Get(AppConsts.AppSession);
                         var token = Encoding.UTF8.GetString(session);

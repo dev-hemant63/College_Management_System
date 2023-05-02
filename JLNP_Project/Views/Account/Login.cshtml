@@ -40,6 +40,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group form-box">
+                                    <input type="hidden" name="RequestMode" asp-for="@Model.RequestMode" value="1"/>
                                     <input type="text" name="UserId" id="UserId" asp-for="@Model.UserId" class="form-control" placeholder="User Name" aria-label="User Name">
                                     <small class="d-none text-danger" id="UserIdsp">Enter UserName</small>
                                 </div>
