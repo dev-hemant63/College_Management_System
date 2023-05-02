@@ -11,6 +11,7 @@
     public static class RequestMode
     {
         public const int Web = 1;
+        public const int Post = 3;
         public const int App = 2;
     }
 }
