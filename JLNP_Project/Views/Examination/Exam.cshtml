@@ -127,8 +127,8 @@
             console(xhr.responseText);
         });
     }
-    var ExamMarks = (id) =>{
-        $.post('/Examination/ExamMarks', { ExamId: id }).done(function(result) {
+    var ExamMarks = (id,SID) =>{
+        $.post('/Examination/ExamMarks', { ExamId: id,SubjectId:SID }).done(function(result) {
             $('.modal,.modal-backdrop').remove();
             showModel(result);
             loadsubject();

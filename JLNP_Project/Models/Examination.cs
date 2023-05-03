@@ -46,6 +46,7 @@
         public int Branch { get; set; }
         public int Year { get; set; }
         public bool IsAssign { get; set; }
+        public int SubjectId { get; set; }
     }
     public class ExamDetail
     {
