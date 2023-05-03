@@ -146,12 +146,13 @@ namespace JLNP_Project.Controllers
             return PartialView("GetExam", res);
         }
         [HttpPost]
-        public IActionResult ExamMarks(int ExamId)
+        public IActionResult ExamMarks(int ExamId,int SubjectId)
         {
             var res = new AssignExam();
             res.ExamID = ExamId;
             IMasterML ml = new MasterML();
             res.Program = ml.GetProgram();
+            res.SubjectId = SubjectId;
             return PartialView(res);
         }
         [HttpPost]

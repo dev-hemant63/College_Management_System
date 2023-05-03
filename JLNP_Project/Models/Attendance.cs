@@ -4,6 +4,7 @@
     {
         public List<Student> Studentlist { get; set; }
         public bool IsMarks { get; set; }
+        public int SubjectID { get; set; }
     }
     public class AttendanceReq:LoginInfo
     {

@@ -39,7 +39,7 @@
                                             <td>@item.MinMarks</td>
                                             <td>@item.MaxMarks</td>
                                             <td>
-                                                <button class="tabledit-edit-button btn btn-sm btn-secondary btn_edit" data-animation="pulse" title="Exam Marks" data-toggle="modal" data-target="#exampleModalLong-1" onclick="ExamMarks('@Model.FirstOrDefault().ExamID')" title="Add Subject" style="float: none; margin: 4px;"><span class="ti-book"></span></button>
+                                                <button class="tabledit-edit-button btn btn-sm btn-secondary btn_edit" data-animation="pulse" title="Exam Marks" data-toggle="modal" data-target="#exampleModalLong-1" onclick="ExamMarks('@Model.FirstOrDefault().ExamID','@item.SubjectId')" title="Add Subject" style="float: none; margin: 4px;"><span class="ti-book"></span></button>
                                             </td>
                                         </tr>
                                     }
