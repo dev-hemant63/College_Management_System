@@ -186,11 +186,12 @@ namespace JLNP_Project.Controllers
             return PartialView(res);
         }
         [HttpPost]
-        public IActionResult GetStudent(int BranchId, int Program, int Year, int ExamID, bool IsMarks)
+        public IActionResult GetStudent(int BranchId, int Program, int Year, int ExamID, bool IsMarks,int SID = 0)
         {
             Attendance_BAL _bal = new Attendance_BAL();
             var res = _bal.GetStudentforAttendance(BranchId, Program, Year, "", ExamID);
             res.IsMarks = IsMarks;
+            res.SubjectID = SID;
             return PartialView(res);
         }
         [HttpPost]
@@ -316,6 +317,16 @@ namespace JLNP_Project.Controllers
         public IActionResult DetailsForResult(SearchDetailsForResult req)
         {
             var res = _exam.GetDetailsForResult(req);
+            return Json(res);
+        }
+        [HttpPost]
+        public IActionResult SaveExamMarks(List<ExamMarks> req)
+        {
+            var res = new ResponseStatus();
+            foreach (var item in req)
+            {
+                res = _exam.SaveExamMarks(item);
+            }
             return Json(res);
         }
         #endregion
