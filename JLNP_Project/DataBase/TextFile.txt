@@ -25,3 +25,66 @@ BEGIN
 
 	Where t1.ExamID =  @ExamId and t1.Program = @Program and t1.Branch = @Branch and Year = @Year
 END
+
+
+USE [DB_CollageManagement]
+GO
+/****** Object:  Table [dbo].[tbl_StudentMarks]    Script Date: 5/4/2023 5:55:53 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tbl_StudentMarks](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Program] [int] NULL,
+	[Branch] [int] NULL,
+	[Year] [int] NULL,
+	[EnrollmentNo] [varchar](20) NULL,
+	[SubjectId] [int] NULL,
+	[IsAttendance] [bit] NULL,
+	[Marks] [int] NULL,
+	[Note] [varchar](240) NULL,
+	[EntryOn] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [DB_CollageManagement]
+GO
+/****** Object:  StoredProcedure [dbo].[Proc_EnterStudentMarks]    Script Date: 5/4/2023 6:11:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+Alter proc [dbo].[Proc_EnterStudentMarks]
+@Program int,
+@Branch int,
+@Year int,
+@EnrollmentNo varchar(20),
+@SubjectId int,
+@IsAttendance bit,
+@Marks bit,
+@Note varchar(240),
+@ExamId int
+AS
+BEGIN
+	declare @Marks2 int
+	if Not Exists(Select 1 from tbl_SubjectMaster where Program = @Program and BranchId = @Branch and _Year = @Year and Id = @SubjectId)
+		begin
+			Select -1 Statuscode,'Invalid Subject!' Msg
+			return
+		end
+	if Not Exists(Select 1 from tbl_Student_Admission where Program = @Program and Branch = @Branch and _Year = @Year and EntrollmentNo = @EnrollmentNo)
+		begin
+			Select -1 Statuscode,'Student Not found!' Msg
+			return
+		end
+	Insert into tbl_studentmarks(Program,Branch,Year,EnrollmentNo,SubjectId,IsAttendance,Marks,Note,EntryOn)
+	values(@Program,@Branch,@Year,@EnrollmentNo,@SubjectId,@IsAttendance,@Marks,@Note,GETDATE())
+	Select 1 Statuscode,'Marks entered successfully' Msg
+END
+GO
