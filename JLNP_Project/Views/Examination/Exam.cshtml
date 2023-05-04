@@ -137,10 +137,12 @@
             console(xhr.responseText);
         });
     }
-    var Savemarks = (i, sid) = () => {
-        var Isvalid = true;
+    var Savemarks = (i, sid) => {
+        alert(i);
+        alert(sid);
+        var Isvalid = false;
         var table = [];
-        $('#tblstudenty tbody tr').each(function() {
+        $('#tblstudent tbody tr').each(function() {
             let currentRow = $(this);
             let enroll = currentRow.attr('data-id');
             let obj = {
@@ -155,15 +157,15 @@
             };
             if (obj.IsAttendance) {
                 if (obj.Marks == '' || obj.Marks == undefined) {
-                    alertnotify(-1, 'Please enter marks');
+                    alertnotify(-1, 'Please enter marks!');
                     Isvalid = false;
-                    return false;
+                    return false;                    
                 }
             }
-            if (Isvalid) {
-                table.push(obj);
-            }
+            table.push(obj);
+            Isvalid = true;
         });
+        console.log(table);
         if (Isvalid) {
             $.post('/Examination/SaveExamMarks', { req: table }).done(function(result) {
                 alertnotify(result.statuscode, result.msg);
