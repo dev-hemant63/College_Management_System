@@ -101,4 +101,15 @@
         public int Branch { get; set; }
         public int Year { get; set; }
     }
+    public class ExamMarks
+    {
+        public int Program { get; set; }
+        public int Branch { get; set; }
+        public int Year { get; set; }
+        public int SubjectId { get; set; }
+        public bool IsAttendance { get; set; }
+        public string EnrollmentNo { get; set; }
+        public string Marks { get; set; }
+        public string Note { get; set; }
+    }
 }

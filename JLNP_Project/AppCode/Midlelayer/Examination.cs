@@ -628,5 +628,28 @@ namespace JLNP_Project.AppCode.Midlelayer
             }
             return response;
         }
+        public ResponseStatus SaveExamMarks(ExamMarks request)
+        {
+            var response = new ResponseStatus();
+            string Procname = "";
+            SqlParameter[] prams = new SqlParameter[]
+            {
+                new SqlParameter("@Program",request.Program),
+                new SqlParameter("@Branch",request.Branch),
+                new SqlParameter("@Year",request.Year),
+                new SqlParameter("@EnrollmentNo",request.EnrollmentNo),
+                new SqlParameter("@SubjectId",request.SubjectId),
+                new SqlParameter("@IsAttendance",request.IsAttendance),
+                new SqlParameter("@Marks",request.Marks),
+                new SqlParameter("@Note",request.Note),
+            };
+            var dt = _helper.ExcProc(Procname, prams);
+            if(dt.Rows.Count > 0)
+            {
+                response.statuscode = Convert.ToInt32(dt.Rows[0]["Statuscode"]);
+                response.Msg = Convert.ToString(dt.Rows[0]["Msg"]);
+            }
+            return response;
+        }
     }
 }

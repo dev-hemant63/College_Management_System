@@ -40,14 +40,14 @@
                         {
                             <td>
                                 <div class="radio radio-info radio-inline">
-                                    <input type="checkbox" class="radiocus" id="absent_@i" value="1" name="absent_@i">
+                                    <input type="checkbox" class="radiocus" id="absent_@i" value="1" name="absent_@item.Entrolment_No">
                                 </div>
                             </td>
                             <td>
-                                <input type="number" class="form-control" id="marks_@i" data-val="true">
+                                <input type="number" class="form-control" id="marks_@item.Entrolment_No" data-val="true">
                             </td>
                             <td>                                
-                                <input type="text" class="form-control" id="note_@i" data-val="true" >
+                                <input type="text" class="form-control" id="note_@item.Entrolment_No" data-val="true" >
                             </td> 
                         }
                     </tr>
@@ -59,7 +59,7 @@
         <div class="col-sm-12" style="display: flex; flex-direction: row-reverse;">
             @if (Model.IsMarks)
             {
-                <button type="button" class="btn btn-outline-primary mt-2" onclick="Savemarks('@i')" id="tbl">Save</button>
+                <button type="button" class="btn btn-outline-primary mt-2" onclick="Savemarks('@i','@Model.SubjectID')" id="tbl">Save</button>
             }
             else{
                 <button type="button" class="btn btn-outline-primary mt-2" onclick="AssignExam('@i')" id="tbl">Save</button>
