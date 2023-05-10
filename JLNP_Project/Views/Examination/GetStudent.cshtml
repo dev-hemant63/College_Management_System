@@ -12,7 +12,7 @@
                 <th>Name</th>
                 @if (Model.IsMarks)
                 {
-                    <th>Attendance</th>
+                    <th><input type="checkbox" class="radiocus" id="assign-all" onclick="Checkall()" value="1"> Attendance</th>
                     <th>Marks</th>
                     <th>Note</th>
                 }
@@ -59,7 +59,7 @@
         <div class="col-sm-12" style="display: flex; flex-direction: row-reverse;">
             @if (Model.IsMarks)
             {
-                <button type="button" class="btn btn-outline-primary mt-2" onclick="Savemarks('@i','@Model.SubjectID')" id="tbl">Save</button>
+                <button type="button" class="btn btn-outline-primary mt-2" onclick="Savemarks('@i','@Model.SubjectID','@Model.ExamID')" id="tbl">Save</button>
             }
             else{
                 <button type="button" class="btn btn-outline-primary mt-2" onclick="AssignExam('@i')" id="tbl">Save</button>

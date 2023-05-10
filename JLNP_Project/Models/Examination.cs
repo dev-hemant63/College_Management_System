@@ -79,7 +79,7 @@
         public List<StudentDetaisForResult> StudentDetais { get; set; }
         public List<SubjectForResult> Subject { get; set; }
     }
-    public class StudentDetaisForResult
+    public class StudentDetaisForResult: ExamDetail
     {
         public int Id { get; set; }
         public int ExamId { get; set; }
@@ -88,6 +88,10 @@
         public string Branch { get; set; }
         public string Year { get; set; }
         public string SubjName { get; set; }
+        public string Name { get; set; }
+        public string ObtainedMarks { get; set; }
+        public string Grade { get; set; }
+        public string Status { get; set; }
     }
     public class SubjectForResult
     {
@@ -103,6 +107,7 @@
     }
     public class ExamMarks
     {
+        public int ExamID { get; set; }
         public int Program { get; set; }
         public int Branch { get; set; }
         public int Year { get; set; }

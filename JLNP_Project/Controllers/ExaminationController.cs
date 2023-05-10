@@ -15,7 +15,6 @@ namespace JLNP_Project.Controllers
         private readonly IHttpContextAccessor _accessor;
         private readonly IExamination _exam;
         private readonly LoginInfo _lr;
-
         public ExaminationController(IHttpContextAccessor accessor, IExamination exam)
         {
             _accessor = accessor;
@@ -189,10 +188,18 @@ namespace JLNP_Project.Controllers
         public IActionResult GetStudent(int BranchId, int Program, int Year, int ExamID, bool IsMarks,int SID = 0)
         {
             Attendance_BAL _bal = new Attendance_BAL();
-            var res = _bal.GetStudentforAttendance(BranchId, Program, Year, "", ExamID);
+            var res = _bal.GetStudentforAttendance(BranchId, Program, Year, "", ExamID,IsMarks, SID);
             res.IsMarks = IsMarks;
             res.SubjectID = SID;
-            return PartialView(res);
+            res.ExamID = ExamID;
+            if (IsMarks)
+            {
+                return PartialView("GetStudentForResult", res);
+            }
+            else
+            {
+                return PartialView(res);
+            }
         }
         [HttpPost]
         public IActionResult SaveAssignExam(List<AssignExam> req)
@@ -328,6 +335,12 @@ namespace JLNP_Project.Controllers
                 res = _exam.SaveExamMarks(item);
             }
             return Json(res);
+        }
+        [HttpPost]
+        public IActionResult GetExamResult(SearchDetailsForResult req)
+        {
+            var res = _exam.GetExamResult(req);
+            return PartialView(res);
         }
         #endregion
     }

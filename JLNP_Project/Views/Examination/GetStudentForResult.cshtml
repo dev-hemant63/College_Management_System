@@ -1,0 +1,58 @@
+﻿@model Attendance
+@{
+    <table class="table table-striped" id="tblstudent">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Enrollment</th>
+                <th>Name</th>
+                <th><input type="checkbox" class="radiocus" id="assign-all" onclick="Checkall()" value="1"> Attendance</th>
+                <th>Marks</th>
+                <th>Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 0;
+                foreach (var item in Model.Studentlistforresult)
+                {
+                    i++;
+                    <tr data-id="@item.Enrollment">
+                        <td>@i</td>
+                        <td>@item.Enrollment</td>
+                        <td>@item.Name</td>
+                        <td>
+                            <div class="radio radio-info radio-inline">
+                                <input type="checkbox" class="radiocus" id="absent_@i" value="1" @Html.Raw(item.IsAttendance ? "checked='checked'" : "") name="absent_@item.Enrollment">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" asp-for="@item.Marks" id="marks_@item.Enrollment" data-val="true">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" asp-for="@item.Note" id="note_@item.Enrollment" data-val="true">
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-sm-12" style="display: flex; flex-direction: row-reverse;">
+            @if (Model.IsMarks)
+            {
+                <button type="button" class="btn btn-outline-primary mt-2" onclick="Savemarks('@i','@Model.SubjectID','@Model.ExamID')" id="tbl">Save</button>
+            }
+        </div>
+    </div>
+}
+<script>
+    var Checkall = () => {
+        if ($('#assign-all').is(':checked')) {
+            $('.radiocus').attr('checked', true);
+        }
+        else {
+            $('.radiocus').attr('checked', false);
+        }
+    }
+</script>
