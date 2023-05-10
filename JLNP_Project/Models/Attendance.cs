@@ -3,8 +3,10 @@
     public class Attendance:ResponseStatus
     {
         public List<Student> Studentlist { get; set; }
+        public List<GetStudentforresult> Studentlistforresult { get; set; }
         public bool IsMarks { get; set; }
         public int SubjectID { get; set; }
+        public int ExamID { get; set; }
     }
     public class AttendanceReq:LoginInfo
     {

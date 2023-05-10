@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <hr />
-                    <div class="row mt-3" id="tblresult">
+                    <div id="tblresult">
                         
                     </div>
                 </div>
@@ -99,8 +99,8 @@
             Branch:$('#ddlbranch').val(),
             Year:$('#ddlyear').val(),
         }
-        $.post('/Examination/DetailsForResult',obj ).done(function(result) {
-            console.log(result);
+        $.post('/Examination/GetExamResult',obj ).done(function(result) {
+            $('#tblresult').html(result);
         }).fail(function(xhr) {
             console.log(xhr.responseText)
         });

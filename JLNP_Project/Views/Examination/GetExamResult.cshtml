@@ -1,0 +1,47 @@
+﻿@model List<StudentDetaisForResult>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Exam</th>
+                <th>Name</th>
+                <th>Enrollment Number</th>
+                <th>Subject</th>
+                <th>MinMarks</th>
+                <th>MaxMarks</th>
+                <th>ObtainMarks</th>
+                <th>Grade</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 0;
+                foreach (var item in Model)
+                {
+                    i++;
+                    <tr>
+                        <th>@i</th>
+                        <th>@item.Exam</th>
+                        <th>@item.Name</th>
+                        <th>@item.EnrollmentNo</th>
+                        <th>@item.Subjectname</th>
+                        <th>@item.MinMarks</th>
+                        <th>@item.MaxMarks</th>
+                        <th>@item.ObtainedMarks</th>
+                        <th>@item.Grade</th>
+                        <th>
+                            @if(@item.Status == "P"){
+                                <span class="badge badge-success">Pass</span>
+                            }
+                            else{
+                                <span class="badge badge-danger">Fail</span>
+                            }
+                        </th>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

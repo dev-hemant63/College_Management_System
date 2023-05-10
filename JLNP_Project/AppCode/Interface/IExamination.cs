@@ -23,5 +23,6 @@ namespace JLNP_Project.AppCode.Interface
         ResponseStatus DeleteExamGrade(int Id);
         DetailsForResult GetDetailsForResult(SearchDetailsForResult req);
         ResponseStatus SaveExamMarks(ExamMarks request);
+        List<StudentDetaisForResult> GetExamResult(SearchDetailsForResult req);
     }
 }

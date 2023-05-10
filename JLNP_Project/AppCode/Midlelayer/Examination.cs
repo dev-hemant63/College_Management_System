@@ -456,6 +456,7 @@ namespace JLNP_Project.AppCode.Midlelayer
                         var data = new ExamDetail
                         {
                             ExamID = Convert.ToInt32(item["ExamID"]),
+                            SubjectId = Convert.ToInt32(item["SubjectId"]),
                             Exam = Convert.ToString(item["Exam"]),
                             Subjectname = Convert.ToString(item["SubjectName"]),
                             Date = Convert.ToString(item["Date"]),
@@ -631,7 +632,7 @@ namespace JLNP_Project.AppCode.Midlelayer
         public ResponseStatus SaveExamMarks(ExamMarks request)
         {
             var response = new ResponseStatus();
-            string Procname = "";
+            string Procname = "Proc_StudentmarksEntry";
             SqlParameter[] prams = new SqlParameter[]
             {
                 new SqlParameter("@Program",request.Program),
@@ -642,6 +643,7 @@ namespace JLNP_Project.AppCode.Midlelayer
                 new SqlParameter("@IsAttendance",request.IsAttendance),
                 new SqlParameter("@Marks",request.Marks),
                 new SqlParameter("@Note",request.Note),
+                new SqlParameter("@ExamId",request.ExamID),
             };
             var dt = _helper.ExcProc(Procname, prams);
             if(dt.Rows.Count > 0)
@@ -650,6 +652,46 @@ namespace JLNP_Project.AppCode.Midlelayer
                 response.Msg = Convert.ToString(dt.Rows[0]["Msg"]);
             }
             return response;
+        }
+        public List<StudentDetaisForResult> GetExamResult(SearchDetailsForResult req)
+        {
+            var res = new List<StudentDetaisForResult>();
+            string sp = @"Proc_StudentResult";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@ExamId",req.ExamId),
+                new SqlParameter("@ProgramId",req.Program),
+                new SqlParameter("@BranchId",req.Branch),
+                new SqlParameter("@year",req.Year),
+            };
+            try
+            {
+                var dt = _helper.ExcProc(sp, param);
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow item in dt.Rows)
+                    {
+                        var data = new StudentDetaisForResult
+                        {
+                            Exam = Convert.ToString(item["Exam"]),
+                            Name = Convert.ToString(item["Name"]),
+                            EnrollmentNo = Convert.ToString(item["EntrollmentNo"]),
+                            Subjectname = Convert.ToString(item["Subjectname"]),
+                            MinMarks = Convert.ToInt32(item["MinMarks"]),
+                            MaxMarks = Convert.ToInt32(item["MaxMarks"]),
+                            ObtainedMarks = Convert.ToString(item["ObtainedMarks"]),
+                            Grade = Convert.ToString(item["Grade"]),
+                            Status = Convert.ToString(item["Status"]),
+                        };
+                        res.Add(data);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return res;
         }
     }
 }
