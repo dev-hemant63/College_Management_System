@@ -342,6 +342,20 @@ namespace JLNP_Project.Controllers
             var res = _exam.GetExamResult(req);
             return PartialView(res);
         }
+        [HttpGet]
+        public IActionResult MarkSheet(int Program,int Branch,int Year,string Enrollment,int ExamId)
+        {
+            var req = new SearchDetailsForResult
+            {
+                Program = Program,
+                Branch = Branch,
+                Year = Year,
+                Enrollment = Enrollment,
+                ExamId = ExamId
+            };
+            var res = _exam.GetExamResult(req);
+            return View(res);
+        }
         #endregion
     }
 }

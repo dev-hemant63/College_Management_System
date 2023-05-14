@@ -13,6 +13,7 @@
                 <th>ObtainMarks</th>
                 <th>Grade</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -21,27 +22,42 @@
                 foreach (var item in Model)
                 {
                     i++;
-                    <tr>
-                        <th>@i</th>
-                        <th>@item.Exam</th>
-                        <th>@item.Name</th>
-                        <th>@item.EnrollmentNo</th>
-                        <th>@item.Subjectname</th>
-                        <th>@item.MinMarks</th>
-                        <th>@item.MaxMarks</th>
-                        <th>@item.ObtainedMarks</th>
-                        <th>@item.Grade</th>
-                        <th>
-                            @if(@item.Status == "P"){
-                                <span class="badge badge-success">Pass</span>
+                        <tr data-id="@item.EnrollmentNo">
+                            <th>@i</th>
+                            <th>@item.Exam</th>
+                            <th>@item.Name</th>
+                            <th>@item.EnrollmentNo</th>
+                            <th>@item.Subjectname</th>
+                            <th>@item.MinMarks</th>
+                            <th>@item.MaxMarks</th>
+                            <th>@item.ObtainedMarks</th>
+                            <th>@item.Grade</th>
+                            <th>
+                                @if(@item.Status == "P"){
+                                    <span class="badge badge-success">Pass</span>
                             }
                             else{
-                                <span class="badge badge-danger">Fail</span>
+                                    <span class="badge badge-danger">Fail</span>
                             }
-                        </th>
-                    </tr>
+                            </th>
+                            <th>
+                                <a href="Javascript:void()" class="btn btn-warning btn-sm" onclick="Generatemarksheet('@item.EnrollmentNo')">Generate MarksSheet</a>
+                            </th>
+                        </tr>
                 }
             }
         </tbody>
     </table>
 </div>
+<script>
+    var Generatemarksheet = (enrollment) =>{
+        let param = {
+            Program:$('#ddlprogram').val(),
+            Branch:$('#ddlbranch').val(),
+            Year:$('#ddlyear').val(),
+            Enrollment:enrollment,
+            ExamId:$('#ddlexam').val()
+        }
+        window.open('/Examination/MarkSheet?'+$.param(param),'_blank');
+    }
+</script>
