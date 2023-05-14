@@ -116,7 +116,7 @@ namespace JLNP_Project.AppCode.DAL
                 Msg = "Temp Error",
                 Studentlistforresult = new List<GetStudentforresult>()
             };
-            string Proc = @"Select ISNULL(t2.Marks,0) Marks,ISNULL(t2.Note,'') Note,ISNULL(t2.IsAttendance,0) IsAttendance,t3.Name,t3.EntrollmentNo EnrollemntNo from tbl_AssignExam t1 left Join tbl_StudentMarks t2 on t1.EnrollemntNo = t2.EnrollmentNo
+            string Proc = @"Select ISNULL(t2.IsPrectical,0) IsPrectical,ISNULL(t2.Marks,0) Marks,ISNULL(t2.Note,'') Note,ISNULL(t2.IsAttendance,0) IsAttendance,t3.Name,t3.EntrollmentNo EnrollemntNo from tbl_AssignExam t1 left Join tbl_StudentMarks t2 on t1.EnrollemntNo = t2.EnrollmentNo
                             Inner join tbl_Student_Admission t3 on t1.EnrollemntNo = t3.EntrollmentNo
 							where (ISNULL(t2.Program,0)= @ProgramID or ISNULL(t2.Program,0) = ISNULL(t2.Program,0))
 							and (ISNULL(t2.Branch,0) = @BranchId or ISNULL(t2.Branch,0) = ISNULL(t2.Branch,0))
@@ -145,6 +145,7 @@ namespace JLNP_Project.AppCode.DAL
                             Marks = Convert.ToInt32(item["Marks"]),
                             Note = Convert.ToString(item["Note"]),
                             IsAttendance = Convert.ToBoolean(item["IsAttendance"]),
+                            IsPrectical = Convert.ToBoolean(item["IsPrectical"])
                         };
                         res.Studentlistforresult.Add(data);
                     }

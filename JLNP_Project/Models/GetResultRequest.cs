@@ -26,5 +26,6 @@
         public string Note { get; set; }
         public int Marks { get; set; }
         public bool IsAttendance { get; set; }
+        public bool IsPrectical { get; set; }
     }
 }

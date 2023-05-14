@@ -644,6 +644,7 @@ namespace JLNP_Project.AppCode.Midlelayer
                 new SqlParameter("@Marks",request.Marks),
                 new SqlParameter("@Note",request.Note),
                 new SqlParameter("@ExamId",request.ExamID),
+                new SqlParameter("@IsPrectical",request.IsPrectical)
             };
             var dt = _helper.ExcProc(Procname, prams);
             if(dt.Rows.Count > 0)
@@ -663,6 +664,7 @@ namespace JLNP_Project.AppCode.Midlelayer
                 new SqlParameter("@ProgramId",req.Program),
                 new SqlParameter("@BranchId",req.Branch),
                 new SqlParameter("@year",req.Year),
+                new SqlParameter("@Enrollment",req.Enrollment)
             };
             try
             {
@@ -682,6 +684,11 @@ namespace JLNP_Project.AppCode.Midlelayer
                             ObtainedMarks = Convert.ToString(item["ObtainedMarks"]),
                             Grade = Convert.ToString(item["Grade"]),
                             Status = Convert.ToString(item["Status"]),
+                            Address = Convert.ToString(item["Address"]),
+                            Fathername = Convert.ToString(item["Fname"]),
+                            Mobile = Convert.ToString(item["Mobile"]),
+                            Program = Convert.ToString(item["Program"]),
+                            Branch = Convert.ToString(item["Branch_Name"]),
                         };
                         res.Add(data);
                     }

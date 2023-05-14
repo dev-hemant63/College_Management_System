@@ -37,17 +37,13 @@ namespace JLNP_Project.Controllers
         }
         public IActionResult AForm()
         {
-            if (Request.Cookies["UserName"] != null)
+            if (_lr.LoginTypeId == 1)
             {
-                if (_lr.LoginTypeId == 1)
-                {
-                    IMasterML ml = new MasterML();
-                    var res = ml.GetProgram();
-                    return View(res);
-                }
-                return RedirectToAction("Error", "Home");
+                IMasterML ml = new MasterML();
+                var res = ml.GetProgram();
+                return View(res);
             }
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Error", "Home");
         }
         [HttpPost]
         public IActionResult BindBranch()
@@ -75,7 +71,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult Student_Admission(AdmissionModel admissionModel)
         {
-            Admission_BAL AdBal= new Admission_BAL();
+            Admission_BAL AdBal = new Admission_BAL();
             admissionModel.Action = "Admission";
             var dt = AdBal.StudentAdmission(admissionModel);
             ResponseStatus res = new ResponseStatus

@@ -2,8 +2,6 @@ using JLNP_Project.AppCode.Helper;
 using JLNP_Project.AppCode.Interface;
 using JLNP_Project.AppCode.Midlelayer;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.OpenApi.Models;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,17 +11,18 @@ builder.Services.AddControllersWithViews();
 //    option.Filters.Add(new CheckUserNameFilter());
 //});
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<IExamination, Examination>();
 builder.Services.AddSession(options => {
     options.Cookie.IsEssential = true;
     options.IdleTimeout = TimeSpan.FromMinutes(AppConsts.SessionTime);
 });
+builder.Services.AddMvc();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
 {
     option.LoginPath = "/Account/Login";
     option.LogoutPath = "/Account/Logout";
     option.AccessDeniedPath = "/Home/SessionExpired";
 });
-builder.Services.AddScoped<IExamination, Examination>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

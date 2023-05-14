@@ -92,6 +92,9 @@
         public string ObtainedMarks { get; set; }
         public string Grade { get; set; }
         public string Status { get; set; }
+        public string Address { get; set; }
+        public string Fathername { get; set; }
+        public string Mobile { get; set; }
     }
     public class SubjectForResult
     {
@@ -104,6 +107,7 @@
         public int Program { get; set; }
         public int Branch { get; set; }
         public int Year { get; set; }
+        public string Enrollment { get; set; }
     }
     public class ExamMarks
     {
@@ -116,5 +120,6 @@
         public string EnrollmentNo { get; set; }
         public string Marks { get; set; }
         public string Note { get; set; }
+        public bool IsPrectical { get; set; }
     }
 }

@@ -152,7 +152,8 @@
                 SubjectId: sid,
                 IsAttendance: currentRow.find('#absent_'+i).is(':checked'),
                 Marks: $('#marks_' + enroll).val(),
-                Note: $('#note_' + enroll).val()
+                Note: $('#note_' + enroll).val(),
+                IsPrectical: $('#isprectical').is(':checked')
             };
             if (obj.IsAttendance) {
                 if (obj.Marks == '' || obj.Marks == undefined) {
