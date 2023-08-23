@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "_LayoutAdmin";
+   
 }
 @model RegistrationViewModel
 <style>
@@ -252,7 +252,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3">
-                                 <input type="hidden" asp-for="@Model.data.FirstOrDefault().ID" id="hdnid"/>
+                                <input type="hidden" asp-for="@Model.data.FirstOrDefault().ID" id="hdnid"/>
                                 <label>Start Date<span style="color:red;">*</span></label>
                                 <input type="date" class="form-control" id="txtRegistrationStart" asp-for="@Model.data.FirstOrDefault().Startdate" placeholder="Start Date" />
                                 <span class="text-danger d-none" id="txtRegistrationStartsp">Please Enter Start Date</span>
@@ -263,34 +263,48 @@
                                 <span class="text-danger d-none" id="txtRegistrationEndsp">Please Enter End Date</span>
                             </div>
                             <div class="col-sm-3">
-                                <label>Day Limit<span style="color:red;">*</span></label>
-                                <input type="number" class="form-control" id="txtdaylimit" asp-for="@Model.data.FirstOrDefault().Daylimit" placeholder="Day Limit" />
-                                <span class="text-danger d-none" id="txtdaylimitsp">Please Enter Day Limit</span>
+                                <label>Program<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlProgram">
+                                    <option value="0">:: Select Program ::</option>
+                                    @foreach (var item in Model.ProgramMasters)
+                                    {
+                                        <option value="@item.Id">@item.Program</option>
+                                    }
+                                </select>
+                                <span class="text-danger d-none" id="txtdaylimitsp">Please select program</span>
                             </div>
                             <div class="col-sm-3">
-                                <label>All Limit<span style="color:red;">*</span></label>
-                                <input type="number" class="form-control" id="txtalllimit" asp-for="@Model.data.FirstOrDefault().Alllimit" placeholder="All Limit" />
-                                <span class="text-danger d-none" id="txtalllimitsp">Please Enter Day Limit</span>
+                                <label>Branch<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddBranch">
+                                    <option value="0">:: Select Branch ::</option>
+                                </select>
+                                <span class="text-danger d-none" id="txtalllimitsp">Please select branch</span>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Admission Type<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlAdmtype">
+
+                                </select>
+                                <span class="text-danger d-none" id="txtadmissiontype">Please select AdmissionType</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-3">
                                 <button class="btn btn-outline-primary" id="btnsubmit" onclick="Savedata()" style="margin-top: 21px;width: 43%; font-size: 11px;">Save</button>
-                                <a href="/Master/AdmissionMaster" class="btn btn-outline-warning" id="btnsubmit" style="margin-top: 21px;width: 43%; font-size: 11px;">Back to list</a>
                             </div>
                         </div>
                         <div class="table-responsive table-striped" style="margin-top:13px;">
-                            <table class="table mb-0" id="tblprogram">
+                            <table class="table mb-0" id="tblgrid">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
-                                        <th>Day Limit</th>
-                                        <th>All Limit</th>
+                                        <th>Program</th>
+                                        <th>Branch</th>
                                         <th>Entry Date</th>
                                         <th>IsOpen</th>
-                                        <th>Assign Branch</th>
+                                        <th>Admission Type</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -306,8 +320,9 @@
 </div>
 <script>
     $(document).ready(function() {
-        Bindbranch();
         loaddata();
+        Bindbranch();
+        bindAdmissionType();
     });
     var Savedata = () => {
         let obj = {
@@ -349,10 +364,19 @@
         });
     }
     var Bindbranch = () => {
-        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlprogram option:selected').val() }).done(function(result) {
-            $('#ddlbranch').empty();
-            for (var i = 0; i < result.length; i++) {
-                $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
+        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlProgram option:selected').val() }).done(function(result) {
+            for (var j = 0; j < result.length; j++) {
+                $('#ddlProgram').append('<option value="' + result[j].branchId + '">' + result[j].branchName + '</option>')
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var bindAdmissionType = () => {
+        $.post('/Master/GetAdmissionType').done(function(result) {
+            $('#ddlAdmtype').empty();
+            for (var j = 0; j < result.length; j++) {
+                $('#ddlAdmtype').append('<option value="' + result[j].branchId + '">' + result[j].branchName + '</option>')
             }
         }).fail(function(xhr) {
             console.log(xhr.responseText)
@@ -361,7 +385,6 @@
     var loaddata = () => {
         $.post('/Master/GetAdmissionMaster').done(function(result) {
             $('#tblprogram tbody').html(result);
-            Bindbranch();
         }).fail(function(xhr) {
             console.log(xhr.responseText);
         });

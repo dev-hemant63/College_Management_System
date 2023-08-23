@@ -8,8 +8,8 @@
                 <td>@i</td>
                 <td>@item.Startdate</td>
                 <td>@item.Enddate</td>
-                <td>@item.Daylimit</td>
-                <td>@item.Alllimit</td>
+                <td>@item.ProgramName</td>
+                <td>@item.BranchName</td>
                 <td>@item.Entrydate</td>
                 <td>
                     <span class="switch switch-sm">
@@ -17,27 +17,7 @@
                         <label for="isopen_@item.ID"></label>
                     </span>
                 </td>
-                <td>
-                    <div class="d-flex">
-                        <select class="form-control" id="ddlprogram" onchange="Bindbranch()" asp-for="@item.Program">
-                            <option value="0">:: Select Program ::</option>
-                            @foreach (var program in Model.ProgramMasters)
-                        {
-                                <option value="@program.Id">@program.Program</option>
-                        }
-                        </select>
-                        <select class="form-control" id="ddlbranch" asp-for="@item.Branch">
-                            <option value="0">:: Select Branch ::</option>
-                        </select>
-                        <select class="form-control" id="ddlyear" asp-for="@item.Year" onchange="UpdateType('@item.ID')">
-                            <option value="0">:: Select Year ::</option>
-                            <option value="1">First Year</option>
-                            <option value="2">Seccond Year</option>
-                            <option value="3">Third Year</option>
-                            <option value="4">Final Year</option>
-                        </select>
-                    </div>
-                </td>
+                <td>@item.AdmissionTypeName</td>
                 <td>
                     <a href="/Master/AdmissionMaster?Id=@item.ID" class="tabledit-edit-button btn btn-sm btn-success btn_edit" style="float: none; margin: 4px;"><span class="ti-pencil"></span></a>
                 </td>

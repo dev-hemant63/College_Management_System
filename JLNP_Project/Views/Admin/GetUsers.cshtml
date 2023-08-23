@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "_LayoutAdmin";
+   
 }
 <style>
     .switch {
@@ -211,6 +211,7 @@
         }
         $.post('/Admin/UpdateUserStatus', { UserID: Id, IsActive: IsActive }).done(function(result) {
             alertnotify(result.statuscode,result.msg);
+            Loaddata();
         }).fail(function(xhr) {
             console.log(xhr.responseText);
         });

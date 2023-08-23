@@ -1,190 +1,161 @@
 ﻿@model List<ProgramMaster>
-@{
-    Layout = "_LayoutAdmin";
-}
-<div class="">
-    <div class="">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header bgred">
-                        <h4 style="color:black;">Admission Form</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="">
-                                    <div class="form-group"><label>Registration Number</label> <input type="text" onfocusout="AdmissionDetails()" placeholder="Registration Number" class="form-control" id="txtresno"> </div>
-                                    <div class="form-group"><label>Mother Name</label> <input type="text" placeholder="Mother Name" class="form-control" id="mothername"> </div>
-                                    <div class="form-group">
-                                        <label>Gender</label> <select class="form-control" id="gender">
-                                            <option>--Select Gender--</option>
-                                            <option>Male</option>
-                                            <option>Female</option>
-                                            <option>Other</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Program</label> <select class="form-control" id="ddlprogram" onchange="Bindbranch()">
-                                            <option>--Select Program--</option>
-                                            @foreach (var item in Model)
-                                            {
-                                                <option value="@item.Id">@item.Program</option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Year</label>
-                                        <select class="form-control" id="ddlyear">
-                                            <option value="">--Select Year--</option>
-                                            <option value="1">First Year</option>
-                                            <option value="2">Seccond Year</option>
-                                        </select>
-                                    </div>
+<div class="container">
+    <div class="row">
+        <div class="col-12 px-4">
+            <div class="card mb-30">
+                <div class="card-header bgred">
+                    <h4 style="color:black;">Admission Form</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="">
+                                <div class="form-group"><label>Registration Number</label> <input type="text" onfocusout="admissionDetails()" placeholder="Registration Number" class="form-control" id="txtresno" required> </div>
+                                <div class="form-group">
+                                    <label>Gender</label> <select class="form-control" id="gender" required>
+                                        <option value="">--Select Gender--</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Program</label> <select class="form-control" id="ddlprogram" onchange="Bindbranch()" required>
+                                        <option value="">--Select Program--</option>
+                                        @foreach (var item in Model)
+                                        {
+                                            <option value="@item.Id">@item.Program</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Year</label>
+                                    <select class="form-control" id="ddlyear" required>
+                                        <option value="">--Select Year--</option>
+                                        <option value="1">First Year</option>
+                                        <option value="2">Seccond Year</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="">
-                                    <div class="form-group"><label>Name</label> <input type="text" placeholder="Name" class="form-control" id="name"> </div>
-                                    <div class="form-group"><label>Father Occupation</label> <input type="text" placeholder="Father Occupation" class="form-control" id="fatheroccupation"> </div>
-                                    <div class="form-group"><label>Mobile</label> <input type="text" placeholder="Mobile" class="form-control" id="mobile"> </div>
-                                    <div class="form-group">
-                                        <label>Branch</label> <select class="form-control" id="ddlbranch">
-                                            <option value="">--Select Branch--</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group"><label>Religion</label> <input type="text" placeholder="Religion" class="form-control" id="Religion"> </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="">
+                                <div class="form-group"><label>Name</label> <input type="text" placeholder="Name" class="form-control" id="name" required> </div>
+                                <div class="form-group"><label>Mobile</label> <input type="text" placeholder="Mobile" class="form-control" id="mobile" required> </div>
+                                <div class="form-group">
+                                    <label>Branch</label> <select class="form-control" id="ddlbranch" required>
+                                        <option value="">--Select Branch--</option>
+                                    </select>
                                 </div>
+                                <div class="form-group"><label>Religion</label> <input type="text" placeholder="Religion" class="form-control" id="Religion" required> </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="">
-                                    <div class="form-group"><label>Father Name</label> <input type="text" placeholder="Father Name" class="form-control" id="fname"> </div>
-                                    <div class="form-group"><label>DOB</label> <input type="date" placeholder="dd-mm-yy" class="form-control" id="dob"> </div>
-                                    <div class="form-group"><label>Eamil</label> <input type="text" placeholder="Eamil" class="form-control" id="email"> </div>
-                                    <div class="form-group">
-                                        <label>Group</label>
-                                        <select class="form-control" id="group">
-                                            <option>--Select Group--</option>
-                                            <option>A</option>
-                                            <option>K</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group"><label>Address</label> <textarea class="form-control" placeholder="Address" id="address"></textarea></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="">
+                                <div class="form-group"><label>DOB</label> <input type="date" placeholder="dd-mm-yy" class="form-control" id="dob" required> </div>
+                                <div class="form-group"><label>Eamil</label> <input type="text" placeholder="Eamil" class="form-control" id="email" required> </div>
+                                <div class="form-group">
+                                    <label>Admission Type</label> <select class="form-control" id="ddladdmission" required>
+                                        <option value="">--Select Admission Type--</option>
+                                    </select>
                                 </div>
+                                <div class="form-group"><label>Address</label> <textarea class="form-control" placeholder="Address" id="address" required></textarea></div>
                             </div>
-                            <button type="button" style="width: 12%; margin-left: 12px; margin-top: -17px;" class="btn btn-outline-primary waves-effect waves-light" id="btnsubmit">Submit</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- end col -->
+        </div>
+        <!-- end col -->
+    </div>
+    <div class="row">
+        <div class="col-12 px-4">
+            <div class="card mb-30">
+                <div class="card-body">
+                    <h1 class="card-title mb-1">Parents Details</h1>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group"><label>Mother Name</label> <input type="text" placeholder="Mother Name" class="form-control" id="mothername" required> </div>
+                            <div class="form-group"><label>Father Name</label> <input type="text" placeholder="Father Name" class="form-control" id="fname" required> </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><label>Father Mobile</label> <input type="text" placeholder="Father Name" class="form-control" id="fmobile" required> </div>
+                            <div class="form-group"><label>Mother Mobile</label> <input type="text" placeholder="Father Name" class="form-control" id="Mmobile"> </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><label>Father Occupation</label> <input type="text" placeholder="Father Occupation" class="form-control" id="fatheroccupation" required> </div>
+                            <div class="form-group"><label>Mother Occupation</label> <input type="text" placeholder="Father Name" class="form-control" id="motheroccupation" required> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 px-4">
+            <div class="card mb-30">
+                <div class="card-body">
+                    <h1 class="card-title mb-1">Document Upload</h1>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group"><label>Photo</label> <input type="file" class="form-control" id="txtphoto" required> </div>
+                            <div class="form-group"><label>Aadhar Card</label> <input type="file" class="form-control" id="txtphoto" required> </div>
+                            <div class="form-group"><label>Nationality Certificate</label> <input type="file" class="form-control" id="txtphoto" required> </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><label>Father Aadhar Card</label> <input type="file" class="form-control" id="txtphoto" required> </div>
+                            <div class="form-group"><label>Mother Aadhar Card</label> <input type="file" class="form-control" id="txtphoto" required> </div>
+                            <div class="form-group"><label>Transfer Certificate (TC)</label> <input type="file" class="form-control" id="txtphoto" required> </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><label>Income Certificate</label> <input type="file" class="form-control" id="txtphoto" required> </div>
+                            <div class="form-group"><label>Cast Certificate</label> <input type="file" class="form-control" id="txtphoto" required> </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="btnsubmit" onclick="submitAdmission()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script src="~/js/site.js"></script>
 <script>
     $(document).ready(function() {
-        $('#btnsubmit').click(function() {
-            if ($('#txtresno').val() == '') {
-                alert("Please Fill Requered Information..");
-                $('#txtresno').focus();
-                return false;
-            }
-            if ($('#name').val() == '') {
-                alert("Please Fill Requered Information..");
-                $('#name').focus();
-                return false;
-            }
-            if ($('#fname').val() == '') {
-                alert("Please Fill Requered Information..");
-                $('#fname').focus();
-                return false;
-            }
-            if ($('#mothername').val() == '') {
-                alert("Please Fill Requered Information..");
-                $('#mothername').focus();
-                return false;
-            }
-            if ($('#fatheroccupation').val() == '') {
-                alert("Please Fill Requered Information..");
-                $('#fatheroccupation').focus();
-                return false;
-            }
-            if ($('#dob').val() == '') {
-                alert("Please Fill Requered Information..");
-                $('#dob').focus();
-                return false;
-            }
-            if ($('#gender option:selected').val() == '') {
-                alert("Please Fill Requered Information..");
-                $('#gender').focus();
-                return false;
-            }
-            if ($('#mobile').val() == '') {
-                alert("Please Fill Requered Information..");
-                $('#mobile').focus();
-                return false;
-            }
-            if ($('#email').val() == '') {
-                alert("Please Fill Requered Information..");
-                $('#email').focus();
-                return false;
-            }
-            if ($('#ddlprogram option:selected').val() == '') {
-                alert("Please Fill Requered Information..");
-                $('#ddlprogram').focus();
-                return false;
-            }
-            if ($('#ddlbranch option:selected').val() == '') {
-                alert("Please Fill Requered Information..");
-                $('#ddlbranch').focus();
-                return false;
-            }
-            if ($('#group option:selected').val() == '') {
-                alert("Please Fill Requered Information..");
-                $('#group').focus();
-                return false;
-            }
-            if ($('#ddlyear option:selected').val() == '') {
-                alert("Please Fill Requered Information..");
-                $('#ddlyear').focus();
-                return false;
-            }
-            if ($('#Religion').val() == '') {
-                alert("Please Fill Requered Information..");
-                $('#Religion').focus();
-                return false;
-            }
-            if ($('#address').val() == '') {
-                alert("Please Fill Requered Information..");
-                $('#address').focus();
-                return false;
-            }
-            var obj = {
-                Name: $('#name').val(),
-                Fname: $('#fname').val(),
-                MotherName: $('#mothername').val(),
-                FatherOccupation: $('#fatheroccupation').val(),
-                Religion: $('#Religion').val(),
-                Email: $('#email').val(),
-                Mobile: $('#mobile').val(),
-                DOB: $('#dob').val(),
-                Branch: $('#ddlbranch option:selected').val(),
-                Program: $('#ddlprogram option:selected').val(),
-                Year: $('#ddlyear option:selected').val(),
-                Gender: $('#gender option:selected').val(),
-                Group: $('#group option:selected').val(),
-                Address: $('#address').val(),
-                RgistrationNo: $('#txtresno').val()
-            }
-            preloader.load();
-            $.post('/Admission/Student_Admission', obj).done(function(result) {
-                preloader.remove();
-                alertnotify(result.statuscode, result.msg);
-            }).fail(function(xhr) {
-                console.log(xhr.responseText);
-            });
-        });
+
     });
+    var submitAdmission = () =>{
+        let isvalid = valiadteInputs();
+        if (!isvalid) {
+            return false;
+        }
+        return false;
+        let obj = {
+            Name: $('#name').val(),
+            Fname: $('#fname').val(),
+            MotherName: $('#mothername').val(),
+            FatherOccupation: $('#fatheroccupation').val(),
+            Religion: $('#Religion').val(),
+            Email: $('#email').val(),
+            Mobile: $('#mobile').val(),
+            DOB: $('#dob').val(),
+            Branch: $('#ddlbranch option:selected').val(),
+            Program: $('#ddlprogram option:selected').val(),
+            Year: $('#ddlyear option:selected').val(),
+            Gender: $('#gender option:selected').val(),
+            Address: $('#address').val(),
+            RgistrationNo: $('#txtresno').val(),
+            AdmissionType: $('#ddladdmission').val()
+        }
+        preloader.load();
+        $.post('/Admission/Student_Admission', obj).done(function(result) {
+            preloader.remove();
+            alertnotify(result.statuscode, result.msg);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+    }
     var Bindbranch = () => {
         $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlprogram option:selected').val() }).done(function(result) {
             $('#ddlbranch').empty();
@@ -195,11 +166,10 @@
             console.log(xhr.responseText)
         });
     }
-    var AdmissionDetails = () => {
+    var admissionDetails = () => {
         preloader.load();
         let ResBo = $('#txtresno').val();
         $.post('/Admission/StudentGetAdmissionDetails', { RegistrationNo: ResBo }).done(function(result) {
-            preloader.remove();
             $('#name').val(result.name);
             $('#fname').val(result.fname);
             $('#email').val(result.email);
@@ -211,6 +181,25 @@
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');
-        });
+        }).always(() => {preloader.remove()});
     }
+    var valiadteInputs = () => {
+    let inputs = $('.form-control');
+    let isValid = false;
+    inputs.each(function () {
+        isValid = false;
+        var input = $(this);
+        if (input[0].required) {
+            if (input[0].value != '') {
+                isValid = true;
+                input.removeClass("is-invalid");
+                input.addClass("is-valid");
+            }
+            else {
+                input.addClass("is-invalid");
+            }
+        }
+    });
+    return isValid;
+}
 </script>

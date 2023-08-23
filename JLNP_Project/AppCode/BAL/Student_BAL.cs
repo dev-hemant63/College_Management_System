@@ -38,6 +38,7 @@ namespace JLNP_Project.AppCode.BAL
                     model.DOB = Convert.ToString(dt.Rows[0]["DOB"]);
                     model.Mobile = Convert.ToString(dt.Rows[0]["Mobile"]);
                     model.Program = Convert.ToInt32(dt.Rows[0]["Program"] is DBNull ? 0 : Convert.ToInt32(dt.Rows[0]["Program"]));
+                    model.AdmissionType = Convert.ToInt32(dt.Rows[0]["AdmissionType"] is DBNull ? 0 : Convert.ToInt32(dt.Rows[0]["AdmissionType"]));
                     model.BranchId = Convert.ToInt32(dt.Rows[0]["Branch"]);
                     model.Address = Convert.ToString(dt.Rows[0]["Address"]);
                 }

@@ -1,7 +1,4 @@
-﻿@{
-    Layout = "_LayoutAdmin";
-}
-@model RegistrationViewModel
+﻿@model RegistrationViewModel
 <style>
     .input-group > .form-control, .input-group > .custom-select, .input-group > .custom-file {
         position: relative;
@@ -263,34 +260,48 @@
                                 <span class="text-danger d-none" id="txtRegistrationEndsp">Please Enter End Date</span>
                             </div>
                             <div class="col-sm-3">
-                                <label>Day Limit<span style="color:red;">*</span></label>
-                                <input type="number" class="form-control" id="txtdaylimit" asp-for="@Model.data.FirstOrDefault().Daylimit" placeholder="Day Limit" />
-                                <span class="text-danger d-none" id="txtdaylimitsp">Please Enter Day Limit</span>
+                                <label>Program<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlProgram" onchange="Bindbranch()">
+                                    <option value="0">:: Select Program ::</option>
+                                    @foreach (var item in Model.ProgramMasters)
+                                    {
+                                        <option value="@item.Id">@item.Program</option>
+                                    }
+                                </select>
+                                <span class="text-danger d-none" id="txtdaylimitsp">Please select program</span>
                             </div>
                             <div class="col-sm-3">
-                                <label>All Limit<span style="color:red;">*</span></label>
-                                <input type="number" class="form-control" id="txtalllimit" asp-for="@Model.data.FirstOrDefault().Alllimit" placeholder="All Limit" />
-                                <span class="text-danger d-none" id="txtalllimitsp">Please Enter Day Limit</span>
+                                <label>Branch<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddBranch">
+                                    <option value="0">:: Select Branch ::</option>
+                                </select>
+                                <span class="text-danger d-none" id="txtalllimitsp">Please select branch</span>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Admission Type<span style="color:red;">*</span></label>
+                                <select class="form-control" id="ddlAdmtype">
+
+                                </select>
+                                <span class="text-danger d-none" id="txtadmissiontype">Please select AdmissionType</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-3">
                                 <button class="btn btn-outline-primary" id="btnsubmit" onclick="Savedata()" style="margin-top: 21px;width: 43%; font-size: 11px;">Save</button>
-                                <a href="/Master/RegistartionMaster" class="btn btn-outline-warning" id="btnsubmit" style="margin-top: 21px;width: 43%; font-size: 11px;">Back to list</a>
                             </div>
                         </div>
                         <div class="table-responsive table-striped" style="margin-top:13px;">
-                            <table class="table mb-0" id="tblprogram">
+                            <table class="table mb-0" id="tblgrid">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
-                                        <th>Day Limit</th>
-                                        <th>All Limit</th>
+                                        <th>Program</th>
+                                        <th>Branch</th>
                                         <th>Entry Date</th>
                                         <th>IsOpen</th>
-                                        <th>Assign Branch</th>
+                                        <th>Admission Type</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -307,15 +318,16 @@
 <script>
     $(document).ready(function() {
         loaddata();
-        Bindbranch();
+        bindAdmissionType();
     });
     var Savedata = () => {
         let obj = {
             ID:$('#hdnid').val(),
             Startdate: $('#txtRegistrationStart').val(),
             Enddate: $('#txtRegistrationEnd').val(),
-            Daylimit: $('#txtdaylimit').val(),
-            Alllimit: $('#txtalllimit').val(),
+            Branch: $('#ddBranch').val(),
+            Program: $('#ddlProgram').val(),
+            AdmissionType: $('#ddlAdmtype').val()
         }
         if (obj.Startdate == '' || obj.Startdate == undefined) {
             $('#txtRegistrationStartsp').removeClass('d-none');
@@ -325,34 +337,47 @@
             $('#txtRegistrationEndsp').removeClass('d-none');
             return false;
         }
-        if (obj.Daylimit == '' || obj.Daylimit == undefined) {
+        if (obj.Branch == '0' || obj.Branch == undefined) {
             $('#txtdaylimitsp').removeClass('d-none');
             return false;
         }
-        if (obj.Alllimit == '' || obj.Alllimit == undefined) {
+        if (obj.Program == '0' || obj.Program == undefined) {
             $('#txtalllimitsp').removeClass('d-none');
             return false;
         }
         $.post('/Master/SaveRegistartionMaster', obj).done(function(res) {
             alertnotify(res.statuscode, res.mag);
+            $('input').val('');
+            $('select').val('0');
+            loaddata();
         }).fail(function() {
             alertnotify(-1, 'Server Error');
         });
     }
     var UpdateType = (id) => {
         let is = $('#isopen_'+id).is(":checked");
-        $.post('/Master/UpdateRegistartionMasterType', { ID:id,Is: is, Program: $('#ddlprogram').val(), Branch: $('#ddlbranch').val(), Year: $('#ddlyear').val() }).done(function(res) {
+        $.post('/Master/UpdateRegistartionMasterType', { ID:id,Is: is, Program: $('#ddlprogram').val(), Branch: $('#ddlbranch').val() }).done(function(res) {
             alertnotify(res.statuscode, res.mag);
-            window.location.href = '/Master/RegistartionMaster';
+            loaddata();
         }).fail(function() {
             alertnotify(-1, 'Server Error');
         });
     }
     var Bindbranch = () => {
-        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlprogram option:selected').val() }).done(function(result) {
-            $('#ddlbranch_').empty();
+        $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlProgram option:selected').val() }).done(function(result) {
+            $('#ddBranch').empty();
             for (var j = 0; j < result.length; j++) {
-                $('#ddlbranch').append('<option value="' + result[j].branchId + '">' + result[j].branchName + '</option>')
+                $('#ddBranch').append('<option value="' + result[j].branchId + '">' + result[j].branchName + '</option>')
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var bindAdmissionType = () => {
+        $.post('/Master/GetAdmissionType').done(function(result) {
+            $('#ddlAdmtype').empty();
+            for (var j = 0; j < result.length; j++) {
+                $('#ddlAdmtype').append('<option value="' + result[j].id + '">' + result[j].name + '</option>')
             }
         }).fail(function(xhr) {
             console.log(xhr.responseText)
@@ -360,7 +385,7 @@
     }
     var loaddata = () => {
         $.post('/Master/GetRegistartionMaster').done(function(result) {
-            $('#tblprogram tbody').html(result);
+            $('#tblgrid tbody').html(result);
             Bindbranch();
         }).fail(function(xhr) {
             console.log(xhr.responseText);

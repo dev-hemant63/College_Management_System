@@ -1,6 +1,6 @@
 ﻿@model EditStudentRegistration
 @{
-    Layout = "_LayoutAdmin";
+
 }
 <div class="">
     <div class="">
@@ -23,7 +23,7 @@
                                 <div class="form-group"><label>Father Name</label> <input type="text" value="@Model.data.Fname" placeholder="Father Name" class="form-control" id="fname"> </div>
                                 <div class="form-group"><label>Father Occupation</label> <input type="text" value="@Model.data.FatherOccupation" placeholder="Father Occupation" class="form-control" id="txtfatheroccupation"> </div>
                                 <div class="form-group">
-                                    <input type="hidden" value="@Model.data.Id" id="hdnid"/>
+                                    <input type="hidden" value="@Model.data.Id" id="hdnid" />
                                     <label>Program</label> <select class="form-control" asp-for="@Model.data.Program" id="ddlProgram">
                                         <option value="">--Select Program--</option>
                                         @foreach (var item in Model.program)
@@ -55,18 +55,13 @@
                                         <option value="Other">Other</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label>Group</label>
-                                    <select class="form-control" id="group" asp-for="@Model.data.Group">
-                                        <option value="">--Select Group--</option>
-                                        <option value="A">A</option>
-                                        <option value="B">B</option>
-                                        <option value="C">C</option>
-                                        <option value="K">K</option>
-                                    </select>
-                                </div>
                                 <div class="form-group"><label>Mobile</label> <input type="text" placeholder="Mobile" value="@Model.data.Mobile" class="form-control" id="mobile"> </div>
                                 <div class="form-group"><label>Address</label> <textarea class="form-control" placeholder="Address" value="@Model.data.Address" id="address">@Model.data.Address</textarea></div>
+                                <div class="form-group">
+                                    <label>Admission Type</label> <select class="form-control" asp-for="@Model.data.AdmissionType" id="ddladdmission">
+                                        <option value="">--Select Admission Type--</option>
+                                    </select>
+                                </div>
                             </div>
                             <button type="button" style="margin-left: 11px; width: 12%;" class="btn btn-outline-primary waves-effect waves-light" id="btnsubmit">Registration</button>
                         </div>
@@ -79,33 +74,41 @@
 <script src="~/js/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#btnsubmit').click(function() {
-            var obj = {
-                Id:$('#hdnid').val(),
-                Name: $('#name').val(),
-                Fname: $('#fname').val(),
-                Email: $('#email').val(),
-                Mobile: $('#mobile').val(),
-                DOB: $('#dob').val(),
-                Branch: $('#ddlbranch option:selected').val(),
-                Gender: $('#gender option:selected').val(),
-                Group: $('#group option:selected').val(),
-                Address: $('#address').val(),
-                FatherOccupation: $('#txtfatheroccupation').val(),
-                MotherName: $('#txtmother').val(),
-                Program: $('#ddlProgram option:selected').val()
-            }
-            preloader.load();
-            $.post('/Student/_EditStudent', obj).done(function(result) {
-                preloader.remove();
-                alertnotify(result.statuscode,result.msg);
-                setTimeout(loadlist,5000);
-                var loadlist = () => {
-                    window.location.href = '/Student/StudentList';
-                }
-            }).fail(function(xhr) {
-                console.log(xhr.responseText);
-            });
+        bindAdmissionType();
+    });
+    $('#btnsubmit').click(function() {
+        var obj = {
+            Id: $('#hdnid').val(),
+            Name: $('#name').val(),
+            Fname: $('#fname').val(),
+            Email: $('#email').val(),
+            Mobile: $('#mobile').val(),
+            DOB: $('#dob').val(),
+            Branch: $('#ddlbranch option:selected').val(),
+            Gender: $('#gender option:selected').val(),
+            Address: $('#address').val(),
+            FatherOccupation: $('#txtfatheroccupation').val(),
+            MotherName: $('#txtmother').val(),
+            Program: $('#ddlProgram option:selected').val(),
+            AdmissionType: $('#ddladdmission option:selected').val()
+        }
+        preloader.load();
+        $.post('/Student/_EditStudent', obj).done(function(result) {
+            preloader.remove();
+            alertnotify(result.statuscode, result.msg);
+            window.location.href = '/Student/StudentList';
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
         });
     });
+    let bindAdmissionType = () => {
+        $.post('/Master/GetAdmissionType').done(function(result) {
+            $('#ddladdmission').empty();
+            for (var j = 0; j < result.length; j++) {
+                $('#ddladdmission').append('<option value="' + result[j].id + '">' + result[j].name + '</option>')
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
 </script>

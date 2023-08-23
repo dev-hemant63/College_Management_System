@@ -37,7 +37,7 @@ namespace JLNP_Project.AppCode.DAL
                         var data = new Student
                         {
                             Name = Convert.ToString(item["Name"]),
-                            Entrolment_No = Convert.ToString(item["EntrollmentNo"]),
+                            RegistrationNo = Convert.ToString(item["EntrollmentNo"]),
                             IsAssign = Convert.ToBoolean(item["IsAssign"]),
                             ExamId = Convert.ToInt16(item["ExamID"]),
                         };
@@ -114,15 +114,10 @@ namespace JLNP_Project.AppCode.DAL
             {
                 statuscode = -1,
                 Msg = "Temp Error",
-                Studentlistforresult = new List<GetStudentforresult>()
+                Studentlistforresult = new List<GetStudentforresult>(),
+                Studentlistforresultwithprectical = new List<GetStudentforresult>()
             };
-            string Proc = @"Select ISNULL(t2.IsPrectical,0) IsPrectical,ISNULL(t2.Marks,0) Marks,ISNULL(t2.Note,'') Note,ISNULL(t2.IsAttendance,0) IsAttendance,t3.Name,t3.EntrollmentNo EnrollemntNo from tbl_AssignExam t1 left Join tbl_StudentMarks t2 on t1.EnrollemntNo = t2.EnrollmentNo
-                            Inner join tbl_Student_Admission t3 on t1.EnrollemntNo = t3.EntrollmentNo
-							where (ISNULL(t2.Program,0)= @ProgramID or ISNULL(t2.Program,0) = ISNULL(t2.Program,0))
-							and (ISNULL(t2.Branch,0) = @BranchId or ISNULL(t2.Branch,0) = ISNULL(t2.Branch,0))
-							and (ISNULL(t2.Year,0) = @Year or ISNULL(t2.Year,0) = ISNULL(t2.Year,0))
-							and (ISNULL(t2.SubjectId ,0)= @Subject or ISNULL(t2.SubjectId ,0) =  ISNULL(t2.SubjectId ,0))
-							and (ISNULL(t2.ExamID,0)=@exam or ISNULL(t2.ExamID,0)=ISNULL(t2.ExamID,0))";
+            string Proc = @"ProcGetStudentresult";
             SqlParameter[] param =
             {
                 new SqlParameter("@BranchId",req.BranchId),
@@ -131,15 +126,16 @@ namespace JLNP_Project.AppCode.DAL
                 new SqlParameter("@Subject",req.SubjectId),
                 new SqlParameter("@exam",req.ExamID)
             };
-            var dt = _helpter.ExcQueryDT(Proc, param);
-            if (dt.Rows.Count > 0)
+            var ds = _helpter.ExcProc_Dataset(Proc, param);
+            if (ds.Tables[0].Rows.Count > 0)
             {
                 try
                 {
-                    foreach (DataRow item in dt.Rows)
+                    foreach (DataRow item in ds.Tables[0].Rows)
                     {
                         var data = new GetStudentforresult
                         {
+                            Id = Convert.ToInt32(item["Id"]),
                             Name = Convert.ToString(item["Name"]),
                             Enrollment = Convert.ToString(item["EnrollemntNo"]),
                             Marks = Convert.ToInt32(item["Marks"]),
@@ -148,6 +144,30 @@ namespace JLNP_Project.AppCode.DAL
                             IsPrectical = Convert.ToBoolean(item["IsPrectical"])
                         };
                         res.Studentlistforresult.Add(data);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    res.Msg = ex.Message;
+                }
+            }
+            if (ds.Tables[1].Rows.Count > 0)
+            {
+                try
+                {
+                    foreach (DataRow item in ds.Tables[1].Rows)
+                    {
+                        var data = new GetStudentforresult
+                        {
+                            Id = Convert.ToInt32(item["Id"]),
+                            Name = Convert.ToString(item["Name"]),
+                            Enrollment = Convert.ToString(item["EnrollemntNo"]),
+                            Marks = Convert.ToInt32(item["Marks"]),
+                            Note = Convert.ToString(item["Note"]),
+                            IsAttendance = Convert.ToBoolean(item["IsAttendance"]),
+                            IsPrectical = Convert.ToBoolean(item["IsPrectical"])
+                        };
+                        res.Studentlistforresultwithprectical.Add(data);
                     }
                 }
                 catch (Exception ex)

@@ -1,71 +1,182 @@
-﻿@using System.Data
-@{
-    Layout = "_LayoutAdmin";
+﻿@{
+   
 }
-@{
-foreach(DataRow row in ViewBag.teacher.Rows){
-    <div class="">
-        <div class="">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card m-b-30">
-                     <div class="card-header bgred">
-                            <h4 style="color:black;">Edit Teacher</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="p-20">
-                                        <input type="hidden" id="hdnid" value="@row["TeacherId"]" />
-                                        <div class="form-group"><label>Name</label> <input type="text" value="@row["Name"]" class="form-control" id="name"> </div>
-                                        <div class="form-group"><label>Father Name</label> <input type="text" value="@row["FName"]" class="form-control" id="fname"> </div>
-                                        <div class="form-group"><label>Mobile</label> <input type="text" value="@row["Mobile"]" class="form-control" id="mobile"> </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="p-20">
-                                        <div class="form-group"><label>Eamil</label> <input type="text" value="@row["Email"]" class="form-control" id="email"> </div>
-                                        <div class="form-group"><label>DOB</label> <input type="date" value="@row["DOB"]"  class="form-control" id="dob"> </div>
-                                        <div class="form-group"><label>Address</label> <textarea class="form-control"  id="address">@row["Address"]</textarea></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="p-20">
-                                        <div class="form-group"><label>salary</label> <input type="number" value="@row["salary"]"  class="form-control" id="salary"> </div>
-                                        <div class="form-group"><label>Qualification</label> <input type="text" value="@row["Qualification"]" class="form-control" id="Qualification"></div>
-                                    </div>
-                                </div>
+@model TeacherDetails
+<div class="container">
+    <div class="row">
+        <div class="col-12 px-4">
+            <div class="card mb-30">
+                <div class="card-header bgred">
+                    <h4 style="color:black;">Add Teacher</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="p-20">
+                                <div class="form-group"><label>Name</label> <input type="text" placeholder="Name" class="form-control" id="name" asp-for="@Model.Name"> </div>
+                                <div class="form-group"><label>Father Name</label> <input type="text" placeholder="Father Name" class="form-control" id="fname" asp-for="@Model.Fname"> </div>
                             </div>
-                            <button type="button" class="btn btn-outline-primary waves-effect waves-light" id="btnsubmit">save</button>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-20">
+                                <div class="form-group"><label>Eamil</label> <input type="text" placeholder="Eamil" class="form-control" id="email" asp-for="@Model.Email"> </div>
+                                <div class="form-group"><label>DOB</label> <input type="date" placeholder="dd-mm-yy" class="form-control" id="dob" asp-for="@Model.DOB"> </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><label>Mobile</label> <input type="text" placeholder="Mobile" class="form-control" id="mobile" asp-for="@Model.Mobile"> </div>
+                            <div class="form-group"><label>Address</label> <textarea class="form-control" placeholder="Address" id="address" asp-for="@Model.Address"></textarea></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-}
-}
+    <div class="row">
+        <div class="col-12 px-4">
+            <div class="card mb-30">
+                <div class="card-body">
+                    <h1 class="card-title mb-1">Education Details</h1>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group"><label>High School Marks</label> <input type="text" placeholder="High School Marks" class="form-control" id="txthschool" asp-for="@Model.HighSchoolMarks"> </div>
+                            <div class="form-group"><label>Inetrmediat Marks</label> <input type="text" placeholder="High School Marks" class="form-control" id="txtintermediat" asp-for="@Model.InterMarks"> </div>
+                            <div class="form-group">
+                                <label>Graduation</label>
+                                <select class="form-control" id="ddlug" asp-for="@Model.UGTitle">
+                                    <option>--Select Graduation--</option>
+                                    <option>B.A</option>
+                                    <option>B.Sc</option>
+                                    <option>B.Ed</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Post Graduation (Optional)</label>
+                                <select class="form-control" id="ddlpg" asp-for="@Model.PGTitle">
+                                    <option>--Select Graduation--</option>
+                                    <option>M.A</option>
+                                    <option>M.Sc</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><label>High School (%)</label> <input type="text" placeholder="High School Marks (%)" class="form-control" id="txthschoolpre" asp-for="@Model.HighSchool_P"> </div>
+                            <div class="form-group"><label>Inetrmediat (%)</label> <input type="text" placeholder="Inetrmediat (%)" class="form-control" id="txtinterpre" asp-for="@Model.Inter_P"> </div>
+                            <div class="form-group"><label>Graduation Marks</label> <input type="text" placeholder="High School Marks (%)" class="form-control" id="txtugmarks" asp-for="@Model.UGMarks"> </div>
+                            <div class="form-group"><label>Post Graduation Marks</label> <input type="text" placeholder="Graduation Marks" class="form-control" id="txtpgmarks" asp-for="@Model.PGMarks"> </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><label>High School Board</label> <input type="text" placeholder="High School Board" class="form-control" id="txthighschool" asp-for="@Model.HighSchool_B"> </div>
+                            <div class="form-group"><label>Inetrmediat Board</label> <input type="text" placeholder="Inetrmediat Board" class="form-control" id="txtinter" asp-for="@Model.Inter_B"> </div>
+                            <div class="form-group"><label>Graduation Collage</label> <input type="text" placeholder="Graduation Collage" class="form-control" id="txtUGC" asp-for="@Model.UG_Collage"> </div>
+                            <div class="form-group"><label>Post Graduation Collage</label> <input type="text" placeholder="Post Graduation Collage" class="form-control" id="txtPG" asp-for="@Model.PG_Collage"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 px-4">
+            <div class="card mb-30">
+                <div class="card-body">
+                    <h1 class="card-title mb-1">Work Experiance And Salary</h1>
+                    <b class="text-danger">Note*</b><p class="text-danger">Subjects can entered with (,) seprated.</p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group"><label>Previous Collage</label> <input type="text" placeholder="Previous Collage" class="form-control" id="txtpcollage" asp-for="@Model.PreviousCollage"> </div>
+                            <div class="form-group"><label>Current Salary</label> <input type="text" placeholder="Current Salary" class="form-control" id="txtsalary" asp-for="@Model.salary"> </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><label>Subjects</label> <input type="text" placeholder="Subjects" class="form-control" id="txtsubject" asp-for="@Model.Subjects"> </div>
+                            
+                        </div>
+                        <input type="hidden" value="@Model.TeacherId" id="hdnid" />
+                        <div class="col-md-4">
+                            <div class="form-group"><label>Total Experiance (In Year)</label> <input type="number" placeholder="Total Experiance" class="form-control" id="txtexperiance" asp-for="@Model.Experiance"> </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button"  class="btn btn-outline-primary waves-effect waves-light" id="btnsubmit">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="~/js/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#btnsubmit').click(function() {
+            if ($('#name').val() == '') {
+                alert("Please Fill Requered Inpormation..");
+                $('#name').focus();
+                return false;
+            }
+            if ($('#fname').val() == '') {
+                alert("Please Fill Requered Inpormation..");
+                $('#fname').focus();
+                return false;
+            }
+            if ($('#email').val() == '') {
+                alert("Please Fill Requered Inpormation..");
+                $('#email').focus();
+                return false;
+            }
+            if ($('#mobile').val() == '') {
+                alert("Please Fill Requered Inpormation..");
+                $('#mobile').focus();
+                return false;
+            }
+            if ($('#dob').val() == '') {
+                alert("Please Fill Requered Inpormation..");
+                $('#dob').focus();
+                return false;
+            }
+            if ($('#salary').val() == '') {
+                alert("Please Fill Requered Inpormation..");
+                $('#salary').focus();
+                return false;
+            }
+            if ($('#Qualification').val() == '') {
+                alert("Please Fill Requered Inpormation..");
+                $('#Qualification').focus();
+                return false;
+            }
+            if ($('#address').val() == '') {
+                alert("Please Fill Requered Inpormation..");
+                $('#address').focus();
+                return false;
+            }
             var obj = {
-                TeacherId: $('#hdnid').val(),
+                TeacherId :  $('#hdnid').val(),
                 Name: $('#name').val(),
                 Fname: $('#fname').val(),
                 Email: $('#email').val(),
                 Mobile: $('#mobile').val(),
                 DOB: $('#dob').val(),
-                salary: $('#salary').val(),
-                Qualification: $('#Qualification').val(),
-                Address: $('#address').val()
+                salary: $('#txtsalary').val(),
+                Address: $('#address').val(),
+                HighSchoolMarks:$('#txthschool').val(),
+                InterMarks:$('#txtintermediat').val(),
+                UGTitle:$('#ddlug').val(),
+                PGTitle:$('#ddlpg').val(),
+                HighSchool_P:$('#txthschoolpre').val(),
+                Inter_P:$('#txtinterpre').val(),
+                UGMarks:$('#txtugmarks').val(),
+                PGMarks:$('#txtpgmarks').val(),
+                HighSchool_B:$('#txthighschool').val(),
+                Inter_B:$('#txtinter').val(),
+                UG_Collage:$('#txtUGC').val(),
+                PG_Collage:$('#txtPG').val(),
+                PreviousCollage:$('#txtpcollage').val(),
+                Subjects:$('#txtsubject').val(),
+                Experiance:$('#txtexperiance').val()
             }
-            $.post('/Teacher/UpdateTeacher', obj).done(function(result) {
-                if (result.statuscode == "1") {
-                    alert(result.msg);
-                    window.location.replace("/Teacher/teacherlist");
-                }
-               window.location.replace("/Teacher/teacherlist");
+            preloader.load();
+            $.post('/Teacher/_AddTeacher', obj).done(function(result) {
+                preloader.remove();
+                alertnotify(result.statuscode, result.msg);
             }).fail(function(xhr) {
                 console.log(xhr.responseText);
             });

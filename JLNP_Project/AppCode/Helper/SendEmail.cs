@@ -1,10 +1,11 @@
-﻿using JLNP_Project.Models;
+﻿using JLNP_Project.AppCode.Interface;
+using JLNP_Project.Models;
 using System.Net;
 using System.Net.Mail;
 
 namespace JLNP_Project.AppCode.Helper
 {
-    public class SendEmail
+    public class SendEmail: ISendEmail
     {
         public ResponseStatus SendMail(string EmailAddress, string title, string Msg)
         {

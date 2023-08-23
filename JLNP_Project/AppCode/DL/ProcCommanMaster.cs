@@ -548,7 +548,10 @@ namespace JLNP_Project.AppCode.DL
             string ProcName = ""; // Query
             if (!IsAdmission && Id == 0)
             {
-                ProcName = "select * from tbl_RegistrationMaster";
+                ProcName = @"select rm.Id,rm.Startdate,rm.Enddate,tp.Program as ProgramName,tb.Branch_Name as BranchName,rm.Entrydate,mat.DisplayName as      AdmissionTypeName,rm.IsOpen from tbl_RegistrationMaster rm
+                    INNER JOIN tbl_program tp on rm.Program = tp.Id
+                    INNER JOIN tbl_Branch tb on rm.Branch = tb.BranchId
+                    INNER JOIN Master_AddmissionType mat on rm.AdmissionType = mat.Id order by rm.Id desc";
             }
             else if (!IsAdmission && Id != 0)
             {
@@ -560,7 +563,10 @@ namespace JLNP_Project.AppCode.DL
             }
             else
             {
-                ProcName = "select * from tbl_AdmissionMaster";
+                ProcName = @"select rm.Id,rm.Startdate,rm.Enddate,tp.Program as ProgramName,tb.Branch_Name as BranchName,rm.Entrydate,mat.DisplayName as      AdmissionTypeName,rm.IsOpen from tbl_AdmissionMaster rm
+                    INNER JOIN tbl_program tp on rm.Program = tp.Id
+                    INNER JOIN tbl_Branch tb on rm.Branch = tb.BranchId
+                    INNER JOIN Master_AddmissionType mat on rm.AdmissionType = mat.Id order by rm.Id desc";
             }
             SqlParameter[] param = new SqlParameter[]
             {
@@ -578,13 +584,11 @@ namespace JLNP_Project.AppCode.DL
                             ID = Convert.ToInt32(dr["Id"] is DBNull ? 0 : dr["Id"]),
                             Startdate = Convert.ToString(dr["Startdate"] is DBNull ? "" : dr["Startdate"].ToString()),
                             Enddate = Convert.ToString(dr["Enddate"] is DBNull ? "" : dr["Enddate"].ToString()),
-                            Daylimit = Convert.ToInt32(dr["Daylimit"] is DBNull ? 0 : dr["Daylimit"]),
-                            Alllimit = Convert.ToInt32(dr["Alllimit"] is DBNull ? 0 : dr["Alllimit"]),
+                            ProgramName = Convert.ToString(dr["ProgramName"] is DBNull ? "" : dr["ProgramName"].ToString()),
+                            BranchName = Convert.ToString(dr["BranchName"] is DBNull ? "" : dr["BranchName"].ToString()),
                             Entrydate = Convert.ToString(dr["Entrydate"] is DBNull ? "" : dr["Entrydate"].ToString()),
-                            IsOpen = Convert.ToBoolean(dr["IsOpen"] is DBNull ? false : dr["IsOpen"]),
-                            Program = Convert.ToInt32(dr["Program"] is DBNull ? 0 : dr["Program"]),
-                            Branch = Convert.ToInt32(dr["Branch"] is DBNull ? 0 : dr["Branch"]),
-                            Year = Convert.ToInt32(dr["Year"] is DBNull ? 0 : dr["Year"])
+                            AdmissionTypeName = Convert.ToString(dr["AdmissionTypeName"] is DBNull ? "" : dr["AdmissionTypeName"].ToString()),
+                            IsOpen = Convert.ToBoolean(dr["IsOpen"] is DBNull ? false : dr["IsOpen"])
                         };
                         res.Add(data);
                     }
@@ -602,30 +606,31 @@ namespace JLNP_Project.AppCode.DL
             string ProcName = "";
             if (!req.IsAdmission && req.ID != 0)
             {
-                ProcName = "Update tbl_RegistrationMaster set Startdate = @Startdate, Enddate = @Enddate,Daylimit = @Daylimit,Alllimit = @Alllimit,Modifydate = GETDATE()" +
+                ProcName = "Update tbl_RegistrationMaster set Startdate = @Startdate, Enddate = @Enddate,Program = @Program,Branch = @Branch,Modifydate = GETDATE(),Admissiontype = @Admissiontype" +
                 "Select  1 Statuscode,'Success' Msg ";
             }
             else if (!req.IsAdmission && req.ID == 0)
             {
-                ProcName = @"Insert into tbl_RegistrationMaster (Startdate,Enddate,Daylimit,Alllimit,Entrydate)
-                                values(@Startdate,@Enddate,@Daylimit,@Alllimit,GETDATE());Select  1 Statuscode,'Success' Msg";
+                ProcName = @"Insert into tbl_RegistrationMaster (Startdate,Enddate,Program,Branch,Entrydate,AdmissionType)
+                                values(@Startdate,@Enddate,@Program,@Branch,GETDATE(),@AdmissionType);Select  1 Statuscode,'Success' Msg";
             }
             else if (req.IsAdmission && req.ID == 0)
             {
-                ProcName = @"Insert into tbl_AdmissionMaster (Startdate,Enddate,Daylimit,Alllimit,Entrydate)
-                                values(@Startdate,@Enddate,@Daylimit,@Alllimit,GETDATE());Select  1 Statuscode,'Success' Msg";
+                ProcName = @"Insert into tbl_AdmissionMaster (Startdate,Enddate,Program,Branch,Entrydate,AdmissionType)
+                                values(@Startdate,@Enddate,@Program,@Branch,GETDATE(),@AdmissionType);Select  1 Statuscode,'Success' Msg";
             }
             else if (req.IsAdmission && req.ID != 0)
             {
-                ProcName = "Update tbl_AdmissionMaster set Startdate = @Startdate, Enddate = @Enddate,Daylimit = @Daylimit,Alllimit = @Alllimit,Modifydate = GETDATE()" +
+                ProcName = "Update tbl_AdmissionMaster set Startdate = @Startdate, Enddate = @Enddate,Program = @Program,Branch = @Branch,Modifydate = GETDATE(),AdmissionType = @AdmissionType" +
                 "Select  1 Statuscode,'Success' Msg ";
             }// Query
             SqlParameter[] Param = new SqlParameter[]
             {
                 new SqlParameter("@Startdate",req.Startdate),
                 new SqlParameter("@Enddate",req.Enddate),
-                new SqlParameter("@Daylimit",req.Daylimit),
-                new SqlParameter("@Alllimit",req.Alllimit)
+                new SqlParameter("@Program",req.Program),
+                new SqlParameter("@Branch",req.Branch),
+                new SqlParameter("@AdmissionType",req.AdmissionType)
             };
             try
             {
@@ -648,21 +653,18 @@ namespace JLNP_Project.AppCode.DL
             string ProcName = "";
             if (!req.IsAdmission)
             {
-                ProcName = "Update tbl_RegistrationMaster set IsOpen = @Isopens,Modifydate = GETDATE(),Program = @Programs,Branch = @Branchs,Year = @Years where Id = @ID;" +
+                ProcName = "Update tbl_RegistrationMaster set IsOpen = @Isopens,Modifydate = GETDATE() where Id = @ID;" +
                 "Select 1 Statuscode,'Status updated successfully!' Msg ";
             }
             else
             {
-                ProcName = "Update tbl_AdmissionMaster set IsOpen = @Isopens,Modifydate = GETDATE(),Program = @Programs,Branch = @Branchs,Year = @Years where Id = @ID;" +
+                ProcName = "Update tbl_AdmissionMaster set IsOpen = @Isopens,Modifydate = GETDATE() where Id = @ID;" +
                 "Select 1 Statuscode,'Status updated successfully!' Msg ";
             }// Query
             SqlParameter[] Param = new SqlParameter[]
             {
                 new SqlParameter("@ID",req.ID),
-                new SqlParameter("@Isopens",req.IsOpen),
-                new SqlParameter("@Programs",req.Program),
-                new SqlParameter("@Branchs",req.Branch),
-                new SqlParameter("@Years",req.Year),
+                new SqlParameter("@Isopens",req.IsOpen)
             };
             try
             {
@@ -671,6 +673,32 @@ namespace JLNP_Project.AppCode.DL
                 {
                     res.statuscode = Convert.ToInt32(dt.Rows[0]["Statuscode"] is DBNull ? -1 : dt.Rows[0]["Statuscode"]);
                     res.Msg = Convert.ToString(dt.Rows[0]["Msg"] is DBNull ? "" : dt.Rows[0]["Msg"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return res;
+        }
+        public List<Master_AdmissionType> ProcGetAdmissionType()
+        {
+            var res = new List<Master_AdmissionType>();
+            string ProcName = "SELECT * FROM Master_AddmissionType"; // Query
+            try
+            {
+                var dt = _helper.ExcQueryWithoutParam(ProcName);
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        var model = new Master_AdmissionType
+                        {
+                            Id = Convert.ToInt32(dr["Id"] is DBNull ? 0 : Convert.ToInt32(dr["Id"])),
+                            Name = Convert.ToString(dr["DisplayName"] is DBNull ? "" : dr["DisplayName"].ToString()),
+                        };
+                        res.Add(model);
+                    }
                 }
             }
             catch (Exception ex)

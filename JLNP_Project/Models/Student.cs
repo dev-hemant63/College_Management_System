@@ -9,12 +9,12 @@
         public string Mobile { get; set; }
         public string _Year { get; set; }
         public string DOB { get; set; }
-        public string Entrolment_No { get; set; }
+        public string RegistrationNo { get; set; }
         public string Branch { get; set; }
         public int BranchId { get; set; }
         public string Address { get; set; }
         public string Gender { get; set; }
-        public string Group { get; set; }
+        public string Group { get; set; } = String.Empty;
         public string EntryDate { get; set; }
         public string FatherOccupation { get; set; }
         public string MotherName { get; set; }
@@ -23,6 +23,8 @@
         public string ProgramName { get; set; }
         public bool IsAssign { get; set; }
         public int ExamId { get; set; }
+        public int AdmissionType { get; set; }
+        public string AdmissionTypeName { get; set; }
     }
     public class StudentFineMdl: Student
     {

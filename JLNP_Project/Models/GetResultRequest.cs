@@ -21,6 +21,7 @@
     }
     public class GetStudentforresult
     {
+        public int Id { get; set; }
         public string Enrollment { get; set; }
         public string Name { get; set; }
         public string Note { get; set; }

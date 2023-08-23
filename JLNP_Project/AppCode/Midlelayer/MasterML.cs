@@ -112,5 +112,10 @@ namespace JLNP_Project.AppCode.Midlelayer
             var response = _proc.ProcChangeRegistrationMastersts(req);
             return response;
         }
+        public List<Master_AdmissionType> GetAdmissionType()
+        {
+            var response = _proc.ProcGetAdmissionType();
+            return response;
+        }
     }
 }

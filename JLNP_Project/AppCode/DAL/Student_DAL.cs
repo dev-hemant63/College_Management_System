@@ -10,7 +10,7 @@ namespace JLNP_Project.AppCode.DAL
         SqlConnection con = new SqlConnection(ConfigSettings.conStr);
         public DataTable AddStudent_DAL(Student student)
         {
-            SqlCommand cmd = new SqlCommand("proc_student_crud", con);
+            SqlCommand cmd = new SqlCommand("Proc_StudentRegistration", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Name", student.Name);
             cmd.Parameters.AddWithValue("@Fname", student.Fname);
@@ -24,6 +24,7 @@ namespace JLNP_Project.AppCode.DAL
             cmd.Parameters.AddWithValue("@FatherOccupation", student.FatherOccupation);
             cmd.Parameters.AddWithValue("@MotherName", student.MotherName);
             cmd.Parameters.AddWithValue("@Program", student.Program);
+            cmd.Parameters.AddWithValue("@AdmissionType", student.AdmissionType);
             cmd.Parameters.AddWithValue("@Action", student.Action);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -32,10 +33,10 @@ namespace JLNP_Project.AppCode.DAL
         }
         public DataTable GetStudent_DAL(Student student)
         {
-            SqlCommand cmd = new SqlCommand("proc_student_crud", con);
+            SqlCommand cmd = new SqlCommand("Proc_StudentRegistration", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Action", student.Action);
-            cmd.Parameters.AddWithValue("@RegistrationNo", student.Entrolment_No);
+            cmd.Parameters.AddWithValue("@RegistrationNo", student.RegistrationNo);
             cmd.Parameters.AddWithValue("@FromDate", student.FromDate);
             cmd.Parameters.AddWithValue("@ToDate", student.ToDate);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
@@ -45,7 +46,7 @@ namespace JLNP_Project.AppCode.DAL
         }
         public DataTable GetStudentById_DAL(Student student)
         {
-            SqlCommand cmd = new SqlCommand("proc_student_crud", con);
+            SqlCommand cmd = new SqlCommand("Proc_StudentRegistration", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Action", student.Action);
             cmd.Parameters.AddWithValue("@Id", student.Id);
@@ -59,7 +60,7 @@ namespace JLNP_Project.AppCode.DAL
         }
         public DataTable updateStudent_DAL(Student student)
         {
-            SqlCommand cmd = new SqlCommand("proc_student_crud", con);
+            SqlCommand cmd = new SqlCommand("Proc_StudentRegistration", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Id", student.Id);
             cmd.Parameters.AddWithValue("@Name", student.Name);
@@ -82,7 +83,7 @@ namespace JLNP_Project.AppCode.DAL
         }
         public DataTable DeleteStudent(Student student)
         {
-            SqlCommand cmd = new SqlCommand("proc_student_crud", con);
+            SqlCommand cmd = new SqlCommand("Proc_StudentRegistration", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Action", student.Action);
             cmd.Parameters.AddWithValue("@Id", student.Id);

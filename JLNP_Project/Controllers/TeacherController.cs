@@ -5,6 +5,7 @@ using JLNP_Project.AppCode.Helper;
 using Newtonsoft.Json;
 using System.Data;
 using Microsoft.AspNetCore.Authorization;
+using JLNP_Project.AppCode.Interface;
 
 namespace JLNP_Project.Controllers
 {
@@ -13,8 +14,9 @@ namespace JLNP_Project.Controllers
     {
         private readonly IHttpContextAccessor _accessor;
         private readonly LoginInfo _lr;
+        private readonly ISendEmail _sendEmail;
 
-        public TeacherController(IHttpContextAccessor accessor)
+        public TeacherController(IHttpContextAccessor accessor, ISendEmail sendEmail)
         {
             _accessor = accessor;
             if (_accessor.HttpContext.Session.GetString(AppConsts.AppSession) != null)
@@ -25,6 +27,7 @@ namespace JLNP_Project.Controllers
             {
                 RedirectToAction("SessionExpired", "Home");
             }
+            _sendEmail = sendEmail;
         }
         public IActionResult teacherlist()
         {
@@ -40,20 +43,16 @@ namespace JLNP_Project.Controllers
         }
         public IActionResult AddTeacher()
         {
-            if (_lr.UserName != null)
+            if (_lr.LoginTypeId == 1)
             {
-                if (_lr.LoginTypeId == 1)
-                {
-                    return View();
-                }
-                return RedirectToAction("Error", "Home");
+                return View();
             }
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Error", "Home");
         }
         [HttpPost]
         public IActionResult _AddTeacher(Teacher teacher)
         {
-            Teacher_BAL tBal = new Teacher_BAL();
+            Teacher_BAL tBal = new Teacher_BAL(_sendEmail);
             teacher.Action = "Add";
             var dt = tBal.AddTeacher_BAL(teacher);
             ResponseStatus res = new ResponseStatus
@@ -70,7 +69,7 @@ namespace JLNP_Project.Controllers
         }
         public IActionResult GetTeacher(string Action)
         {
-            Teacher_BAL tBal = new Teacher_BAL();
+            Teacher_BAL tBal = new Teacher_BAL(_sendEmail);
             Action = "Get";
             var dt = tBal.GetTeacher_BAL(Action);
             var lst = new List<Teacher>();
@@ -87,7 +86,6 @@ namespace JLNP_Project.Controllers
                         Email = Convert.ToString(dr["Email"].ToString()),
                         DOB = Convert.ToString(dr["DOB"].ToString()),
                         salary = Convert.ToString(dr["salary"].ToString()),
-                        Qualification = Convert.ToString(dr["Qualification"].ToString()),
                         Address = Convert.ToString(dr["Address"].ToString()),
                         Entrydate = Convert.ToString(dr["Entrydate"].ToString()),
                     };
@@ -96,30 +94,13 @@ namespace JLNP_Project.Controllers
             }
             return PartialView("Partial/_GetTeacher", lst);
         }
-        public IActionResult GetTeacherById(Teacher teacher)
+        public IActionResult GetTeacherById(int TeacherId)
         {
-            Teacher_BAL tBal = new Teacher_BAL();
-            teacher.Action = "GetById";
-            ViewBag.teacher = tBal.GetTeacher_BALById(teacher);
-            return View();
-        }
-        [HttpPost]
-        public IActionResult UpdateTeacher(Teacher teacher)
-        {
-            Teacher_BAL tBal = new Teacher_BAL();
-            teacher.Action = "Update";
-            var dt = tBal.UpdateTeacher_BAL(teacher);
-            ResponseStatus res = new ResponseStatus
-            {
-                statuscode = -1,
-                Msg = "Temp Error"
-            };
-            if (dt.Rows.Count > 0)
-            {
-                res.Msg = Convert.ToString(dt.Rows[0]["Msg"].ToString());
-                res.statuscode = Convert.ToInt32(dt.Rows[0]["StatusCode"]);
-            }
-            return Json(res);
+            var res = new TeacherDetails();
+            Teacher_BAL tBal = new Teacher_BAL(_sendEmail);
+            res.TeacherId = TeacherId;
+            res = tBal.GetTeacher_BALById(TeacherId);
+            return View(res);
         }
         public IActionResult DeleteTeacher(Teacher teacher)
         {
@@ -128,7 +109,7 @@ namespace JLNP_Project.Controllers
                 statuscode = -1,
                 Msg = "Temp Error"
             };
-            Teacher_BAL tBal = new Teacher_BAL();
+            Teacher_BAL tBal = new Teacher_BAL(_sendEmail);
             teacher.Action = "Delete";
             var dt = tBal.DeleteTeacher(teacher);
             if (dt.Rows.Count > 0)
@@ -137,6 +118,13 @@ namespace JLNP_Project.Controllers
                 res.statuscode = Convert.ToInt32(dt.Rows[0]["StatusCode"]);
             }
             return RedirectToAction("teacherlist");
+        }
+        [HttpPost]
+        public IActionResult SendPass(int Id)
+        {
+            Teacher_BAL tBal = new Teacher_BAL(_sendEmail);
+            var res = tBal.SendPass(Id);
+            return Json(res);
         }
     }
 }

@@ -25,9 +25,6 @@ var alertnotify = function (statuscode, msg) {
         var notification = notifier.notify("success", "<b>Success</b> " + msg);
         var _ = notification.push();
         $('.modal,.modal-backdrop').remove();
-        setTimeout(() => {
-            window.location.reload();
-        }, 3000);
     }
     else {
         var notification = notifier.notify("error", "<b>Error</b> " + msg);
@@ -80,6 +77,7 @@ var conformation = function (msg,btntext, IsConfirmedMethod) {
         confirmButtonText: btntext
     }).then((result) => {
         if (result.isConfirmed) {
+            alert(result.isConfirmed);
             IsConfirmedMethod
         }
     })
