@@ -35,7 +35,7 @@ namespace JLNP_Project.AppCode.BAL
                         Branch = Convert.ToString(dr["Branch"].ToString()),
                         Gender = Convert.ToString(dr["Gender"].ToString()),
                         Group = Convert.ToString(dr["Group_Name"].ToString()),
-                        EntrolmentNo = Convert.ToString(dr["EntrollmentNo"].ToString()),
+                        RgistrationNo = Convert.ToString(dr["EntrollmentNo"].ToString()),
                         Year = Convert.ToString(dr["_Year"].ToString())
                     };
                     lst.Add(stdlist);

@@ -70,7 +70,7 @@ namespace JLNP_Project.Controllers
                         Email = Convert.ToString(row["Email"].ToString()),
                         Mobile = Convert.ToString(row["Mobile"].ToString()),
                         DOB = Convert.ToString(row["DOB"].ToString()),
-                        EntrolmentNo = Convert.ToString(row["EntrollmentNo"].ToString()),
+                        RgistrationNo = Convert.ToString(row["EntrollmentNo"].ToString()),
                         Branch = Convert.ToString(row["Branch_Name"].ToString()),
                         Year = Convert.ToString(row["_Year"].ToString()),
                         Address = Convert.ToString(row["Address"].ToString()),
