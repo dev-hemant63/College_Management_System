@@ -1,4 +1,5 @@
-﻿using JLNP_Project.AppCode.BAL;
+﻿using CollageERP.AppCode.DL;
+using JLNP_Project.AppCode.BAL;
 using JLNP_Project.AppCode.DL;
 using JLNP_Project.AppCode.Helper;
 using JLNP_Project.AppCode.Interface;
@@ -140,6 +141,12 @@ namespace JLNP_Project.AppCode.Midlelayer
         {
             Proc_StudentAssignment proc = new Proc_StudentAssignment();
             var res = proc.Proc_GetStudentAssignment(LoginID);
+            return res;
+        }
+        public decimal GetRegistrationFees(int Branch, int Program, int AdmissionType)
+        {
+            var proc = new Proc_GetRegistrationFees();
+            var res = proc.GetRegistrationFees(Branch, Program, AdmissionType);
             return res;
         }
         public List<CommanMasterResponse> GetStudentVideolectures(int LoginID)

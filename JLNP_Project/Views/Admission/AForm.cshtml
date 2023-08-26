@@ -36,6 +36,12 @@
                                         <option value="2">Seccond Year</option>
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label>Batch</label>
+                                    <select class="form-control" id="ddlbatch" required>
+                                        <option value="0">--Select Batch--</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -120,18 +126,18 @@
         </div>
     </div>
 </div>
-<script src="~/js/site.js"></script>
 <script>
     $(document).ready(function() {
         bindAdmissionType();
+        Bindbatch();
     });
-    var submitAdmission = () =>{
+    var submitAdmission = () => {
         let isvalid = valiadteInputs();
         if (!isvalid) {
             return false;
         }
         let obj = {
-            RgistrationNo: $('#txtresno').val(),    
+            RgistrationNo: $('#txtresno').val(),
             Name: $('#name').val(),
             DOB: $('#dob').val(),
             Gender: $('#gender option:selected').val(),
@@ -143,6 +149,7 @@
             Year: $('#ddlyear option:selected').val(),
             Religion: $('#Religion').val(),
             Address: $('#address').val(),
+            Batch: $('#ddlbatch').val(),
 
             MotherName: $('#mothername').val(),
             FatherMo: $('#fmobile').val(),
@@ -186,32 +193,24 @@
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');
-        }).always(() => {preloader.remove()});
+        }).always(() => { preloader.remove() });
     }
-    var valiadteInputs = () => {
-    let inputs = $('.form-control');
-    let isValid = false;
-    inputs.each(function () {
-        isValid = false;
-        var input = $(this);
-        if (input[0].required) {
-            if (input[0].value != '') {
-                isValid = true;
-                input.removeClass("is-invalid");
-                input.addClass("is-valid");
-            }
-            else {
-                input.addClass("is-invalid");
-            }
-        }
-    });
-    return isValid;
-}
-var bindAdmissionType = () => {
+    var bindAdmissionType = () => {
         $.post('/Master/GetAdmissionType').done(function(result) {
             $('#ddladdmission').empty();
             for (var j = 0; j < result.length; j++) {
                 $('#ddladdmission').append('<option value="' + result[j].id + '">' + result[j].name + '</option>')
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText)
+        });
+    }
+    var Bindbatch = () => {
+        $.post('/Master/BindBatch').done(function(result) {
+            console.log(result);
+            $('#ddlbatch').empty().append('<option value="">--Select Batch--</option>');
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlbatch').append('<option value="' + result[i].id + '">' + result[i].fromYear + ' - ' + result[i].toYear + '</option>')
             }
         }).fail(function(xhr) {
             console.log(xhr.responseText)

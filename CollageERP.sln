@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JLNP_Project", "JLNP_Project\JLNP_Project.csproj", "{1F319315-94D0-4889-B0A5-61AB7A4F505B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CollageERP", "JLNP_Project\CollageERP.csproj", "{1F319315-94D0-4889-B0A5-61AB7A4F505B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

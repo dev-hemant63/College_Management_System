@@ -1,0 +1,6 @@
+﻿@using CollageERP.Models
+@model UpiPaymentInfo
+@{
+    Layout = null;
+}
+<img src="@Url.Action("GenerateUpiPaymentQrCode", "Payment", new { vpa = Model.Vpa, amount = Model.Amount })" alt="Payment QR Code" style="height: 135px;">
