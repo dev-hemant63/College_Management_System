@@ -644,7 +644,9 @@ namespace JLNP_Project.AppCode.Midlelayer
                 new SqlParameter("@Marks",request.Marks),
                 new SqlParameter("@Note",request.Note),
                 new SqlParameter("@ExamId",request.ExamID),
-                new SqlParameter("@IsPrectical",request.IsPrectical)
+                new SqlParameter("@IsPrectical",request.IsPrectical),
+                new SqlParameter("@IsWritten",request.IsWritten),
+                new SqlParameter("@Id",request.Id)
             };
             var dt = _helper.ExcProc(Procname, prams);
             if(dt.Rows.Count > 0)
@@ -654,9 +656,11 @@ namespace JLNP_Project.AppCode.Midlelayer
             }
             return response;
         }
-        public List<StudentDetaisForResult> GetExamResult(SearchDetailsForResult req)
+        public DetailsForResult GetExamResult(SearchDetailsForResult req)
         {
-            var res = new List<StudentDetaisForResult>();
+            var res = new DetailsForResult();
+            res.StudentDetais = new List<StudentDetaisForResult>();
+            res.Precticals = new List<StudentDetaisForResult>();
             string sp = @"Proc_StudentResult";
             SqlParameter[] param = new SqlParameter[]
             {
@@ -668,10 +672,10 @@ namespace JLNP_Project.AppCode.Midlelayer
             };
             try
             {
-                var dt = _helper.ExcProc(sp, param);
-                if (dt.Rows.Count > 0)
+                var ds = _helper.ExcProc_Dataset(sp, param);
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow item in dt.Rows)
+                    foreach (DataRow item in ds.Tables[0].Rows)
                     {
                         var data = new StudentDetaisForResult
                         {
@@ -690,7 +694,31 @@ namespace JLNP_Project.AppCode.Midlelayer
                             Program = Convert.ToString(item["Program"]),
                             Branch = Convert.ToString(item["Branch_Name"]),
                         };
-                        res.Add(data);
+                        res.StudentDetais.Add(data);
+                    }
+                }
+                if (ds.Tables[1].Rows.Count > 0)
+                {
+                    foreach (DataRow item in ds.Tables[1].Rows)
+                    {
+                        var data = new StudentDetaisForResult
+                        {
+                            Exam = Convert.ToString(item["Exam"]),
+                            Name = Convert.ToString(item["Name"]),
+                            EnrollmentNo = Convert.ToString(item["EntrollmentNo"]),
+                            Subjectname = Convert.ToString(item["Subjectname"]),
+                            MinMarks = Convert.ToInt32(item["MinMarks"]),
+                            MaxMarks = Convert.ToInt32(item["MaxMarks"]),
+                            ObtainedMarks = Convert.ToString(item["ObtainedMarks"]),
+                            Grade = Convert.ToString(item["Grade"]),
+                            Status = Convert.ToString(item["Status"]),
+                            Address = Convert.ToString(item["Address"]),
+                            Fathername = Convert.ToString(item["Fname"]),
+                            Mobile = Convert.ToString(item["Mobile"]),
+                            Program = Convert.ToString(item["Program"]),
+                            Branch = Convert.ToString(item["Branch_Name"]),
+                        };
+                        res.Precticals.Add(data);
                     }
                 }
             }

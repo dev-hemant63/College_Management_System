@@ -25,5 +25,6 @@ namespace JLNP_Project.AppCode.Interface
         List<RegistrationMaster> GetRegistrationMaster(bool IsAdmission, int Id);
         ResponseStatus SaveRegistrationMaster(RegistrationMaster req);
         ResponseStatus UpdateRegistrationMaster(RegistrationMaster req);
+        List<Master_AdmissionType> GetAdmissionType();
     }
 }

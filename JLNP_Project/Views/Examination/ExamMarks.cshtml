@@ -34,16 +34,13 @@
                 </div>
                 <hr />
                 <div class="row">
-                    <div class="col-sm-4 mt-3">
-                        <input type="checkbox" name="IsPrectical" id="isprectical">
-                        <label class="mx-2">IsPrectical</label>
-                    </div>
-                    <div class="col-sm-8" style="display: flex; flex-direction: row-reverse;">
-                        <button type="button" class="btn btn-outline-primary mt-2" onclick="SearchStudent('@Model.ExamID','true','@Model.SubjectId')" id="btnsearch">Search</button>
+                    <div class="col-sm-12" style="display: flex; flex-direction: row-reverse;">
+                        <button type="button" class="btn btn-outline-primary mt-2" onclick="SearchStudent('@Model.ExamID','true','@Model.SubjectId','@Model.IsThoery','@Model.IsPrectical')" id="btnsearch">Search</button>
                     </div>
                 </div>
                 <hr />
-                <div class="table-responsive" id="tblstudent">
+                <div id="divstudent">
+
                 </div>
                 <input type="hidden" class="form-control" id="hdnid" asp-for="@Model.ExamID" />
             </div>

@@ -4,32 +4,43 @@
     foreach (var item in Model)
     {
         i++;
-        @if (Model.Count>0)
+    @if (Model.Count>0)
         {
-           <tr data-Student-Id="@item.TeacherId">
-                <td>@i</td>
-                <td>@item.Name</td>
-                <td>@item.Fname</td>
-                <td>@item.Email</td>
-                <td>@item.Mobile</td>
-                <td>@item.DOB</td>
-                <td>@item.salary</td>
-                <td>@item.Qualification</td>
-                <td>@item.Address</td>
-                <td>@item.Entrydate</td>
-                <td>
-                    <div class="btn-group btn-group-sm" style="float: none;">
-                        <a href="/Teacher/GetTeacherById?TeacherId=@item.TeacherId" class="tabledit-edit-button btn btn-sm btn-success btn_edit" style="float: none; margin: 4px;"><span class="ti-pencil"></span></a>
-                        <a href="/Teacher/DeleteTeacher?TeacherId=@item.TeacherId" class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="ti-trash"></span></a>
-                    </div>
-                </td>
-            </tr>
+    <tr data-Id="@item.TeacherId">
+                    <td>@i</td>
+                    <td>@item.Name</td>
+                    <td>@item.Fname</td>
+                    <td>@item.Email</td>
+                    <td>@item.Mobile</td>
+                    <td>@item.DOB</td>
+                    <td>@item.salary</td>
+                    <td></td>
+                    <td>@item.Address</td>
+                    <td>@item.Entrydate</td>
+                    <td>
+                        <div class="btn-group btn-group-sm" style="float: none;">
+                            <a href="/Teacher/GetTeacherById?TeacherId=@item.TeacherId" class="tabledit-edit-button btn btn-sm btn-success btn_edit" style="float: none; margin: 4px;"><span class="ti-pencil"></span></a>
+                            <a href="javascript:void(0)" class="tabledit-delete-button btn btn-sm btn-warning" style="float: none; margin: 4px;"><span class="ti-location-arrow" onclick="sendpass('@item.TeacherId')"></span></a>
+                            <a href="/Teacher/DeleteTeacher?TeacherId=@item.TeacherId" class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="ti-trash"></span></a>
+                        </div>
+                    </td>
+    </tr>
         }
         else
         {
-          <tr>
-              <td style="color:red;" colspan="11" class="text-center">Record Not Found</td>
-          </tr>
+    <tr>
+                  <td style="color:red;" colspan="11" class="text-center">Record Not Found</td>
+    </tr>
         }
     }
 }
+<script>
+var sendpass = (id) =>{
+    $.post('/Teacher/SendPass', {Id:id}).done((res) => {
+        alertnotify(res.statuscode, res.msg);
+    }).fail((xhr) => {
+        alertnotify(-1, xhr.statusText);
+        console.log(xhr.responseText);
+    });
+}
+</script>

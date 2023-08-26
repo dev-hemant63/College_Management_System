@@ -19,7 +19,7 @@ namespace JLNP_Project.AppCode.DL
 
             SqlParameter[] param ={
                 new SqlParameter("@Id",studentFineMdl.Id),
-                new SqlParameter("@EnrollmentNumber",studentFineMdl.Entrolment_No),
+                new SqlParameter("@EnrollmentNumber",studentFineMdl.RegistrationNo),
                 new SqlParameter("@FineAmount",studentFineMdl.FineAmount),
                 new SqlParameter("@FineResion",studentFineMdl.FineResion),
                 new SqlParameter("@Action",studentFineMdl.Action)
@@ -50,7 +50,7 @@ namespace JLNP_Project.AppCode.DL
                         StudentFineMdl data = new StudentFineMdl
                         {
                             Id = Convert.ToInt32(dr["Id"]),
-                            Entrolment_No = Convert.ToString(dr["EnrollmentNumber"].ToString()),
+                            RegistrationNo = Convert.ToString(dr["EnrollmentNumber"].ToString()),
                             FineAmount = Convert.ToInt32(dr["FineAmount"]),
                             FineResion = Convert.ToString(dr["FineResion"].ToString()),
                             EntryDate = Convert.ToString(dr["EntryDate"].ToString() is DBNull?"": dr["EntryDate"].ToString()),
@@ -81,7 +81,7 @@ namespace JLNP_Project.AppCode.DL
                 foreach (DataRow dr in dt.Rows)
                 {
                     res.Id = Convert.ToInt32(dr["Id"]);
-                    res.Entrolment_No = Convert.ToString(dr["EnrollmentNumber"].ToString());
+                    res.RegistrationNo = Convert.ToString(dr["EnrollmentNumber"].ToString());
                     res.FineAmount = Convert.ToInt32(dr["FineAmount"]);
                     res.FineResion = Convert.ToString(dr["FineResion"].ToString());
                 }

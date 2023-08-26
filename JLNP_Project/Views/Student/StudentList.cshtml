@@ -1,7 +1,4 @@
-﻿@{
-    Layout = "_LayoutAdmin";
-}
-<div class="">
+﻿<div class="">
     <div class="">
         <div class="row">
             <div class="col-12">
@@ -28,23 +25,23 @@
                             </div>
                         </div>
                         <div class="table-responsive" style="margin-top: 13px;">
-                            <table class="table table-striped" id="tblstudent">
-                                <thead class="bg-primary">
+                            <table class="table table-striped table-bordered" id="tblstudent">
+                                <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Father Name</th>
-                                        <th>Mother Name</th>
-                                        <th>Father Occupation</th>
+                                        <th class="text-nowrap">Father Name</th>
+                                        <th class="text-nowrap">Mother Name</th>
+                                        <th class="text-nowrap">Father Occupation</th>
                                         <th>Email</th>
                                         <th>Mobile</th>
                                         <th>DOB</th>
-                                        <th>Registration</th>
+                                        <th class="text-nowrap">RegistrationNo</th>
                                         <th>Program</th>
                                         <th>Branch</th>
+                                        <th class="text-nowrap">Admission Type</th>
                                         <th>Address</th>
                                         <th>Gender</th>
-                                        <th>Group</th>
                                         <th>EntryDate</th>
                                         <th>Action</th>
                                     </tr>
@@ -66,7 +63,7 @@
     });
     var FilterData = () => {
         let obj = {
-            Entrolment_No: $('#registrationnumber').val(),
+            RegistrationNo: $('#registrationnumber').val(),
             FromDate: $('#txtfromdate').val(),
             ToDate: $('#txttodate').val(),
         }

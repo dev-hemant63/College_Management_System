@@ -16,7 +16,7 @@ namespace JLNP_Project.AppCode.DAL
             cmd.Parameters.AddWithValue("@Action", admissionModel.Action);
             cmd.Parameters.AddWithValue("@FromDate", admissionModel.FromDate);
             cmd.Parameters.AddWithValue("@ToDate", admissionModel.ToDate);
-            cmd.Parameters.AddWithValue("@EntrolmentNo", admissionModel.EntrolmentNo);
+            cmd.Parameters.AddWithValue("@EntrolmentNo", admissionModel.RgistrationNo);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);

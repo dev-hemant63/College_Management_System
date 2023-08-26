@@ -18,9 +18,11 @@ namespace JLNP_Project.AppCode.Helper
                 con.Open();
                 SqlCommand cmd = new SqlCommand(Procname, con);
                 cmd.CommandType = CommandType.StoredProcedure;
+                if(prams != null) { 
                 for (int i = 0; i < prams.Length; i++)
                 {
                     cmd.Parameters.Add(prams[i]);
+                }
                 }
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 sda.Fill(dt);

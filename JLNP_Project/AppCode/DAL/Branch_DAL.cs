@@ -14,6 +14,8 @@ namespace JLNP_Project.AppCode.DAL
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@BranchName", branch.BranchName);
             cmd.Parameters.AddWithValue("@BranchCode", branch.BranchCode);
+            cmd.Parameters.AddWithValue("@TotalSheets", branch.TotalSheets);
+            cmd.Parameters.AddWithValue("@TotalLateralSheet", branch.TotalLetaralSheets);
             cmd.Parameters.AddWithValue("@Action", branch.Action);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -48,6 +50,8 @@ namespace JLNP_Project.AppCode.DAL
             cmd.Parameters.AddWithValue("@BranchId", branch.BranchId);
             cmd.Parameters.AddWithValue("@BranchName", branch.BranchName);
             cmd.Parameters.AddWithValue("@BranchCode", branch.BranchCode);
+            cmd.Parameters.AddWithValue("@TotalSheets", branch.TotalSheets);
+            cmd.Parameters.AddWithValue("@IsCounseling", branch.IsCounseling);
             cmd.Parameters.AddWithValue("@Action", branch.Action);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();

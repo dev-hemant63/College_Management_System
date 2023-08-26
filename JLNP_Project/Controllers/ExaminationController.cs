@@ -38,7 +38,7 @@ namespace JLNP_Project.Controllers
         #region ExamType
         public IActionResult ExamType()
         {
-            if (_lr.LoginTypeId == 1)
+            if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
             {
                 var res = _exam.GetExamType(0);
                 return View(res);
@@ -74,7 +74,7 @@ namespace JLNP_Project.Controllers
         }
         public IActionResult AddExamGroup(int ID)
         {
-            if (_lr.LoginTypeId == 1)
+            if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
             {
                 var model = new ExamGroupe();
                 model.ExamTypes = _exam.GetExamType(0);
@@ -106,7 +106,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult AddExam(int ExamGID = 0, int Id = 0)
         {
-            if (_lr.LoginTypeId == 1)
+            if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
             {
                 var model = new AddExam();
                 model.ExamGroup = _exam.GetExamGroup(0);
@@ -149,8 +149,16 @@ namespace JLNP_Project.Controllers
         {
             var res = new AssignExam();
             res.ExamID = ExamId;
+            Master_BAL msdal = new Master_BAL();
             IMasterML ml = new MasterML();
             res.Program = ml.GetProgram();
+            var subjectDetails = msdal.GetSubject_Bal_ById(new SubjectMaster
+            {
+                Action = "GetById",
+                Id = SubjectId
+            });
+            res.IsThoery = subjectDetails.IsWritten;
+            res.IsPrectical = subjectDetails.IsPrectical;
             res.SubjectId = SubjectId;
             return PartialView(res);
         }
@@ -169,7 +177,7 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult Exam()
         {
-            if (_lr.LoginTypeId == 1)
+            if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
             {
                 return View();
             }
@@ -185,7 +193,7 @@ namespace JLNP_Project.Controllers
             return PartialView(res);
         }
         [HttpPost]
-        public IActionResult GetStudent(int BranchId, int Program, int Year, int ExamID, bool IsMarks,int SID = 0)
+        public IActionResult GetStudent(int BranchId, int Program, int Year, int ExamID, bool IsMarks,bool IsWritten,bool IsPrectical, int SID = 0)
         {
             Attendance_BAL _bal = new Attendance_BAL();
             var res = _bal.GetStudentforAttendance(BranchId, Program, Year, "", ExamID,IsMarks, SID);
@@ -194,6 +202,8 @@ namespace JLNP_Project.Controllers
             res.ExamID = ExamID;
             if (IsMarks)
             {
+                res.IsPrectical = IsPrectical;
+                res.IsWritten = IsWritten;
                 return PartialView("GetStudentForResult", res);
             }
             else
@@ -239,7 +249,7 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult ExamSchedule()
         {
-            if (_lr.LoginTypeId == 1)
+            if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
             {
                 var res = _exam.GetExamGroup(0);
                 return View(res);
@@ -263,7 +273,7 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult ExamGrade()
         {
-            if (_lr.LoginTypeId == 1)
+            if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
             {
                 var res = _exam.GetExamgrade(0);
                 return View(res);
@@ -273,7 +283,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult AddExamGrade(int Id)
         {
-            if (_lr.LoginTypeId == 1)
+            if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
             {
                 var model = new GradeViewModel();
                 if (Id != 0)
@@ -288,7 +298,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult SaveExamGrade(ExamModel req)
         {
-            if (_lr.LoginTypeId == 1)
+            if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
             {
                 var res = _exam.AddExamGrade(req);
                 return Json(res);
@@ -298,7 +308,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult DeleteExamGrade(int Id)
         {
-            if (_lr.LoginTypeId == 1)
+            if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
             {
                 var res = _exam.DeleteExamGrade(Id);
                 return Json(res);
@@ -310,7 +320,7 @@ namespace JLNP_Project.Controllers
         [HttpGet("Examination/ExamResults")]
         public IActionResult ExamResult()
         {
-            if (_lr.LoginTypeId == 1)
+            if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
             {
                 var mdl = new ResultViewModel();
                 IMasterML ml = new MasterML();

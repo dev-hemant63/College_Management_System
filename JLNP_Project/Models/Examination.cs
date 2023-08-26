@@ -47,6 +47,8 @@
         public int Year { get; set; }
         public bool IsAssign { get; set; }
         public int SubjectId { get; set; }
+        public bool IsPrectical { get; set; }
+        public bool IsThoery { get; set; }
     }
     public class ExamDetail
     {
@@ -77,7 +79,7 @@
     public class DetailsForResult
     {
         public List<StudentDetaisForResult> StudentDetais { get; set; }
-        public List<SubjectForResult> Subject { get; set; }
+        public List<StudentDetaisForResult> Precticals { get; set; }
     }
     public class StudentDetaisForResult: ExamDetail
     {
@@ -111,6 +113,7 @@
     }
     public class ExamMarks
     {
+        public int Id { get; set; }
         public int ExamID { get; set; }
         public int Program { get; set; }
         public int Branch { get; set; }
@@ -121,5 +124,6 @@
         public string Marks { get; set; }
         public string Note { get; set; }
         public bool IsPrectical { get; set; }
+        public bool IsWritten { get; set; }
     }
 }

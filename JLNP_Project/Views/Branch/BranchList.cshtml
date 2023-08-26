@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "_LayoutAdmin";
+   
 }
 <div class="">
     <div class="">
@@ -35,6 +35,8 @@
                                         <th>#</th>
                                         <th>Branch Name</th>
                                         <th>Branch Code</th>
+                                        <th>Total Sheet</th>
+                                        <th>IsCounseling</th>
                                         <th>EntryDate</th>
                                         <th>Action</th>
                                     </tr>
@@ -57,20 +59,6 @@ $(document).ready(function() {
         console.log(xhr.responseText);
     });
 });
-var EditBranch = function(){
-    let data = {
-        BranchId:$('#Branchid').val(),
-        BranchName:$('#Branchname').val(),
-        BranchCode:$('#Branchcode').val()
-    }
-    $.post('/Branch/_EditBranch',data).done(function(result) {
-        alert(result.msg);
-         window.location.reload("/Branch/BranchList");
-    }).fail(function(xhr) {
-        console.log(xhr.responseText);
-    });
-    
-}
 var DeleteBranch = function(BranchId){
     $.post('/Branch/DeleteBranch', {BranchId:BranchId}).done(function(result) {
         alert(result.msg);

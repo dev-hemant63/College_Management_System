@@ -75,6 +75,7 @@ namespace JLNP_Project.AppCode.BAL
                     subjects.EntryDate = Convert.ToString(row["EntryDate"].ToString());
                     subjects.PracticalMarks = Convert.ToString(row["PracticalMarks"].ToString());
                     subjects.PracticalPassingMarks = Convert.ToInt32(row["PrecticalPassingMarks"]);
+                    subjects.IsWritten = Convert.ToBoolean(row["Iswritten"] is DBNull ? false : row["Iswritten"]);
                 }
             }
             return subjects;

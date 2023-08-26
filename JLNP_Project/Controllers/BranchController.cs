@@ -83,6 +83,11 @@ namespace JLNP_Project.Controllers
                         BranchId = Convert.ToInt32(row["BranchId"]),
                         BranchName = Convert.ToString(row["Branch_Name"].ToString()),
                         BranchCode = Convert.ToString(row["Branch_Code"].ToString()),
+                        TotalSheets = Convert.ToInt32(row["TotalSheet"]),
+                        AvailableSheets = Convert.ToInt32(row["AvailableSheet"]),
+                        TotalLetaralSheets = Convert.ToInt32(row["TotalLateralSheet"]),
+                        AvailableLetaralSheets = Convert.ToInt32(row["AvailabeLateralSheet"]),
+                        IsCounseling = Convert.ToBoolean(row["IsCounseling"]),
                         EntryDate = Convert.ToString(row["EntryDate"].ToString())
                     };
                     BranchList.Add(Bmodel);
@@ -105,6 +110,8 @@ namespace JLNP_Project.Controllers
                     {
                         BranchId = Convert.ToInt32(row["BranchId"]),
                         BranchName = Convert.ToString(row["Branch_Name"].ToString()),
+                        TotalSheets = Convert.ToInt32(row["TotalSheet"]),
+                        IsCounseling = Convert.ToBoolean(row["IsCounseling"]),
                         BranchCode = Convert.ToString(row["Branch_Code"].ToString())
                     };
                     BranchList.Add(Bmodel);

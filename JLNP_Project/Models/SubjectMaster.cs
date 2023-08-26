@@ -94,15 +94,17 @@
         public string Startdate { get; set; } = "";
         public string Enddate { get; set; } = "";
         public string Entrydate { get; set; } = "";
-        public int Daylimit { get; set; } = 0;
-        public int Alllimit { get; set; } = 0;
+        public int Program { get; set; } = 0;
+        public string ProgramName { get; set; } = "";
+        public int Branch { get; set; } = 0;
+        public string BranchName { get; set; } = "";
         public int ID { get; set; } = 0;
         public bool IsEdit { get; set; } = false;
         public bool IsOpen { get; set; } = false;
         public bool IsAdmission { get; set; } = false;
-        public int Program { get; set; } = 0;
-        public int Branch { get; set; } = 0;
         public int Year { get; set; } = 0;
+        public int AdmissionType { get; set; } = 0;
+        public string AdmissionTypeName { get; set; } = "";
 
     }
     public class RegistrationViewModel

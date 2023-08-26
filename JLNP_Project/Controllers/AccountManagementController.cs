@@ -130,15 +130,11 @@ namespace JLNP_Project.Controllers
         }
         public IActionResult Fees()
         {
-            if (_lr.LoginTypeId == 1)
-            {
-                FeesViewModel model = new FeesViewModel();
-                IMasterML ml = new MasterML();
-                model.program = ml.GetProgram();
-                model.RoleID = _lr.UserId;
-                return View(model);
-            }
-            return RedirectToAction("Error", "Home");
+            FeesViewModel model = new FeesViewModel();
+            IMasterML ml = new MasterML();
+            model.program = ml.GetProgram();
+            model.RoleID = _lr.UserId;
+            return View(model);
         }
         [HttpPost]
         public IActionResult BindBranch()

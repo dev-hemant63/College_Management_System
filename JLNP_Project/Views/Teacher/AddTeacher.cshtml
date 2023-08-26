@@ -1,40 +1,102 @@
 ﻿@{
-    Layout = "_LayoutAdmin";
+   
 }
 
-<div class="">
-    <div class="">
-        <div class="row">
-            <div class="col-12">
-                <div class="card m-b-30">
-                    <div class="card-header bgred">
-                            <h4 style="color:black;">Add Teacher</h4>
+<div class="container">
+    <div class="row">
+        <div class="col-12 px-4">
+            <div class="card mb-30">
+                <div class="card-header bgred">
+                    <h4 style="color:black;">Add Teacher</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="p-20">
+                                <div class="form-group"><label>Name</label> <input type="text" placeholder="Name" class="form-control" id="name"> </div>
+                                <div class="form-group"><label>Father Name</label> <input type="text" placeholder="Father Name" class="form-control" id="fname"> </div>
+                            </div>
                         </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="p-20">
-                                    <div class="form-group"><label>Name</label> <input type="text" placeholder="Name" class="form-control" id="name"> </div>
-                                    <div class="form-group"><label>Father Name</label> <input type="text" placeholder="Father Name" class="form-control" id="fname"> </div>
-                                    <div class="form-group"><label>Mobile</label> <input type="text" placeholder="Mobile" class="form-control" id="mobile"> </div>
-                                </div>
+                        <div class="col-md-4">
+                            <div class="p-20">
+                                <div class="form-group"><label>Eamil</label> <input type="text" placeholder="Eamil" class="form-control" id="email"> </div>
+                                <div class="form-group"><label>DOB</label> <input type="date" placeholder="dd-mm-yy" class="form-control" id="dob"> </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="p-20">
-                                    <div class="form-group"><label>Eamil</label> <input type="text" placeholder="Eamil" class="form-control" id="email"> </div>
-                                    <div class="form-group"><label>DOB</label> <input type="date" placeholder="dd-mm-yy" class="form-control" id="dob"> </div>
-                                    <div class="form-group"><label>Address</label> <textarea class="form-control" placeholder="Address" id="address"></textarea></div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="p-20">
-                                    <div class="form-group"><label>salary</label> <input type="number" placeholder="salary" class="form-control" id="salary"> </div>
-                                    <div class="form-group"><label>Qualification</label> <input type="text" placeholder="Qualification" class="form-control" id="Qualification"></div>
-                                </div>
-                            </div>
-                            <button type="button" style="width: 12%; margin-left: 35px; margin-top: -27px;" class="btn btn-outline-primary waves-effect waves-light" id="btnsubmit">save</button>
                         </div>
-                        
+                        <div class="col-md-4">
+                            <div class="form-group"><label>Mobile</label> <input type="text" placeholder="Mobile" class="form-control" id="mobile"> </div>
+                            <div class="form-group"><label>Address</label> <textarea class="form-control" placeholder="Address" id="address"></textarea></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 px-4">
+            <div class="card mb-30">
+                <div class="card-body">
+                    <h1 class="card-title mb-1">Education Details</h1>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group"><label>High School Marks</label> <input type="text" placeholder="High School Marks" class="form-control" id="txthschool"> </div>
+                            <div class="form-group"><label>Inetrmediat Marks</label> <input type="text" placeholder="High School Marks" class="form-control" id="txtintermediat"> </div>
+                            <div class="form-group">
+                                <label>Graduation</label>
+                                <select class="form-control" id="ddlug">
+                                    <option>--Select Graduation--</option>
+                                    <option>B.A</option>
+                                    <option>B.Sc</option>
+                                    <option>B.Ed</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Post Graduation (Optional)</label>
+                                <select class="form-control" id="ddlpg">
+                                    <option>--Select Graduation--</option>
+                                    <option>M.A</option>
+                                    <option>M.Sc</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><label>High School (%)</label> <input type="text" placeholder="High School Marks (%)" class="form-control" id="txthschoolpre"> </div>
+                            <div class="form-group"><label>Inetrmediat (%)</label> <input type="text" placeholder="Inetrmediat (%)" class="form-control" id="txtinterpre"> </div>
+                            <div class="form-group"><label>Graduation Marks</label> <input type="text" placeholder="High School Marks (%)" class="form-control" id="txtugmarks"> </div>
+                            <div class="form-group"><label>Post Graduation Marks</label> <input type="text" placeholder="Graduation Marks" class="form-control" id="txtpgmarks"> </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><label>High School Board</label> <input type="text" placeholder="High School Board" class="form-control" id="txthighschool"> </div>
+                            <div class="form-group"><label>Inetrmediat Board</label> <input type="text" placeholder="Inetrmediat Board" class="form-control" id="txtinter"> </div>
+                            <div class="form-group"><label>Graduation Collage</label> <input type="text" placeholder="Graduation Collage" class="form-control" id="txtUGC"> </div>
+                            <div class="form-group"><label>Post Graduation Collage</label> <input type="text" placeholder="Post Graduation Collage" class="form-control" id="txtPG"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 px-4">
+            <div class="card mb-30">
+                <div class="card-body">
+                    <h1 class="card-title mb-1">Work Experiance And Salary</h1>
+                    <b class="text-danger">Note*</b><p class="text-danger">Subjects can entered with (,) seprated.</p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group"><label>Previous Collage</label> <input type="text" placeholder="Previous Collage" class="form-control" id="txtpcollage"> </div>
+                            <div class="form-group"><label>Current Salary</label> <input type="text" placeholder="Current Salary" class="form-control" id="txtsalary"> </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><label>Subjects</label> <input type="text" placeholder="Subjects" class="form-control" id="txtsubject"> </div>
+                            
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><label>Total Experiance (In Year)</label> <input type="number" placeholder="Total Experiance" class="form-control" id="txtexperiance"> </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button"  class="btn btn-outline-primary waves-effect waves-light" id="btnsubmit">Save</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -45,42 +107,42 @@
 <script>
     $(document).ready(function() {
         $('#btnsubmit').click(function() {
-            if($('#name').val() == ''){
+            if ($('#name').val() == '') {
                 alert("Please Fill Requered Inpormation..");
                 $('#name').focus();
                 return false;
             }
-            if($('#fname').val() == ''){
+            if ($('#fname').val() == '') {
                 alert("Please Fill Requered Inpormation..");
                 $('#fname').focus();
                 return false;
             }
-            if($('#email').val() == ''){
+            if ($('#email').val() == '') {
                 alert("Please Fill Requered Inpormation..");
                 $('#email').focus();
                 return false;
             }
-             if($('#mobile').val() == ''){
+            if ($('#mobile').val() == '') {
                 alert("Please Fill Requered Inpormation..");
                 $('#mobile').focus();
                 return false;
             }
-             if($('#dob').val() == ''){
+            if ($('#dob').val() == '') {
                 alert("Please Fill Requered Inpormation..");
                 $('#dob').focus();
                 return false;
             }
-            if($('#salary').val() == ''){
+            if ($('#salary').val() == '') {
                 alert("Please Fill Requered Inpormation..");
                 $('#salary').focus();
                 return false;
             }
-            if($('#Qualification').val() == ''){
+            if ($('#Qualification').val() == '') {
                 alert("Please Fill Requered Inpormation..");
                 $('#Qualification').focus();
                 return false;
             }
-            if($('#address').val() == ''){
+            if ($('#address').val() == '') {
                 alert("Please Fill Requered Inpormation..");
                 $('#address').focus();
                 return false;
@@ -91,14 +153,28 @@
                 Email: $('#email').val(),
                 Mobile: $('#mobile').val(),
                 DOB: $('#dob').val(),
-                salary: $('#salary').val(),
-                Qualification: $('#Qualification').val(),
-                Address: $('#address').val()
+                salary: $('#txtsalary').val(),
+                Address: $('#address').val(),
+                HighSchoolMarks:$('#txthschool').val(),
+                InterMarks:$('#txtintermediat').val(),
+                UGTitle:$('#ddlug').val(),
+                PGTitle:$('#ddlpg').val(),
+                HighSchool_P:$('#txthschoolpre').val(),
+                Inter_P:$('#txtinterpre').val(),
+                UGMarks:$('#txtugmarks').val(),
+                PGMarks:$('#txtpgmarks').val(),
+                HighSchool_B:$('#txthighschool').val(),
+                Inter_B:$('#txtinter').val(),
+                UG_Collage:$('#txtUGC').val(),
+                PG_Collage:$('#txtPG').val(),
+                PreviousCollage:$('#txtpcollage').val(),
+                Subjects:$('#txtsubject').val(),
+                Experiance:$('#txtexperiance').val()
             }
             preloader.load();
             $.post('/Teacher/_AddTeacher', obj).done(function(result) {
                 preloader.remove();
-                alertnotify(result.statuscode,result.msg);
+                alertnotify(result.statuscode, result.msg);
             }).fail(function(xhr) {
                 console.log(xhr.responseText);
             });

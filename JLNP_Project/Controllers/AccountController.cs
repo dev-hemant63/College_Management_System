@@ -148,7 +148,7 @@ namespace JLNP_Project.Controllers
         public IActionResult ExpiresAt()
         {
             var res = HttpContext.Session.GetInt32("Timeout") ?? 0;
-            var lr = JsonConvert.DeserializeObject<LoginInfo>(HttpContext.Session.GetString(AppConsts.AppSession));
+            var lr = JsonConvert.DeserializeObject<LoginInfo>(HttpContext.Session.GetString(AppConsts.AppSession)) ?? new LoginInfo();
             return Ok(new
             {
                 Expiresat = res,
@@ -177,15 +177,15 @@ namespace JLNP_Project.Controllers
             #endregion
             if (dt.Rows.Count > 0)
             {
-                var sts = Convert.ToInt32(dt.Rows[0]["statuscode"]);
+                res.statuscode = Convert.ToInt32(dt.Rows[0]["statuscode"]);
                 try
                 {
-                    if (sts == 1)
+                    if (res.statuscode == 1)
                     {
                         #region DBToModel
                         options.Expires = DateTime.Now.AddMinutes(AppConsts.SessionTime);
                         _lr.LoginTypeId = Convert.ToInt32(dt.Rows[0]["LoginTypeId"]);
-                        _lr.UserName = Convert.ToString(dt.Rows[0]["Email"].ToString());
+                        _lr.UserName = Convert.ToString(dt.Rows[0]["UserName"].ToString());
                         _lr.EMail = Convert.ToString(dt.Rows[0]["Email"].ToString());
                         _lr.Name = Convert.ToString(dt.Rows[0]["Name"].ToString());
                         _lr.Phone = Convert.ToString(dt.Rows[0]["Mobile"].ToString());
@@ -193,7 +193,7 @@ namespace JLNP_Project.Controllers
                         _lr.DOB = Convert.ToString(dt.Rows[0]["DOB"].ToString());
                         _lr.Role = Convert.ToString(dt.Rows[0]["Role"].ToString());
                         _lr.password = Convert.ToString(dt.Rows[0]["Password"].ToString());
-                        _lr.UserId = Convert.ToInt32(dt.Rows[0]["_UId"]);
+                        _lr.UserId = Convert.ToInt32(dt.Rows[0]["UserId"]);
                         TempData["UserId"] = _lr.UserId;
                         res.LoginTypeId = _lr.LoginTypeId;
                         _lr.SessionExpireTime = DateTime.Now.ToString("hh:mm:ss");

@@ -202,13 +202,9 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult SyllabusMaster()
         {
-            if (_lr.LoginTypeId == 1 || _lr.LoginTypeId == 2)
-            {
-                IMasterML ml = new MasterML();
-                var res = ml.GetProgram();
-                return View(res);
-            }
-            return RedirectToAction("Error", "Home");
+            IMasterML ml = new MasterML();
+            var res = ml.GetProgram();
+            return View(res);
         }
         [HttpPost]
         public IActionResult SyllabusMaster(IFormFile Files, int Branch, int Subject, int Year, int Program)
@@ -548,6 +544,7 @@ namespace JLNP_Project.Controllers
                     bool IsAdmission = false;
                     var mdl = new RegistrationViewModel();
                     IMasterML ml = new MasterML();
+                    mdl.ProgramMasters = ml.GetProgram();
                     if (Id != 0)
                     {
                         mdl.data = ml.GetRegistrationMaster(IsAdmission, Id);
@@ -648,6 +645,13 @@ namespace JLNP_Project.Controllers
             req.IsAdmission = true;
             var res = ml.UpdateRegistrationMaster(req);
             return Json(res);
+        }
+        [HttpPost]
+        public IActionResult GetAdmissionType()
+        {
+            IMasterML ml = new MasterML();
+            var response = ml.GetAdmissionType();
+            return Json(response);
         }
     }
 }

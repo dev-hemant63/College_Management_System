@@ -256,6 +256,7 @@ namespace JLNP_Project.Controllers
             Admin_BAL adbal = new Admin_BAL();
             int UserID = _lr.UserId;
             var res = adbal.GetUser_Bal(UserID, UserName, Mobile);
+            res = res.Where(x => x.Role.ToLower().Equals("student")).ToList();
             return PartialView("Partial/_GetUsers", res);
         }
         [HttpPost]
@@ -268,7 +269,8 @@ namespace JLNP_Project.Controllers
         [HttpGet]
         public IActionResult TeacherDash()
         {
-            return View();
+            var res = adbal.DashboardSummary_Bal();
+            return View(res);
         }
     }
 }

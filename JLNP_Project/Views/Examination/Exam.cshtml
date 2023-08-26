@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "_LayoutAdmin";
+   
 }
 <div class="">
     <div class="">
@@ -79,14 +79,16 @@
             console(xhr.responseText);
         });
     }
-    var SearchStudent = (examid, _is, sid) => {
+    var SearchStudent = (examid, _is, sid, Iswrite, isprectical) => {
         let obj = {
             BranchId: $('#ddlbranch option:selected').val(),
             Program: $('#ddlprogram option:selected').val(),
             Year: $('#ddlyear option:selected').val(),
             ExamID: examid,
             IsMarks: _is,
-            SID: sid
+            SID: sid,
+            IsWritten: Iswrite,
+            IsPrectical: isprectical
         }
         if (obj.Program == '0' || obj.Program == undefined) {
             alert('Please select program');
@@ -104,7 +106,7 @@
             $('#yearv').addClass('d-none');
         }
         $.post('/Examination/GetStudent', obj).done(function(result) {
-            $('#tblstudent').html(result);
+            $('#divstudent').html(result);
         }).fail(function(xhr) {
             console.log(xhr.responseText)
         });
@@ -137,34 +139,65 @@
             console(xhr.responseText);
         });
     }
-    var Savemarks = (i, sid,examid) => {
+    var Savemarks = (i, sid, examid, isprectical, iswritten) => {
         var Isvalid = false;
         var table = [];
-        $('#tblstudent tbody tr').each(function() {
-            let currentRow = $(this);
-            let enroll = currentRow.attr('data-id');
-            let obj = {
-                ExamID:examid,
-                Program: $('#ddlprogram').val(),
-                Branch: $('#ddlbranch').val(),
-                Year: $('#ddlyear').val(),
-                EnrollmentNo: enroll,
-                SubjectId: sid,
-                IsAttendance: currentRow.find('#absent_'+i).is(':checked'),
-                Marks: $('#marks_' + enroll).val(),
-                Note: $('#note_' + enroll).val(),
-                IsPrectical: $('#isprectical').is(':checked')
-            };
-            if (obj.IsAttendance) {
-                if (obj.Marks == '' || obj.Marks == undefined) {
-                    alertnotify(-1, 'Please enter marks!');
-                    Isvalid = false;
-                    return false;                    
+        if (iswritten) {
+            $('#tblstudent tbody tr').each(function() {
+                let currentRow = $(this);
+                let enroll = currentRow.attr('data-id');
+                let obj = {
+                    ExamID: examid,
+                    Program: $('#ddlprogram').val(),
+                    Branch: $('#ddlbranch').val(),
+                    Year: $('#ddlyear').val(),
+                    EnrollmentNo: enroll,
+                    SubjectId: sid,
+                    Id:$('#hdnid_' + enroll).val(),
+                    IsAttendance: currentRow.find('#absent_' + i).is(':checked'),
+                    Marks: $('#marks_' + enroll).val(),
+                    Note: $('#note_' + enroll).val(),
+                    IsWritten: iswritten
+                };
+                if (obj.IsAttendance) {
+                    if (obj.Marks == '' || obj.Marks == undefined) {
+                        alertnotify(-1, 'Please enter marks!');
+                        Isvalid = false;
+                        return false;
+                    }
                 }
-            }
-            table.push(obj);
-            Isvalid = true;
-        });
+                table.push(obj);
+                Isvalid = true;
+            });
+        }
+        if(isprectical){
+            $('#tblstudentprectical tbody tr').each(function() {
+                let currentRow = $(this);
+                let enroll = currentRow.attr('data-id');
+                let obj = {
+                    ExamID: examid,
+                    Program: $('#ddlprogram').val(),
+                    Branch: $('#ddlbranch').val(),
+                    Year: $('#ddlyear').val(),
+                    EnrollmentNo: enroll,
+                    SubjectId: sid,
+                    Id:$('#hdnid_' + enroll).val(),
+                    IsAttendance: currentRow.find('#absent_' + i).is(':checked'),
+                    Marks: $('#marks_' + enroll).val(),
+                    Note: $('#note_' + enroll).val(),
+                    IsPrectical: isprectical
+                };
+                if (obj.IsAttendance) {
+                    if (obj.Marks == '' || obj.Marks == undefined) {
+                        alertnotify(-1, 'Please enter marks!');
+                        Isvalid = false;
+                        return false;
+                    }
+                }
+                table.push(obj);
+                Isvalid = true;
+            });
+        }
         if (Isvalid) {
             $.post('/Examination/SaveExamMarks', { req: table }).done(function(result) {
                 alertnotify(result.statuscode, result.msg);

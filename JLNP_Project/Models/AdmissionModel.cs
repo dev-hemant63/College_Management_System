@@ -20,7 +20,6 @@
         public string Mobile { get; set; }
         public string DOB { get; set; }
         public string RgistrationNo { get; set; }
-        public string EntrolmentNo { get; set; }
         public string Branch { get; set; }
         public string Address { get; set; }
         public string Gender { get; set; }
@@ -32,5 +31,18 @@
         public string Entrydate { get; set; }
         public string Religion { get; set; }
         public List<AdmissionModel> lst { get; set; }
+        public string Photo { get; set; } = string.Empty;
+        public string FatherAadhar { get; set; } = string.Empty;
+        public string MotherAadhar { get; set; } = string.Empty;
+        public string Incomecertificate { get; set; } = string.Empty;
+        public string Aadhar { get; set; } = string.Empty;
+        public string CastCertificate { get; set; } = string.Empty;
+        public string NationalityCertificate { get; set; } = string.Empty;
+        public string TransferCertificate { get; set; } = string.Empty;
+        public int AdmissionType { get; set; } = 0;
+        public string FatherName { get; set; } = string.Empty;
+        public string FatherMo { get; set; } = string.Empty;
+        public string MotherMo { get; set; } = string.Empty;
+        public string MotherOccupation { get; set; } = string.Empty;
     }
 }

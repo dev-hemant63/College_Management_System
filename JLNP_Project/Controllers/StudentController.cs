@@ -89,9 +89,12 @@ namespace JLNP_Project.Controllers
             {
                 res.Msg = Convert.ToString(dt.Rows[0]["Msg"].ToString());
                 res.statuscode = Convert.ToInt32(dt.Rows[0]["StatusCode"]);
-                res.RegistrationNo = Convert.ToString(dt.Rows[0]["RegistrationNo"].ToString());
+                if(res.statuscode == 1)
+                {
+                    res.RegistrationNo = Convert.ToString(dt.Rows[0]["RegistrationNo"].ToString());
+                }
             }
-            if (res.statuscode != 0 || res.statuscode != -1)
+            if (res.statuscode == 1)
             {
                 try
                 {
@@ -140,12 +143,12 @@ namespace JLNP_Project.Controllers
                         Email = Convert.ToString(row["Email"].ToString()),
                         Mobile = Convert.ToString(row["Mobile"].ToString()),
                         DOB = Convert.ToString(row["DOB"].ToString()),
-                        Entrolment_No = Convert.ToString(row["Entrolment_No"].ToString()),
+                        RegistrationNo = Convert.ToString(row["RegistrationNo"].ToString()),
                         ProgramName = Convert.ToString(row["Program"].ToString()),
                         Branch = Convert.ToString(row["Branch"].ToString()),
                         Address = Convert.ToString(row["Address"].ToString()),
                         Gender = Convert.ToString(row["Gender"].ToString()),
-                        Group = Convert.ToString(row["Group_Name"].ToString()),
+                        AdmissionTypeName = Convert.ToString(row["AdmissionType"].ToString()),
                         EntryDate = Convert.ToString(row["EntryDate"].ToString()),
                     };
                     StudentList.Add(Smodel);
