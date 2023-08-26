@@ -25,6 +25,11 @@ namespace JLNP_Project.AppCode.DAL
             cmd.Parameters.AddWithValue("@MotherName", student.MotherName);
             cmd.Parameters.AddWithValue("@Program", student.Program);
             cmd.Parameters.AddWithValue("@AdmissionType", student.AdmissionType);
+            cmd.Parameters.AddWithValue("@TXNMode", student.TXNMode);
+            cmd.Parameters.AddWithValue("@UTR", student.UTR);
+            cmd.Parameters.AddWithValue("@CheckNo", student.CheckNo);
+            cmd.Parameters.AddWithValue("@EntryBy", student.EntryBy);
+            cmd.Parameters.AddWithValue("@Amount", student.Amount);
             cmd.Parameters.AddWithValue("@Action", student.Action);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();

@@ -77,19 +77,20 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult _AddStudent(Student student)
         {
-           student.Action = "Add";
-           var dt = StBAL.AddStudent_BAL(student);
+            student.Action = "Add";
+            student.EntryBy = _lr.UserId;
+            var dt = StBAL.AddStudent_BAL(student);
             ResponseStatus res = new ResponseStatus
             {
                 statuscode = -1,
                 Msg = "Temp Error",
-                RegistrationNo="0"
+                RegistrationNo = "0"
             };
             if (dt.Rows.Count > 0)
             {
                 res.Msg = Convert.ToString(dt.Rows[0]["Msg"].ToString());
                 res.statuscode = Convert.ToInt32(dt.Rows[0]["StatusCode"]);
-                if(res.statuscode == 1)
+                if (res.statuscode == 1)
                 {
                     res.RegistrationNo = Convert.ToString(dt.Rows[0]["RegistrationNo"].ToString());
                 }
@@ -105,13 +106,13 @@ namespace JLNP_Project.Controllers
                     massage.From = new MailAddress(frommail);
                     massage.Subject = "Jawahar lal Neharu Polytechnic";
                     massage.To.Add(new MailAddress(student.Email));
-                    massage.Body = "<html><body><h3>Student Registration Successfully</h3><br>Your Registration Number Is: "+"  "+ res.RegistrationNo + "</body></html>";
+                    massage.Body = "<html><body><h3>Student Registration Successfully</h3><br>Your Registration Number Is: " + "  " + res.RegistrationNo + "</body></html>";
                     massage.IsBodyHtml = true;
 
                     var smtpclient = new SmtpClient("smtp.gmail.com")
                     {
                         Port = 587,
-                        Credentials = new NetworkCredential(frommail,frompassword),
+                        Credentials = new NetworkCredential(frommail, frompassword),
                         EnableSsl = true
                     };
                     smtpclient.Send(massage);
@@ -154,7 +155,7 @@ namespace JLNP_Project.Controllers
                     StudentList.Add(Smodel);
                 }
             }
-            return PartialView("Partial/_GetStudent",StudentList);
+            return PartialView("Partial/_GetStudent", StudentList);
         }
         [HttpPost]
         public IActionResult BindBranch()
@@ -236,9 +237,9 @@ namespace JLNP_Project.Controllers
             IStudent resq = new StudentML();
             string Action = "Get";
             var respons = resq.GetStudentById(Action, Id);
-            return PartialView("Partial/_EditStudentFine",respons);
+            return PartialView("Partial/_EditStudentFine", respons);
         }
-        public IActionResult DeleteStudentFine(string Action,int FineId)
+        public IActionResult DeleteStudentFine(string Action, int FineId)
         {
             IStudent resq = new StudentML();
             var respons = resq.DeleteStudentFine(Action, FineId);
@@ -308,6 +309,13 @@ namespace JLNP_Project.Controllers
             IStudent ml = new StudentML();
             var model = ml.GetStudentAssignment(_lr.UserId);
             return PartialView("Partial/_GetStudentAssignment", model);
+        }
+        [HttpPost]
+        public IActionResult GetRegistrationFees(int Branch,int Program,int AdmissionType)
+        {
+            IStudent ml = new StudentML();
+            var response = ml.GetRegistrationFees(Branch, Program, AdmissionType);
+            return Json(new {Amount = response });
         }
     }
 }

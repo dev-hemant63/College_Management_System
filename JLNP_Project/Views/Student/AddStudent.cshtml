@@ -16,11 +16,11 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="form-group"><label>Name</label> <input type="text" placeholder="Name" class="form-control" id="name"> </div>
-                                <div class="form-group"><label>Father Name</label> <input type="text" placeholder="Father Name" class="form-control" id="fname"> </div>
-                                <div class="form-group"><label>Father Occupation</label> <input type="text" placeholder="Father Occupation" class="form-control" id="txtfatheroccupation"> </div>
+                                <div class="form-group"><label>Name</label> <input type="text" placeholder="Name" class="form-control" id="name" required> </div>
+                                <div class="form-group"><label>Father Name</label> <input type="text" placeholder="Father Name" class="form-control" id="fname" required> </div>
+                                <div class="form-group"><label>Father Occupation</label> <input type="text" placeholder="Father Occupation" class="form-control" id="txtfatheroccupation" required> </div>
                                 <div class="form-group">
-                                    <label>Program</label> <select class="form-control" id="ddlProgram" onchange="Bindbranch()">
+                                    <label>Program</label> <select class="form-control" id="ddlProgram" onchange="Bindbranch()" required>
                                         <option value="">--Select Program--</option>
                                         @foreach (var item in Model)
                                         {
@@ -28,36 +28,56 @@
                                         }
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label>TXN Mode</label> <select class="form-control" id="ddlMode" onchange="getQr()" required>
+                                        <option value="0">--Select Mode--</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Amount</label>
+                                    <input type="number" class="form-control" id="txtAmount" required disabled>
+                                </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group"><label>Eamil</label> <input type="text" placeholder="Eamil" class="form-control" id="email"> </div>
-                                <div class="form-group"><label>Mother Name</label> <input type="text" placeholder="Mother Name" class="form-control" id="txtmother"> </div>
-                                <div class="form-group"><label>DOB</label> <input type="date" placeholder="dd-mm-yy" class="form-control" id="dob"> </div>
+                                <div class="form-group"><label>Eamil</label> <input type="text" placeholder="Eamil" class="form-control" id="email" required> </div>
+                                <div class="form-group"><label>Mother Name</label> <input type="text" placeholder="Mother Name" class="form-control" id="txtmother" required> </div>
+                                <div class="form-group"><label>DOB</label> <input type="date" placeholder="dd-mm-yy" class="form-control" id="dob" required> </div>
                                 <div class="form-group">
-                                    <label>Branch</label> <select class="form-control" id="ddlbranch">
+                                    <label>Branch</label> <select class="form-control" id="ddlbranch" onchange="getRegistrationFees()" required>
                                     </select>
+                                </div>
+                                <div class="form-group" id="divutrno">
+                                    <label>UTR No.</label>
+                                    <input type="text" class="form-control" id="txtutr">
+                                </div>
+                                <div class="form-group" id="divQr">
+                                   
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Gender</label> <select class="form-control" id="gender">
+                                    <label>Gender</label> <select class="form-control" id="gender" required>
                                         <option value="">--Select Gender--</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                         <option value="Other">Other</option>
                                     </select>
                                 </div>
-                                <div class="form-group"><label>Mobile</label> <input type="text" placeholder="Mobile" class="form-control" id="mobile"> </div>
+                                <div class="form-group"><label>Mobile</label> <input type="text" placeholder="Mobile" class="form-control" id="mobile" required> </div>
                                 <div class="form-group"><label>Address</label> <textarea class="form-control" placeholder="Address" id="address"></textarea></div>
                                 <div class="form-group">
-                                    <label>Admission Type</label> <select class="form-control" id="ddladdmission">
+                                    <label>Admission Type</label> <select class="form-control" id="ddladdmission" onchange="getRegistrationFees()" required>
                                         <option value="">--Select Admission Type--</option>
                                     </select>
                                 </div>
+                                <div class="form-group" id="divcheckno">
+                                    <label>Check No.</label>
+                                    <input type="text" class="form-control" id="txtcheckno">
+                                </div>
                             </div>
                             <div class="col-sm-3">
-                            <button type="button" style="margin-top: 11px;" class="btn btn-outline-primary waves-effect waves-light" id="btnsubmit">Registration</button>
-                        </div>
+                                <button type="button" style="margin-top: 11px;" class="btn btn-outline-primary waves-effect waves-light" id="btnsubmit" onclick="submitRegistration()">Registration</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -68,122 +88,70 @@
 <script>
     $(document).ready(function() {
         bindAdmissionType();
-        $('#btnsubmit').click(function() {
-            if ($('#name').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#name').focus();
-                return false;
-            }
-            if ($('#fname').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#fname').focus();
-                return false;
-            }
-            if ($('#email').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#email').focus();
-                return false;
-            }
-            if ($('#mobile').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#mobile').focus();
-                return false;
-            }
-            if ($('#dob').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#dob').focus();
-                return false;
-            }
-            if ($('#gender option:selected').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#gender').focus();
-                return false;
-            }
-            if ($('#ddlbranch option:selected').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#ddlbranch').focus();
-                return false;
-            }
-            if ($('#address').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#address').focus();
-                return false;
-            }
-            if ($('#txtfatheroccupation').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#txtfatheroccupation').focus();
-                return false;
-            }
-            if ($('#txtmother').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#txtmother').focus();
-                return false;
-            }
-            if ($('#ddlProgram option:selected').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#ddlProgram').focus();
-                return false;
-            }
-            if ($('#ddladdmission option:selected').val() == '') {
-                alert("Please Admission Type");
-                $('#ddladdmission').focus();
-                return false;
-            }
-            var obj = {
-                Name: $('#name').val(),
-                Fname: $('#fname').val(),
-                Email: $('#email').val(),
-                Mobile: $('#mobile').val(),
-                DOB: $('#dob').val(),
-                Branch: $('#ddlbranch option:selected').val(),
-                Gender: $('#gender option:selected').val(),
-                Address: $('#address').val(),
-                FatherOccupation: $('#txtfatheroccupation').val(),
-                MotherName: $('#txtmother').val(),
-                Program: $('#ddlProgram option:selected').val(),
-                AdmissionType: $('#ddladdmission option:selected').val()
-            }
-            preloader.load();
-            $.post('/Student/_AddStudent', obj).done(function(result) {
-                preloader.remove();
-                if (result.statuscode == 1) {
-                    swal.fire({
-                        title: "Success",
-                        text: result.msg + "  " + "Your Registration Number Is" + "  " + result.registrationNo,
-                        icon: "success",
-                        confirmButtonText: "GoBack"
-                        //timer: 500000
-                    }).then((result) => {
-                        /* Read more about isConfirmed, isDenied below */
-                        if (result.isConfirmed) {
-                            $('input').val('');
-                            $('select').val('0');
-                        } else if (result.isDenied) {
-                            $('input').val('');
-                            $('select').val('0');
-                        }
-                    });
-                }
-                if (result.statuscode == -1) {
-                    swal.fire({
-                        title: "Warnning",
-                        text: result.msg,
-                        icon: "info",
-                        timer: 500000
-                    });
-                }
-            }).fail(function(xhr) {
-                console.log(xhr.responseText);
-            });
-        });
         Bindbranch();
+        Bindfeesmode();
     });
+    let submitRegistration = () => {
+        let isvalid = valiadteInputs();
+        if (!isvalid) {
+            return false;
+        }
+        var obj = {
+            Name: $('#name').val(),
+            Fname: $('#fname').val(),
+            Email: $('#email').val(),
+            Mobile: $('#mobile').val(),
+            DOB: $('#dob').val(),
+            Branch: $('#ddlbranch option:selected').val(),
+            Gender: $('#gender option:selected').val(),
+            Address: $('#address').val(),
+            FatherOccupation: $('#txtfatheroccupation').val(),
+            MotherName: $('#txtmother').val(),
+            Program: $('#ddlProgram option:selected').val(),
+            AdmissionType: $('#ddladdmission option:selected').val(),
+            TXNMode: $('#ddlMode').val(),
+            UTR: $('#txtutr').val(),
+            CheckNo: $('#txtcheckno').val(),
+            Amount: $('#txtAmount').val(),
+        }
+        preloader.load();
+        $.post('/Student/_AddStudent', obj).done(function(result) {
+            preloader.remove();
+            if (result.statuscode == 1) {
+                swal.fire({
+                    title: "Success",
+                    text: result.msg + "  " + "Your Registration Number Is" + "  " + result.registrationNo,
+                    icon: "success",
+                    confirmButtonText: "GoBack"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('input').val('');
+                        $('select').val('0');
+                    } else if (result.isDenied) {
+                        $('input').val('');
+                        $('select').val('0');
+                    }
+                });
+            }
+            if (result.statuscode == -1) {
+                swal.fire({
+                    title: "Warnning",
+                    text: result.msg,
+                    icon: "info",
+                    timer: 500000
+                });
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+    }
     var Bindbranch = () => {
         $.post('/Admission/BindProgramWiseBranch', { ProgramId: $('#ddlProgram option:selected').val() }).done(function(result) {
             $('#ddlbranch').empty();
             for (var i = 0; i < result.length; i++) {
                 $('#ddlbranch').append('<option value="' + result[i].branchId + '">' + result[i].branchName + '</option>')
             }
+            getRegistrationFees();
         }).fail(function(xhr) {
             console.log(xhr.responseText)
         });
@@ -197,5 +165,36 @@
         }).fail(function(xhr) {
             console.log(xhr.responseText)
         });
+    }
+    let Bindfeesmode = () => {
+        $.post('/AccountManagement/BindFeesSubmissionMode').done(function(result) {
+            $('#ddlMode').empty();
+            $('#ddlMode').append('<option value="0">--Select Mode--</option>');
+            for (var i = 0; i < result.length; i++) {
+                $('#ddlMode').append('<option value="' + result[i].id + '">' + result[i].mode + '</option>')
+            }
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+    }
+    let getRegistrationFees = () => {
+        $.post('/Student/GetRegistrationFees', { Branch: $('#ddlbranch').val(), Program: $('#ddlProgram').val(), AdmissionType: $('#ddladdmission').val() }).done(function(result) {
+            $('#txtAmount').val(result.amount);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+    }
+    let getQr = () => {
+        if ($('#ddlMode').val() == '3') {
+            $('#divQr').html('');
+            $.post('/Payment/GetQR', { amount: $('#txtAmount').val() }).done(function(result) {
+                $('#divQr').append(result);
+            }).fail(function(xhr) {
+                console.log(xhr.responseText);
+            });
+        }
+        else{
+            $('#divQr').html('');
+        }
     }
 </script>

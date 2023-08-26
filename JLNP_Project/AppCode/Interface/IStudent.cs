@@ -22,6 +22,7 @@ namespace JLNP_Project.AppCode.Interface
         ResponseStatus UpdateSyllabus(SyllabusMaster req);
         List<StudentSyllabus> GetStudentSyllabus(int LoginID);
         List<AssignmentModel> GetStudentAssignment(int LoginID);
+        decimal GetRegistrationFees(int Branch, int Program, int AdmissionType);
         List<CommanMasterResponse> GetStudentVideolectures(int LoginID);
     }
 }

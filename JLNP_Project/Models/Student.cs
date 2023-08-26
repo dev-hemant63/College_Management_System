@@ -25,6 +25,11 @@
         public int ExamId { get; set; }
         public int AdmissionType { get; set; }
         public string AdmissionTypeName { get; set; }
+        public int TXNMode { get; set; }
+        public string UTR { get; set; }
+        public string CheckNo { get; set; }
+        public int EntryBy { get; set; }
+        public decimal Amount { get; set; }
     }
     public class StudentFineMdl: Student
     {

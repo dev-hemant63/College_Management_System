@@ -44,5 +44,6 @@
         public string FatherMo { get; set; } = string.Empty;
         public string MotherMo { get; set; } = string.Empty;
         public string MotherOccupation { get; set; } = string.Empty;
+        public int Batch { get; set; } = 0;
     }
 }
