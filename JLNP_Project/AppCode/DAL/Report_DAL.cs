@@ -11,12 +11,11 @@ namespace JLNP_Project.AppCode.DAL
         SqlConnection con = new SqlConnection(ConfigSettings.conStr);
         public DataTable GetAdmissionReport(AdmissionModel admissionModel)
         {
-            SqlCommand cmd = new SqlCommand("proc_Admission", con);
+            SqlCommand cmd = new SqlCommand("Proc_GetAdmissionDetails", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@Action", admissionModel.Action);
             cmd.Parameters.AddWithValue("@FromDate", admissionModel.FromDate);
             cmd.Parameters.AddWithValue("@ToDate", admissionModel.ToDate);
-            cmd.Parameters.AddWithValue("@EntrolmentNo", admissionModel.RgistrationNo);
+            cmd.Parameters.AddWithValue("@AdmissionNo", admissionModel.RgistrationNo);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);

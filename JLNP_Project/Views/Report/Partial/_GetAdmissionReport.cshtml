@@ -5,39 +5,44 @@
         foreach (var item in Model)
         {
             i++;
-            <tr data-item-id="@item.Id">
-                <td>@i</td>
-                <td>@item.Name</td>
-                <td>@item.Fname</td>
-                <td>@item.MotherName</td>
-                <td>@item.FatherOccupation</td>
-                <td>@item.Religion</td>
-                <td>@item.Email</td>
-                <td>@item.Mobile</td>
-                <td>@item.DOB</td>
-                <td>@item.RgistrationNo</td>
-                <td>@item.ProgramName</td>
-                <td>@item.Branch</td>
-                <td>@item.Year</td>
-                <td>@item.Address</td>
-                <td>@item.Gender</td>
-                <td>@item.Group</td>
-                @if (@item.FeesStatus == "1")
+    <tr data-item-id="@item.Id">
+                        <td>@i</td>
+                        <td>@item.Name</td>
+                        <td>@item.Fname</td>
+                        <td>@item.MotherName</td>
+                        <td>@item.FatherOccupation</td>
+                        <td>@item.Religion</td>
+                        <td>@item.Email</td>
+                        <td>@item.Mobile</td>
+                        <td>@item.DOB</td>
+                        <td>@item.RgistrationNo</td>
+                        <td>@item.ProgramName</td>
+                        <td>@item.Branch</td>
+                        <td>@item.Year</td>
+                        <td>@item.Address</td>
+                        <td>@item.Gender</td>
+                        <td>@item.Group</td>
+                        @if (@item.FeesStatus == "1")
                 {
-                    <td class="badge badge-secondary badgecus">PENDDING</td>
+                            <td class="badge badge-secondary badgecus">PENDDING</td>
                 }
-                @if (@item.FeesStatus == "2")
+                        @if (@item.FeesStatus == "2")
                 {
-                    <td class="badge badge-success badgecus">SUCCESS</td>
+                            <td class="badge badge-success badgecus">SUCCESS</td>
                 }
-                <td>@item.AdmissionDate</td>
-            </tr>
+                else
+                {
+                            <td class="badge badge-secondary badgecus">NA</td>
+                }
+                        <td>@item.AdmissionDate</td>
+                        <td><a class="btn btn-warning btn-sm" href="/Details/@item.RgistrationNo"><i class="fa fa-info-circle" aria-hidden="true"></i></a></td>
+    </tr>
         }
     }
     else
     {
-       <tr>
-         <td style="color:red;" colspan="18" class="text-center">Record Not Found</td>
-       </tr>
+    <tr>
+                 <td style="color:red;" colspan="18" class="text-center">Record Not Found</td>
+    </tr>
     }
 }

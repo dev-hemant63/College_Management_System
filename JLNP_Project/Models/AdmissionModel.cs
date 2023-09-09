@@ -5,7 +5,6 @@
         public int Id { get; set; }
         public int IsAttand { get; set; }
         public int IsAbsent { get; set; }
-        public int StudentId { get; set; }
         public int SubjectId { get; set; }
         public int BranchId { get; set; }
         public string Name { get; set; }
@@ -40,10 +39,20 @@
         public string NationalityCertificate { get; set; } = string.Empty;
         public string TransferCertificate { get; set; } = string.Empty;
         public int AdmissionType { get; set; } = 0;
+        public string AdmissionTypeName { get; set; }
         public string FatherName { get; set; } = string.Empty;
         public string FatherMo { get; set; } = string.Empty;
         public string MotherMo { get; set; } = string.Empty;
         public string MotherOccupation { get; set; } = string.Empty;
         public int Batch { get; set; } = 0;
+        public string BatchName { get; set; }
+        public IFormFile PhotoFile { get; set; }
+        public IFormFile FatherAadharFile { get; set; }
+        public IFormFile MotherAadharFile { get; set; }
+        public IFormFile IncomecertificateFile { get; set; }
+        public IFormFile AadharFile { get; set; }
+        public IFormFile CastCertificateFile { get; set; }
+        public IFormFile NationalityCertificateFile { get; set; }
+        public IFormFile TransferCertificateFile { get; set; }
     }
 }

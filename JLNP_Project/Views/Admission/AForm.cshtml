@@ -86,7 +86,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group"><label>Father Mobile</label> <input type="text" placeholder="Father Mobile" class="form-control" id="fmobile" required> </div>
-                            <div class="form-group"><label>Mother Mobile</label> <input type="text" placeholder="Mother Mobile" class="form-control" id="Mmobile"> </div>
+                            <div class="form-group"><label>Mother Mobile</label> <input type="text" placeholder="Mother Mobile" class="form-control" id="Mmobile" required> </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group"><label>Father Occupation</label> <input type="text" placeholder="Father Occupation" class="form-control" id="fatheroccupation" required> </div>
@@ -136,36 +136,49 @@
         if (!isvalid) {
             return false;
         }
-        let obj = {
-            RgistrationNo: $('#txtresno').val(),
-            Name: $('#name').val(),
-            DOB: $('#dob').val(),
-            Gender: $('#gender option:selected').val(),
-            Mobile: $('#mobile').val(),
-            Email: $('#email').val(),
-            Program: $('#ddlprogram option:selected').val(),
-            Branch: $('#ddlbranch option:selected').val(),
-            AdmissionType: $('#ddladdmission').val(),
-            Year: $('#ddlyear option:selected').val(),
-            Religion: $('#Religion').val(),
-            Address: $('#address').val(),
-            Batch: $('#ddlbatch').val(),
-
-            MotherName: $('#mothername').val(),
-            FatherMo: $('#fmobile').val(),
-            FatherOccupation: $('#fatheroccupation').val(),
-            Fname: $('#fname').val(),
-            MotherMo: $('#Mmobile').val(),
-            MotherOccupation: $('#motheroccupation').val(),
-        }
+        let formData = new FormData();
         preloader.load();
-        $.post('/Admission/Student_Admission', obj).done(function(result) {
-            preloader.remove();
-            alertnotify(result.statuscode, result.msg);
-            $('input').val('');
-            $('select').val('0');
-        }).fail(function(xhr) {
-            console.log(xhr.responseText);
+        formData.append('RgistrationNo', $('#txtresno').val());
+        formData.append('Name',$('#name').val());
+        formData.append('DOB',$('#dob').val());
+        formData.append('Gender',$('#gender option:selected').val());
+        formData.append('Mobile',$('#mobile').val());
+        formData.append('Email',$('#email').val());
+        formData.append('Program',$('#ddlprogram option:selected').val());
+        formData.append('Branch',$('#ddlbranch option:selected').val());
+        formData.append('AdmissionType',$('#ddladdmission').val());
+        formData.append('Year',$('#ddlyear option:selected').val());
+        formData.append('Religion',$('#Religion').val());
+        formData.append('Address',$('#address').val());
+        formData.append('Batch',$('#ddlbatch').val());
+        formData.append('MotherName', $('#mothername').val());
+        formData.append('FatherMo', $('#fmobile').val());
+        formData.append('FatherOccupation', $('#fatheroccupation').val());
+        formData.append('Fname', $('#fname').val());
+        formData.append('MotherMo', $('#Mmobile').val());
+        formData.append('MotherOccupation', $('#motheroccupation').val());
+        formData.append('PhotoFile', $('#filephoto')[0].files[0]);
+        formData.append('FatherAadharFile', $('#filefatheraadhar')[0].files[0]);
+        formData.append('MotherAadharFile', $('#filemotheraadhar')[0].files[0]);
+        formData.append('IncomecertificateFile', $('#incomecertificte')[0].files[0]);
+        formData.append('AadharFile', $('#fileaadhar')[0].files[0]);
+        formData.append('CastCertificateFile', $('#filecastcertifiacte')[0].files[0]);
+        formData.append('NationalityCertificateFile', $('#filenationality')[0].files[0]);
+        formData.append('TransferCertificateFile', $('#filetransfercertificate')[0].files[0]);
+        $.ajax({
+            type: "POST",
+            url: "/Admission/Student_Admission",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(result) {
+                preloader.remove();
+                alertnotify(result.statuscode, result.msg);
+                if (result.statuscode == 1) {
+                    $('input').val('');
+                    $('select').val('0');
+                }
+            }
         });
     }
     var Bindbranch = () => {

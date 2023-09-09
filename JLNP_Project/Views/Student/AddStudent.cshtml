@@ -92,6 +92,10 @@
         Bindfeesmode();
     });
     let submitRegistration = () => {
+        if($('#txtAmount').val() == '0'){
+            alertnotify(-1,'Fees not define for selected branch!')
+            return
+        }
         let isvalid = valiadteInputs();
         if (!isvalid) {
             return false;

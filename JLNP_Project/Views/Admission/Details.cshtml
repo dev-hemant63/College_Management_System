@@ -1,0 +1,247 @@
+﻿@model AdmissionModel
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    body {
+        margin: 10px;
+        padding: 20px;
+    }</style>
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <center>
+                    <span class="text-left">
+                        <img src="@Model.Photo" class="img-responsive img-thumbnail">
+                    </span>
+                </center>
+                <div class="table-responsive panel">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="text-center">
+                                    <span class="btn btn-success btn-block"><i class="fa fa-rupee"></i> Paid</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#Summery" class="text-success"><i class="fa fa-indent"></i> Summery</a></li>
+                    <li><a data-toggle="tab" href="#Contact" class="text-success"><i class="fa fa-bookmark-o"></i> Contact Info</a></li>
+                    <li><a data-toggle="tab" href="#Document" class="text-success"><i class="fa fa-info"></i> Documents</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="Summery" class="tab-pane fade in active">
+                        <div class="table-responsive panel">
+                            <table class="table">
+                                <tbody>
+
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-user"></i> Full Name</td>
+                                        <td>@Model.Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-user"></i> Father Name</td>
+                                        <td>@Model.Fname</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-user"></i> Mother Name</td>
+                                        <td>@Model.MotherName</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-list-ol"></i> Admission Number</td>
+                                        <td>@Model.RgistrationNo</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-group"></i> Program</td>
+                                        <td>@Model.ProgramName</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-group"></i> Branch</td>
+                                        <td>@Model.Branch</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-group"></i> Admission Type</td>
+                                        <td>@Model.AdmissionTypeName</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-calendar"></i> Birthday</td>
+                                        <td>@Model.DOB</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="Contact" class="tab-pane fade">
+                        <div class="table-responsive panel">
+                            <table class="table">
+                                <tbody>
+
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-envelope-o"></i> Email ID</td>
+                                        <td><a href="mailto:@Model.Email">@Model.Email</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="glyphicon glyphicon-phone"></i> Mobile Number</td>
+                                        <td>@Model.Mobile</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-flag"></i> Nationality</td>
+                                        <td>Indian</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="glyphicon glyphicon-phone"></i> Father's Mobile</td>
+                                        <td>@Model.FatherMo</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-user"></i> Mother's Name</td>
+                                        <td>@Model.MotherMo</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-user"></i> Emergency Contact Person</td>
+                                        <td>@Model.Fname</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="glyphicon glyphicon-phone"></i> Emergency Contact Person's Mobile</td>
+                                        <td>@Model.FatherMo</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="Document" class="tab-pane">
+
+                        <div class="table-responsive panel">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-user"></i> Student Aadhar</td>
+                                        <td><img src="@Model.Aadhar" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-user"></i> Father Aadhar Card</td>
+                                         <td><img src="@Model.FatherAadhar" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-user"></i> Mother Aadhar Card</td>
+                                         <td><img src="@Model.MotherAadhar" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-user"></i> Income Certificate</td>
+                                         <td><img src="@Model.Incomecertificate" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-user"></i> Cast Certificate</td>
+                                         <td><img src="@Model.CastCertificate" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-user"></i> Nationality Certificate</td>
+                                         <td><img src="@Model.NationalityCertificate" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-success"><i class="fa fa-user"></i> Transfer Certificate</td>
+                                         <td><img src="@Model.TransferCertificate" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script>
+    // prevent navigation
+    document.addEventListener("DOMContentLoaded", function() {
+        var links = document.getElementsByTagName("A");
+        for (var i = 0; i < links.length; i++) {
+            links[i].addEventListener("click", function(e) {
+                var href = this.getAttribute("href")
+
+                if (!href) {
+                    return
+                }
+
+                if (href === '#') {
+                    // hash only ('#')
+                    console.debug('Internal nav allowed by Codeply');
+                    e.preventDefault()
+                }
+                else if (this.hash) {
+                    // hash with tag ('#foo')
+                    var element = null
+                    try {
+                        element = document.querySelector(this.hash)
+                    }
+                    catch (e) {
+                        console.debug('Codeply internal nav querySelector failed')
+                    }
+                    if (element) {
+                        // scroll to anchor
+                        e.preventDefault();
+                        const top = element.getBoundingClientRect().top + window.pageYOffset
+                        //window.scrollTo({top, behavior: 'smooth'})
+                        window.scrollTo(0, top)
+                        console.debug('Internal anchor controlled by Codeply to element:' + this.hash)
+                    }
+                    else {
+                        // allow javascript routing
+                        console.debug('Internal nav route allowed by Codeply');
+                    }
+                }
+                else if (href.indexOf("/p/") === 0 || href.indexOf("/v/") === 0) {
+                    // special multi-page routing
+                    console.debug('Special internal page route: ' + href)
+
+                    var l = href.replace('/p/', '/v/')
+
+                    // reroute
+                    e.preventDefault()
+                    var newLoc = l + '?from=internal'
+                    console.debug('Internal view will reroute to ' + newLoc)
+                    location.href = newLoc
+                }
+                else if (href.indexOf("./") === 0) {
+                    // special multi-page routing
+                    console.debug('Special internal ./ route: ' + href)
+
+                    var u = parent.document.URL.split("/")
+                    var pn = href.split("/")[1]
+                    var plyId = u[u.length - 1]
+
+                    if (plyId.indexOf('?from') > -1) {
+                        // already rerouted this
+                        plyId = u[u.length - 2]
+                    }
+
+                    var l = plyId + '/' + pn
+
+                    console.debug(u)
+                    console.debug(pn)
+                    console.debug('l', l)
+
+                    // reroute
+                    e.preventDefault()
+                    var newLoc = '/v/' + l + '?from=internal'
+                    console.debug('Internal page will reroute to ' + newLoc)
+                    location.href = newLoc
+                }
+                else {
+                    // no external links
+                    e.preventDefault();
+                    console.debug('External nav prevented by Codeply');
+                }
+                //return false;
+            })
+        }
+    }, null);
+</script>

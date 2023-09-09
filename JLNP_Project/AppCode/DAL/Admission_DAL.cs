@@ -40,6 +40,7 @@ namespace JLNP_Project.AppCode.DAL
             cmd.Parameters.AddWithValue("@CastCertificate", admissionModel.CastCertificate);
             cmd.Parameters.AddWithValue("@Nationalitycertificate", admissionModel.NationalityCertificate);
             cmd.Parameters.AddWithValue("@TransferCertificate", admissionModel.TransferCertificate);
+            cmd.Parameters.AddWithValue("@Batch", admissionModel.Batch);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
