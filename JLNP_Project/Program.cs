@@ -1,3 +1,6 @@
+using CollageERP.AppCode.Helper;
+using CollageERP.AppCode.Interface;
+using CollageERP.AppCode.Midlelayer;
 using CollageERP.Models;
 using CollageERP.PaymentQR;
 using JLNP_Project.AppCode.Helper;
@@ -13,8 +16,12 @@ builder.Services.AddControllersWithViews();
 //});
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IExamination, Examination>();
+builder.Services.AddScoped<IDBHelper, DBHelper>();
 builder.Services.AddScoped<ISendEmail, SendEmail>();
 builder.Services.AddScoped<IQrCodeService, QrCodeService>();
+builder.Services.AddScoped<IRequestInfo, RequestInfo>();
+builder.Services.AddScoped<IUploadImageService, UploadImageService>();
+builder.Services.AddScoped<IAdmissionService, AdmissionService>();
 builder.Services.AddSession(options => {
     options.Cookie.IsEssential = true;
     options.IdleTimeout = TimeSpan.FromMinutes(AppConsts.SessionTime);

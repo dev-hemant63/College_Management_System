@@ -42,22 +42,23 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Father Name</th>
-                                        <th>Mother Name</th>
-                                        <th>Father Occupation</th>
-                                        <th>Religion</th>
-                                        <th>Email</th>
+                                        <th class="text-nowrap">Father Name</th>
+                                        <th class="text-nowrap">Mother Name</th>
+                                        <th class="text-nowrap">Father Occupation</th>
+                                        <th class="text-nowrap">Religion</th>
+                                        <th class="text-nowrap">Email</th>
                                         <th>Mobile</th>
                                         <th>DOB</th>
-                                        <th>Enrollment Number</th>
+                                        <th class="text-nowrap">Enrollment Number</th>
                                         <th>Program</th>
                                         <th>Branch</th>
                                         <th>Year</th>
                                         <th>Address</th>
                                         <th>Gender</th>
                                         <th>Group</th>
-                                        <th>Fees Status</th>
-                                        <th>Admission Date</th>
+                                        <th class="text-nowrap">Fees Status</th>
+                                        <th class="text-nowrap">Admission Date</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -88,7 +89,7 @@
         let obj = {
             FromDate: $('#fromdate').val(),
             ToDate: $('#todate').val(),
-            EntrolmentNo: $('#txtenrolnumber').val()
+            RgistrationNo: $('#txtenrolnumber').val()
         }
         preloader.load();
         $.post('/Report/_AdmissionReport', obj).done(function(result) {

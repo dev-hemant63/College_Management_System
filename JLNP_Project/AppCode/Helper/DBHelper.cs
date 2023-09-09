@@ -2,12 +2,12 @@
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using CollageERP.AppCode.Helper;
 using Core.DAL;
-using Microsoft.Extensions.Configuration;
 
 namespace JLNP_Project.AppCode.Helper
 {
-    public class DBHelper
+    public class DBHelper: IDBHelper
     {
         SqlConnection con = new SqlConnection(ConfigSettings.conStr);
         public DataTable ExcProc(string Procname,SqlParameter[] prams)
