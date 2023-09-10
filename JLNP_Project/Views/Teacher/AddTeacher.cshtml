@@ -1,10 +1,6 @@
-﻿@{
-   
-}
-
-<div class="container">
+﻿<div class="container">
     <div class="row">
-        <div class="col-12 px-4">
+        <div class="col-12 px-2 py-2">
             <div class="card mb-30">
                 <div class="card-header bgred">
                     <h4 style="color:black;">Add Teacher</h4>
@@ -13,19 +9,19 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="p-20">
-                                <div class="form-group"><label>Name</label> <input type="text" placeholder="Name" class="form-control" id="name"> </div>
-                                <div class="form-group"><label>Father Name</label> <input type="text" placeholder="Father Name" class="form-control" id="fname"> </div>
+                                <div class="form-group"><label>Name</label> <input type="text" required placeholder="Name" class="form-control" id="name"> </div>
+                                <div class="form-group"><label>Father Name</label> <input type="text" required placeholder="Father Name" class="form-control" id="fname"> </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="p-20">
-                                <div class="form-group"><label>Eamil</label> <input type="text" placeholder="Eamil" class="form-control" id="email"> </div>
-                                <div class="form-group"><label>DOB</label> <input type="date" placeholder="dd-mm-yy" class="form-control" id="dob"> </div>
+                                <div class="form-group"><label>Eamil</label> <input type="text" required placeholder="Eamil" class="form-control" id="email"> </div>
+                                <div class="form-group"><label>DOB</label> <input type="date" required placeholder="dd-mm-yy" class="form-control" id="dob"> </div>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group"><label>Mobile</label> <input type="text" placeholder="Mobile" class="form-control" id="mobile"> </div>
-                            <div class="form-group"><label>Address</label> <textarea class="form-control" placeholder="Address" id="address"></textarea></div>
+                            <div class="form-group"><label>Mobile</label> <input type="text" required placeholder="Mobile" class="form-control" id="mobile"> </div>
+                            <div class="form-group"><label>Address</label> <textarea class="form-control" required placeholder="Address" id="address"></textarea></div>
                         </div>
                     </div>
                 </div>
@@ -33,17 +29,19 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12 px-4">
+        <div class="col-12 px-2 py-2">
             <div class="card mb-30">
                 <div class="card-body">
-                    <h1 class="card-title mb-1">Education Details</h1>
+                    <div class="card-header bgred">
+                    <h4 style="color:black;">Education Details</h4>
+                </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="form-group"><label>High School Marks</label> <input type="text" placeholder="High School Marks" class="form-control" id="txthschool"> </div>
-                            <div class="form-group"><label>Inetrmediat Marks</label> <input type="text" placeholder="High School Marks" class="form-control" id="txtintermediat"> </div>
+                            <div class="form-group"><label>High School Marks</label> <input type="text" required placeholder="High School Marks" class="form-control" id="txthschool"> </div>
+                            <div class="form-group"><label>Inetrmediat Marks</label> <input type="text" required placeholder="High School Marks" class="form-control" id="txtintermediat"> </div>
                             <div class="form-group">
                                 <label>Graduation</label>
-                                <select class="form-control" id="ddlug">
+                                <select class="form-control" id="ddlug" required>
                                     <option>--Select Graduation--</option>
                                     <option>B.A</option>
                                     <option>B.Sc</option>
@@ -52,7 +50,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Post Graduation (Optional)</label>
-                                <select class="form-control" id="ddlpg">
+                                <select class="form-control" id="ddlpg" required>
                                     <option>--Select Graduation--</option>
                                     <option>M.A</option>
                                     <option>M.Sc</option>
@@ -60,16 +58,16 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group"><label>High School (%)</label> <input type="text" placeholder="High School Marks (%)" class="form-control" id="txthschoolpre"> </div>
-                            <div class="form-group"><label>Inetrmediat (%)</label> <input type="text" placeholder="Inetrmediat (%)" class="form-control" id="txtinterpre"> </div>
-                            <div class="form-group"><label>Graduation Marks</label> <input type="text" placeholder="High School Marks (%)" class="form-control" id="txtugmarks"> </div>
-                            <div class="form-group"><label>Post Graduation Marks</label> <input type="text" placeholder="Graduation Marks" class="form-control" id="txtpgmarks"> </div>
+                            <div class="form-group"><label>High School (%)</label> <input type="text" required placeholder="High School Marks (%)" class="form-control" id="txthschoolpre"> </div>
+                            <div class="form-group"><label>Inetrmediat (%)</label> <input type="text" required placeholder="Inetrmediat (%)" class="form-control" id="txtinterpre"> </div>
+                            <div class="form-group"><label>Graduation Marks</label> <input type="text" required placeholder="High School Marks (%)" class="form-control" id="txtugmarks"> </div>
+                            <div class="form-group"><label>Post Graduation Marks</label> <input type="text" required placeholder="Graduation Marks" class="form-control" id="txtpgmarks"> </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group"><label>High School Board</label> <input type="text" placeholder="High School Board" class="form-control" id="txthighschool"> </div>
-                            <div class="form-group"><label>Inetrmediat Board</label> <input type="text" placeholder="Inetrmediat Board" class="form-control" id="txtinter"> </div>
-                            <div class="form-group"><label>Graduation Collage</label> <input type="text" placeholder="Graduation Collage" class="form-control" id="txtUGC"> </div>
-                            <div class="form-group"><label>Post Graduation Collage</label> <input type="text" placeholder="Post Graduation Collage" class="form-control" id="txtPG"> </div>
+                            <div class="form-group"><label>High School Board</label> <input type="text" required placeholder="High School Board" class="form-control" id="txthighschool"> </div>
+                            <div class="form-group"><label>Inetrmediat Board</label> <input type="text" required placeholder="Inetrmediat Board" class="form-control" id="txtinter"> </div>
+                            <div class="form-group"><label>Graduation Collage</label> <input type="text" required placeholder="Graduation Collage" class="form-control" id="txtUGC"> </div>
+                            <div class="form-group"><label>Post Graduation Collage</label> <input type="text" required placeholder="Post Graduation Collage" class="form-control" id="txtPG"> </div>
                         </div>
                     </div>
                 </div>
@@ -77,22 +75,24 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12 px-4">
+        <div class="col-12 px-2 py-2">
             <div class="card mb-30">
                 <div class="card-body">
-                    <h1 class="card-title mb-1">Work Experiance And Salary</h1>
+                    <div class="card-header bgred">
+                    <h4 style="color:black;">Work Experiance And Salary</h4>
+                </div>
                     <b class="text-danger">Note*</b><p class="text-danger">Subjects can entered with (,) seprated.</p>
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="form-group"><label>Previous Collage</label> <input type="text" placeholder="Previous Collage" class="form-control" id="txtpcollage"> </div>
-                            <div class="form-group"><label>Current Salary</label> <input type="text" placeholder="Current Salary" class="form-control" id="txtsalary"> </div>
+                            <div class="form-group"><label>Previous Collage</label> <input type="text" required placeholder="Previous Collage" class="form-control" id="txtpcollage"> </div>
+                            <div class="form-group"><label>Current Salary</label> <input type="text" required placeholder="Current Salary" class="form-control" id="txtsalary"> </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group"><label>Subjects</label> <input type="text" placeholder="Subjects" class="form-control" id="txtsubject"> </div>
+                            <div class="form-group"><label>Subjects</label> <input type="text" required placeholder="Subjects" class="form-control" id="txtsubject"> </div>
                             
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group"><label>Total Experiance (In Year)</label> <input type="number" placeholder="Total Experiance" class="form-control" id="txtexperiance"> </div>
+                            <div class="form-group"><label>Total Experiance (In Year)</label> <input type="number" placeholder="Total Experiance" class="form-control" id="txtexperiance" required> </div>
                         </div>
                         <div class="col-sm-3">
                             <button type="button"  class="btn btn-outline-primary waves-effect waves-light" id="btnsubmit">Save</button>
@@ -107,46 +107,10 @@
 <script>
     $(document).ready(function() {
         $('#btnsubmit').click(function() {
-            if ($('#name').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#name').focus();
-                return false;
-            }
-            if ($('#fname').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#fname').focus();
-                return false;
-            }
-            if ($('#email').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#email').focus();
-                return false;
-            }
-            if ($('#mobile').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#mobile').focus();
-                return false;
-            }
-            if ($('#dob').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#dob').focus();
-                return false;
-            }
-            if ($('#salary').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#salary').focus();
-                return false;
-            }
-            if ($('#Qualification').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#Qualification').focus();
-                return false;
-            }
-            if ($('#address').val() == '') {
-                alert("Please Fill Requered Inpormation..");
-                $('#address').focus();
-                return false;
-            }
+            let isvalid = valiadteInputs();
+        if (!isvalid) {
+            return false;
+        }
             var obj = {
                 Name: $('#name').val(),
                 Fname: $('#fname').val(),

@@ -12,14 +12,14 @@
                 <td>@item.BranchName</td>
                 <td>@item.Entrydate</td>
                 <td>
-                    <span class="switch switch-sm">
-                        <input type="checkbox" class="switch" onchange="UpdateType('@item.ID')" id="isopen_@item.ID" @Html.Raw(item.IsOpen ? "checked='checked'" : "")>
-                        <label for="isopen_@item.ID"></label>
-                    </span>
+                <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="isopen_@item.ID" onchange="UpdateType('@item.ID')"  checked="@item.IsOpen">
+                        <label class="custom-control-label" id="isopen_@item.ID"></label>
+                    </div>
                 </td>
                  <td>@item.AdmissionTypeName</td>
                 <td>
-                    <a href="/Master/RegistartionMaster?Id=@item.ID" class="tabledit-edit-button btn btn-sm btn-success btn_edit" style="float: none; margin: 4px;"><span class="ti-pencil"></span></a>
+                    <a href="/Master/RegistartionMaster?Id=@item.ID" class="tabledit-edit-button btn btn-sm btn-success btn_edit" style="float: none; margin: 4px;"><span class="fa fa-pencil"></span></a>
                 </td>
     </tr>
     }
