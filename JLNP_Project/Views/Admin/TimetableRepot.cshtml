@@ -1,18 +1,61 @@
-﻿@{
-   
-}
-@model List<ProgramMaster>
+﻿@model List<ProgramMaster>
 <style>
-    .attachment-block {
-    border: 1px solid #f4f4f4;
-    padding: 5px;
-    margin-bottom: 10px;
-    background: #f7f7f7;
-}
+    body {
+        font-family: Arial;
+    }
+
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 0.5px solid #ccc;
+        background-color: #f1f1f1;
+        height: 38px;
+        display: flex;
+        align-content: flex-start;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #ccc;
+            }
+
+        .tab button {
+            font-size: 13px;
+        }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+        overflow-y: scroll;
+        height: 70%;
+    }
 </style>
 <div class="">
     <div class="container">
-        <div class="row">
+        <div class="row py-2">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header bgred">
@@ -20,7 +63,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <label>Program</label>
                                 <select class="form-control" id="ddlprogram" onchange="Bindbranch()">
                                     <option value="0">:: Select Program ::</option>
@@ -32,14 +75,14 @@
                                 <input type="hidden" value="tblMonday" id="hdnid" />
                                 <small class="text-danger d-none" id="Program">Please select program..</small>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <label>Branch</label>
                                 <select class="form-control" id="ddlbranch">
                                     <option value="0">:: Select Branch ::</option>
                                 </select>
                                 <small class="text-danger d-none" id="branchv">Please select branch..</small>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <label>Year</label>
                                 <select class="form-control" id="ddlyear">
                                     <option value="0">:: Select Year ::</option>
@@ -50,11 +93,8 @@
                                 </select>
                                 <small class="text-danger d-none" id="yearv">Please select year..</small>
                             </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-sm-12" style="display: flex; justify-content: flex-end;">
-                                <button class="btn btn-outline-warning" onclick="Search()">Search</button>
+                            <div class="col-sm-2">
+                                <button class="btn btn-outline-warning mt-4" onclick="Search()">Search</button>
                             </div>
                         </div>
                         <hr />

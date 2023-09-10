@@ -1,10 +1,7 @@
 ﻿@model List<JLNP_Project.Models.SubjectMaster>
-@{
-   
-}
 <div class="">
-    <div class="">
-        <div class="row">
+    <div class="container">
+        <div class="row py-2">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header bgred">
@@ -14,19 +11,19 @@
                         <div class="row">
                             <div class="col-sm-3">
                                 <label>Select Program<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlprogram" onchange="Bindbranch()">
+                                <select class="form-control" id="ddlprogram" onchange="Bindbranch()" required>
                                     <option value="">-- Select Program --</option>
                                 </select>
                             </div>
                             <div class="col-sm-3">
                                 <input type="hidden" id="hdnid" />
                                 <label>Select Branch<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlbranch" onchange="BindSubject()">
+                                <select class="form-control" id="ddlbranch" onchange="BindSubject()" required>
                                 </select>
                             </div>
                             <div class="col-sm-3">
                                 <label>Select Year<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlyear" onchange="BindSubject()">
+                                <select class="form-control" id="ddlyear" onchange="BindSubject()" required>
                                     <option value="">-- Select Year --</option>
                                     <option value="1">First Year </option>
                                     <option value="2">Second Year</option>
@@ -36,7 +33,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <label>Select Subject<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlsubject">
+                                <select class="form-control" id="ddlsubject" required>
                                     <option value="">-- Select Subject --</option>
                                 </select>
                             </div>
@@ -44,11 +41,11 @@
                         <div class="row">
                             <div class="col-sm-3">
                                 <label>Assignment<span style="color:red;">*</span></label>
-                                <input type="text" class="form-control" id="txtassignment" />
+                                <input type="text" class="form-control" id="txtassignment" required/>
                             </div>
                             <div class="col-sm-3">
                                 <label>Upload(Optional)</label>
-                                <input type="file" class="form-control" id="fileassignment" />
+                                <input type="file" class="form-control" id="fileassignment" required/>
                             </div>
                             <div class="col-sm-3">
                                 <button class="btn btn-outline-primary" onclick="btnsubmit()" style="margin-top: 29px;width: 43%;">Save</button>
@@ -130,6 +127,10 @@
         });
     }
     var btnsubmit = () => {
+        let isvalid = valiadteInputs();
+        if (!isvalid) {
+            return false;
+        }
         data = new FormData();
         data.append("Id", $('#hdnid').val());
         data.append("Program", $('#ddlprogram option:selected').val());

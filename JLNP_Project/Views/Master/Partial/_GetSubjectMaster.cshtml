@@ -8,16 +8,16 @@
             i++;
             <tr data-item-id="@item.Id">
                 <td>@i</td>
-                <td>@item.ProgramName</td>
-                <td>@item.Branch</td>
-                <td>@item.Year</td>
-                <td>@item.SubjectName</td>
-                <td>@item.SubjectCode</td>
-                <td>@item.SubjectType</td>
-                <td>@item.TheoryMarks</td>
-                <td>@item.PracticalMarks</td>
-                <td>@item.PracticalPassingMarks</td>
-                <td>@item.PassingMarks</td>
+                <td class="text-nowrap">@item.ProgramName</td>
+                <td class="text-nowrap">@item.Branch</td>
+                <td class="text-nowrap">@item.Year</td>
+                <td class="text-nowrap">@item.SubjectName</td>
+                <td class="text-nowrap">@item.SubjectCode</td>
+                <td class="text-nowrap">@item.SubjectType</td>
+                <td class="text-nowrap">@item.TheoryMarks</td>
+                <td class="text-nowrap">@item.PracticalMarks</td>
+                <td class="text-nowrap">@item.PracticalPassingMarks</td>
+                <td class="text-nowrap">@item.PassingMarks</td>
                 <td>
                     <span class="switch switch-sm">
                         <input type="checkbox" class="switch" onclick="ChangeStatus('@item.Id','IsPrectical')" id="isprectical_@item.Id" @Html.Raw(@item.IsPrectical ? "checked='checked'" : "")>
@@ -30,7 +30,7 @@
                         <label for="iswritten_@item.Id"></label>
                     </span>
                 </td>
-                <td>@item.EntryDate</td>
+                <td class="text-nowrap">@item.EntryDate</td>
                 <td>
                     <div class="btn-group btn-group-sm" style="float: none;">
                         <a class="tabledit-edit-button btn btn-sm btn-success btn_edit" id="edit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" href="/Master/GetSubjectMaster_ById?Id=@item.Id" style="float: none; margin: 4px;"><span class="ti-pencil"></span></a>

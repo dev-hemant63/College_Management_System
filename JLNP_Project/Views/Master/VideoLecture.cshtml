@@ -1,10 +1,7 @@
 ﻿@model List<ProgramMaster>
-@{
-   
-}
 <div class="">
-    <div class="">
-        <div class="row">
+    <div class="container">
+        <div class="row py-2">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header bgred">
@@ -15,7 +12,7 @@
                             <div class="col-sm-2">
                                 <input type="hidden" id="hdnid" value="" />
                                 <label>Select Program<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlprogram" onchange="Bindbranch()">
+                                <select class="form-control" id="ddlprogram" onchange="Bindbranch()" required>
                                     <option value="">-- Select Program --</option>
                                     @foreach (var item in Model)
                                     {
@@ -27,13 +24,13 @@
                             <div class="col-sm-2">
                                 <input type="hidden" id="hdnid" value="" />
                                 <label>Select Branch<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlbranch">
+                                <select class="form-control" id="ddlbranch" required>
                                 </select>
                                 <span class="text-danger d-none" id="branchv">Please Select Branch</span>
                             </div>
                             <div class="col-sm-2">
                                 <label>Select Year<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlyear" onchange="BindSubject()">
+                                <select class="form-control" id="ddlyear" onchange="BindSubject()" required>
                                     <option value="">-- Select Year --</option>
                                     <option value="1">First Year </option>
                                     <option value="2">Second Year</option>
@@ -43,7 +40,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <label>Select Subject<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlsubject">
+                                <select class="form-control" id="ddlsubject" required>
                                     <option value="">-- Select Subject --</option>
 
                                 </select>
@@ -51,7 +48,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <label>Video Lecture<span style="color:red;">*</span></label>
-                                <input type="text" class="form-control" id="txturl" placeholder="Video Url" />
+                                <input type="text" class="form-control" id="txturl" placeholder="Video Url" required />
                                 <span class="text-danger d-none" id="txturlsm">Please Enter URL</span>
                                 <span class="text-danger d-none" id="txturlsmv">Please Enter YouTube Embeded Code</span>
                             </div>
@@ -140,48 +137,10 @@
             SubjectId: $('#ddlsubject option:selected').val(),
             VideoUrl: $('#txturl').val()
         }
-        if (obj.Program == '' || obj.Program == undefined) {
-            $('#Program').removeClass('d-none');
+        let isvalid = valiadteInputs();
+        if (!isvalid) {
             return false;
         }
-        else {
-            $('#Program').addClass('d-none');
-        }
-        if (obj.Program == '' || obj.Program == undefined) {
-            $('#branchv').removeClass('d-none');
-            return false;
-        }
-        else {
-            $('#branchv').addClass('d-none');
-        }
-        if (obj.Year == '' || obj.Year == undefined) {
-            $('#yearv').removeClass('d-none');
-            return false;
-        }
-        else {
-            $('#yearv').addClass('d-none');
-        }
-        if (obj.SubjectId == '' || obj.SubjectId == undefined) {
-            $('#subjectv').removeClass('d-none');
-            return false;
-        }
-        else {
-            $('#subjectv').addClass('d-none');
-        }
-        if (obj.VideoUrl == '' || obj.VideoUrl == undefined) {
-            $('#txturlsm').removeClass('d-none');
-            return false;
-        }
-        else {
-            $('#txturlsm').addClass('d-none');
-        }
-        //if (!isUrlValid($('#txturl').val())) {
-        //    $('#txturlsmv').removeClass('d-none');
-        //    return false;
-        //}
-        //else {
-        //    $('#txturlsmv').addClass('d-none');
-        //}
         preloader.load();
         $.post('/Master/SaveAndUpdateVideoLecture', obj).done(function(result) {
             preloader.remove();
@@ -220,13 +179,10 @@
             SubjectId: $('#subject option:selected').val(),
             VideoUrl: $('#txtvurl').val()
         }
-        //if (!isUrlValid($('#txturl').val())) {
-        //    $('#txturlsmv').removeClass('d-none');
-        //    return false;
-        //}
-        //else {
-        //    $('#txturlsmv').addClass('d-none');
-        //}
+        let isvalid = valiadteInputs();
+        if (!isvalid) {
+            return false;
+        }
         preloader.load();
         $.post('/Master/SaveAndUpdateVideoLecture', obj).done(function(result) {
             preloader.remove();
