@@ -1,11 +1,8 @@
-﻿@{
-   
-}
-@model ExamGroupe
+﻿@model ExamGroupe
 <link rel="stylesheet" href="~/css/Box.css" />
 <div class="">
-    <div class="">
-        <div class="row">
+    <div class="container">
+        <div class="row py-2">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header bgred">
@@ -22,12 +19,12 @@
                                         <input type="hidden" name="ci_csrf_token" value="">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Name <small class="req">*</small></label>
-                                            <input id="name" autofocus="" name="name" placeholder="" asp-for="@Model.ExamGroupes" type="text" class="form-control" autocomplete="off">
+                                            <input id="name" autofocus="" name="name" placeholder="" asp-for="@Model.ExamGroupes" type="text" class="form-control" autocomplete="off" required>
                                             <input type="hidden" id="hdnid" asp-for="@Model.Id" />
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1"> Exam Type</label> <small class="req">*</small>
-                                            <select id="ddlexamtype" name="exam_type" placeholder="" type="text" class="form-control" asp-for="@Model.ExamType">
+                                            <select id="ddlexamtype" name="exam_type" placeholder="" type="text" class="form-control" asp-for="@Model.ExamType" required>
                                                 <option value="">Select</option>
                                                 @foreach (var item in @Model.ExamTypes)
                                                 {
@@ -38,12 +35,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Description</label>
-                                            <textarea class="form-control" id="description" name="description" asp-for="@Model.Description" placeholder="" rows="3"></textarea>
+                                            <textarea class="form-control" id="description" name="description" asp-for="@Model.Description" placeholder="" rows="3" required></textarea>
                                             <span class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="box-footer">
-                                        <button type="submit" class="btn btn-info" onclick="AddExamgroupe()" style="width: 17%;">Save</button>
+                                        <button type="submit" class="btn btn-info" onclick="AddExamgroupe()">Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -54,13 +51,13 @@
                                     </div>
                                     <div class="table-responsive table-striped" style="margin-top:13px;">
                                         <table class="table mb-0" id="tblexamgroup">
-                                            <thead>
+                                            <thead class="bg-primary">
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Name</th>
-                                                    <th>No Of Exams</th>
-                                                    <th>Exam Type</th>
-                                                    <th>Entry Date</th>
+                                                    <th class="text-nowrap">No Of Exams</th>
+                                                    <th class="text-nowrap">Exam Type</th>
+                                                    <th class="text-nowrap">Entry Date</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -87,12 +84,8 @@ $(document).ready(function() {
             Id: $('#hdnid').val(),
             Description: $('#description').val(),
         }
-        if (obj.ExamGroup == '') {
-            alert('Please Enter ExamGroup');
-            return false;
-        }
-        if (obj.ExamTypes == '') {
-            alert('Please Select ExamTypes');
+        let isvalid = valiadteInputs();
+        if (!isvalid) {
             return false;
         }
         $.post('/Examination/SaveExamGroup', obj).done(function(result) {

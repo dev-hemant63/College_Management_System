@@ -1,10 +1,7 @@
 ﻿@model List<StudentFineMdl>
-@{
-   
-}
 <div class="">
-    <div class="">
-        <div class="row">
+    <div class="container">
+        <div class="row py-2">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header bgred">
@@ -13,18 +10,18 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3">
-                                <label>Enrollment Number<span style="color:red;">*</span></label>
-                                <input type="text" class="form-control" id="txtenrol" />
+                                <label>Admission Number<span style="color:red;">*</span></label>
+                                <input type="text" class="form-control" id="txtenrol" required/>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <label>Fine Amount<span style="color:red;">*</span></label>
-                                <input type="number" class="form-control" id="txtamount" />
+                                <input type="number" class="form-control" id="txtamount" required/>
                             </div>
                             <div class="col-sm-4">
                                 <label>Fine Resion<span style="color:red;">*</span></label>
-                                <input type="text" class="form-control" id="txtresion" />
+                                <input type="text" class="form-control" id="txtresion" required/>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 <button class="btn btn-outline-primary" id="btnsubmit" style="margin-top: 29px;width: 43%;" onclick="submitdata()">Save</button>
                             </div>
                         </div>
@@ -33,7 +30,7 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
-                                        <th>Entrollment Number</th>
+                                        <th>Admission Number</th>
                                         <th>Fine Amount</th>
                                         <th>Fine Resion</th>
                                         <th>Assign Date</th>
@@ -90,12 +87,12 @@
         </div>
     </div>
 </div>
-<script src="~/js/jquery.min.js"></script>
 <script>
-    $(document).ready(function() {
-        
-    });
     var submitdata = () => {
+        let isvalid = valiadteInputs();
+        if (!isvalid) {
+            return false;
+        }
         let data = {
             Id: $('#hdnid').val(),
             Entrolment_No: $('#txtenrol').val(),

@@ -1,7 +1,4 @@
-﻿@{
-   
-}
-@model List<ProgramMaster>
+﻿@model List<ProgramMaster>
 <style>
     body {
         font-family: Arial;
@@ -58,7 +55,7 @@
 </style>
 <div class="">
     <div class="container">
-        <div class="row">
+        <div class="row py-2">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header bgred">
@@ -66,7 +63,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <label>Program</label>
                                 <select class="form-control" id="ddlprogram" onchange="Bindbranch()">
                                     <option value="0">:: Select Program ::</option>
@@ -78,14 +75,14 @@
                                 <input type="hidden" value="tblMonday" id="hdnid" />
                                 <small class="text-danger d-none" id="Program">Please select program..</small>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <label>Branch</label>
                                 <select class="form-control" id="ddlbranch">
                                     <option value="0">:: Select Branch ::</option>
                                 </select>
                                 <small class="text-danger d-none" id="branchv">Please select branch..</small>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
                                 <label>Year</label>
                                 <select class="form-control" id="ddlyear">
                                     <option value="0">:: Select Year ::</option>
@@ -96,11 +93,8 @@
                                 </select>
                                 <small class="text-danger d-none" id="yearv">Please select year..</small>
                             </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-sm-12" style="display: flex; justify-content: flex-end;">
-                                <button class="btn btn-outline-warning" onclick="Search()">Search</button>
+                            <div class="col-sm-2">
+                                <button class="btn btn-outline-warning mt-4" onclick="Search()">Search</button>
                             </div>
                         </div>
                         <hr />
