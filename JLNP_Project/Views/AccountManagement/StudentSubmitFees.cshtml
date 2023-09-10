@@ -1,9 +1,6 @@
-﻿@{
-   
-}
-<div class="">
+﻿<div class="">
     <div class="">
-        <div class="row">
+        <div class="row px-2 py-2">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header bgred">
@@ -20,7 +17,7 @@
                                 <input type="text" class="form-control" placeholder="From Date" id="todate">
                             </div>
                             <div class="col-md-2">
-                                <lable>Enrollment Number</lable>
+                                <lable>Admission Number</lable>
                                 <input type="text" class="form-control" placeholder="Enrollment" id="enrollemntnumber">
                             </div>
                             <div class="col-md-2">
@@ -31,23 +28,23 @@
                         <hr />
                         <div class="table-responsive" style="margin-top:12px;">
                             <table class="table table-striped" id="tblstudent">
-                                <thead>
+                                <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
-                                        <th>Student Name</th>
-                                        <th>Father Name</th>
-                                        <th>Program</th>
-                                        <th>Branch</th>
-                                        <th>Year</th>
-                                        <th>Fees Status</th>
-                                        <th>Address</th>
-                                        <th>Enrollment</th>
-                                        <th>RecieptNo</th>
-                                        <th>Mode</th>
-                                        <th>Total Fees</th>
-                                        <th>Submited Fees</th>
-                                        <th>Due Fees</th>
-                                        <th>Submition Date</th>
+                                        <th class="text-nowrap">Student Name</th>
+                                        <th class="text-nowrap">Father Name</th>
+                                        <th class="text-nowrap">Program</th>
+                                        <th class="text-nowrap">Branch</th>
+                                        <th class="text-nowrap">Year</th>
+                                        <th class="text-nowrap">Fees Status</th>
+                                        <th class="text-nowrap">Address</th>
+                                        <th class="text-nowrap">Enrollment</th>
+                                        <th class="text-nowrap">RecieptNo</th>
+                                        <th class="text-nowrap">Mode</th>
+                                        <th class="text-nowrap">Total Fees</th>
+                                        <th class="text-nowrap">Submited Fees</th>
+                                        <th class="text-nowrap">Due Fees</th>
+                                        <th class="text-nowrap">Submition Date</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -62,7 +59,6 @@
 <script>
     $(document).ready(function() {
         LoadDate('fromdate', 'todate');
-        Loaddata();
     });
     var Loaddata = function() {
         let obj = {

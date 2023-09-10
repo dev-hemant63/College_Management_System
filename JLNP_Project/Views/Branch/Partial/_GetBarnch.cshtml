@@ -15,15 +15,15 @@
                 <td>@item.TotalLetaralSheets</td>
                 <td>@item.AvailableLetaralSheets</td>
                 <td>
-                    <span class="switch switch-sm">
-                        <input type="checkbox" class="switch" onclick="updateStatus('@item.BranchId','@item.BranchName','@item.BranchCode',@item.TotalSheets)" id="iscounseling_@item.BranchId" @Html.Raw(@item.IsCounseling ? "checked='checked'" : "")>
-                        <label for="iscounseling_@item.BranchId"></label>
-                    </span>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="iscounseling_@item.BranchId" onclick="updateStatus('@item.BranchId','@item.BranchName','@item.BranchCode',@item.TotalSheets)" checked="@item.IsCounseling">
+                        <label class="custom-control-label" for="iscounseling_@item.BranchId"></label>
+                    </div> 
                 </td>
-                <td>@item.EntryDate</td>
+                <td class="text-nowrap">@item.EntryDate</td>
                 <td>
                     <div class="btn-group btn-group-sm" style="float: none;">
-                        <button class="tabledit-edit-button btn btn-sm btn-success btn_edit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="editbranch(BranchId=@item.BranchId)" style="float: none; margin: 4px;"><span class="ti-pencil"></span></button>
+                        <button class="tabledit-edit-button btn btn-sm btn-success btn_edit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="editbranch(BranchId=@item.BranchId)" style="float: none; margin: 4px;"><span class="fa fa-pencil"></span></button>
                     </div>
                 </td>
             </tr>
@@ -49,5 +49,5 @@
             console(xhr.responseText);
         });
     }
-    
+
 </script>

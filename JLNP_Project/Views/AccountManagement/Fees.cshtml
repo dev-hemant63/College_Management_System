@@ -1,10 +1,7 @@
 ﻿@model FeesViewModel
-@{
-   
-}
 <div class="">
     <div class="">
-        <div class="row">
+        <div class="row px-2 py-2">
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-header bgred">
@@ -16,14 +13,14 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Enrollment Number</label>
-                                            <input type="text" placeholder="Enrollment Number" class="form-control" value="" id="enrolmnt" onblur="Getstudentdetail()">
+                                            <label>Admission Number</label>
+                                            <input type="text" placeholder="Enrollment Number" class="form-control" value="" id="enrolmnt" onblur="Getstudentdetail()" required>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Program</label>
-                                            <select id="ddlprogram" class="form-control" onchange="Bindbranch()">
+                                            <select id="ddlprogram" class="form-control" onchange="Bindbranch()" required>
                                                 <option value="">--Select Program--</option>
                                                 @foreach (var item in Model.program)
                                                 {
@@ -35,7 +32,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Branch</label>
-                                            <select id="ddlbranch" class="form-control">
+                                            <select id="ddlbranch" class="form-control" required>
                                                 <option value="">--Select Branch--</option>
                                             </select>
                                         </div>
@@ -45,7 +42,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Select Year</label>
-                                            <select id="ddlyear" class="form-control" onchange="Bindfeestype()">
+                                            <select id="ddlyear" class="form-control" onchange="Bindfeestype()" required>
                                                 <option value="">--Select Year--</option>
                                                 <option value="1">1 Year</option>
                                                 <option value="2">2 Year</option>
@@ -57,13 +54,13 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Total Amount</label>
-                                            <input type="text" placeholder="Total Amount" class="form-control" value="" id="ttlamount" disabled>
+                                            <input type="number" placeholder="Total Amount" class="form-control" id="ttlamount" disabled required>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Amount</label>
-                                            <input type="number" placeholder="Amount" class="form-control" value="" id="amount">
+                                            <input type="number" placeholder="Amount" class="form-control" value="" id="amount" >
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +68,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Student Name</label>
-                                            <input type="text" required placeholder="Student Name" class="form-control" id="name" disabled>
+                                            <input type="text" required placeholder="Student Name" class="form-control" id="name" disabled >
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -85,13 +82,13 @@
                                             <label>Fees Submition Mode</label>
                                             @if (Model.RoleID == 1)
                                             {
-                                                <select id="ddlMode" class="form-control" onchange="checknumber()">
+                                                <select id="ddlMode" class="form-control" onchange="checknumber()" required>
                                                     <option value="">--Select Submition Mode--</option>
                                                 </select>
                                             }
                                             else
                                             {
-                                                <select id="ddlMode" class="form-control" onchange="checknumber()" disabled>
+                                                <select id="ddlMode" class="form-control" onchange="checknumber()" disabled required>
                                                     <option value="3">Online Payment</option>
                                                 </select>
                                             }
@@ -102,7 +99,7 @@
                                     <div class="col-md-4 d-none" id="divcheck">
                                         <div class="form-group">
                                             <label>Check Number</label>
-                                            <input type="number" placeholder="Check Number" class="form-control" id="txtchecknumber">
+                                            <input type="number" placeholder="Check Number" class="form-control" id="txtchecknumber" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -161,39 +158,8 @@
         Bindfeesmode();
     });
     var btnsubmit = () => {
-        if ($('#enrolmnt').val() == '') {
-            alert("Please Fill Requered Inpormation..");
-            $('#enrolmnt').focus();
-            return false;
-        }
-        if ($('#ddlprogram option:selected').val() == '') {
-            alert("Please Select Program");
-            $('#ddlprogram').focus();
-            return false;
-        }
-        if ($('#ddlbranch option:selected').val() == '') {
-            alert("Please Select Branch");
-            $('#ddlbranch').focus();
-            return false;
-        }
-        if ($('#ddlyear option:selected').val() == '') {
-            alert("Please Select Year");
-            $('#ddlyear').focus();
-            return false;
-        }
-        if ($('#ttlamount').val() == '') {
-            alert("Please Enter Amount");
-            $('#amount').focus();
-            return false;
-        }
-        if ($('#amount').val() == '') {
-            alert("Please Enter Amount");
-            $('#amount').focus();
-            return false;
-        }
-        if ($('#ddlMode option:selected').val() == '') {
-            alert("Please Select Mode");
-            $('#ddlMode').focus();
+        let isvalid = valiadteInputs();
+        if (!isvalid) {
             return false;
         }
         if ($('#ddlMode option:selected').val() == '2') {
