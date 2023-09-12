@@ -8,15 +8,17 @@
         {
     <tr data-Id="@item.TeacherId">
                     <td>@i</td>
-                    <td>@item.Name</td>
-                    <td>@item.Fname</td>
-                    <td>@item.Email</td>
-                    <td>@item.Mobile</td>
-                    <td>@item.DOB</td>
-                    <td>@item.salary</td>
-                    <td></td>
-                    <td>@item.Address</td>
-                    <td>@item.Entrydate</td>
+                    <td class="text-nowrap">@item.Name</td>
+                    <td class="text-nowrap">@item.Fname</td>
+                    <td class="text-nowrap">@item.Email</td>
+                    <td class="text-nowrap">@item.Mobile</td>
+                    <td class="text-nowrap">@item.DOB</td>
+                    <td class="text-nowrap">@item.salary</td>
+                    <td class="text-nowrap"></td>
+                    <td class="text-nowrap">@item.Subjects</td>
+                    <td class="text-nowrap">@item.PreviousCollage</td>
+                    <td class="text-nowrap">@item.Address</td>
+                    <td class="text-nowrap">@item.Entrydate</td>
                     <td>
                         <div class="btn-group btn-group-sm" style="float: none;">
                             <a href="/Teacher/GetTeacherById?TeacherId=@item.TeacherId" class="tabledit-edit-button btn btn-sm btn-success btn_edit" style="float: none; margin: 4px;"><span class="ti-pencil"></span></a>

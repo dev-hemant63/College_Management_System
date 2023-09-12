@@ -1,4 +1,5 @@
-﻿using Core.DAL;
+﻿using CollageERP.Models;
+using Core.DAL;
 using JLNP_Project.Models;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,7 +11,7 @@ namespace JLNP_Project.AppCode.DAL
         SqlConnection con = new SqlConnection(ConfigSettings.conStr);
         public DataTable AddTeacher_DAL(Teacher teacher)
         {
-            SqlCommand cmd = new SqlCommand("Proc_Teacher_Crud", con);
+            SqlCommand cmd = new SqlCommand("Proc_Teacher", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@TeacherId", teacher.TeacherId);
             cmd.Parameters.AddWithValue("@Name", teacher.Name);
@@ -41,11 +42,13 @@ namespace JLNP_Project.AppCode.DAL
             sda.Fill(dt);
             return dt;
         }
-        public DataTable GetTeacher_DAL(string Action)
+        public DataTable GetTeacher_DAL(TeacherSearch search)
         {
-            SqlCommand cmd = new SqlCommand("Proc_Teacher_Crud", con);
+            SqlCommand cmd = new SqlCommand("Proc_GetTeacher", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@Action", Action);
+            cmd.Parameters.AddWithValue("@Mobile", search.Mobile);
+            cmd.Parameters.AddWithValue("@Fromdate", search.Fromdate);
+            cmd.Parameters.AddWithValue("@Todate", search.Todate);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
@@ -53,7 +56,7 @@ namespace JLNP_Project.AppCode.DAL
         }
         public DataTable GetTeacher_DALById(int teacher)
         {
-            SqlCommand cmd = new SqlCommand("Proc_Teacher_Crud", con);
+            SqlCommand cmd = new SqlCommand("Proc_Teacher", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Action", "GetById");
             cmd.Parameters.AddWithValue("@TeacherId", teacher);
@@ -64,7 +67,7 @@ namespace JLNP_Project.AppCode.DAL
         }
         public DataTable DeleteTeacher(Teacher teacher)
         {
-            SqlCommand cmd = new SqlCommand("Proc_Teacher_Crud", con);
+            SqlCommand cmd = new SqlCommand("Proc_Teacher", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Action", teacher.Action);
             cmd.Parameters.AddWithValue("@TeacherId", teacher.TeacherId);

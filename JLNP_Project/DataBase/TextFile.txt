@@ -1,90 +1,100 @@
-﻿USE [DB_CollageManagement]
-GO
-/****** Object:  StoredProcedure [dbo].[Proc_GetDetailsforResult]    Script Date: 4/28/2023 10:34:01 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-ALTER proc [dbo].[Proc_GetDetailsforResult]
-@ExamId int,
-@Program int,
-@Branch int,
-@Year int
+﻿Create Proc Proc_GetTeacher
+@Mobile varchar(12) = '',
+@Fromdate varchar(20) = '',
+@Todate varchar(20) = ''
 AS
 BEGIN
-	--if Not exists(select 1 from tbl_Exam where Id = @ExamId)
-	--	begin
-	--		select 1 Statuscode,'Invaid examid' Msg
-	--		return
-	--	end
-	Select Id,SubjectName from tbl_SubjectMaster where Id in(select SubjectId from tbl_ExamDetail where ExamID = @ExamId)
-	Select t1.Id,t1.EnrollemntNo,t1.ExamID,t1.Year,t3.Program,t4.Branch_Name as Branch,t2.SubjectId from tbl_AssignExam t1
-	INNER JOIN tbl_Program t3 on t1.Program = t3.Id
-	INNER JOIN tbl_Branch t4 on t1.Branch = t4.BranchId
-	INNER JOIN tbl_ExamDetail t2 on t1.ExamID = t2.ExamID
-
-	Where t1.ExamID =  @ExamId and t1.Program = @Program and t1.Branch = @Branch and Year = @Year
+	select * from tbl_Teacher where Mobile = IIF(@Mobile = '',Mobile,@Mobile)
+	and EntryDate >= IIF(@Fromdate = '',EntryDate,@Fromdate) and EntryDate <= IIF(@Todate = '',EntryDate,@Todate)
 END
+
+
+
+
+
+=====================================================
+
 
 
 USE [DB_CollageManagement]
 GO
-/****** Object:  Table [dbo].[tbl_StudentMarks]    Script Date: 5/4/2023 5:55:53 PM ******/
+/****** Object:  StoredProcedure [dbo].[Proc_Teacher]    Script Date: 9/12/2023 11:02:22 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[tbl_StudentMarks](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Program] [int] NULL,
-	[Branch] [int] NULL,
-	[Year] [int] NULL,
-	[EnrollmentNo] [varchar](20) NULL,
-	[SubjectId] [int] NULL,
-	[IsAttendance] [bit] NULL,
-	[Marks] [int] NULL,
-	[Note] [varchar](240) NULL,
-	[EntryOn] [datetime] NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
+ALTER Proc [dbo].[Proc_Teacher]        
+@TeacherId int=0,        
+@name varchar(100)=null,        
+@Fname varchar(100)=null,        
+@Email varchar(100)=null,        
+@Mobile varchar(100)=null,
+@DOB varchar(100)=null,        
+@Address varchar(100)=null,        
+@salary varchar(100)=null,          
+@Action varchar(100)=null,      
+@HighSchoolMarks numeric(10,2)=null,      
+@HighSchool_P numeric(10,2)=null,      
+@HighSchool_B varchar(50)=null,      
+@InterMarks numeric(10,2)=null,      
+@Inter_P int=null,      
+@Inter_B varchar(50)=null,      
+@UGTitle varchar(50)=null,      
+@UGMarks numeric(10,2)=null,      
+@UG_Collage varchar(50)=null,      
+@PGTitle varchar(50)=null,      
+@PGMarks numeric(10,2)=null,      
+@PG_Collage varchar(50)=null,      
+@PreviousCollage varchar(50)=null,      
+@Subjects varchar(50)=null,      
+@Experiance int=null,
+@Gender varchar(1) = ''
+as        
+BEGIN        
+declare @UserId int,@Password nvarchar(50)           
+if(@Action = 'Add')        
+Begin      
+ if(@TeacherId = 0)    
+ begin    
+  if Exists(Select 1 from tbl_Teacher where Mobile = @Mobile)        
+  begin        
+   select -1 StatusCode,'Teacher already exists!' Msg
+   return        
+  end
+  insert into tbl_Users([Name],Fname,Email,Mobile,[Address],Gender,DOB,MotherName,Religion,RoleId,IsActive,ReffId)
+  values(@name,@Fname,@Email,@Mobile,@Address,@Gender,@DOB,'','',2,1,0);
+  set @UserId = SCOPE_IDENTITY();
+
+  insert into tbl_Teacher(Name,Fname,Email,Mobile,Address,salary,DOB,Entrydate,HighSchoolMarks,HighSchool_P,      
+  HighSchool_B,InterMarks,Inter_P,Inter_B,UGTitle,UGMarks,UG_Collage,PGTitle,PGMarks,PG_Collage,PreviousCollage,Subjects,Experiance,UserId)      
+  values(@Name,@Fname,@Email,@Mobile,@Address,@salary,@DOB,GETDATE(),@HighSchoolMarks,@HighSchool_P,@HighSchool_B,      
+  @InterMarks,@Inter_P,@Inter_B,@UGTitle,@UGMarks,@UG_Collage,@PGTitle,@PGMarks,@PG_Collage,@PreviousCollage,@Subjects,@Experiance,@UserId)
+  SELECT @Password = (Cast((select TeacherId from tbl_Teacher Where Mobile = @Mobile) as varchar)+CAST(ROUND(RAND()*1000000, 0) AS VARCHAR))
+  insert into tbl_login(UserId,UserName,[Password]) values(@UserId,@Mobile,@Password);
+  select 1 StatusCode,'Teacher Add Successfully!' Msg    
+ end      
+ else    
+ begin    
+  update tbl_Teacher set Name=@Name,Fname=@Fname,Email=@Email,Mobile=@Mobile,Address=@Address,salary=@salary,DOB=@DOB,ModifyDate=getdate() where TeacherId = @TeacherId        
+  SELECT 1 StatusCode,'Teacher Edit Successfully!' Msg    
+ end    
+end       
+if(@Action = 'GetById')        
+ begin        
+  select tt.*,tl.Password from tbl_Teacher tt  
+  INNER JOIN tbl_login tl on tt.TeacherId = tl.UserId where tt.TeacherId = @TeacherId        
+ end           
+if(@Action = 'Delete')        
+ begin        
+  delete from tbl_Teacher where TeacherId = @TeacherId        
+  delete from tbl_login where UserId = @TeacherId and ID <> 1    
+  select 1 StatusCode,'Teacher Delete Successfully!' Msg        
+ end        
+END 
 
 
-USE [DB_CollageManagement]
-GO
-/****** Object:  StoredProcedure [dbo].[Proc_EnterStudentMarks]    Script Date: 5/4/2023 6:11:27 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-Alter proc [dbo].[Proc_EnterStudentMarks]
-@Program int,
-@Branch int,
-@Year int,
-@EnrollmentNo varchar(20),
-@SubjectId int,
-@IsAttendance bit,
-@Marks bit,
-@Note varchar(240),
-@ExamId int
-AS
-BEGIN
-	declare @Marks2 int
-	if Not Exists(Select 1 from tbl_SubjectMaster where Program = @Program and BranchId = @Branch and _Year = @Year and Id = @SubjectId)
-		begin
-			Select -1 Statuscode,'Invalid Subject!' Msg
-			return
-		end
-	if Not Exists(Select 1 from tbl_Student_Admission where Program = @Program and Branch = @Branch and _Year = @Year and EntrollmentNo = @EnrollmentNo)
-		begin
-			Select -1 Statuscode,'Student Not found!' Msg
-			return
-		end
-	Insert into tbl_studentmarks(Program,Branch,Year,EnrollmentNo,SubjectId,IsAttendance,Marks,Note,EntryOn)
-	values(@Program,@Branch,@Year,@EnrollmentNo,@SubjectId,@IsAttendance,@Marks,@Note,GETDATE())
-	Select 1 Statuscode,'Marks entered successfully' Msg
-END
-GO
+=============================================================
+
+alter table tbl_teacher drop column RoleId
+
+alter table tbl_teacher Add UserId int

@@ -1,9 +1,6 @@
-﻿@{
-   
-}
-<div class="">
-    <div class="">
-        <div class="row">
+﻿<div class="">
+    <div class="container">
+        <div class="row py-2">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header bgred">
@@ -13,18 +10,18 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <lable>From Date</lable>
-                                <input type="date" class="form-control" placeholder="From Date">
+                                <input type="date" class="form-control" placeholder="From Date" id="txtfromdate">
                             </div>
                             <div class="col-md-3">
-                                <lable>From Date</lable>
-                                <input type="date" class="form-control" placeholder="From Date">
+                                <lable>To Date</lable>
+                                <input type="date" class="form-control" placeholder="To Date" id="txttodate">
                             </div>
                             <div class="col-md-3">
                                 <lable>Teacher Mobile</lable>
-                                <input type="text" class="form-control" placeholder="Teacher Mobile">
+                                <input type="text" class="form-control" placeholder="Teacher Mobile" id="txtmobile">
                             </div>
                             <div class="col-md-2">
-                                <button type="button" onclick="getdata()" class="btn btn-outline-primary waves-effect waves-light" style="margin-top:20px;" id="btnsearch">Search</button>
+                                <button type="button" onclick="loaddata()" class="btn btn-outline-primary waves-effect waves-light" style="margin-top:20px;" id="btnsearch">Search</button>
                             </div>
                             <!-- end col -->
 
@@ -35,14 +32,16 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Father Name</th>
-                                        <th>Email</th>
-                                        <th>Mobile</th>
-                                        <th>DOB</th>
-                                        <th>salary</th>
-                                        <th>Qualification</th>
-                                        <th>Address</th>
-                                        <th>EntryDate</th>
+                                        <th class="text-nowrap">Father Name</th>
+                                        <th class="text-nowrap">Email</th>
+                                        <th class="text-nowrap">Mobile</th>
+                                        <th class="text-nowrap">DOB</th>
+                                        <th class="text-nowrap">salary</th>
+                                        <th class="text-nowrap">Qualification</th>
+                                        <th class="text-nowrap">Subject</th>
+                                        <th class="text-nowrap">Previous Collage</th>
+                                        <th class="text-nowrap">Address</th>
+                                        <th class="text-nowrap">EntryDate</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -55,13 +54,17 @@
         </div>
     </div>
 </div>
-<script src="~/js/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
     loaddata();
 });
 var loaddata = function(){
-    $.post('/Teacher/GetTeacher').done(function(result) {
+    let obj ={
+        Fromdate:$('#txtfromdate').val(),
+        Todate:$('#txttodate').val(),
+        Mobile:$('#txtmobile').val(),
+    }
+    $.post('/Teacher/GetTeacher',obj).done(function(result) {
         $('#tblteacher tbody').html(result);
     }).fail(function() {
         alert('server error');
