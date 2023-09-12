@@ -1,9 +1,6 @@
-﻿@{
-   
-}
-<div class="">
-    <div class="">
-        <div class="row">
+﻿<div class="">
+    <div class="container">
+        <div class="row py-2">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header bgred">
@@ -42,7 +39,7 @@
                             </div>
                         </div>
                         <div class="table-responsive table-striped" style="margin-top:13px;">
-                            <table class="table mb-0" id="tblprogram">
+                            <table class="table table-bordered table-striped mb-0" id="tblprogram">
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>#</th>
@@ -65,6 +62,13 @@
 <script>
     $(document).ready(function() {
         LoadData();
+        $(function() {
+            $("#tblprogram").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "paging": true,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
     });
     var Savedata = function() {
         let obj = {
@@ -97,6 +101,9 @@
         $.post('/Master/AddAndUpdateProgram', obj).done(function(result) {
             preloader.remove();
             alertnotify(result.statuscode, result.msg);
+            if(result.statuscode == 1){
+                LoadData();
+            }
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');
@@ -129,6 +136,9 @@
         $.post('/Master/DeleteProgramMaster', { Id: ProgramId }).done(function(result) {
             preloader.remove();
             alertnotify(result.statuscode,result.msg);
+            if(result.statuscode == 1){
+                LoadData();
+            }
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');
@@ -145,6 +155,9 @@
         $.post('/Master/AddAndUpdateProgram', obj).done(function(result) {
             preloader.remove();
             alertnotify(result.statuscode, result.msg);
+            if(result.statuscode == 1){
+                LoadData();
+            }
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');

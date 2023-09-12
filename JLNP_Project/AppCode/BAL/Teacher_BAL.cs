@@ -3,6 +3,7 @@ using System.Data;
 using JLNP_Project.AppCode.DAL;
 using JLNP_Project.AppCode.Interface;
 using JLNP_Project.AppCode.Helper;
+using CollageERP.Models;
 
 namespace JLNP_Project.AppCode.BAL
 {
@@ -19,10 +20,10 @@ namespace JLNP_Project.AppCode.BAL
             var dt = AtDal.AddTeacher_DAL(teacher);
             return dt;
         }
-        public DataTable GetTeacher_BAL(string Action)
+        public DataTable GetTeacher_BAL(TeacherSearch search)
         {
             Teacher_DAL AtDal = new Teacher_DAL();
-            var dt = AtDal.GetTeacher_DAL(Action);
+            var dt = AtDal.GetTeacher_DAL(search);
             return dt;
         }
         public TeacherDetails GetTeacher_BALById(int teacher)

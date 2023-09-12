@@ -91,7 +91,7 @@
             console.log(xhr.responseText)
         });
     }
-    const loandata = () => {
+    var loandata = () => {
         $.post('/Branch/GetBranchDetail').done(function(result) {
             $('#tblbranch tbody').html(result);
         }).fail(function(xhr) {

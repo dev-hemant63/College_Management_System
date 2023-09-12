@@ -139,6 +139,10 @@
             $.post('/Teacher/_AddTeacher', obj).done(function(result) {
                 preloader.remove();
                 alertnotify(result.statuscode, result.msg);
+                if(result.statuscode == 1){
+                    $('input').val('');
+                    $('select').val('0');
+                }
             }).fail(function(xhr) {
                 console.log(xhr.responseText);
             });

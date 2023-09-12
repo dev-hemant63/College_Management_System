@@ -1,10 +1,7 @@
-﻿@{
-   
-}
-@model EditFeesHead
+﻿@model EditFeesHead
 <div class="">
-    <div class="">
-        <div class="row">
+    <div class="container">
+        <div class="row py-2">
             <div class="col-12">
                 <div class="card m-b-30">
                     <div class="card-header bgred">
@@ -15,7 +12,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Select Program</label>
-                                    <select id="ddlprogram" class="form-control" asp-for="@Model.data.Program" onchange="Bindbranch()">
+                                    <select id="ddlprogram" class="form-control" asp-for="@Model.data.Program" onchange="Bindbranch()" required>
                                         <option value="">-- Select Program --</option>
                                         @foreach (var item in Model.program)
                                         {
@@ -27,7 +24,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Select Branch</label>
-                                    <select id="ddlbranch" class="form-control" asp-for="@Model.data.Branch" onchange="Bindfeestype()">
+                                    <select id="ddlbranch" class="form-control" asp-for="@Model.data.Branch" onchange="Bindfeestype()" required>
                                         <option value="">-- Select Branch --</option>
                                     </select>
                                 </div>
@@ -35,7 +32,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Select Year</label>
-                                    <select id="ddlyear" class="form-control" asp-for="@Model.data.Year" onchange="Bindfeestype()">
+                                    <select id="ddlyear" class="form-control" asp-for="@Model.data.Year" onchange="Bindfeestype()" required>
                                         <option value="">--Select Year--</option>
                                         <option value="1">1 Year</option>
                                         <option value="2">2 Year</option>
@@ -47,7 +44,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Select Fees Type</label>
-                                    <select id="ddlfeestype" class="form-control" asp-for="@Model.data.FeesType">
+                                    <select id="ddlfeestype" class="form-control" asp-for="@Model.data.FeesType" required>
                                         <option value="">--Select Fees Type--</option>
                                     </select>
                                 </div>
@@ -57,7 +54,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Amount</label>
-                                    <input type="number" placeholder="Amount" class="form-control" asp-for="@Model.data.Amount" id="amount">
+                                    <input type="number" placeholder="Amount" class="form-control" asp-for="@Model.data.Amount" id="amount" required>
                                 </div>
                             </div>
                             <div class="col-sm-3">
@@ -73,31 +70,11 @@
 <script>
     $(document).ready(function() {
         Bindbranch();
+        Bindfeestype();
     });
     var btnsubmit = (id) => {
-        if ($('#ddlprogram option:selected').val() == '') {
-            alert("Please Select Program");
-            $('#ddlprogram').focus();
-            return false;
-        }
-        if ($('#ddlbranch option:selected').val() == '') {
-            alert("Please Select Branch");
-            $('#ddlbranch').focus();
-            return false;
-        }
-        if ($('#ddlyear option:selected').val() == '') {
-            alert("Please Select Year");
-            $('#ddlyear').focus();
-            return false;
-        }
-        if ($('#amount').val() == '') {
-            alert("Please Enter Amount");
-            $('#amount').focus();
-            return false;
-        }
-        if ($('#ddlfeestype option:selected').val() == '') {
-            alert("Please Select Fees Type");
-            $('#ddlfeestype').focus();
+        let isvalid = valiadteInputs();
+        if (!isvalid) {
             return false;
         }
         let data = {

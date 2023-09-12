@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="p-20">
-                                    <div class="form-group"><label>Notification Title</label> <input type="text" placeholder="Notification Title" class="form-control" id="NotificationTitle"> </div>
+                                    <div class="form-group"><label>Notification Title</label> <input type="text" placeholder="Notification Title" class="form-control" id="NotificationTitle" required> </div>
                                     <small id="NotificationTitlesm" class="text-danger d-none">Please Enter Notification Title</small>
                                 </div>
                             </div>
@@ -18,7 +18,7 @@
                                 <div class="p-20">
                                     <div class="form-group">
                                         <label>Notification Description</label>
-                                        <textarea placeholder="Notification Description" class="form-control" id="notiDesc"></textarea>
+                                        <textarea placeholder="Notification Description" class="form-control" id="notiDesc" required></textarea>
                                         <small id="notiDescsm" class="text-danger d-none">Please Enter Notification Description</small>
                                     </div>
                                 </div>
@@ -40,19 +40,9 @@
             Notificationtitle: $('#NotificationTitle').val(),
             NotificationDescription: $('#notiDesc').val()
         }
-        if (obj.Notificationtitle == '') {
-            $('#NotificationTitlesm').removeClass("d-none");
+       let isvalid = valiadteInputs();
+        if (!isvalid) {
             return false;
-        }
-        else {
-            $('#NotificationTitlesm').addClass("d-none");
-        }
-        if (obj.Notificationtitle == '') {
-            $('#notiDescsm').removeClass("d-none");
-            return false;
-        }
-        else {
-            $('#notiDescsm').addClass("d-none");
         }
         preloader.load();
         $.post('/Master/NotificationMaster', obj).done(function(result) {

@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.Data;
 using Microsoft.AspNetCore.Authorization;
 using JLNP_Project.AppCode.Interface;
+using CollageERP.Models;
 
 namespace JLNP_Project.Controllers
 {
@@ -67,11 +68,10 @@ namespace JLNP_Project.Controllers
             }
             return Json(res);
         }
-        public IActionResult GetTeacher(string Action)
+        public IActionResult GetTeacher(TeacherSearch search)
         {
             Teacher_BAL tBal = new Teacher_BAL(_sendEmail);
-            Action = "Get";
-            var dt = tBal.GetTeacher_BAL(Action);
+            var dt = tBal.GetTeacher_BAL(search);
             var lst = new List<Teacher>();
             if (dt.Rows.Count > 0)
             {
@@ -87,6 +87,8 @@ namespace JLNP_Project.Controllers
                         DOB = Convert.ToString(dr["DOB"].ToString()),
                         salary = Convert.ToString(dr["salary"].ToString()),
                         Address = Convert.ToString(dr["Address"].ToString()),
+                        PreviousCollage = Convert.ToString(dr["PreviousCollage"].ToString()),
+                        Subjects = Convert.ToString(dr["Subjects"].ToString()),
                         Entrydate = Convert.ToString(dr["Entrydate"].ToString()),
                     };
                     lst.Add(teacher);

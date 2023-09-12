@@ -16,20 +16,20 @@
 
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive table-striped" style="margin-top:13px;">
-                        <table class="table mb-0" id="tblbatch">
-                            <thead class="bg-primary">
-                                <tr>
-                                    <th>#</th>
-                                    <th>From Year</th>
-                                    <th>To Year</th>
-                                    <th>EntryDate</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
+                        <div class="table-responsive" style="margin-top:13px;">
+                            <table class="table table-bordered table-striped mb-0" id="tblbatch">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>From Year</th>
+                                        <th>To Year</th>
+                                        <th>EntryDate</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -39,6 +39,13 @@
 <script>
     $(document).ready(function() {
         Loaddata();
+        $(function() {
+            $("#tblbatch").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "paging": true,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
     });
     var Loaddata = function() {
         preloader.load();
@@ -103,6 +110,9 @@
         $.post('/Master/SaveAndBatchMaster', obj).done(function(result) {
             preloader.remove();
             alertnotify(result.statuscode, result.msg);
+            if (result.statuscode) {
+                Loaddata();
+            }
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error!');
@@ -113,6 +123,9 @@
         $.post('/Master/DeleteBatchMaster', { Id: Id }).done(function(result) {
             preloader.remove();
             alertnotify(result.statuscode, result.msg);
+            if (result.statuscode) {
+                Loaddata();
+            }
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error!');
