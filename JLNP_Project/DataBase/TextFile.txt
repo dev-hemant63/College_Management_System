@@ -1,11 +1,25 @@
-﻿Create Proc Proc_GetTeacher
+﻿USE [DB_CollageManagement]
+GO
+/****** Object:  StoredProcedure [dbo].[Proc_GetTeacher]    Script Date: 9/13/2023 10:21:18 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER Proc [dbo].[Proc_GetTeacher]
 @Mobile varchar(12) = '',
 @Fromdate varchar(20) = '',
 @Todate varchar(20) = ''
 AS
 BEGIN
-	select * from tbl_Teacher where Mobile = IIF(@Mobile = '',Mobile,@Mobile)
-	and EntryDate >= IIF(@Fromdate = '',EntryDate,@Fromdate) and EntryDate <= IIF(@Todate = '',EntryDate,@Todate)
+	if(@Mobile <> '')
+	begin
+		select * from tbl_Teacher where Mobile = IIF(@Mobile = '',Mobile,@Mobile)
+	end
+	else
+	begin
+		select * from tbl_Teacher
+		where CAST(EntryDate as date) >= CAST(IIF(@Fromdate = '',EntryDate,@Fromdate) as date) and CAST(EntryDate as date) <= CAST(IIF(@Todate = '',EntryDate,@Todate) as date)
+	end
 END
 
 

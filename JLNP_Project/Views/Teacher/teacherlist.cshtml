@@ -1,54 +1,50 @@
-﻿<div class="">
-    <div class="container">
-        <div class="row py-2">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header bgred">
-                            <h4 style="color:black;">Teacher List</h4>
-                        </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <lable>From Date</lable>
-                                <input type="date" class="form-control" placeholder="From Date" id="txtfromdate">
-                            </div>
-                            <div class="col-md-3">
-                                <lable>To Date</lable>
-                                <input type="date" class="form-control" placeholder="To Date" id="txttodate">
-                            </div>
-                            <div class="col-md-3">
-                                <lable>Teacher Mobile</lable>
-                                <input type="text" class="form-control" placeholder="Teacher Mobile" id="txtmobile">
-                            </div>
-                            <div class="col-md-2">
-                                <button type="button" onclick="loaddata()" class="btn btn-outline-primary waves-effect waves-light" style="margin-top:20px;" id="btnsearch">Search</button>
-                            </div>
-                            <!-- end col -->
-
-                        </div>
-                        <div class="table-responsive table-striped" style="margin-top:13px;">
-                            <table class="table mb-0" id="tblteacher">
-                                <thead class="bg-primary">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th class="text-nowrap">Father Name</th>
-                                        <th class="text-nowrap">Email</th>
-                                        <th class="text-nowrap">Mobile</th>
-                                        <th class="text-nowrap">DOB</th>
-                                        <th class="text-nowrap">salary</th>
-                                        <th class="text-nowrap">Qualification</th>
-                                        <th class="text-nowrap">Subject</th>
-                                        <th class="text-nowrap">Previous Collage</th>
-                                        <th class="text-nowrap">Address</th>
-                                        <th class="text-nowrap">EntryDate</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+﻿<div class="row py-2 px-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bgred">
+                    <h4 style="color:black;">Teacher List</h4>
+                </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <lable>From Date</lable>
+                        <input type="date" class="form-control" placeholder="From Date" id="txtfromdate">
                     </div>
+                    <div class="col-md-3">
+                        <lable>To Date</lable>
+                        <input type="date" class="form-control" placeholder="To Date" id="txttodate">
+                    </div>
+                    <div class="col-md-3">
+                        <lable>Teacher Mobile</lable>
+                        <input type="text" class="form-control" placeholder="Teacher Mobile" id="txtmobile">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" onclick="loaddata()" class="btn btn-outline-primary waves-effect waves-light" style="margin-top:20px;" id="btnsearch">Search</button>
+                    </div>
+                    <!-- end col -->
+
+                </div>
+                <div class="table-responsive table-striped" style="margin-top:13px;">
+                    <table class="table mb-0" id="tblteacher">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th class="text-nowrap">Father Name</th>
+                                <th class="text-nowrap">Email</th>
+                                <th class="text-nowrap">Mobile</th>
+                                <th class="text-nowrap">DOB</th>
+                                <th class="text-nowrap">Salary</th>
+                                <th class="text-nowrap">Qualification</th>
+                                <th class="text-nowrap">Subject</th>
+                                <th class="text-nowrap">Previous Collage</th>
+                                <th class="text-nowrap">Address</th>
+                                <th class="text-nowrap">EntryDate</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
         </div>
