@@ -1,11 +1,25 @@
-﻿Create Proc Proc_GetTeacher
+﻿USE [DB_CollageManagement]
+GO
+/****** Object:  StoredProcedure [dbo].[Proc_GetTeacher]    Script Date: 9/13/2023 10:21:18 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER Proc [dbo].[Proc_GetTeacher]
 @Mobile varchar(12) = '',
 @Fromdate varchar(20) = '',
 @Todate varchar(20) = ''
 AS
 BEGIN
-	select * from tbl_Teacher where Mobile = IIF(@Mobile = '',Mobile,@Mobile)
-	and EntryDate >= IIF(@Fromdate = '',EntryDate,@Fromdate) and EntryDate <= IIF(@Todate = '',EntryDate,@Todate)
+	if(@Mobile <> '')
+	begin
+		select * from tbl_Teacher where Mobile = IIF(@Mobile = '',Mobile,@Mobile)
+	end
+	else
+	begin
+		select * from tbl_Teacher
+		where CAST(EntryDate as date) >= CAST(IIF(@Fromdate = '',EntryDate,@Fromdate) as date) and CAST(EntryDate as date) <= CAST(IIF(@Todate = '',EntryDate,@Todate) as date)
+	end
 END
 
 
@@ -98,3 +112,286 @@ END
 alter table tbl_teacher drop column RoleId
 
 alter table tbl_teacher Add UserId int
+
+alter table tbl_registration add EntryBy int
+
+=============================================================
+
+
+USE [DB_CollageManagement]
+GO
+/****** Object:  StoredProcedure [dbo].[proc_login]    Script Date: 9/14/2023 9:37:51 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- proc_login '6390749257',1,'1007983460'
+ALTER proc [dbo].[proc_login]                
+@UserId varchar(100)='',                
+@LoginTypeId int=0,                
+@Password varchar(100) =''               
+AS                
+begin                
+	if(@UserId = '')
+	begin
+		select -1 statuscode,'Invalid Login Cridential..' Msg                
+		return
+	end
+	if(@LoginTypeId = 0)                
+	begin
+		select -1 statuscode,'Invalid Login Cridential..' Msg, -1 LoginTypeId                
+		return                
+	end
+	if(@Password = '')                
+	begin
+		select -1 statuscode,'UserId or Password wrong..' Msg, -1 LoginTypeId                
+		return                
+	end
+	if NOT EXISTS(select * from tbl_login where UserName = @UserId and Password = @Password )                
+	begin
+		select -1 statuscode,'Invalid Login Cridential..' Msg, -1 LoginTypeId            
+		return                
+	end
+	if EXISTS(select * from tbl_login where UserName = @UserId and Password = @Password )                
+	begin
+		declare @IsActive bit = 0,@LoginId int = 0
+		select @LoginId = ISNULL(UserId,0) from tbl_login where UserName = @UserId and Password = @Password
+		if Not Exists(select 1 from tbl_Users where Id = @LoginId and RoleId = @LoginTypeId)
+		begin
+			select -1 statuscode,'Invalid LoginType' Msg, -1 LoginTypeId            
+			return                
+		end
+		If(@LoginId = 0)
+		begin
+			select -1 statuscode,'Login Failed!' Msg, -1 LoginTypeId           
+			return
+		end
+		select @IsActive = ISNULL(IsActive,0) from tbl_Users where Id = @LoginId          
+		if(@IsActive = 0)          
+		begin
+			select -1 statuscode,'You Inactive By Institute Please Contact To Institute!' Msg, -1 LoginTypeId           
+			return
+		end
+		select 1 statuscode, t2.Name,tl.UserId,t2.RoleId LoginTypeId,tl.Password,t2.Fname,t2.Email,t2.Mobile,t2.Address,t2.DOB,t3.Role,tl.UserName from tbl_login as tl      
+		INNER JOIN tbl_Users t2 on tl.UserId = t2.Id  
+		INNER JOIN tbl_MasterRole t3 on t2.RoleId = t3.RoleID  
+		where t2.Id = @LoginId
+	end              
+end
+
+===================================================================
+USE [DB_CollageManagement]
+GO
+/****** Object:  StoredProcedure [dbo].[Proc_StudentRegistration]    Script Date: 9/14/2023 9:51:04 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER proc [dbo].[Proc_StudentRegistration](        
+@Id varchar(100)=0,        
+@Name varchar(100)=null,        
+@Fname varchar(100)=null,        
+@Email varchar(50)=null,        
+@Mobile varchar(20)=null,
+@Branch varchar(50)=null,        
+@Address varchar(50)=null,        
+@Gender varchar(50)=null,        
+@Group_Name varchar(50)=null,        
+@RegistrationNo varchar(150)='',
+@DOB varchar(50)=null, 
+@FatherOccupation varchar(50)=null, 
+@MotherName varchar(50)=null,
+@Program varchar(50)=null,
+@FromDate varchar(50)=null,
+@ToDate varchar(50)=null,
+@AdmissionType int = 0,
+@EntyBy int = 0,
+@Action varchar(50)        
+)        
+as        
+begin        
+	if(@Action = 'Add')        
+	begin
+		Declare @IsOpen bit = 0,@StartReg varchar(50),@EndReg varchar(50), @Registration varchar(150)
+		SELECT @IsOpen = ISNULL(IsOpen,0),@StartReg = Startdate,@EndReg = Enddate FROM tbl_RegistrationMaster Where Program = @Program and Branch = @Branch and AdmissionType = @AdmissionType
+		if(@IsOpen = 0)
+		begin
+			select -1 statuscode,'Registation not available for selected criteria!' Msg;
+			return;
+		end
+		if((CAST(@StartReg as date)) > (CAST(GETDATE() as date)))
+		begin
+			select -1 statuscode,'Registation will be start at date : '+Cast(@StartReg as varchar) Msg;
+			return;
+		end
+		if((CAST(@EndReg as date)) < (CAST(GETDATE() as date)))
+		begin
+			select -1 statuscode,'Registation will be closed : '+Cast(@StartReg as varchar) Msg;
+			return;
+		end
+		-- Generate RegistrationNumber
+		select top(1) @Registration = RegistrationNo from tbl_Registration order by Id desc    
+		If(isnull(@Registration,0)=0)    
+		begin    
+			set @RegistrationNo = (CONVERT(varchar,Year(getdate()))+'00000000')    
+		end    
+		else    
+		begin    
+			set @RegistrationNo = (Convert(int,@Registration)+1)    
+		end    
+		if EXISTS(select * from tbl_Registration where Mobile = @Mobile)        
+		begin        
+			select @RegistrationNo = RegistrationNo from tbl_Registration where Name =@Name and Fname = @Fname      
+			select -1 statuscode,'Registration Already Done. Your Registration Number Is : ' + cast(@RegistrationNo as varchar) Msg     
+			return;        
+		end	
+
+		insert into tbl_Registration(Name,Fname,Email,Mobile,Branch,Address,Gender,Group_Name,RegistrationNo,DOB,Entrydate,FatherOccupation,MotherName,Program,AdmissionType,EntryBy)       
+		values(@Name,@Fname,@Email,@Mobile,@Branch,@Address,@Gender,@Group_Name,@RegistrationNo,@DOB,GETDATE(),@FatherOccupation,@MotherName,@Program,@AdmissionType,@EntyBy)       
+		select 1 StatusCode,'Registration Successfully!' Msg ,@RegistrationNo as RegistrationNo      
+	end        
+	if(@Action = 'Get')        
+	begin        
+		select mat.DisplayName AdmissionType,ts.Id,ts.Name,ts.Fname,ts.Email,ts.Mobile,ts.Address,ts.Gender,tb.Branch_Name as Branch,ts.Group_Name,ts.RegistrationNo,ts.DOB,ts.Entrydate,ts.FatherOccupation,ts.MotherName,tp.Program from tbl_Registration ts
+		inner join tbl_branch tb on ts.Branch = tb.BranchId
+		inner join Master_AddmissionType mat on ts.AdmissionType = mat.ID
+		inner join tbl_Program tp on ts.Program = tp.Id where ts.RegistrationNo = IIF(@RegistrationNo = '',ts.RegistrationNo,@RegistrationNo) and Cast(ts.Entrydate as date) >= (Case Isnull(@FromDate,'') when '' then ts.Entrydate else CAST(@FromDate as date) end) and CAST(ts.Entrydate as date) <= (Case ISNULL(@ToDate,'') when '' then CAST(ts.Entrydate as date) else @ToDate end)
+	end        
+	if(@Action = 'GetById')
+	begin        
+		select Id,Name,Fname,Email,Mobile,Branch,Address,Gender,Group_Name,DOB,FatherOccupation,MotherName,ISNULL(Program,0) Program,AdmissionType from tbl_Registration where Id = @Id        
+	end        
+	if(@Action = 'Update')        
+	begin  
+		if(@Id = 0)
+		begin
+			select -1 StatusCode,'Registration Not Found!' Msg   
+		end
+		update tbl_Registration set Name=@Name,Fname=@Fname,Email=@Email,Mobile=@Mobile,Branch=@Branch,Address=@Address,Gender=@Gender,Group_Name=@Group_Name,DOB=@DOB,FatherOccupation = @FatherOccupation,MotherName = @MotherName, Program = @Program where Id = @Id
+		select 1 StatusCode,'Registration Updated Successfully!' Msg        
+	end        
+	if(@Action = 'Delete')        
+	begin        
+		delete from tbl_Registration where Id = @Id        
+		select 1 StatusCode,'Registration Cancel !!' Msg        
+	end        
+end 
+
+
+==================================================================
+
+Create proc Proc_GetRegistration
+@loginId int = 0,
+@FromDate varchar(50)='',
+@ToDate varchar(50) ='',
+@RegistrationNo varchar(50) = ''
+As
+begin
+	if(@loginId = 1)
+	begin
+		select mat.DisplayName AdmissionType,ts.Id,ts.Name,ts.Fname,ts.Email,ts.Mobile,ts.Address,ts.Gender,tb.Branch_Name as Branch,ts.Group_Name,ts.RegistrationNo,ts.DOB,ts.Entrydate,ts.FatherOccupation,ts.MotherName,tp.Program from tbl_Registration ts
+		inner join tbl_branch tb on ts.Branch = tb.BranchId
+		inner join Master_AddmissionType mat on ts.AdmissionType = mat.ID
+		inner join tbl_Program tp on ts.Program = tp.Id where ts.RegistrationNo = IIF(@RegistrationNo = '',ts.RegistrationNo,@RegistrationNo) and Cast(ts.Entrydate as date) >= (Case Isnull(@FromDate,'') when '' then ts.Entrydate else CAST(@FromDate as date) end) and CAST(ts.Entrydate as date) <= (Case ISNULL(@ToDate,'') when '' then CAST(ts.Entrydate as date) else @ToDate end)
+	end
+	else
+	begin
+		select mat.DisplayName AdmissionType,ts.Id,ts.Name,ts.Fname,ts.Email,ts.Mobile,ts.Address,ts.Gender,tb.Branch_Name as Branch,ts.Group_Name,ts.RegistrationNo,ts.DOB,ts.Entrydate,ts.FatherOccupation,ts.MotherName,tp.Program from tbl_Registration ts
+		inner join tbl_branch tb on ts.Branch = tb.BranchId
+		inner join Master_AddmissionType mat on ts.AdmissionType = mat.ID
+		inner join tbl_Program tp on ts.Program = tp.Id where ts.RegistrationNo = IIF(@RegistrationNo = '',ts.RegistrationNo,@RegistrationNo) and Cast(ts.Entrydate as date) >= (Case Isnull(@FromDate,'') when '' then ts.Entrydate else CAST(@FromDate as date) end) and CAST(ts.Entrydate as date) <= (Case ISNULL(@ToDate,'') when '' then CAST(ts.Entrydate as date) else @ToDate end)
+	end
+end
+
+=============================================================================================================
+
+
+USE [DB_CollageManagement]
+GO
+/****** Object:  StoredProcedure [dbo].[Proc_StudentRegistration]    Script Date: 9/14/2023 9:51:04 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER proc [dbo].[Proc_StudentRegistration](        
+@Id varchar(100)=0,        
+@Name varchar(100)=null,        
+@Fname varchar(100)=null,        
+@Email varchar(50)=null,        
+@Mobile varchar(20)=null,
+@Branch varchar(50)=null,        
+@Address varchar(50)=null,        
+@Gender varchar(50)=null,        
+@Group_Name varchar(50)=null,        
+@RegistrationNo varchar(150)='',
+@DOB varchar(50)=null, 
+@FatherOccupation varchar(50)=null, 
+@MotherName varchar(50)=null,
+@Program varchar(50)=null,
+@FromDate varchar(50)=null,
+@ToDate varchar(50)=null,
+@AdmissionType int = 0,
+@loginId int = 0,
+@Action varchar(50)        
+)        
+as        
+begin        
+	if(@Action = 'Add')        
+	begin
+		Declare @IsOpen bit = 0,@StartReg varchar(50),@EndReg varchar(50), @Registration varchar(150)
+		SELECT @IsOpen = ISNULL(IsOpen,0),@StartReg = Startdate,@EndReg = Enddate FROM tbl_RegistrationMaster Where Program = @Program and Branch = @Branch and AdmissionType = @AdmissionType
+		if(@IsOpen = 0)
+		begin
+			select -1 statuscode,'Registation not available for selected criteria!' Msg;
+			return;
+		end
+		if((CAST(@StartReg as date)) > (CAST(GETDATE() as date)))
+		begin
+			select -1 statuscode,'Registation will be start at date : '+Cast(@StartReg as varchar) Msg;
+			return;
+		end
+		if((CAST(@EndReg as date)) < (CAST(GETDATE() as date)))
+		begin
+			select -1 statuscode,'Registation will be closed : '+Cast(@StartReg as varchar) Msg;
+			return;
+		end
+		-- Generate RegistrationNumber
+		select top(1) @Registration = RegistrationNo from tbl_Registration order by Id desc    
+		If(isnull(@Registration,0)=0)    
+		begin    
+			set @RegistrationNo = (CONVERT(varchar,Year(getdate()))+'00000000')    
+		end    
+		else    
+		begin    
+			set @RegistrationNo = (Convert(int,@Registration)+1)    
+		end    
+		if EXISTS(select * from tbl_Registration where Mobile = @Mobile)        
+		begin        
+			select @RegistrationNo = RegistrationNo from tbl_Registration where Name =@Name and Fname = @Fname      
+			select -1 statuscode,'Registration Already Done. Your Registration Number Is : ' + cast(@RegistrationNo as varchar) Msg     
+			return;        
+		end	
+
+		insert into tbl_Registration(Name,Fname,Email,Mobile,Branch,Address,Gender,Group_Name,RegistrationNo,DOB,Entrydate,FatherOccupation,MotherName,Program,AdmissionType,EntryBy)       
+		values(@Name,@Fname,@Email,@Mobile,@Branch,@Address,@Gender,@Group_Name,@RegistrationNo,@DOB,GETDATE(),@FatherOccupation,@MotherName,@Program,@AdmissionType,@loginId)       
+		select 1 StatusCode,'Registration Successfully!' Msg ,@RegistrationNo as RegistrationNo      
+	end
+	if(@Action = 'GetById')
+	begin        
+		select Id,Name,Fname,Email,Mobile,Branch,Address,Gender,Group_Name,DOB,FatherOccupation,MotherName,ISNULL(Program,0) Program,AdmissionType from tbl_Registration where Id = @Id        
+	end        
+	if(@Action = 'Update')        
+	begin  
+		if(@Id = 0)
+		begin
+			select -1 StatusCode,'Registration Not Found!' Msg   
+		end
+		update tbl_Registration set Name=@Name,Fname=@Fname,Email=@Email,Mobile=@Mobile,Branch=@Branch,Address=@Address,Gender=@Gender,Group_Name=@Group_Name,DOB=@DOB,FatherOccupation = @FatherOccupation,MotherName = @MotherName, Program = @Program where Id = @Id
+		select 1 StatusCode,'Registration Updated Successfully!' Msg        
+	end        
+	if(@Action = 'Delete')        
+	begin        
+		delete from tbl_Registration where Id = @Id        
+		select 1 StatusCode,'Registration Cancel !!' Msg        
+	end        
+end 

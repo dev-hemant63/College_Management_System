@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="~/css/ionicons.min.css">
     <link rel="stylesheet" href="~/css/site.css">
+    <link rel="stylesheet" href="~/css/Custom.css">
     <link rel="stylesheet" href="~/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <link rel="stylesheet" href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <link rel="stylesheet" href="~/plugins/jqvmap/jqvmap.min.css">
@@ -191,6 +192,9 @@
                         @if(userdata.LoginTypeId == 1)
                         {
                             @Html.Partial("/Views/Menu/Admin.cshtml");
+                        }
+                        else if(userdata.LoginTypeId == 2){
+                            @Html.Partial("/Views/Menu/Teacher.cshtml");
                         }
                         <li class="nav-item">
                             <a href="/Account/Logout" class="nav-link">

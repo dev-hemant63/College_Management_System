@@ -127,7 +127,7 @@ namespace JLNP_Project.Controllers
         [HttpPost]
         public IActionResult GetStudent(Student student)
         {
-            student.Action = "Get";
+            student.EntryBy = _lr.UserId;
             var StudentList = new List<Student>();
             var dt = StBAL.GetStudent_BAL(student);
             if (dt.Rows.Count > 0)
