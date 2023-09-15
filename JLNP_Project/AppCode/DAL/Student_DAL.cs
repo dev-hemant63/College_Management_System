@@ -38,9 +38,9 @@ namespace JLNP_Project.AppCode.DAL
         }
         public DataTable GetStudent_DAL(Student student)
         {
-            SqlCommand cmd = new SqlCommand("Proc_StudentRegistration", con);
+            SqlCommand cmd = new SqlCommand("Proc_GetRegistration", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@Action", student.Action);
+            cmd.Parameters.AddWithValue("@loginId", student.EntryBy);
             cmd.Parameters.AddWithValue("@RegistrationNo", student.RegistrationNo);
             cmd.Parameters.AddWithValue("@FromDate", student.FromDate);
             cmd.Parameters.AddWithValue("@ToDate", student.ToDate);
