@@ -1,87 +1,84 @@
 ﻿@model List<StudentFineMdl>
-<div class="">
-    <div class="container">
-        <div class="row py-2">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header bgred">
-                        <h4 style="color:black;">Student Fine</h4>
+<div class="row py-2 px-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bgred">
+                <h4 style="color:black;">Student Fine</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label>Admission Number<span style="color:red;">*</span></label>
+                        <input type="text" class="form-control" id="txtenrol" required />
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <label>Admission Number<span style="color:red;">*</span></label>
-                                <input type="text" class="form-control" id="txtenrol" required/>
-                            </div>
-                            <div class="col-sm-3">
-                                <label>Fine Amount<span style="color:red;">*</span></label>
-                                <input type="number" class="form-control" id="txtamount" required/>
-                            </div>
-                            <div class="col-sm-4">
-                                <label>Fine Resion<span style="color:red;">*</span></label>
-                                <input type="text" class="form-control" id="txtresion" required/>
-                            </div>
-                            <div class="col-sm-2">
-                                <button class="btn btn-outline-primary" id="btnsubmit" style="margin-top: 29px;width: 43%;" onclick="submitdata()">Save</button>
-                            </div>
-                        </div>
-                        <div class="table-responsive" style="margin-top:13px;">
-                            <table class="table mb-0 table-striped" id="tblbranch">
-                                <thead class="bg-primary">
+                    <div class="col-sm-3">
+                        <label>Fine Amount<span style="color:red;">*</span></label>
+                        <input type="number" class="form-control" id="txtamount" required />
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Fine Resion<span style="color:red;">*</span></label>
+                        <input type="text" class="form-control" id="txtresion" required />
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-outline-primary" id="btnsubmit" style="margin-top: 29px;width: 43%;" onclick="submitdata()">Save</button>
+                    </div>
+                </div>
+                <div class="table-responsive" style="margin-top:13px;">
+                    <table class="table mb-0 table-striped" id="tblbranch">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th>#</th>
+                                <th>Admission Number</th>
+                                <th>Fine Amount</th>
+                                <th>Fine Resion</th>
+                                <th>Assign Date</th>
+                                <th>Fine Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                int i = 0;
+                                @foreach (var item in Model)
+                                {
+                                    i++;
                                     <tr>
-                                        <th>#</th>
-                                        <th>Admission Number</th>
-                                        <th>Fine Amount</th>
-                                        <th>Fine Resion</th>
-                                        <th>Assign Date</th>
-                                        <th>Fine Status</th>
-                                        <th>Action</th>
+                                        <input type="hidden" id="hdnid" value="@item.Id">
+                                        <td>@i</td>
+                                        <td>@item.RegistrationNo</td>
+                                        <td>@item.FineAmount</td>
+                                        <td>@item.FineResion</td>
+                                        <td>@item.EntryDate</td>
+                                        <td>
+                                            @if (item.FineStatus == -1)
+                                            {
+                                                <select class="form-control" id="ddlstatus" onchange="UpdateStatus('@item.Id')">
+                                                    <option>--Select Status--</option>
+                                                    <option value="1">Paid</option>
+                                                    <option value="-1">UnPaid</option>
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-success">Paid</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <button onclick="EditRecord('@item.Id')" class="tabledit-edit-button btn btn-sm btn-success btn_edit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" style="float: none; margin: 4px;"><span class="fa fa-pencil"></span></button>
+                                            <button onclick="deletedata('@item.Id')" class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @if (Model != null)
-                                    {
-                                        int i = 0;
-                                        @foreach (var item in Model)
-                                        {
-                                            i++;
-                                            <tr>
-                                                <input type="hidden" id="hdnid" value="@item.Id">
-                                                <td>@i</td>
-                                                <td>@item.RegistrationNo</td>
-                                                <td>@item.FineAmount</td>
-                                                <td>@item.FineResion</td>
-                                                <td>@item.EntryDate</td>
-                                                <td>
-                                                    @if (item.FineStatus == -1)
-                                                    {
-                                                        <select class="form-control" id="ddlstatus" onchange="UpdateStatus('@item.Id')">
-                                                            <option>--Select Status--</option>
-                                                            <option value="1">Paid</option>
-                                                            <option value="-1">UnPaid</option>
-                                                        </select>
-                                                    }
-                                                    else{
-                                                        <span class="text-success">Paid</span>
-                                                    }
-                                                </td>
-                                                <td>
-                                                    <button onclick="EditRecord('@item.Id')" class="tabledit-edit-button btn btn-sm btn-success btn_edit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" style="float: none; margin: 4px;"><span class="ti-pencil"></span></button>
-                                                    <button onclick="deletedata('@item.Id')" class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
-                                                </td>
-                                            </tr>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <tr>
-                                            <td class="text-danger text-center" colspan="9">Record NoT Found</td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td class="text-danger text-center" colspan="9">Record NoT Found</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -103,7 +100,7 @@
         preloader.load();
         $.post('/Student/SaveStudentFine', data).done(function(result) {
             preloader.remove();
-            alertnotify(result.statuscode,result.msg);
+            alertnotify(result.statuscode, result.msg);
         }).fail(function() {
             alert('Server Error');
         });
@@ -126,7 +123,7 @@
         preloader.load();
         $.post('/Student/DeleteStudentFine', { FineId: Fid }).done(function(result) {
             preloader.remove();
-             alertnotify(result.statuscode,result.msg);
+            alertnotify(result.statuscode, result.msg);
         }).fail(function() {
             alert('Server Error');
         });
@@ -136,7 +133,7 @@
         preloader.load();
         $.post('/Student/UpdateFineStatus', { Status: data, FineId: FineId }).done(function(result) {
             preloader.remove();
-            alertnotify(result.statuscode,result.msg);
+            alertnotify(result.statuscode, result.msg);
         }).fail(function() {
             alert('Server Error');
         });

@@ -310,7 +310,7 @@ namespace JLNP_Project.AppCode.DAL
         public AccountManagement Getstudentdetail(string EnrollmentNo)
         {
             var res = new AccountManagement();
-            string Quesry = "select * from tbl_Student_Admission where EntrollmentNo = @EntrollmentNo ";
+            string Quesry = "select * from tbl_Student_Admission where AdmissionNo = @EntrollmentNo ";
             SqlParameter[] param =
             {
                 new SqlParameter("@EntrollmentNo",EnrollmentNo)

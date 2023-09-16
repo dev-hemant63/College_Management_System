@@ -1,0 +1,45 @@
+﻿@using CollageERP.Models
+@model ChatVM
+<input type="hidden" id="userId" value="@Model.UserId">
+@if (Model.Chats.Any())
+{
+    <div class="direct-chat-messages">
+        @foreach (var item in Model.Chats)
+        {
+
+            @if (item.IsReceive)
+            {
+                <div class="direct-chat-msg">
+                    <div class="direct-chat-infos clearfix">
+                        <span class="direct-chat-name float-left">@item.SenderName</span>
+                        <span class="direct-chat-timestamp float-right">@item.EntryOn</span>
+                    </div>
+                    <img class="direct-chat-img" src="@item.Pic" alt="message user image">
+                    <div class="direct-chat-text">
+                        @item.Message
+                    </div>
+                    <div class="direct-chat-infos clearfix">
+                    <span class="direct-chat-timestamp float-left">@item.ReciverName</span>
+                    </div>
+                </div>
+            }
+            @if (item.IsSend)
+            {
+                <div class="direct-chat-msg right">
+                    <div class="direct-chat-infos clearfix">
+                        <span class="direct-chat-name float-right">@item.ReciverName</span>
+                        <span class="direct-chat-timestamp float-left">@item.EntryOn</span>
+                    </div>
+
+                    <img class="direct-chat-img" src="@item.Pic" alt="message user image">
+                    <div class="direct-chat-text">
+                        @item.Message
+                    </div>
+                    <div class="direct-chat-infos clearfix">
+                    <span class="direct-chat-timestamp float-right">@item.SenderName</span>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+}

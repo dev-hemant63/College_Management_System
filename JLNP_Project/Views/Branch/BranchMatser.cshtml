@@ -8,27 +8,25 @@
                 <div class="row">
                     <div class="col-md-2">
                         <label>Branch Name</label>
-                        <input type="text" placeholder="Branch Name" class="form-control" id="name">
+                        <input type="text" placeholder="Branch Name" class="form-control" id="name" required>
                     </div>
                     <div class="col-md-2">
                         <label>Branch Code</label>
-                        <input type="number" maxlength="4" placeholder="Branch Code" class="form-control" id="code">
+                        <input type="number" maxlength="4" placeholder="Branch Code" class="form-control" id="code" required>
                     </div>
                     <div class="col-md-2">
                         <label>Total Sheets</label>
-                        <input type="number" placeholder="Total Sheets" class="form-control" id="totalsheet">
+                        <input type="number" placeholder="Total Sheets" class="form-control" id="totalsheet" required>
                     </div>
                     <div class="col-md-2">
                         <label>Total Letaral Sheets</label>
-                        <input type="number" placeholder="Total Letaral Sheets" class="form-control" id="totalletaralsheet">
+                        <input type="number" placeholder="Total Letaral Sheets" class="form-control" id="totalletaralsheet" required>
                     </div>
                     <div class="col-sm-2" style="padding-top: 27px;">
                         <button type="button" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit()">Save</button>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="table-responsive">
+                <div class="table-responsive mt-3">
                     <table class="table mb-0 table-striped" id="tblbranch">
                         <thead class="bg-primary">
                             <tr>
@@ -56,24 +54,8 @@
         loandata();
     });
     var btnsubmit = function() {
-        if ($('#name').val() == '') {
-            alert("Please Enter Branch");
-            $('#name').focus();
-            return false;
-        }
-        if ($('#code').val() == '') {
-            alert("Please Enter Branch Code");
-            $('#code').focus();
-            return false;
-        }
-        if ($('#totalsheet').val() == '') {
-            alert("Please Enter Total Sheet");
-            $('#totalsheet').focus();
-            return false;
-        }
-        if ($('#totalletaralsheet').val() == '') {
-            alert("Please Enter Total Letaral Sheet");
-            $('#totalletaralsheet').focus();
+        let isvalid = valiadteInputs();
+        if (!isvalid) {
             return false;
         }
         let data = {

@@ -35,12 +35,15 @@
     </div>
 </div>
 <script>
+$(document).ready(() => {
+    applyTextEditor('notiDesc');
+});
     var btnsubmit = () => {
         let obj = {
             Notificationtitle: $('#NotificationTitle').val(),
             NotificationDescription: $('#notiDesc').val()
         }
-       let isvalid = valiadteInputs();
+        let isvalid = valiadteInputs();
         if (!isvalid) {
             return false;
         }
@@ -48,7 +51,7 @@
         $.post('/Master/NotificationMaster', obj).done(function(result) {
             preloader.remove();
             alertnotify(result.statuscode, result.msg);
-            if(result.statuscode == 1){
+            if (result.statuscode == 1) {
                 $('.form-control').val('');
             }
         }).fail(function() {

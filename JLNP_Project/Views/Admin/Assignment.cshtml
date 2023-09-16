@@ -1,100 +1,96 @@
 ﻿@model List<JLNP_Project.Models.SubjectMaster>
-<div class="">
-    <div class="container">
-        <div class="row py-2">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header bgred">
-                        <h4 style="color:black;">Assignment</h4>
+<div class="row py-2 px-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bgred">
+                <h4 style="color:black;">Assignment</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label>Select Program<span style="color:red;">*</span></label>
+                        <select class="form-control" id="ddlprogram" onchange="Bindbranch()" required>
+                            <option value="">-- Select Program --</option>
+                        </select>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <label>Select Program<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlprogram" onchange="Bindbranch()" required>
-                                    <option value="">-- Select Program --</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="hidden" id="hdnid" />
-                                <label>Select Branch<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlbranch" onchange="BindSubject()" required>
-                                </select>
-                            </div>
-                            <div class="col-sm-3">
-                                <label>Select Year<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlyear" onchange="BindSubject()" required>
-                                    <option value="">-- Select Year --</option>
-                                    <option value="1">First Year </option>
-                                    <option value="2">Second Year</option>
-                                    <option value="3">Third Year </option>
-                                    <option value="4">Final Year </option>
-                                </select>
-                            </div>
-                            <div class="col-sm-3">
-                                <label>Select Subject<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlsubject" required>
-                                    <option value="">-- Select Subject --</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <label>Assignment<span style="color:red;">*</span></label>
-                                <input type="text" class="form-control" id="txtassignment" required/>
-                            </div>
-                            <div class="col-sm-3">
-                                <label>Upload(Optional)</label>
-                                <input type="file" class="form-control" id="fileassignment" required/>
-                            </div>
-                            <div class="col-sm-3">
-                                <button class="btn btn-outline-primary" onclick="btnsubmit()" style="margin-top: 29px;width: 43%;">Save</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="table-responsive" style="margin-top:13px;">
-                                <table class="table mb-0 table-striped" id="tblbranch">
-                                    <thead class="bg-primary">
+                    <div class="col-sm-3">
+                        <input type="hidden" id="hdnid" />
+                        <label>Select Branch<span style="color:red;">*</span></label>
+                        <select class="form-control" id="ddlbranch" onchange="BindSubject()" required>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Select Year<span style="color:red;">*</span></label>
+                        <select class="form-control" id="ddlyear" onchange="BindSubject()" required>
+                            <option value="">-- Select Year --</option>
+                            <option value="1">First Year </option>
+                            <option value="2">Second Year</option>
+                            <option value="3">Third Year </option>
+                            <option value="4">Final Year </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Select Subject<span style="color:red;">*</span></label>
+                        <select class="form-control" id="ddlsubject" required>
+                            <option value="">-- Select Subject --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label>Assignment<span style="color:red;">*</span></label>
+                        <input type="text" class="form-control" id="txtassignment" required />
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Upload(Optional)</label>
+                        <input type="file" class="form-control" id="fileassignment" required />
+                    </div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-outline-primary" onclick="btnsubmit()" style="margin-top: 29px;width: 43%;">Save</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="table-responsive" style="margin-top:13px;">
+                        <table class="table mb-0 table-striped" id="tblbranch">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Program</th>
+                                    <th>Branch</th>
+                                    <th>Year</th>
+                                    <th>Subject</th>
+                                    <th>Assignment</th>
+                                    <th>Assign Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    int i = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        <input type="hidden" value="@item.Id" id="hdnid">
+                                        i++;
                                         <tr>
-                                            <th>#</th>
-                                            <th>Program</th>
-                                            <th>Branch</th>
-                                            <th>Year</th>
-                                            <th>Subject</th>
-                                            <th>Assignment</th>
-                                            <th>Assign Date</th>
-                                            <th>Action</th>
+                                            <td>@i</td>
+                                            <td>@item.ProgramName</td>
+                                            <td>@item.Branch</td>
+                                            <td>@item.Year</td>
+                                            <td>@item.SubjectName</td>
+                                            <td>@item.Assignment</td>
+                                            <td>@item.EntryDate</td>
+                                            <td>
+                                                <div class="btn-group btn-group-sm" style="float: none;">
+                                                    <a href="/Admin/GetByIdAssignment?Id=@item.Id" class="tabledit-edit-button btn btn-sm btn-success btn_edit" onclick="editassignment(BranchId=@item.Id)" style="float: none; margin: 4px;"><span class="fa fa-pencil"></span></a>
+                                                    <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;" onclick="Deleteassignment(BranchId=@item.Id)"><span class="ti-trash"></span></button>
+                                                </div>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (Model != null)
-                                        {
-                                            int i = 0;
-                                            foreach (var item in Model)
-                                            {
-                                                <input type="hidden" value="@item.Id" id="hdnid">
-                                                i++;
-                                                <tr>
-                                                    <td>@i</td>
-                                                    <td>@item.ProgramName</td>
-                                                    <td>@item.Branch</td>
-                                                    <td>@item.Year</td>
-                                                    <td>@item.SubjectName</td>
-                                                    <td>@item.Assignment</td>
-                                                    <td>@item.EntryDate</td>
-                                                    <td>
-                                                        <div class="btn-group btn-group-sm" style="float: none;">
-                                                            <a href="/Admin/GetByIdAssignment?Id=@item.Id" class="tabledit-edit-button btn btn-sm btn-success btn_edit" onclick="editassignment(BranchId=@item.Id)" style="float: none; margin: 4px;"><span class="ti-pencil"></span></a>
-                                                            <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;" onclick="Deleteassignment(BranchId=@item.Id)"><span class="ti-trash"></span></button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            }
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                                    }
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
