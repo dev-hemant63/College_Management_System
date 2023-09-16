@@ -1,71 +1,62 @@
-﻿@{
-   
-}
-<div class="">
-    <div class="">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                     <div class="card-header bgred">
-                            <h4 style="color:black;">Branch List</h4>
-                        </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <lable>From Date</lable>
-                                <input type="date" class="form-control" placeholder="From Date">
-                            </div>
-                            <div class="col-md-3">
-                                <lable>From Date</lable>
-                                <input type="date" class="form-control" placeholder="From Date">
-                            </div>
-                            <div class="col-md-3">
-                                <lable>Branch Name</lable>
-                                <input type="text" class="form-control" placeholder="Branch Name">
-                            </div>
-                            <div class="col-md-2">
-                                <button type="button" onclick="getdata()" class="btn btn-outline-primary waves-effect waves-light" style="margin-top:20px;" id="btnsearch">Search</button>
-                            </div>
-                            <!-- end col -->
-                        </div>
-                        <div class="table-responsive" style="margin-top:13px;">
-                            <table class="table mb-0 table-striped" id="tblbranch">
-                                <thead class="bg-primary">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Branch Name</th>
-                                        <th>Branch Code</th>
-                                        <th>Total Sheet</th>
-                                        <th>IsCounseling</th>
-                                        <th>EntryDate</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+﻿<div class="row px-2 py-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bgred">
+                <h4 style="color:black;">Branch List</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <lable>From Date</lable>
+                        <input type="date" class="form-control" placeholder="From Date">
                     </div>
+                    <div class="col-md-3">
+                        <lable>From Date</lable>
+                        <input type="date" class="form-control" placeholder="From Date">
+                    </div>
+                    <div class="col-md-3">
+                        <lable>Branch Name</lable>
+                        <input type="text" class="form-control" placeholder="Branch Name">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" onclick="getdata()" class="btn btn-outline-primary waves-effect waves-light" style="margin-top:20px;" id="btnsearch">Search</button>
+                    </div>
+                    <div class="table-responsive" style="margin-top:13px;">
+                    <table class="table mb-0 table-striped" id="tblbranch">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th>#</th>
+                                <th>Branch Name</th>
+                                <th>Branch Code</th>
+                                <th>Total Sheet</th>
+                                <th>IsCounseling</th>
+                                <th>EntryDate</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="~/js/jquery.min.js"></script>
 <script>
-$(document).ready(function() {
-    $.post('/Branch/GetBranchDetail').done(function(result) {
-        $('#tblbranch tbody').html(result);
-    }).fail(function(xhr) {
-        console.log(xhr.responseText);
+    $(document).ready(function() {
+        $.post('/Branch/GetBranchDetail').done(function(result) {
+            $('#tblbranch tbody').html(result);
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
     });
-});
-var DeleteBranch = function(BranchId){
-    $.post('/Branch/DeleteBranch', {BranchId:BranchId}).done(function(result) {
-        alert(result.msg);
-         window.location.reload("/Branch/BranchList");
-    }).fail(function(xhr) {
-        console.log(xhr.responseText);
-    });
-    
-}
+    var DeleteBranch = function(BranchId) {
+        $.post('/Branch/DeleteBranch', { BranchId: BranchId }).done(function(result) {
+            alert(result.msg);
+            window.location.reload("/Branch/BranchList");
+        }).fail(function(xhr) {
+            console.log(xhr.responseText);
+        });
+
+    }
 </script>

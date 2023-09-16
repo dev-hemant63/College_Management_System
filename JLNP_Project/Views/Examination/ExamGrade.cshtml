@@ -1,57 +1,55 @@
 ﻿@model List<ExamModel>
-<div class="container">
-    <div class="row py-2">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header bgred">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h4 style="color:black;">Exam Grade</h4>
-                        </div>
-                        <div class="col-sm-9">
-                            <button class="btn btn-outline-primary" id="Addnew" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="AddNew(0)" style="float: right;">
-                                + Add New
-                            </button>
-                        </div>
+<div class="row py-2 px-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bgred">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h4 style="color:black;">Exam Grade</h4>
+                    </div>
+                    <div class="col-sm-9">
+                        <button class="btn btn-outline-primary" id="Addnew" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="AddNew(0)" style="float: right;">
+                            + Add New
+                        </button>
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="table-responsive">
-                                <table class="table table-striped" id="tblexamschedule">
-                                    <thead class="bg-primary">
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Exam Type</th>
-                                            <th>Grade Name</th>
-                                            <th>Precent From/Upto</th>
-                                            <th>Grade Point</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @{
-                                            int i = 0;
-                                            foreach (var item in Model)
-                                            {
-                                                i++;
-                                                <tr>
-                                                    <td>@i</td>
-                                                    <td>@item.ExamTypeName</td>
-                                                    <td>@item.GradeName</td>
-                                                    <td>@item.PrecentUpto / @item.PrecentFrom</td>
-                                                    <td>@item.GradePoint</td>
-                                                    <td>
-                                                        <button class="tabledit-edit-button btn btn-sm btn-success btn_edit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="AddNew('@item.Id')" style="float: none; margin: 4px;"><span class="ti-pencil"></span></button>
-                                                        <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;" onclick="DeleteGrade('@item.Id')"><span class="ti-trash"></span></button>
-                                                    </td>
-                                                </tr>
-                                            }
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="tblexamschedule">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Exam Type</th>
+                                        <th>Grade Name</th>
+                                        <th>Precent From/Upto</th>
+                                        <th>Grade Point</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int i = 0;
+                                        foreach (var item in Model)
+                                        {
+                                            i++;
+                                            <tr>
+                                                <td>@i</td>
+                                                <td>@item.ExamTypeName</td>
+                                                <td>@item.GradeName</td>
+                                                <td>@item.PrecentUpto / @item.PrecentFrom</td>
+                                                <td>@item.GradePoint</td>
+                                                <td>
+                                                    <button class="tabledit-edit-button btn btn-sm btn-success btn_edit" data-animation="pulse" data-toggle="modal" data-target="#exampleModalLong-1" onclick="AddNew('@item.Id')" style="float: none; margin: 4px;"><span class="fa fa-pencil"></span></button>
+                                                    <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;" onclick="DeleteGrade('@item.Id')"><span class="fa fa-trash"></span></button>
+                                                </td>
+                                            </tr>
                                         }
-                                    </tbody>
-                                </table>
-                            </div>
+                                    }
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -69,7 +67,7 @@
     }
     var DeleteGrade = (id) => {
         $.post('/Examination/DeleteExamGrade', { Id: id }).done(function(result) {
-            alertnotify(result.statuscode,result.msg);
+            alertnotify(result.statuscode, result.msg);
         }).fail(function(xhr) {
             console(xhr.responseText);
         });

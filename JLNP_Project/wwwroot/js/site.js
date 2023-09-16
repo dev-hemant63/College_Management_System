@@ -67,7 +67,7 @@ var alertnotify = function (statuscode, msg) {
 //        });
 //    }
 //}
-var conformation = function (msg,btntext, IsConfirmedMethod) {
+var conformation = function (msg, btntext, IsConfirmedMethod) {
     Swal.fire({
         text: msg,
         icon: 'warning',
@@ -157,3 +157,15 @@ let valiadteInputs = () => {
     }
     return isValid;
 }
+let applyTextEditor = (id) => {
+    tinymce.init({
+        selector: `textarea#${id}`,
+        plugins: 'autoresize',
+        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
+        height: 300,
+        style_formats: [
+            { title: 'Custom Heading 1', block: 'h1', styles: { 'font-size': '24px' } },
+            { title: 'Custom Quote', block: 'blockquote', classes: 'my-custom-quote' },
+        ],
+    });
+} 

@@ -1,81 +1,77 @@
 ﻿@model List<ProgramMaster>
-<div class="">
-    <div class="container">
-        <div class="row py-2">
-            <div class="col-12">
-                <div class="card m-b-30">
-                    <div class="card-header bgred">
-                        <h4 style="color:black;">Syllabus Master</h4>
+<div class="row py-2 px-2">
+    <div class="col-12">
+        <div class="card m-b-30">
+            <div class="card-header bgred">
+                <h4 style="color:black;">Syllabus Master</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="">
+                            <div class="form-group">
+                                <label>Program</label>
+                                <select class="form-control" id="ddlprogram" onchange="Bindbranch()" required>
+                                    <option value="">-- Select Program --</option>
+                                    @foreach (var item in Model)
+                                    {
+                                        <option value="@item.Id">@item.Program</option>
+                                    }
+                                </select>
+                            </div>
+                            <small id="ddlprogramsm" class="text-danger d-none">Please Select Program</small>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="">
-                                    <div class="form-group">
-                                        <label>Program</label>
-                                        <select class="form-control" id="ddlprogram" onchange="Bindbranch()" required>
-                                            <option value="">-- Select Program --</option>
-                                            @foreach (var item in Model)
-                                            {
-                                                <option value="@item.Id">@item.Program</option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <small id="ddlprogramsm" class="text-danger d-none">Please Select Program</small>
-                                </div>
+                    <div class="col-md-4">
+                        <div class="">
+                            <div class="form-group">
+                                <label>Branch</label>
+                                <select class="form-control" id="ddlbranch" required>
+                                    <option value="0">-- Select Branch --</option>
+                                </select>
                             </div>
-                            <div class="col-md-4">
-                                <div class="">
-                                    <div class="form-group">
-                                        <label>Branch</label>
-                                        <select class="form-control" id="ddlbranch" required>
-                                            <option value="0">-- Select Branch --</option>
-                                        </select>
-                                    </div>
-                                    <small id="ddlbranchsm" class="text-danger d-none">Please Select Branch</small>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="">
-                                    <div class="form-group">
-                                        <label>Year</label>
-                                        <select class="form-control" id="ddlyear" onchange="BindSubject()" required>
-                                            <option value="0">-- Select Year --</option>
-                                            <option value="1">First Year</option>
-                                            <option value="2">Second Year</option>
-                                            <option value="3">Third Year</option>
-                                            <option value="4">Final Year</option>
-                                        </select>
-                                    </div>
-                                    <small id="ddlyearsm" class="text-danger d-none">Please Select Year</small>
-                                </div>
-                            </div>
+                            <small id="ddlbranchsm" class="text-danger d-none">Please Select Branch</small>
                         </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="">
-                                    <div class="form-group">
-                                        <label>Subject</label>
-                                        <select class="form-control" id="ddlsubject" required>
-                                            <option value="0">-- Select Subject --</option>
-                                        </select>
-                                    </div>
-                                    <small id="ddlsubjectsm" class="text-danger d-none">Please Select Subject</small>
-                                </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="">
+                            <div class="form-group">
+                                <label>Year</label>
+                                <select class="form-control" id="ddlyear" onchange="BindSubject()" required>
+                                    <option value="0">-- Select Year --</option>
+                                    <option value="1">First Year</option>
+                                    <option value="2">Second Year</option>
+                                    <option value="3">Third Year</option>
+                                    <option value="4">Final Year</option>
+                                </select>
                             </div>
-                            <div class="col-md-4">
-                                <div class="">
-                                    <div class="form-group">
-                                        <label>Upload</label>
-                                        <input type="file" class="form-control" placeholder="Upload" id="file" required/>
-                                    </div>
-                                    <small id="filesm" class="text-danger d-none">Please Upload File</small>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <button type="button" style="width:120px; margin-top: 22px;" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit()">Save</button>
-                            </div>
+                            <small id="ddlyearsm" class="text-danger d-none">Please Select Year</small>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="">
+                            <div class="form-group">
+                                <label>Subject</label>
+                                <select class="form-control" id="ddlsubject" required>
+                                    <option value="0">-- Select Subject --</option>
+                                </select>
+                            </div>
+                            <small id="ddlsubjectsm" class="text-danger d-none">Please Select Subject</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="">
+                            <div class="form-group">
+                                <label>Upload</label>
+                                <input type="file" class="form-control" placeholder="Upload" id="file" required />
+                            </div>
+                            <small id="filesm" class="text-danger d-none">Please Upload File</small>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="button" style="width:120px; margin-top: 22px;" class="btn btn-outline-primary waves-effect waves-light" onclick="btnsubmit()">Save</button>
                     </div>
                 </div>
             </div>
@@ -135,7 +131,7 @@
             contentType: false,
             processData: false,
             success: function(repo) {
-                alertnotify(repo.statuscode,repo.msg);
+                alertnotify(repo.statuscode, repo.msg);
             },
             error: function() {
                 alert("Server Error");

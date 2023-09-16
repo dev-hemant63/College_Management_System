@@ -43,7 +43,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
                     </tbody>
                 </table>
             </div>
@@ -62,7 +61,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
                     </tbody>
                 </table>
             </div>
@@ -81,7 +79,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
                     </tbody>
                 </table>
             </div>
@@ -100,7 +97,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
                     </tbody>
                 </table>
             </div>
@@ -119,7 +115,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                       
                     </tbody>
                 </table>
             </div>
@@ -138,7 +133,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
                     </tbody>
                 </table>
             </div>
@@ -152,23 +146,24 @@
 </div>
 <script>
     $(document).ready(function() {
-        $('.tabledit-delete-button').click(function() {
-            let id = $(this).closest('tr').data().id;
-            if (id == '0') {
-                $(this).closest('tr').remove();
-            }
-            else {
-                preloader.load();
-                $.post('/Admin/DeleteTimeTable', { ID: id }).done(function(res) {
-                    preloader.remove();
-                    if (res.statuscode == 1) {
-                        $(this).closest('tr').remove();
-                    }
-                }).fail(function() {
-                    alertnotify(-1, 'Server Error');
-                });
-            }
-        });
+
+    });
+    $(document).on('.tabledit-delete-button', 'click', function() {
+        let id = $(this).closest('tr').data().id;
+        if (id == '0') {
+            $(this).closest('tr').remove();
+        }
+        else {
+            preloader.load();
+            $.post('/Admin/DeleteTimeTable', { ID: id }).done(function(res) {
+                preloader.remove();
+                if (res.statuscode == 1) {
+                    $(this).closest('tr').remove();
+                }
+            }).fail(function() {
+                alertnotify(-1, 'Server Error');
+            });
+        }
     });
     function openCity(evt, cityName) {
         $('#hdnid').val('tbl' + cityName);
@@ -187,32 +182,32 @@
     $('#btnadd').click(() => {
         var id = $('#hdnid').val();
         $('#' + id + ' tbody').append(`
-                                        <tr data-id="0">
-                                           <td>
-                                               <select class="form-control">
-                                                   <option value="0">:: Select Subject ::</option>
+                                            <tr data-id="0">
+                                               <td>
+                                                   <select class="form-control">
+                                                       <option value="0">:: Select Subject ::</option>
     @foreach (var item in Model.SubjectList)
     {
-                <option value="@item.SubjectId">@item.SubjectName</option>
+                        <option value="@item.SubjectId">@item.SubjectName</option>
     }
-                                               </select>
-                                           </td>
-                                           <td>
-                                               <select class="form-control">
-                                                   <option value="0">:: Select Teacher ::</option>
+                                                   </select>
+                                               </td>
+                                               <td>
+                                                   <select class="form-control">
+                                                       <option value="0">:: Select Teacher ::</option>
     @foreach (var item in Model.TeacherList)
     {
-                                                                                  <option value="@item.TeacherId">@item.TeacherName</option>
+                                                                                          <option value="@item.TeacherId">@item.TeacherName</option>
     }
-                                               </select>
-                                           </td>
-                                           <td><input type="time" class="form-control" id="fromtime" /></td>
-                                           <td><input type="time" class="form-control" id="totime" /></td>
-                                           <td><input type="text" class="form-control" id="room" placeholder="Room No." /></td>
-                                           <td>
-                                               <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="ti-trash"></span></button>
-                                           </td>
-                                         </tr>`);
+                                                   </select>
+                                               </td>
+                                               <td><input type="time" class="form-control" id="fromtime" /></td>
+                                               <td><input type="time" class="form-control" id="totime" /></td>
+                                               <td><input type="text" class="form-control" id="room" placeholder="Room No." /></td>
+                                               <td>
+                                                   <button class="tabledit-delete-button btn btn-sm btn-danger" style="float: none; margin: 4px;"><span class="fa fa-trash"></span></button>
+                                               </td>
+                                             </tr>`);
     });
     var SaveBulkRecord = () => {
         var table = [];

@@ -388,3 +388,9 @@
         width: 100%;
     }
 }
+.tox-statusbar__right-container {
+    display: none;
+}
+.tox-promotion {
+    display: none;
+}

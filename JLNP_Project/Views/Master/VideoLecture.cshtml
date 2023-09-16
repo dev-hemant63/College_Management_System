@@ -1,79 +1,75 @@
 ﻿@model List<ProgramMaster>
-<div class="">
-    <div class="container">
-        <div class="row py-2">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header bgred">
-                        <h4 style="color:black;">Video Lectures</h4>
+<div class="row py-2 px-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bgred">
+                <h4 style="color:black;">Video Lectures</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <input type="hidden" id="hdnid" value="" />
+                        <label>Select Program<span style="color:red;">*</span></label>
+                        <select class="form-control" id="ddlprogram" onchange="Bindbranch()" required>
+                            <option value="">-- Select Program --</option>
+                            @foreach (var item in Model)
+                            {
+                                <option value="@item.Id">@item.Program</option>
+                            }
+                        </select>
+                        <span class="text-danger d-none" id="Program">Please Select Program</span>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <input type="hidden" id="hdnid" value="" />
-                                <label>Select Program<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlprogram" onchange="Bindbranch()" required>
-                                    <option value="">-- Select Program --</option>
-                                    @foreach (var item in Model)
-                                    {
-                                        <option value="@item.Id">@item.Program</option>
-                                    }
-                                </select>
-                                <span class="text-danger d-none" id="Program">Please Select Program</span>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="hidden" id="hdnid" value="" />
-                                <label>Select Branch<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlbranch" required>
-                                </select>
-                                <span class="text-danger d-none" id="branchv">Please Select Branch</span>
-                            </div>
-                            <div class="col-sm-2">
-                                <label>Select Year<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlyear" onchange="BindSubject()" required>
-                                    <option value="">-- Select Year --</option>
-                                    <option value="1">First Year </option>
-                                    <option value="2">Second Year</option>
-                                    <option value="3">Final Year </option>
-                                </select>
-                                <span class="text-danger d-none" id="yearv">Please Select Year</span>
-                            </div>
-                            <div class="col-sm-2">
-                                <label>Select Subject<span style="color:red;">*</span></label>
-                                <select class="form-control" id="ddlsubject" required>
-                                    <option value="">-- Select Subject --</option>
+                    <div class="col-sm-2">
+                        <input type="hidden" id="hdnid" value="" />
+                        <label>Select Branch<span style="color:red;">*</span></label>
+                        <select class="form-control" id="ddlbranch" required>
+                        </select>
+                        <span class="text-danger d-none" id="branchv">Please Select Branch</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Select Year<span style="color:red;">*</span></label>
+                        <select class="form-control" id="ddlyear" onchange="BindSubject()" required>
+                            <option value="">-- Select Year --</option>
+                            <option value="1">First Year </option>
+                            <option value="2">Second Year</option>
+                            <option value="3">Final Year </option>
+                        </select>
+                        <span class="text-danger d-none" id="yearv">Please Select Year</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Select Subject<span style="color:red;">*</span></label>
+                        <select class="form-control" id="ddlsubject" required>
+                            <option value="">-- Select Subject --</option>
 
-                                </select>
-                                <span class="text-danger d-none" id="subjectv">Please Select Subject</span>
-                            </div>
-                            <div class="col-sm-2">
-                                <label>Video Lecture<span style="color:red;">*</span></label>
-                                <input type="text" class="form-control" id="txturl" placeholder="Video Url" required />
-                                <span class="text-danger d-none" id="txturlsm">Please Enter URL</span>
-                                <span class="text-danger d-none" id="txturlsmv">Please Enter YouTube Embeded Code</span>
-                            </div>
-                            <div class="col-sm-2" style="padding-top: 27px;">
-                                <button class="btn btn-outline-primary" id="btnsubmit" onclick="savedata()" >Save</button>
-                            </div>
-                        </div>
-                        <div class="table-responsive table-striped" style="margin-top:13px;">
-                            <table class="table mb-0" id="tblvideoUrl">
-                                <thead class="bg-primary">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Program</th>
-                                        <th>Branch</th>
-                                        <th>Year</th>
-                                        <th>Subject</th>
-                                        <th>Video</th>
-                                        <th>Assign Date</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+                        </select>
+                        <span class="text-danger d-none" id="subjectv">Please Select Subject</span>
                     </div>
+                    <div class="col-sm-2">
+                        <label>Video Lecture<span style="color:red;">*</span></label>
+                        <input type="text" class="form-control" id="txturl" placeholder="Video Url" required />
+                        <span class="text-danger d-none" id="txturlsm">Please Enter URL</span>
+                        <span class="text-danger d-none" id="txturlsmv">Please Enter YouTube Embeded Code</span>
+                    </div>
+                    <div class="col-sm-2" style="padding-top: 27px;">
+                        <button class="btn btn-outline-primary" id="btnsubmit" onclick="savedata()">Save</button>
+                    </div>
+                </div>
+                <div class="table-responsive table-striped" style="margin-top:13px;">
+                    <table class="table mb-0" id="tblvideoUrl">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th>#</th>
+                                <th>Program</th>
+                                <th>Branch</th>
+                                <th>Year</th>
+                                <th>Subject</th>
+                                <th>Video</th>
+                                <th>Assign Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
         </div>

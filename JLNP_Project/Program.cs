@@ -9,7 +9,7 @@ using JLNP_Project.AppCode.Midlelayer;
 using Microsoft.AspNetCore.Authentication.Cookies;
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 //builder.Services.AddControllers(option =>
 //{
 //    option.Filters.Add(new CheckUserNameFilter());
@@ -22,6 +22,9 @@ builder.Services.AddScoped<IQrCodeService, QrCodeService>();
 builder.Services.AddScoped<IRequestInfo, RequestInfo>();
 builder.Services.AddScoped<IUploadImageService, UploadImageService>();
 builder.Services.AddScoped<IAdmissionService, AdmissionService>();
+builder.Services.AddScoped<IChatService, ChatService>();
+builder.Services.AddScoped<IChatHub, ChatHub>();
+builder.Services.AddSignalR();
 builder.Services.AddSession(options => {
     options.Cookie.IsEssential = true;
     options.IdleTimeout = TimeSpan.FromMinutes(AppConsts.SessionTime);
@@ -56,7 +59,11 @@ app.UseRouting();
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllerRoute(
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<ChatHub>("/chatHub");
+    app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=Login}/{id?}");
+});
 app.Run();
