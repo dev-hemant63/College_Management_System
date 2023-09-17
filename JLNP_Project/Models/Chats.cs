@@ -8,6 +8,7 @@
     }
     public class GetChats: Chats
     {
+        public int Id { get; set; }
         public string SenderName { get; set; }
         public string ReciverName { get; set; }
         public string Pic { get; set; }
@@ -19,5 +20,10 @@
     {
         public List<GetChats> Chats { get; set; }
         public int UserId { get; set; }
+    }
+    public class GetChatsRequest
+    {
+        public int UserId { get; set; }
+        public int LoginId { get; set; }
     }
 }

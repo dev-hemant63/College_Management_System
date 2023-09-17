@@ -235,29 +235,7 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <ul class="todo-list ui-sortable" data-widget="todo-list">
-                            <li>
-                                <span class="handle ui-sortable-handle">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </span>
-                                <div class="icheck-primary d-inline ml-2">
-                                    <input type="radio" value="2" class="userchat" name="todo1" id="todoCheck1">
-                                    <label for="todoCheck1"></label>
-                                </div>
-                                <span class="text">User 1</span>
-                            </li>
-                            <li>
-                                <span class="handle ui-sortable-handle">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </span>
-                                <div class="icheck-primary d-inline ml-2">
-                                    <input type="radio" value="3" class="userchat" name="todo1" id="todoCheck2">
-                                    <label for="todoCheck2"></label>
-                                </div>
-                                <span class="text">User 2</span>
-                            </li>
+                        <ul class="todo-list ui-sortable" data-widget="todo-list" id="users">
                         </ul>
                     </div>
                 </div>
@@ -268,19 +246,8 @@
 <script>
     $(document).ready(function() {
         loadChats(0);
+        userList();
     })
-    var loadChats = (userId) => {
-        $.post('/Chat/GetChats', { userId: userId }).done((response) => {
-            $('#chatDiv').empty();
-            $('#chatDiv').html(response);
-        }).fail((xhr) => {
-            alertnotify(-1, 'Server error in loading chat!');
-        });
-    }
-    $('.userchat').unbind().click(function() {
-        let userid = $(this).val();
-        loadChats(userid);
-    });
     var sendMessage = () =>{
         let obj = {
             ReceiverId:$('#userId').val(),
@@ -289,8 +256,16 @@
         $.post('/Chat/SendMessage', obj).done((response) => {
             alertnotify(response.statuscode, response.msg);
             if(response.statuscode == 1){
+                $('#message').val('');
                 loadChats($('#userId').val());
             }
+        }).fail((xhr) => {
+            alertnotify(-1, 'Server error in loading chat!');
+        });
+    }
+    var userList = () =>{
+        $.post('/Chat/GetUserForChat').done((response) => {
+            $('#users').html(response);
         }).fail((xhr) => {
             alertnotify(-1, 'Server error in loading chat!');
         });

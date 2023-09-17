@@ -37,11 +37,11 @@ namespace CollageERP.Controllers
                 Chats = new List<GetChats>(),
                 UserId = userId,
             };
-            if (userId == 0)
+            res.Chats = await _chatService.GetChats(new GetChatsRequest
             {
-                userId = _lr.UserId;
-            }
-            res.Chats = await _chatService.GetChats(userId);
+                LoginId = _lr.UserId,
+                UserId = userId
+            });
             return PartialView(res);
         }
         [HttpPost]
@@ -51,10 +51,21 @@ namespace CollageERP.Controllers
             var response = await _chatService.SendMessage(chats);
             if(_lr.UserId == chats.SenderId || _lr.UserId == chats.ReceiverId)
             {
-                var chatlist = await _chatService.GetChats(_lr.UserId);
+                var chatlist = await _chatService.GetChats(new GetChatsRequest
+                {
+                    LoginId = _lr.UserId,
+                    UserId = chats.ReceiverId
+                });
+                chatlist = chatlist.Where(x => x.Id == response.LoginTypeId).ToList();
                 _hub.Clients.All.SendAsync("ReceiveMessage", JsonConvert.SerializeObject(new { UserId = _lr.UserId }), JsonConvert.SerializeObject(chatlist));
             }
             return Json(response);
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetUserForChat()
+        {
+            var list = await _chatService.GetUserForChat(_lr.UserId);
+            return PartialView(list);
         }
     }
 }
