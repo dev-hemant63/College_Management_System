@@ -98,133 +98,128 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Monthly Recap Report</h5>
+            <section class="col-lg-7 connectedSortable ui-sortable">
+                <div class="card text-white bg-warning mb-3">
+                    <h3 class="card-header"><b>Notifications</b></h3>
+                    <div class="card-body">
+                        <marquee width="40%" direction="up" height="30%" onmouseover="this.stop();" onmouseout="this.start();">
+                            <h2 class="card-title"><b><i class="fa fa-hand-o-right" aria-hidden="true"></i> Warning card title</b></h2>
+                            <p class="card-text" style="animation: marquee 3s linear infinite;"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </marquee>
+                    </div>
+                </div>
+                <div class="card direct-chat direct-chat-primary">
+                    <div class="card-header ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title">Direct Chat</h3>
                         <div class="card-tools">
+                            @*<span title="3 New Messages" class="badge badge-primary">3</span>*@
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fas fa-wrench"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                    <a href="#" class="dropdown-item">Action</a>
-                                    <a href="#" class="dropdown-item">Another action</a>
-                                    <a href="#" class="dropdown-item">Something else here</a>
-                                    <a class="dropdown-divider"></a>
-                                    <a href="#" class="dropdown-item">Separated link</a>
-                                </div>
-                            </div>
+                            <button type="button" class="btn btn-tool" title="Contacts" data-widget="chat-pane-toggle">
+                                <i class="fas fa-comments"></i>
+                            </button>
                             <button type="button" class="btn btn-tool" data-card-widget="remove">
                                 <i class="fas fa-times"></i>
                             </button>
                         </div>
                     </div>
 
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <p class="text-center">
-                                    <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                                </p>
-                                <div class="chart">
-                                    <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-
-                                    <canvas id="salesChart" height="180" style="height: 180px; display: block; width: 680px;" width="680" class="chartjs-render-monitor"></canvas>
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-4">
-                                <p class="text-center">
-                                    <strong>Goal Completion</strong>
-                                </p>
-                                <div class="progress-group">
-                                    Add Products to Cart
-                                    <span class="float-right"><b>160</b>/200</span>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-primary" style="width: 80%"></div>
-                                    </div>
-                                </div>
-
-                                <div class="progress-group">
-                                    Complete Purchase
-                                    <span class="float-right"><b>310</b>/400</span>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-danger" style="width: 75%"></div>
-                                    </div>
-                                </div>
-
-                                <div class="progress-group">
-                                    <span class="progress-text">Visit Premium Page</span>
-                                    <span class="float-right"><b>480</b>/800</span>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-success" style="width: 60%"></div>
-                                    </div>
-                                </div>
-
-                                <div class="progress-group">
-                                    Send Inquiries
-                                    <span class="float-right"><b>250</b>/500</span>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-warning" style="width: 50%"></div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
+                    <div class="card-body" id="chatDiv">
                     </div>
 
                     <div class="card-footer">
-                        <div class="row">
-                            <div class="col-sm-3 col-6">
-                                <div class="description-block border-right">
-                                    <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>
-                                    <h5 class="description-header">$35,210.43</h5>
-                                    <span class="description-text">TOTAL REVENUE</span>
-                                </div>
-
+                        <form action="#" method="post">
+                            <div class="input-group">
+                                <input type="text" name="message" id="message" placeholder="Type Message ..." class="form-control">
+                                <span class="input-group-append">
+                                    <button type="button" class="btn btn-primary" onclick="sendMessage()">Send</button>
+                                </span>
                             </div>
+                        </form>
+                    </div>
 
-                            <div class="col-sm-3 col-6">
-                                <div class="description-block border-right">
-                                    <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
-                                    <h5 class="description-header">$10,390.90</h5>
-                                    <span class="description-text">TOTAL COST</span>
+                </div>
+            </section>
+            <section class="col-lg-5 connectedSortable ui-sortable">
+                <div class="card bg-gradient-success">
+                    <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title">
+                            <i class="far fa-calendar-alt"></i>
+                            Calendar
+                        </h3>
+
+                        <div class="card-tools">
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
+                                    <i class="fas fa-bars"></i>
+                                </button>
+                                <div class="dropdown-menu" role="menu">
+                                    <a href="#" class="dropdown-item">Add new event</a>
+                                    <a href="#" class="dropdown-item">Clear events</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="#" class="dropdown-item">View calendar</a>
                                 </div>
-
                             </div>
-
-                            <div class="col-sm-3 col-6">
-                                <div class="description-block border-right">
-                                    <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
-                                    <h5 class="description-header">$24,813.53</h5>
-                                    <span class="description-text">TOTAL PROFIT</span>
-                                </div>
-
-                            </div>
-
-                            <div class="col-sm-3 col-6">
-                                <div class="description-block">
-                                    <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span>
-                                    <h5 class="description-header">1200</h5>
-                                    <span class="description-text">GOAL COMPLETIONS</span>
-                                </div>
-
-                            </div>
+                            <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
                         </div>
 
                     </div>
 
+                    <div class="card-body pt-0">
+
+                        <div id="calendar" style="width: 100%"><div class="bootstrap-datetimepicker-widget usetwentyfour"><ul class="list-unstyled"><li class="show"><div class="datepicker"><div class="datepicker-days" style=""><table class="table table-sm"><thead><tr><th class="prev" data-action="previous"><span class="fa fa-chevron-left" title="Previous Month"></span></th><th class="picker-switch" data-action="pickerSwitch" colspan="5" title="Select Month">September 2023</th><th class="next" data-action="next"><span class="fa fa-chevron-right" title="Next Month"></span></th></tr><tr><th class="dow">Su</th><th class="dow">Mo</th><th class="dow">Tu</th><th class="dow">We</th><th class="dow">Th</th><th class="dow">Fr</th><th class="dow">Sa</th></tr></thead><tbody><tr><td data-action="selectDay" data-day="08/27/2023" class="day old weekend">27</td><td data-action="selectDay" data-day="08/28/2023" class="day old">28</td><td data-action="selectDay" data-day="08/29/2023" class="day old">29</td><td data-action="selectDay" data-day="08/30/2023" class="day old">30</td><td data-action="selectDay" data-day="08/31/2023" class="day old">31</td><td data-action="selectDay" data-day="09/01/2023" class="day">1</td><td data-action="selectDay" data-day="09/02/2023" class="day weekend">2</td></tr><tr><td data-action="selectDay" data-day="09/03/2023" class="day weekend">3</td><td data-action="selectDay" data-day="09/04/2023" class="day">4</td><td data-action="selectDay" data-day="09/05/2023" class="day">5</td><td data-action="selectDay" data-day="09/06/2023" class="day">6</td><td data-action="selectDay" data-day="09/07/2023" class="day">7</td><td data-action="selectDay" data-day="09/08/2023" class="day">8</td><td data-action="selectDay" data-day="09/09/2023" class="day active today weekend">9</td></tr><tr><td data-action="selectDay" data-day="09/10/2023" class="day weekend">10</td><td data-action="selectDay" data-day="09/11/2023" class="day">11</td><td data-action="selectDay" data-day="09/12/2023" class="day">12</td><td data-action="selectDay" data-day="09/13/2023" class="day">13</td><td data-action="selectDay" data-day="09/14/2023" class="day">14</td><td data-action="selectDay" data-day="09/15/2023" class="day">15</td><td data-action="selectDay" data-day="09/16/2023" class="day weekend">16</td></tr><tr><td data-action="selectDay" data-day="09/17/2023" class="day weekend">17</td><td data-action="selectDay" data-day="09/18/2023" class="day">18</td><td data-action="selectDay" data-day="09/19/2023" class="day">19</td><td data-action="selectDay" data-day="09/20/2023" class="day">20</td><td data-action="selectDay" data-day="09/21/2023" class="day">21</td><td data-action="selectDay" data-day="09/22/2023" class="day">22</td><td data-action="selectDay" data-day="09/23/2023" class="day weekend">23</td></tr><tr><td data-action="selectDay" data-day="09/24/2023" class="day weekend">24</td><td data-action="selectDay" data-day="09/25/2023" class="day">25</td><td data-action="selectDay" data-day="09/26/2023" class="day">26</td><td data-action="selectDay" data-day="09/27/2023" class="day">27</td><td data-action="selectDay" data-day="09/28/2023" class="day">28</td><td data-action="selectDay" data-day="09/29/2023" class="day">29</td><td data-action="selectDay" data-day="09/30/2023" class="day weekend">30</td></tr><tr><td data-action="selectDay" data-day="10/01/2023" class="day new weekend">1</td><td data-action="selectDay" data-day="10/02/2023" class="day new">2</td><td data-action="selectDay" data-day="10/03/2023" class="day new">3</td><td data-action="selectDay" data-day="10/04/2023" class="day new">4</td><td data-action="selectDay" data-day="10/05/2023" class="day new">5</td><td data-action="selectDay" data-day="10/06/2023" class="day new">6</td><td data-action="selectDay" data-day="10/07/2023" class="day new weekend">7</td></tr></tbody></table></div><div class="datepicker-months" style="display: none;"><table class="table-condensed"><thead><tr><th class="prev" data-action="previous"><span class="fa fa-chevron-left" title="Previous Year"></span></th><th class="picker-switch" data-action="pickerSwitch" colspan="5" title="Select Year">2023</th><th class="next" data-action="next"><span class="fa fa-chevron-right" title="Next Year"></span></th></tr></thead><tbody><tr><td colspan="7"><span data-action="selectMonth" class="month">Jan</span><span data-action="selectMonth" class="month">Feb</span><span data-action="selectMonth" class="month">Mar</span><span data-action="selectMonth" class="month">Apr</span><span data-action="selectMonth" class="month">May</span><span data-action="selectMonth" class="month">Jun</span><span data-action="selectMonth" class="month">Jul</span><span data-action="selectMonth" class="month">Aug</span><span data-action="selectMonth" class="month active">Sep</span><span data-action="selectMonth" class="month">Oct</span><span data-action="selectMonth" class="month">Nov</span><span data-action="selectMonth" class="month">Dec</span></td></tr></tbody></table></div><div class="datepicker-years" style="display: none;"><table class="table-condensed"><thead><tr><th class="prev" data-action="previous"><span class="fa fa-chevron-left" title="Previous Decade"></span></th><th class="picker-switch" data-action="pickerSwitch" colspan="5" title="Select Decade">2020-2029</th><th class="next" data-action="next"><span class="fa fa-chevron-right" title="Next Decade"></span></th></tr></thead><tbody><tr><td colspan="7"><span data-action="selectYear" class="year old">2019</span><span data-action="selectYear" class="year">2020</span><span data-action="selectYear" class="year">2021</span><span data-action="selectYear" class="year">2022</span><span data-action="selectYear" class="year active">2023</span><span data-action="selectYear" class="year">2024</span><span data-action="selectYear" class="year">2025</span><span data-action="selectYear" class="year">2026</span><span data-action="selectYear" class="year">2027</span><span data-action="selectYear" class="year">2028</span><span data-action="selectYear" class="year">2029</span><span data-action="selectYear" class="year old">2030</span></td></tr></tbody></table></div><div class="datepicker-decades" style="display: none;"><table class="table-condensed"><thead><tr><th class="prev" data-action="previous"><span class="fa fa-chevron-left" title="Previous Century"></span></th><th class="picker-switch" data-action="pickerSwitch" colspan="5">2000-2090</th><th class="next" data-action="next"><span class="fa fa-chevron-right" title="Next Century"></span></th></tr></thead><tbody><tr><td colspan="7"><span data-action="selectDecade" class="decade old" data-selection="2006">1990</span><span data-action="selectDecade" class="decade" data-selection="2006">2000</span><span data-action="selectDecade" class="decade" data-selection="2016">2010</span><span data-action="selectDecade" class="decade active" data-selection="2026">2020</span><span data-action="selectDecade" class="decade" data-selection="2036">2030</span><span data-action="selectDecade" class="decade" data-selection="2046">2040</span><span data-action="selectDecade" class="decade" data-selection="2056">2050</span><span data-action="selectDecade" class="decade" data-selection="2066">2060</span><span data-action="selectDecade" class="decade" data-selection="2076">2070</span><span data-action="selectDecade" class="decade" data-selection="2086">2080</span><span data-action="selectDecade" class="decade" data-selection="2096">2090</span><span data-action="selectDecade" class="decade old" data-selection="2106">2100</span></td></tr></tbody></table></div></div></li><li class="picker-switch accordion-toggle"></li></ul></div></div>
+                    </div>
+
                 </div>
-
-            </div>
-
+                <div class="card">
+                    <div class="card-header ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title">
+                            <i class="ion ion-clipboard mr-1"></i>
+                            Users
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="todo-list ui-sortable" data-widget="todo-list" id="users">
+                        </ul>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 </section>
+<script>
+    $(document).ready(function() {
+        loadChats(0);
+        userList();
+    })
+    
+    var sendMessage = () =>{
+        let obj = {
+            ReceiverId:$('#userId').val(),
+            Message:$('#message').val()
+        }
+        $.post('/Chat/SendMessage', obj).done((response) => {
+            alertnotify(response.statuscode, response.msg);
+            if(response.statuscode == 1){
+                $('#message').val('');
+                loadChats($('#userId').val());
+            }
+        }).fail((xhr) => {
+            alertnotify(-1, 'Server error in loading chat!');
+        });
+    }
+    var userList = () =>{
+        $.post('/Chat/GetUserForChat').done((response) => {
+            $('#users').html(response);
+        }).fail((xhr) => {
+            alertnotify(-1, 'Server error in loading chat!');
+        });
+    }
+</script>

@@ -1,0 +1,26 @@
+﻿@model List<LoginInfo>
+@{
+    if (Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <li>
+                <span class="handle ui-sortable-handle">
+                    <i class="fas fa-ellipsis-v"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                </span>
+                <div class="icheck-primary d-inline ml-2">
+                    <input type="radio" value="@item.UserId" class="userchat" name="todo1" id="todoCheck_@item.UserId">
+                    <label for="todoCheck_@item.UserId"></label>
+                </div>
+                <span class="text">@item.Name</span>
+            </li>
+        }
+    }
+}
+<script>
+    $('.userchat').unbind().click(function() {
+        let userid = $(this).val();
+        loadChats(userid);
+    });
+</script>

@@ -9,5 +9,14 @@ connection.start().then(() => {
 });
 
 connection.on("ReceiveMessage", (user, message) => {
-    console.log(`chat hub =  ${user}: ${message}`);
+    let response = JSON.parse(user);
+    loadChats(response.UserId);
 });
+var loadChats = (userId) => {
+    $.post('/Chat/GetChats', { userId: userId }).done((response) => {
+        $('#chatDiv').empty();
+        $('#chatDiv').html(response);
+    }).fail((xhr) => {
+        alertnotify(-1, 'Server error in loading chat!');
+    });
+}
