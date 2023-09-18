@@ -247,7 +247,12 @@
     $(document).ready(function() {
         loadChats(0);
         userList();
+        scrollToBottom();
     })
+    function scrollToBottom() {
+        var container = document.getElementById('message');
+        container.scrollTop = container.scrollHeight;
+    }
     var sendMessage = () =>{
         let obj = {
             ReceiverId:$('#userId').val(),
