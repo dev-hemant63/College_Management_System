@@ -16,7 +16,12 @@ var loadChats = (userId) => {
     $.post('/Chat/GetChats', { userId: userId }).done((response) => {
         $('#chatDiv').empty();
         $('#chatDiv').html(response);
+        scrollToBottom();
     }).fail((xhr) => {
         alertnotify(-1, 'Server error in loading chat!');
     });
+}
+function scrollToBottom() {
+    var container = document.getElementById('chatDiv');
+    container.scrollTop = container.scrollHeight;
 }
