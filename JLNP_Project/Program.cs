@@ -10,10 +10,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
-//builder.Services.AddControllers(option =>
-//{
-//    option.Filters.Add(new CheckUserNameFilter());
-//});
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IExamination, Examination>();
 builder.Services.AddScoped<IDBHelper, DBHelper>();
