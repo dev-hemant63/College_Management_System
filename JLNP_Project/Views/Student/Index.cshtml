@@ -1,194 +1,225 @@
-﻿@{
-    Layout = "_LayoutStudent";
+﻿@model JLNP_Project.Models.SubjectMaster
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using JLNP_Project.AppCode.Helper
+@inject IHttpContextAccessor accessor
+@{
+    var userdata = new LoginInfo();
+    var IsSession = false;
+    if (accessor.HttpContext.Session.GetString(AppConsts.AppSession) != null)
+    {
+        userdata = JsonConvert.DeserializeObject<LoginInfo>(accessor.HttpContext.Session.GetString(AppConsts.AppSession));
+        IsSession = true;
+    }
+
 }
-@model StudentInfo
-<style>
-    marquee{
-             font-size: 18px;
-        font-weight: 300;
-        color: black;
-        font-family: sans-serif;
-          }
-</style>
-<div>
+<div class="content-header">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="page-title-box bgred">
-                    <div class="float-right hide-phone">
-                    </div>
-                    <h4 class="page-title">Wellcome  @Model.Name</h4>
-                </div>
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Dashboard</h1>
             </div>
-        </div>
-        <marquee><span id="impnotify"></span></marquee>
-        <div class="row">
-
-            <!-- end col -->
-            <div class="col-xl-4 col-sm-12 col-md-4">
-                <div class="card-box widget-box-two widget-two-custom B1">
-                    <div class="media">
-                        <div class="avatar-lg rounded-circle bg-primary widget-two-icon align-self-center">
-                            <i class="mdi mdi-account-multiple avatar-title font-30 text-white"></i>
-                        </div>
-                        <div class="wigdet-two-content media-body">
-                            <p class="m-0 text-uppercase font-weight-medium text-truncate" title="Statistics">Notification</p>
-                            <h3 class="font-weight-medium my-2">
-                                <span id="notifycount"></span>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Teacher</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
             </div>
-            <!-- end col -->
-            <div class="col-xl-4 col-sm-12 col-md-4">
-                <div class="card-box widget-box-two widget-two-custom B2">
-                    <div class="media">
-                        <div class="avatar-lg rounded-circle bg-primary widget-two-icon align-self-center">
-                            <i class="mdi mdi-crown avatar-title font-30 text-white"></i>
-                        </div>
-                        <div class="wigdet-two-content media-body">
-                            <p class="m-0 text-uppercase font-weight-medium text-truncate" title="Statistics">Events</p>
-                            <h3 class="font-weight-medium my-2">
-                            </h3>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end col -->
-            <div class="col-xl-4 col-sm-12 col-md-4">
-                <div class="card-box widget-box-two widget-two-custom B3">
-                    <div class="media">
-                        <div class="avatar-lg rounded-circle bg-primary widget-two-icon align-self-center">
-                            <i class="mdi mdi-auto-fix  avatar-title font-30 text-white"></i>
-                        </div>
-                        <div class="wigdet-two-content media-body">
-                            <p class="m-0 text-uppercase font-weight-medium text-truncate" title="Statistics">Attendance</p>
-                            <h3 class="font-weight-medium my-2">
-                            </h3>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-4-xxxl col-12">
-                <div class="card dashboard-card-ten">
-                    <div class="card-body">
-                        <div class="heading-layout1">
-                            <div class="item-title">
-                                <h3>About Me</h3>
-                            </div>
-                        </div>
-                        <div class="student-info">
-                            <div class="media media-none--xs">
-                                <div class="item-img">
-                                    <img src="/Assessts3/images/userimg.png" width="72px" height="72px" class="media-img-auto" alt="student">
-                                </div>
-                                <div class="media-body">
-                                    <h3 class="item-title">@Model.Name</h3>
-                                    <p>
-                                        Aliquam erat volutpat. Curabiene natis massa
-                                        sedde lacustiquen sodale word moun taiery.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="table-responsive info-table">
-                                <table class="table text-nowrap">
-                                    <tbody>
-                                        <tr>
-                                            <th>Name:</th>
-                                            <td class="font-medium text-dark-medium">@Model.Name</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Gender:</th>
-                                            <td class="font-medium text-dark-medium">@Model.Gender</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Father Name:</th>
-                                            <td class="font-medium text-dark-medium">@Model.FatherName</td>
-                                        </tr>
-                                       @* <tr>
-                                            <td>Mother Name:</td>
-                                            <td class="font-medium text-dark-medium">@Model.MotherName</td>
-                                        </tr>*@
-                                        <tr>
-                                            <th>Date Of Birth:</th>
-                                            <td class="font-medium text-dark-medium">@Model.DOB</td>
-                                        </tr>
-                                        @*<tr>
-                                            <td>Religion:</td>
-                                            <td class="font-medium text-dark-medium">@Model.Religion</td>
-                                        </tr>*@
-                                        @*<tr>
-                                            <td>Father Occupation:</td>
-                                            <td class="font-medium text-dark-medium">@Model.FatherOccupation</td>
-                                        </tr>*@
-                                        <tr>
-                                            <th>E-Mail:</th>
-                                            <td class="font-medium text-dark-medium">@Model.EMail</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Admission Date:</th>
-                                            <td class="font-medium text-dark-medium">@Model.AdmissionDate</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Branch:</th>
-                                            <td class="font-medium text-dark-medium">@Model.Branch</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Year:</th>
-                                            <td class="font-medium text-dark-medium">@Model.Year</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Enrollment:</th>
-                                            <td class="font-medium text-dark-medium">@Model.EnrollmentNO</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Adress:</th>
-                                            <td class="font-medium text-dark-medium">@Model.Adress</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Phone:</td>
-                                            <td class="font-medium text-dark-medium">@Model.Phone</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="notify"></div>
         </div>
     </div>
 </div>
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">CPU Traffic</span>
+                        <span class="info-box-number">
+                            10
+                            <small>%</small>
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Likes</span>
+                        <span class="info-box-number">41,410</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="clearfix hidden-md-up"></div>
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Sales</span>
+                        <span class="info-box-number">760</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">New Members</span>
+                        <span class="info-box-number">2,000</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="col-lg-12">
+            <div class="input-group mb-3 mt-3">
+                <div class="input-group-prepend" style="border:1px solid #eee">
+                    <span class="input-group-text" style="background: #a70a0a;border: #a70a0a;    color: #fff;">News</span>
+                    <marquee direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();" class="center marqueetext">
+                        Bharat Mata Ki Jay,Jai Shree Rama
+                    </marquee>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <section class="col-lg-7 connectedSortable ui-sortable">
+                <div class="card text-white bg-warning mb-3">
+                    <h3 class="card-header"><b>Notifications</b></h3>
+                    <div class="card-body">
+                        <marquee width="40%" direction="up" height="30%" onmouseover="this.stop();" onmouseout="this.start();">
+                            <h2 class="card-title"><b><i class="fa fa-hand-o-right" aria-hidden="true"></i> Warning card title</b></h2>
+                            <p class="card-text" style="animation: marquee 3s linear infinite;"><i class="fa fa-dot-circle-o" aria-hidden="true"></i> Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </marquee>
+                    </div>
+                </div>
+                <div class="card direct-chat direct-chat-primary">
+                    <div class="card-header ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title">Direct Chat</h3>
+                        <div class="card-tools">
+                            @*<span title="3 New Messages" class="badge badge-primary">3</span>*@
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" title="Contacts" data-widget="chat-pane-toggle">
+                                <i class="fas fa-comments"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-body" id="chatDiv">
+                    </div>
+
+                    <div class="card-footer">
+                        <form action="#" method="post">
+                            <div class="input-group">
+                                <input type="text" name="message" id="message" placeholder="Type Message ..." class="form-control">
+                                <span class="input-group-append">
+                                    <button type="button" class="btn btn-primary" onclick="sendMessage()">Send</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </section>
+            <section class="col-lg-5 connectedSortable ui-sortable">
+                <div class="card bg-gradient-success">
+                    <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title">
+                            <i class="far fa-calendar-alt"></i>
+                            Calendar
+                        </h3>
+
+                        <div class="card-tools">
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
+                                    <i class="fas fa-bars"></i>
+                                </button>
+                                <div class="dropdown-menu" role="menu">
+                                    <a href="#" class="dropdown-item">Add new event</a>
+                                    <a href="#" class="dropdown-item">Clear events</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="#" class="dropdown-item">View calendar</a>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="card-body pt-0">
+
+                        <div id="calendar" style="width: 100%"><div class="bootstrap-datetimepicker-widget usetwentyfour"><ul class="list-unstyled"><li class="show"><div class="datepicker"><div class="datepicker-days" style=""><table class="table table-sm"><thead><tr><th class="prev" data-action="previous"><span class="fa fa-chevron-left" title="Previous Month"></span></th><th class="picker-switch" data-action="pickerSwitch" colspan="5" title="Select Month">September 2023</th><th class="next" data-action="next"><span class="fa fa-chevron-right" title="Next Month"></span></th></tr><tr><th class="dow">Su</th><th class="dow">Mo</th><th class="dow">Tu</th><th class="dow">We</th><th class="dow">Th</th><th class="dow">Fr</th><th class="dow">Sa</th></tr></thead><tbody><tr><td data-action="selectDay" data-day="08/27/2023" class="day old weekend">27</td><td data-action="selectDay" data-day="08/28/2023" class="day old">28</td><td data-action="selectDay" data-day="08/29/2023" class="day old">29</td><td data-action="selectDay" data-day="08/30/2023" class="day old">30</td><td data-action="selectDay" data-day="08/31/2023" class="day old">31</td><td data-action="selectDay" data-day="09/01/2023" class="day">1</td><td data-action="selectDay" data-day="09/02/2023" class="day weekend">2</td></tr><tr><td data-action="selectDay" data-day="09/03/2023" class="day weekend">3</td><td data-action="selectDay" data-day="09/04/2023" class="day">4</td><td data-action="selectDay" data-day="09/05/2023" class="day">5</td><td data-action="selectDay" data-day="09/06/2023" class="day">6</td><td data-action="selectDay" data-day="09/07/2023" class="day">7</td><td data-action="selectDay" data-day="09/08/2023" class="day">8</td><td data-action="selectDay" data-day="09/09/2023" class="day active today weekend">9</td></tr><tr><td data-action="selectDay" data-day="09/10/2023" class="day weekend">10</td><td data-action="selectDay" data-day="09/11/2023" class="day">11</td><td data-action="selectDay" data-day="09/12/2023" class="day">12</td><td data-action="selectDay" data-day="09/13/2023" class="day">13</td><td data-action="selectDay" data-day="09/14/2023" class="day">14</td><td data-action="selectDay" data-day="09/15/2023" class="day">15</td><td data-action="selectDay" data-day="09/16/2023" class="day weekend">16</td></tr><tr><td data-action="selectDay" data-day="09/17/2023" class="day weekend">17</td><td data-action="selectDay" data-day="09/18/2023" class="day">18</td><td data-action="selectDay" data-day="09/19/2023" class="day">19</td><td data-action="selectDay" data-day="09/20/2023" class="day">20</td><td data-action="selectDay" data-day="09/21/2023" class="day">21</td><td data-action="selectDay" data-day="09/22/2023" class="day">22</td><td data-action="selectDay" data-day="09/23/2023" class="day weekend">23</td></tr><tr><td data-action="selectDay" data-day="09/24/2023" class="day weekend">24</td><td data-action="selectDay" data-day="09/25/2023" class="day">25</td><td data-action="selectDay" data-day="09/26/2023" class="day">26</td><td data-action="selectDay" data-day="09/27/2023" class="day">27</td><td data-action="selectDay" data-day="09/28/2023" class="day">28</td><td data-action="selectDay" data-day="09/29/2023" class="day">29</td><td data-action="selectDay" data-day="09/30/2023" class="day weekend">30</td></tr><tr><td data-action="selectDay" data-day="10/01/2023" class="day new weekend">1</td><td data-action="selectDay" data-day="10/02/2023" class="day new">2</td><td data-action="selectDay" data-day="10/03/2023" class="day new">3</td><td data-action="selectDay" data-day="10/04/2023" class="day new">4</td><td data-action="selectDay" data-day="10/05/2023" class="day new">5</td><td data-action="selectDay" data-day="10/06/2023" class="day new">6</td><td data-action="selectDay" data-day="10/07/2023" class="day new weekend">7</td></tr></tbody></table></div><div class="datepicker-months" style="display: none;"><table class="table-condensed"><thead><tr><th class="prev" data-action="previous"><span class="fa fa-chevron-left" title="Previous Year"></span></th><th class="picker-switch" data-action="pickerSwitch" colspan="5" title="Select Year">2023</th><th class="next" data-action="next"><span class="fa fa-chevron-right" title="Next Year"></span></th></tr></thead><tbody><tr><td colspan="7"><span data-action="selectMonth" class="month">Jan</span><span data-action="selectMonth" class="month">Feb</span><span data-action="selectMonth" class="month">Mar</span><span data-action="selectMonth" class="month">Apr</span><span data-action="selectMonth" class="month">May</span><span data-action="selectMonth" class="month">Jun</span><span data-action="selectMonth" class="month">Jul</span><span data-action="selectMonth" class="month">Aug</span><span data-action="selectMonth" class="month active">Sep</span><span data-action="selectMonth" class="month">Oct</span><span data-action="selectMonth" class="month">Nov</span><span data-action="selectMonth" class="month">Dec</span></td></tr></tbody></table></div><div class="datepicker-years" style="display: none;"><table class="table-condensed"><thead><tr><th class="prev" data-action="previous"><span class="fa fa-chevron-left" title="Previous Decade"></span></th><th class="picker-switch" data-action="pickerSwitch" colspan="5" title="Select Decade">2020-2029</th><th class="next" data-action="next"><span class="fa fa-chevron-right" title="Next Decade"></span></th></tr></thead><tbody><tr><td colspan="7"><span data-action="selectYear" class="year old">2019</span><span data-action="selectYear" class="year">2020</span><span data-action="selectYear" class="year">2021</span><span data-action="selectYear" class="year">2022</span><span data-action="selectYear" class="year active">2023</span><span data-action="selectYear" class="year">2024</span><span data-action="selectYear" class="year">2025</span><span data-action="selectYear" class="year">2026</span><span data-action="selectYear" class="year">2027</span><span data-action="selectYear" class="year">2028</span><span data-action="selectYear" class="year">2029</span><span data-action="selectYear" class="year old">2030</span></td></tr></tbody></table></div><div class="datepicker-decades" style="display: none;"><table class="table-condensed"><thead><tr><th class="prev" data-action="previous"><span class="fa fa-chevron-left" title="Previous Century"></span></th><th class="picker-switch" data-action="pickerSwitch" colspan="5">2000-2090</th><th class="next" data-action="next"><span class="fa fa-chevron-right" title="Next Century"></span></th></tr></thead><tbody><tr><td colspan="7"><span data-action="selectDecade" class="decade old" data-selection="2006">1990</span><span data-action="selectDecade" class="decade" data-selection="2006">2000</span><span data-action="selectDecade" class="decade" data-selection="2016">2010</span><span data-action="selectDecade" class="decade active" data-selection="2026">2020</span><span data-action="selectDecade" class="decade" data-selection="2036">2030</span><span data-action="selectDecade" class="decade" data-selection="2046">2040</span><span data-action="selectDecade" class="decade" data-selection="2056">2050</span><span data-action="selectDecade" class="decade" data-selection="2066">2060</span><span data-action="selectDecade" class="decade" data-selection="2076">2070</span><span data-action="selectDecade" class="decade" data-selection="2086">2080</span><span data-action="selectDecade" class="decade" data-selection="2096">2090</span><span data-action="selectDecade" class="decade old" data-selection="2106">2100</span></td></tr></tbody></table></div></div></li><li class="picker-switch accordion-toggle"></li></ul></div></div>
+                    </div>
+
+                </div>
+                <div class="card">
+                    <div class="card-header ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title">
+                            <i class="ion ion-clipboard mr-1"></i>
+                            Users
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="todo-list ui-sortable" data-widget="todo-list" id="users">
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
 <script>
     $(document).ready(function() {
-        loadnotify();
-        loaddata();
-    });
-    var loadnotify = () => {
-        $.post('/Student/GetNotification').done(function(result) {
-            $('#notify').html(result);
-        }).fail(function(xhr) {
-            console.log(xhr.responseText);
+        loadChats(0);
+        userList();
+    })
+    
+    var sendMessage = () =>{
+        let obj = {
+            ReceiverId:$('#userId').val(),
+            Message:$('#message').val()
+        }
+        $.post('/Chat/SendMessage', obj).done((response) => {
+            alertnotify(response.statuscode, response.msg);
+            if(response.statuscode == 1){
+                $('#message').val('');
+                loadChats($('#userId').val());
+            }
+        }).fail((xhr) => {
+            alertnotify(-1, 'Server error in loading chat!');
         });
     }
-    var loaddata = () => {
-        $.post('/Student/GetStudentInfo').done(function(result) {
-            if (result.statuscode == 1) {
-                $('#impnotify').text(result.notificationDescription);
-                $('#notifycount').text(result.notifyCount);
-            }
-            else {
-                alert(result.msg);
-            }
-        }).fail(function(xhr) {
-            console.log(xhr.responseText);
+    var userList = () =>{
+        $.post('/Chat/GetUserForChat').done((response) => {
+            $('#users').html(response);
+        }).fail((xhr) => {
+            alertnotify(-1, 'Server error in loading chat!');
         });
     }
 </script>

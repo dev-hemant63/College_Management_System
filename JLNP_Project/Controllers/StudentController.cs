@@ -39,15 +39,10 @@ namespace JLNP_Project.Controllers
                 throw;
             }
         }
+        [HttpGet]
         public IActionResult Index()
         {
-            if (_lr.UserName != null)
-            {
-                IStudent ml = new StudentML();
-                var model = ml.GetStudentDetails(_lr.UserId);
-                return View(model);
-            }
-            return RedirectToAction("Login", "Account");
+            return View();
         }
         public IActionResult StudentProfile()
         {

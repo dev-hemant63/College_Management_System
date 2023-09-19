@@ -1,6 +1,6 @@
 ﻿USE [DB_CollageERP]
 GO
-/****** Object:  UserDefinedFunction [dbo].[CustomDate]    Script Date: 16-09-2023 18:30:51 ******/
+/****** Object:  UserDefinedFunction [dbo].[CustomDate]    Script Date: 9/19/2023 11:09:17 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19,7 +19,7 @@ BEGIN
     RETURN @customDate;
 END;
 GO
-/****** Object:  UserDefinedFunction [dbo].[fn_getgradebyexam]    Script Date: 16-09-2023 18:30:51 ******/
+/****** Object:  UserDefinedFunction [dbo].[fn_getgradebyexam]    Script Date: 9/19/2023 11:09:17 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35,7 +35,7 @@ Select @grade = GradeName from tbl_Grade where PrecentFrom >= @Precent and Prece
 return @grade  
 END
 GO
-/****** Object:  UserDefinedFunction [dbo].[GetUserName]    Script Date: 16-09-2023 18:30:51 ******/
+/****** Object:  UserDefinedFunction [dbo].[GetUserName]    Script Date: 9/19/2023 11:09:17 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
