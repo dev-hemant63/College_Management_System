@@ -80,6 +80,9 @@ namespace JLNP_Project.AppCode.DAL
                 res.DOB = Convert.ToString(dt.Rows[0]["DOB"].ToString());
                 res.FatherOccupation = Convert.ToString(dt.Rows[0]["FatherOccupation"].ToString());
                 res.MotherName = Convert.ToString(dt.Rows[0]["MotherName"].ToString());
+                res.BranchId = Convert.ToInt32(dt.Rows[0]["Branch"]);
+                res.Program = Convert.ToInt32(dt.Rows[0]["Program"]);
+                res.AdmissionType = Convert.ToInt32(dt.Rows[0]["AdmissionType"]);
             }
             return res;
         }

@@ -207,6 +207,10 @@
             $('#address').val(result.address);
             $('#fatheroccupation').val(result.fatherOccupation);
             $('#mothername').val(result.motherName);
+            $('#ddlprogram').val(result.program);
+            Bindbranch();
+            $('#ddlbranch').val(result.branchId);
+            $('#ddladdmission').val(result.admissionType);
         }).fail(function(xhr) {
             console.log(xhr.responseText);
             alert('Server Error');
