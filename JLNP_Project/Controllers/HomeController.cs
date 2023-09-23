@@ -17,10 +17,10 @@ namespace JLNP_Project.Controllers
         {
             _logger = logger;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
-                return View();
+            return View();
         }
         [Route("teacher")]
         public IActionResult teacher()

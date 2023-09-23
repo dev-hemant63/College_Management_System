@@ -1,419 +1,520 @@
 ﻿<!DOCTYPE html>
-<html lang="zxx">
+<html lang=en>
 
-<!-- Mirrored from templates.hibootstrap.com/sanu/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Apr 2023 18:41:40 GMT -->
+<!-- Mirrored from www.dpgpolytechnic.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 22 Aug 2023 12:25:38 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collage Management</title>
+<meta name="Keywords" content="JLN Polytechnic" />
+<meta name="Description" content="JLN Polytechnic" />
+<meta name="Abstract" content="JLN Polytechnic" /><meta name="subject" content="JLN Polytechnic">
+<meta name="Robots" content="index,follow" />
+<meta name="Coverage" content="Worldwide">
+<meta name="Distribution" content="Global" />
+<meta name="Revisit-After" content="2 days" />
+<meta name="Rating" content="General" />
+<meta name="url" content="index.html">
+<meta name="Identifier-URL" content="index.html">
+<meta name="Reply-to" content="info@dpgpolytechnic.com/" />
+<meta name="Owner" content="JLN Polytechnic" />
+<meta name="Author" content="JLN Polytechnic, info@dpgpolytechnic.com">
+<meta name="Designer" content="iNet Business Hub" />
+<meta name="Copyright" content="JLN Polytechnic" />
+<meta name="Language" content="en">
+<link rel="Shortcut Icon" href="https://dpgpolytechnic.com/404.html" />
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="facebook-domain-verification" content="lj370c4p5a1vp1sorl2gpxdu3ca2wd" />
+<meta name="google-site-verification" content="WfZvRdrzx-5Gj5Mg2fTA50KWCFCOI2YmdHF3ecXbc30" />
+    
+<link rel="shortcut icon" type="image/x-icon" href="img/favicon.html">
 
-    <link rel="stylesheet" href="siteadmin/css/bootstrap.min.css">
+<link rel="stylesheet" href="~/templates/collage/css/bootstrap.min.css">
+<link rel="stylesheet" href="~/templates/collage/css/owl.carousel.css">
+<link rel="stylesheet" href="~/templates/collage/css/owl.transitions.css">
+<link rel="stylesheet" href="~/templates/collage/css/meanmenu.min.css">
+<link rel="stylesheet" href="~/templates/collage/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/templates/collage/css/icon.css">
+<link rel="stylesheet" href="~/templates/collage/css/flaticon.css">
+<link rel="stylesheet" href="~/templates/collage/css/magnific.min.css">
+<link rel="stylesheet" href="~/templates/collage/css/venobox.css">
+<link rel="stylesheet" href="~/templates/collage/style.css">
+<link rel="stylesheet" href="~/templates/collage/css/responsive.css">
+<script src="~/templates/collage/js/vendor/modernizr-2.8.3.min.js"></script>
 
-    <link rel="stylesheet" href="siteadmin/css/meanmenu.css">
 
-    <link rel="stylesheet" href="siteadmin/css/owl.carousel.min.css">
 
-    <link rel="stylesheet" href="siteadmin/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="~/templates/collage/css/jquery.tabSlideOut.css">
+<link rel="stylesheet" href="~/templates/collage/scripts/menu.css" type="text/css" media="screen, projection"/>
+<!--[if lte IE 7]>
+    <link rel="stylesheet" type="text/css" href="scripts/ie.css" media="screen" />
+<![endif]-->
+<script type="text/javascript" language="javascript" src="~/templates/collage/scripts/jquery.dropdownPlain.js"></script>
+<script src="~/templates/collage/js/vendor/jquery-1.12.4.min.js"></script> 
 
-    <link rel="stylesheet" href="siteadmin/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="siteadmin/css/flaticon.css">
 
-    <link rel="stylesheet" href="siteadmin/css/remixicon.css">
+<link href="~/templates/collage/css/site-icons.css" rel="stylesheet" />
+<link href="~/templates/collage/css/mobMenustyle.css" rel="stylesheet" />
+<link href="~/templates/collage/css/jquery.mobile-menu.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="siteadmin/css/odometer.min.css">
+<link type="text/css" media="screen" rel="stylesheet" href="plugins/gallery1/gallery.css" />
+<script type="text/javascript" src="plugins/validation/jquery.validate.js"></script>
+ <script type="text/javascript" src="plugins/gallery1/jquery.colorbox.js"></script>
 
-    <link rel="stylesheet" href="siteadmin/css/aos.css">
 
-    <link rel="stylesheet" href="siteadmin/css/style.css">
+<script type="text/javascript">
+function slideSwitch() {
+    var $active = $('#slideshow IMG.active');
+    if ( $active.length == 0 ) $active = $('#slideshow IMG:last');
+    // use this to pull the images in the order they appear in the markup
+    var $next =  $active.next().length ? $active.next()
+        : $('#slideshow IMG:first');
+    // uncomment the 3 lines below to pull the images in random order
+    $active.addClass('last-active');
+    $next.css({opacity: 0.0})
+        .addClass('active')
+        .animate({opacity: 1.0}, 1000, function() {
+            $active.removeClass('active last-active');
+        });
+}
+$(function() {
+    setInterval( "slideSwitch()", 5000 );
+});
+</script>
 
-    <link rel="stylesheet" href="siteadmin/css/dark.css">
+<style type="text/css">
+#slideshow {
+    position:relative;
+	width:100%;
+}
+#slideshow IMG {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:8;
+    opacity:0.0;
+}
+#slideshow IMG.active {
+    z-index:10;
+    opacity:1.0;
+}
+#slideshow IMG.last-active {
+    z-index:9;
+}
+</style>
 
-    <link rel="stylesheet" href="siteadmin/css/responsive.css">
-    <link rel="icon" type="image/png" href="siteadmin/images/favicon.png">
-    <title>Sanu - College University HTML Template</title>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8JKQM6SVXF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8JKQM6SVXF');
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'../connect.facebook.net/en_US/fbevents.js');
+fbq('init', '497234891365472');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=497234891365472&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code --> 
+
+
+<!-- Global site tag (gtag.js) - Google Ads: 10885893885 --> <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10885893885"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-10885893885'); </script>
+<!-- Event snippet for Click on Website Phone conversion page In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. --> <script> function gtag_report_conversion(url) { var callback = function () { if (typeof(url) != 'undefined') { window.location = url; } }; gtag('event', 'conversion', { 'send_to': 'AW-10885893885/wza8COr3uLsDEP2d5sYo', 'event_callback': callback }); return false; } </script>
+<script async custom-element="amp-analytics" src="../cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+<!-- Global site tag (gtag) - Google Ads: 10885893885 --> <amp-analytics type="gtag" data-credentials="include"> <script type="application/json"> { "vars": { "gtag_id": "AW-10885893885", "config": { "AW-10885893885": { "groups": "default" } } }, "triggers": { } } </script> </amp-analytics>
+
+<!-- Global site tag (gtag.js) - Google Ads: 10885893885 --> <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10885893885"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-10885893885'); </script>
+<script> gtag('config', 'AW-10885893885/rPq6CP7tuLsDEP2d5sYo', { 'phone_conversion_number': '+91-925-000-8494' }); </script>
+
 </head>
-<body>
+<body class="home-2">
+<!--[if lt IE 8]>
+			<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
 
-    <div class="preloader-area">
-        <div class="spinner">
-            <div class="inner">
-                <div class="disc"></div>
-                <div class="disc"></div>
-                <div class="disc"></div>
-            </div>
+<!--<div id="preloader"></div>-->
+
+<div class="mobNavigation">
+	<div id="page">
+		<div class="mm-toggle-wrap">
+			<div class="mm-toggle"> <i class="fa fa-bars"></i> Menu </div>
+            <div class="mm-rside"><a href="360-virtual-tour.html"><img src="~/templates/collage/img/360-tour.png" border="0" width="100%" alt="" /></a></div>
+		</div>
+	</div>
+	<div id="mobile-menu">
+		<ul class="menu">
+        	 <li><a href="index.html">Home</a></li>
+                <li><a href="#">About Us</a>
+					<ul><li><a href='https://dpgpolytechnic.com/about-us.html' target='_self'>About Us</a></li><li><a href='https://dpgpolytechnic.com/visionmission.html' target='_self'>Vision & Mission</a></li><li><a href='https://dpgpolytechnic.com/chairman-message.html' target='_self'>Chairman Message</a></li><li><a href='https://dpgpolytechnic.com/principal-message.html' target='_self'>Principal Message</a></li><li><a href='https://dpgpolytechnic.com/vice-principal-message.html' target='_self'>Vice Principal Message</a></li></ul>                </li>
+                <li><a href="#">Academics</a>
+                    <ul><li><a href='#'>Departments</a><ul><li><a href='https://dpgpolytechnic.com/diploma-in-computer-engineering.html' target='_self'>Diploma in Computer Engineering</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-electronics-and-communication.html' target='_self'>Diploma in Electronics and Communication</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-electrical-engineering.html' target='_self'>Diploma in Electrical Engineering</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-mechanical-engineering-.html' target='_self'>Diploma in mechanical engineering </a></li><li><a href='https://dpgpolytechnic.com/diploma-in-civil-engineering.html' target='_self'>Diploma in Civil Engineering</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-automobile-engineering.html' target='_self'>Diploma in Automobile Engineering</a></li><li><a href='https://dpgpolytechnic.com/applied-science64.html' target='_self'>Applied Science</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-medical-lab-technician.html' target='_self'>Diploma in Medical Lab Technician</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-vocational.html' target='_self'>Diploma in Vocational</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-robotics-and-automation.html' target='_self'>Diploma in Robotics and Automation</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-fashion-design.html' target='_self'>Diploma in Fashion Design</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-artificial-intelligence.html' target='_self'>Diploma in Artificial Intelligence</a></li></ul></li><li><a href='https://dpgpolytechnic.com/faculty62.html' target='_self'>Faculty</a></li><li><a href='https://dpgpolytechnic.com/lesson-plan.html' target='_self'>Lesson Plan</a></li><li><a href='https://dpgpolytechnic.com/e-notes-for-students.html' target='_self'>E-Notes For Students</a></li><li><a href='#'>Committees</a><ul><li><a href='anti-ragging-committee.html' target='_self'>Anti Ragging Committee</a></li><li><a href='https://dpgpolytechnic.com/grievance-redressal-committee.html' target='_self'>Grievance Redressal Committee</a></li><li><a href='https://dpgpolytechnic.com/women-welfare-committee.html' target='_self'>Women Welfare Committee</a></li><li><a href='https://dpgpolytechnic.com/discipline-committee.html' target='_self'>Discipline Committee</a></li><li><a href='https://dpgpolytechnic.com/internal-complaint-committee.html' target='_self'>Internal Complaint Committee</a></li><li><a href='https://dpgpolytechnic.com/committee-for-scst-students.html' target='_self'>Committee for SC/ST Students</a></li></ul></li><li><a href='https://dpgpolytechnic.com/scholarship.html' target='_self'>Scholarship</a></li><li><a href='https://dpgpolytechnic.com/syllabus-of-dvocational-courses.html' target='_self'>Syllabus of D.Vocational Courses</a></li></ul>                </li>
+                 <li><a href="#">Admission</a>
+                    <ul><li><a href='https://dpgpolytechnic.com/admission-open-2023-24.html' target='_self'>Admission Open 2023-24</a></li><li><a href='https://dpgpolytechnic.com/admission-procedure.html' target='_self'>Admission Procedure</a></li><li><a href='online-application-form.html' target='_self'>Online Application Form</a></li></ul>                </li>
+                <li><a href="#">Activities</a>
+                    <ul><li><a href='https://dpgpolytechnic.com/cultural-activities.html' target='_self'>Cultural Activities</a></li><li><a href='https://dpgpolytechnic.com/sports-activity.html' target='_self'>Sports Activity</a></li><li><a href='https://dpgpolytechnic.com/tourtrip.html' target='_self'>Tour & Trip</a></li></ul>                </li>
+                <li><a href="#">Facilities</a>
+                    <ul><li><a href='https://dpgpolytechnic.com/campus.html' target='_self'>Campus</a></li><li><a href='https://dpgpolytechnic.com/laboratories.html' target='_self'>Laboratories</a></li><li><a href='https://dpgpolytechnic.com/library.html' target='_self'>Library</a></li><li><a href='https://dpgpolytechnic.com/sports-facilities.html' target='_self'>Sports Facilities</a></li><li><a href='https://dpgpolytechnic.com/transport-facilities.html' target='_self'>Transport Facilities</a></li><li><a href='https://dpgpolytechnic.com/residing-facility.html' target='_self'>Residing Facility</a></li></ul>                </li>
+                <li><a href="downloads.html">Downloads</a>
+                                    </li>
+                <li><a href="#">Career</a>
+                    <ul><li><a href='https://dpgpolytechnic.com/career.html' target='_self'>Career</a></li><li><a href='https://dpgpolytechnic.com/post-your-resume.html' target='_self'>Post Your Resume</a></li></ul>                </li>
+                <li><a href="#">Placement Cell</a>
+                    <ul><li><a href='https://dpgpolytechnic.com/about-tp-cell.html' target='_self'>About T & P Cell</a></li><li><a href='https://dpgpolytechnic.com/industrial-visits.html' target='_self'>Industrial Visits</a></li><li><a href='https://dpgpolytechnic.com/job-fair-2017.html' target='_self'>Job Fair 2017</a></li><li><a href='https://dpgpolytechnic.com/job-fair-2018.html' target='_self'>Job Fair 2018</a></li><li><a href='https://dpgpolytechnic.com/job-fair-2019.html' target='_self'>Job Fair 2019</a></li><li><a href='https://dpgpolytechnic.com/job-fair-2020.html' target='_self'>Job Fair 2020</a></li><li><a href='https://dpgpolytechnic.com/job-fair-2021.html' target='_self'>Job Fair 2021</a></li></ul>                </li>
+                <li><a href="#">Gallery</a>
+                    <ul><li><a href='https://dpgpolytechnic.com/photo-gallery.html' target='_self'>Photo Gallery</a></li><li><a href='https://dpgpolytechnic.com/media-gallery.html' target='_self'>Media Gallery</a></li><li><a href='https://dpgpolytechnic.com/video-gallery.html' target='_self'>Video Gallery</a></li></ul>                </li>
+               
+        </ul>
+	</div>
+</div>
+
+<header class="header-two">
+  <div class="topbar-area topbar-area-2 fix hidden-xs">
+    <div class="container">
+      <div class="row">
+        <div class=" col-md-9 col-sm-4">
+          <div class="topbar-left">
+            <ul>
+              <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+              <li><a href="contact-us.html"><i class="fa fa-envelope"></i> Contact</a></li>
+              <li><a href="mandatory-disclosure.html"><i class="fa fa-user"></i> Mandatory Disclosure</a></li>
+              <li><a href="erp-login.html"><i class="fa fa-key"></i> ERP Login</a></li>
+              <li><a href="https://www.dpgpolytechnic.edugrievance.com/" target="_blank"><i class="fa fa-user"></i> Online Grievance</a></li>
+              <li><a href="downloads/feedback-proforma-30oct.pdf" target="_blank"><i class="fa fa-envelope"></i> Feedback Proforma</a></li>
+              <li><a href="online-application-form.html"><i class="fa fa-laptop"></i> Online Application Form</a></li>
+            </ul>
+          </div>
         </div>
+        <div class="col-md-3 col-sm-4">
+          <div class="topbar-right">
+            <div class="quote-button"> <a href="admission/index.html" class="quote-btn" target="_blank">Admission 2023-24</a> </div>
+            <div class="top-social">
+              <ul>
+                <li><a href="https://www.facebook.com/DPG-Polytechnic-102977088514092" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                <li><a href="https://api.whatsapp.com/send?phone=+919212385277&amp;text=Hi,%20I%20contacted%20you%20Through%20your%20website." target="_blank"><i class="fa fa-whatsapp"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-    <div class="top-header-area">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-lg-6 col-md-6">
-                    <div class="header-left-content">
-                        <p>Get the latest updates and Sanu's response to COVID-19</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="header-right-content">
-                        <div class="list">
-                            <ul>
-                                <li><a href="graduate-admission.html">Students</a></li>
-                                <li><a href="campus-life.html">Faculty & Staff</a></li>
-                                <li><a href="admission.html">Visitors</a></li>
-                                <li><a href="academics.html">Academics</a></li>
-                                <li><a href="alumni.html">Alumni</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  </div>
+  <div class="header-middle-area hidden-xs">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-sm-8">
+          <div class="logo"><a class="navbar-brand page-scroll sticky-logo" href="index.html"> <img src="~/templates/collage/img/logo.png" alt=""> </a> </div>
         </div>
+        <div class="col-md-6 col-sm-4 pull-right">
+          <div class="header-middle-link">
+            
+            <div class="header-info" style="float:right;">
+              <div class="header-icon"> <i class="fa fa-external-link"></i> </div>
+              <div class="header-info-text"> <span class="info-first call"><a href="tel:+919212385277">+91-92123-85277</a></span> <span class="info-simple">info@dpgpolytechnic.com</span> </div>
+            </div>
+            <div class="header-info" style="padding:0px; padding-top:17px;">
+             <a href="360-virtual-tour.html"><img src="~/templates/collage/img/360-tour.png" border="0" alt="" /></a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-    <div class="navbar-area nav-bg-1">
-        <div class="mobile-responsive-nav">
-            <div class="container">
-                <div class="mobile-responsive-menu">
-                    <div class="logo">
-                        <a href="index.html">
-                            <img src="siteadmin/images/logo.png" class="main-logo" lt="logo">
-                            <img src="siteadmin/images/white-logo.png" class="white-logo" alt="logo">
-                        </a>
-                    </div>
-                </div>
+  </div>
+  <div id="sticker" class="header-area header-area-3 hidden-xs" style="background-color:#03a3de;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <nav class="navbar navbar-default">
+            <div class="collapse navbar-collapse" id="navbar-example">
+              <div class="main-menu">
+                <ul class="dropdowni" id="dropdowni">
+                <li><a href="#">About Us</a>
+					<ul><li><a href='https://dpgpolytechnic.com/about-us.html' target='_self'>About Us</a></li><li><a href='https://dpgpolytechnic.com/visionmission.html' target='_self'>Vision & Mission</a></li><li><a href='https://dpgpolytechnic.com/chairman-message.html' target='_self'>Chairman Message</a></li><li><a href='https://dpgpolytechnic.com/principal-message.html' target='_self'>Principal Message</a></li><li><a href='https://dpgpolytechnic.com/vice-principal-message.html' target='_self'>Vice Principal Message</a></li></ul>                </li>
+                <li><a href="#">Academics</a>
+                    <ul><li><a href='#'>Departments</a><ul><li><a href='https://dpgpolytechnic.com/diploma-in-computer-engineering.html' target='_self'>Diploma in Computer Engineering</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-electronics-and-communication.html' target='_self'>Diploma in Electronics and Communication</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-electrical-engineering.html' target='_self'>Diploma in Electrical Engineering</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-mechanical-engineering-.html' target='_self'>Diploma in mechanical engineering </a></li><li><a href='https://dpgpolytechnic.com/diploma-in-civil-engineering.html' target='_self'>Diploma in Civil Engineering</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-automobile-engineering.html' target='_self'>Diploma in Automobile Engineering</a></li><li><a href='https://dpgpolytechnic.com/applied-science64.html' target='_self'>Applied Science</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-medical-lab-technician.html' target='_self'>Diploma in Medical Lab Technician</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-vocational.html' target='_self'>Diploma in Vocational</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-robotics-and-automation.html' target='_self'>Diploma in Robotics and Automation</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-fashion-design.html' target='_self'>Diploma in Fashion Design</a></li><li><a href='https://dpgpolytechnic.com/diploma-in-artificial-intelligence.html' target='_self'>Diploma in Artificial Intelligence</a></li></ul></li><li><a href='https://dpgpolytechnic.com/faculty62.html' target='_self'>Faculty</a></li><li><a href='https://dpgpolytechnic.com/lesson-plan.html' target='_self'>Lesson Plan</a></li><li><a href='https://dpgpolytechnic.com/e-notes-for-students.html' target='_self'>E-Notes For Students</a></li><li><a href='#'>Committees</a><ul><li><a href='anti-ragging-committee.html' target='_self'>Anti Ragging Committee</a></li><li><a href='https://dpgpolytechnic.com/grievance-redressal-committee.html' target='_self'>Grievance Redressal Committee</a></li><li><a href='https://dpgpolytechnic.com/women-welfare-committee.html' target='_self'>Women Welfare Committee</a></li><li><a href='https://dpgpolytechnic.com/discipline-committee.html' target='_self'>Discipline Committee</a></li><li><a href='https://dpgpolytechnic.com/internal-complaint-committee.html' target='_self'>Internal Complaint Committee</a></li><li><a href='https://dpgpolytechnic.com/committee-for-scst-students.html' target='_self'>Committee for SC/ST Students</a></li></ul></li><li><a href='https://dpgpolytechnic.com/scholarship.html' target='_self'>Scholarship</a></li><li><a href='https://dpgpolytechnic.com/syllabus-of-dvocational-courses.html' target='_self'>Syllabus of D.Vocational Courses</a></li></ul>                </li>
+                 <li><a href="#">Admission</a>
+                    <ul><li><a href='https://dpgpolytechnic.com/admission-open-2023-24.html' target='_self'>Admission Open 2023-24</a></li><li><a href='https://dpgpolytechnic.com/admission-procedure.html' target='_self'>Admission Procedure</a></li><li><a href='online-application-form.html' target='_self'>Online Application Form</a></li></ul>                </li>
+                <li><a href="#">Activities</a>
+                    <ul><li><a href='https://dpgpolytechnic.com/cultural-activities.html' target='_self'>Cultural Activities</a></li><li><a href='https://dpgpolytechnic.com/sports-activity.html' target='_self'>Sports Activity</a></li><li><a href='https://dpgpolytechnic.com/tourtrip.html' target='_self'>Tour & Trip</a></li></ul>                </li>
+                <li><a href="#">Facilities</a>
+                    <ul><li><a href='https://dpgpolytechnic.com/campus.html' target='_self'>Campus</a></li><li><a href='https://dpgpolytechnic.com/laboratories.html' target='_self'>Laboratories</a></li><li><a href='https://dpgpolytechnic.com/library.html' target='_self'>Library</a></li><li><a href='https://dpgpolytechnic.com/sports-facilities.html' target='_self'>Sports Facilities</a></li><li><a href='https://dpgpolytechnic.com/transport-facilities.html' target='_self'>Transport Facilities</a></li><li><a href='https://dpgpolytechnic.com/residing-facility.html' target='_self'>Residing Facility</a></li></ul>                </li>
+                <li><a href="downloads.html">Downloads</a>
+                                    </li>
+                <li><a href="#">Career</a>
+                    <ul><li><a href='https://dpgpolytechnic.com/career.html' target='_self'>Career</a></li><li><a href='https://dpgpolytechnic.com/post-your-resume.html' target='_self'>Post Your Resume</a></li></ul>                </li>
+                <li><a href="#">Placement Cell</a>
+                    <ul><li><a href='https://dpgpolytechnic.com/about-tp-cell.html' target='_self'>About T & P Cell</a></li><li><a href='https://dpgpolytechnic.com/industrial-visits.html' target='_self'>Industrial Visits</a></li><li><a href='https://dpgpolytechnic.com/job-fair-2017.html' target='_self'>Job Fair 2017</a></li><li><a href='https://dpgpolytechnic.com/job-fair-2018.html' target='_self'>Job Fair 2018</a></li><li><a href='https://dpgpolytechnic.com/job-fair-2019.html' target='_self'>Job Fair 2019</a></li><li><a href='https://dpgpolytechnic.com/job-fair-2020.html' target='_self'>Job Fair 2020</a></li><li><a href='https://dpgpolytechnic.com/job-fair-2021.html' target='_self'>Job Fair 2021</a></li></ul>                </li>
+                <li><a href="#">Gallery</a>
+                    <ul><li><a href='https://dpgpolytechnic.com/photo-gallery.html' target='_self'>Photo Gallery</a></li><li><a href='https://dpgpolytechnic.com/media-gallery.html' target='_self'>Media Gallery</a></li><li><a href='https://dpgpolytechnic.com/video-gallery.html' target='_self'>Video Gallery</a></li></ul>                </li>
+               
+                </ul>
+              </div>
             </div>
+          </nav>
         </div>
-        <div class="desktop-nav">
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-md navbar-light">
-                    <a class="navbar-brand" href="index.html">
-                        <img src="siteadmin/images/white-logo.png" alt="logo">
-                    </a>
-                    <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link dropdown-toggle active">
-                                    Home
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="index.html" class="nav-link active">Home One</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="index-2.html" class="nav-link">Home Two</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="index-3.html" class="nav-link">Home Three</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="index-4.html" class="nav-link">Home Four</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="index-5.html" class="nav-link">Home Five</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link dropdown-toggle">
-                                    Pages
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="graduate-admission.html" class="nav-link">Graduate Admission</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="campus-life.html" class="nav-link">Campus Life</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="alumni.html" class="nav-link">Alumni</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link dropdown-toggle">
-                                            Academics
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item">
-                                                <a href="academics.html" class="nav-link">Academics</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="academics-details.html" class="nav-link">Academics Details</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link dropdown-toggle">
-                                            Latest News
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item">
-                                                <a href="latest-news.html" class="nav-link">Our Latest News</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="news-details.html" class="nav-link">News Details</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="faq.html" class="nav-link">FAQ</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link dropdown-toggle">
-                                            Users
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item">
-                                                <a href="login.html" class="nav-link">Login</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="register.html" class="nav-link">Register</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="recover-password.html" class="nav-link">Recover Password</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="privacy-policy.html" class="nav-link">Privacy Policy</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="terms-conditions.html" class="nav-link">Terms And Conditions</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="coming-soon.html" class="nav-link">Coming Soon</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="404.html" class="nav-link">404 Page</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link dropdown-toggle">
-                                    Courses
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="courses.html" class="nav-link">Courses</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="courses-details.html" class="nav-link">Courses Details</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link dropdown-toggle">
-                                    Health Care
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="health-care.html" class="nav-link">Health Care</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="health-care-details.html" class="nav-link">Health Care Details</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link dropdown-toggle">
-                                    Events
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="events.html" class="nav-link">Events</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="events-details.html" class="nav-link">Events Details</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="contact-us.html" class="nav-link">Contact Us</a>
-                            </li>
-                        </ul>
-                        <div class="others-options">
-                            <div class="icon">
-                                <i class="ri-menu-3-fill" data-bs-toggle="modal" data-bs-target="#sidebarModal"></i>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-        <div class="others-option-for-responsive">
-            <div class="container">
-                <div class="dot-menu">
-                    <div class="inner">
-                        <div class="icon">
-                            <i class="ri-menu-3-fill" data-bs-toggle="modal" data-bs-target="#sidebarModal"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-
-
-    <div class="sidebarModal modal right fade" id="sidebarModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <button type="button" class="close" data-bs-dismiss="modal"><i class="ri-close-line"></i></button>
-                <div class="modal-body">
-                    <a href="index.html">
-                        <img src="siteadmin/images/logo.png" class="main-logo" alt="logo">
-                        <img src="siteadmin/images/white-logo.png" class="white-logo" alt="logo">
-                    </a>
-                    <div class="sidebar-content">
-                        <h3>About Us</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <div class="sidebar-btn">
-                            <a href="contact.html" class="default-btn">Let’s Talk</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  </div>
+  <div class="mobile-menu-area hidden-lg hidden-md hidden-sm">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div> <a href="index.html"><img src="~/templates/collage/img/logo.png" alt="" /></a> </div>
         </div>
+      </div>
     </div>
-    @RenderBody();
-    <div class="footer-area pt-100 pb-70">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-sm-6">
-                    <div class="footer-logo-area">
-                        <a href="index.html"><img src="siteadmin/images/white-logo.png" alt="Image"></a>
-                        <p>Sanu University was established by J.H Merthon in 1810 for the public benefit. Afterwards, it is recognized globally</p>
-                        <div class="contact-list">
-                            <ul>
-                                <li>
-                                    <a href="tel:+01987655567685">
-                                        +01-9876-5556-7685
-                                    </a>
-                                </li>
-                                <li><a href="https://templates.hibootstrap.com/cdn-cgi/l/email-protection#4e2f2a2327200e3d2f203b602b2a3b"><span class="__cf_email__" data-cfemail="1d7c797074735d6e7c736833787968">[email&#160;protected]</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="footer-widjet">
-                        <h3>Campus Life</h3>
-                        <div class="list">
-                            <ul>
-                                <li><a href="campus-life.html">Accessibility</a></li>
-                                <li><a href="campus-life.html">Financial Aid</a></li>
-                                <li><a href="campus-life.html">Food Services</a></li>
-                                <li><a href="campus-life.html">Housing</a></li>
-                                <li><a href="campus-life.html">Information Technologies</a></li>
-                                <li><a href="campus-life.html">Student Life</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="footer-widjet">
-                        <h3>Our Campus</h3>
-                        <div class="list">
-                            <ul>
-                                <li><a href="campus-life.html">Acedemic</a></li>
-                                <li><a href="campus-life.html">Planning & AdminiStartion</a></li>
-                                <li><a href="campus-life.html">Campus Safety</a></li>
-                                <li><a href="campus-life.html">Office of the Chancellor</a></li>
-                                <li><a href="campus-life.html">Facility Services</a></li>
-                                <li><a href="campus-life.html">Human Resources</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-sm-6">
-                    <div class="footer-widjet">
-                        <h3>Academics</h3>
-                        <div class="list">
-                            <ul>
-                                <li><a href="academics.html">Canvas</a></li>
-                                <li><a href="academics.html">Catalyst</a></li>
-                                <li><a href="academics.html">Library</a></li>
-                                <li><a href="academics.html">Time Schedule</a></li>
-                                <li><a href="academics.html">Apply For Admissions</a></li>
-                                <li><a href="academics.html">Pay My Tuition</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+  </div>
+</header>
+@RenderBody()
+<footer>
+  <div class="footer-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-5 col-xs-12">
+          <div class="footer-content">
+            <div class="footer-head">
+              <h4>Quick Contact</h4>
+              <p> <strong>D.P.G. Polytechnic </strong> <br/>
+                Sec- 34,  Gurugram - 122001 (Haryana)<br/>
+                <br/>
+                <!--Fax No. : 0124-321002<br/>-->
+                Placement Cell : <a href="tel:+919729336166">+91-97293-36166</a> <br/>
+                Mobile No. : <a href="tel:+919212385277">+91-92123-85277</a><br/>
+                For Admission Enquiry : <a href="tel:+919212385277">92123-85277</a><br/>
+                Placement : placement@dpgpolytechnic.com<br/>
+                Email : info@dpgpolytechnic.com<br/>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; admissiondpg@gmail.com </p>
             </div>
-            <div class="shape">
-                <img src="siteadmin/images/shape-1.png" alt="Image">
-            </div>
+          </div>
         </div>
-    </div>
-
-
-    <div class="copyright-area">
-        <div class="container">
-            <div class="copyright">
-                <div class="row">
-                    <div class="col-lg-6 col-md-4">
-                        <div class="social-content">
-                            <ul>
-                                <li><span>Follow Us On</span></li>
-                                <li>
-                                    <a href="https://www.facebook.com/" target="_blank"><i class="ri-facebook-fill"></i></a>
-                                </li>
-                                <li>
-                                    <a href="https://www.twitter.com/" target="_blank"><i class="ri-twitter-fill"></i></a>
-                                </li>
-                                <li>
-                                    <a href="https://instagram.com/?lang=en" target="_blank"><i class="ri-instagram-line"></i></a>
-                                </li>
-                                <li>
-                                    <a href="https://linkedin.com/?lang=en" target="_blank"><i class="ri-linkedin-fill"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-8">
-                        <div class="copy">
-                            <p>© Sanu is Proudly Owned by <a href="https://hibootstrap.com/" target="_blank">HiBootstrap</a></p>
-                        </div>
-                    </div>
-                </div>
+        <div class="col-md-3 col-sm-3 col-xs-12">
+          <div class="footer-content">
+            <div class="footer-head">
+              <h4>Other Instiutions</h4>
+              <ul class="footer-list">
+                <!--<li><a href="http://www.dpgitm.com/" target="_blank">DPG Institute of Technology & Management</a></li>-->
+                  <li><a href="http://www.dpgdegreecollege.com/" target="_blank">DPG Degree College</a></li>
+                <li><a href="http://cpsmcoe.org/" target="_blank">Chaudhary Partap Singh Memorial College of Education</a></li>
+              </ul>
+              <div class="footer-icons" style="margin-top:10px;">
+                <ul>
+                  <li><a href="https://www.facebook.com/DPG-Polytechnic-102977088514092" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                   <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                <li><a href="https://api.whatsapp.com/send?phone=+919212385277&amp;text=Hi,%20I%20contacted%20you%20Through%20your%20website." target="_blank"><i class="fa fa-whatsapp"></i></a></li>
+                </ul>
+              </div>
+				<hr>
+				<ul class="footer-list">
+				<li><a href="affiliation-and-accreditation.html" target="_blank">Affiliation and Accreditation</a></li>
+				<li><a href="https://www.aicte-india.org/feedback/students.php" target="_blank">Student Feedback</a></li>
+				<li><a href="https://www.aicte-india.org/feedback/faculty.php" target="_blank">Faculty Feedback</a></li>
+				<li><a href="downloads/files/n62629f6add100.pdf" target="_blank">Board of Governors</a></li>
+              	</ul>
             </div>
+          </div>
         </div>
+        <div class="col-md-2 col-sm-2 col-xs-12">
+          <div class="footer-content">
+            <div class="footer-head">
+              <h4>Quick Links</h4>
+              <ul class="footer-list">
+                <li><a href="anti-ragging-committee.html">Commitee Section</a></li>
+                <li><a href="mandatory-disclosure.html">Mandatory Disclosure</a></li>
+                <li><a href="http://hsbte.org.in/" target="_blank">HSBTE </a></li>
+                <li><a href="placement-cell.html">Placement Cell</a></li>
+                <li><a href="online-grievance-form.html">Online Grievance Form</a></li>
+                <li><a href="newsletter.html">Newsletter</a></li>
+                <!--<li><a href="http://yuvahealthcare.org/" target="_blank">YUVA Healthcare</a></li>-->
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-5 col-xs-12">
+          <div class="footer-content">
+            <div class="footer-head">
+              <h4>Location Map</h4>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3508.78518404185!2d77.01792031507796!3d28.425738082499784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d18066ca68059%3A0x2ee6b8bf4886b513!2sDPG+Polytechnic!5e0!3m2!1sen!2sin!4v1524135824949" width="100%" height="162" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-    <div class="go-top">
-        <i class="ri-arrow-up-s-line"></i>
-        <i class="ri-arrow-up-s-line"></i>
+  </div>
+  <div class="footer-area-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="copyright">
+            <p>&copy; 2018, <a href="#">DPG Polytechnic</a> All Rights Reserved</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="copyright" align="right">
+            <p>Website Designed & Developed by <a href="http://www.inetbusinesshub.com/" target="_blank">iNET Business Hub</a></p>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</footer>
+<a href="https://api.whatsapp.com/send?phone=+919212385277&amp;text=Hi,%20I%20would%20like%20to%20get%20more%20information%20about%20your%20college.." target="_blank" class="quotecorner hidden-xs"><img src="~/templates/collage/img/whatsApp-icon.png"></a>
+<div id="rightslide">
+	<a id="right-handle" class="handle ui-slideouttab-handle ui-slideouttab-handle-rounded">Drop an Enquiry <i class="fa fa-icon fa-pencil-square-o"></i></a>
+	
+<SCRIPT language=javascript>
+function isEmpty( str){
+    strRE = new RegExp( );
+    strRE.compile( '^[\s ]*$', 'gi' );
+    return strRE.test( str.value );
+}
 
+    function check_form()
+    {
+     var valid=false;
+   if(isEmpty(Pform.name))
+    {
+     alert("Please Enter Your Full Name.");
+     Pform.name.focus();
+    } 
+    else if(isEmpty(Pform.phone))
+    {
+     alert("Please Enter your Contact Number");
+     Pform.phone.focus();
+    } 
+    else if(isNaN(Pform.phone.value))
+    {
+     alert("Invalid CONTACT Number");
+     Pform.phone.focus();
+    }
+	else if(Pform.email.value=="")
+    {
+     alert("Please Enter Email Address");
+     Pform.email.focus();
+    }
+    else if(Pform.email.value.indexOf("@@")<1)
+    {
+     alert("Invalid Email Address");
+     Pform.email.focus();
+    }
+    else if(Pform.email.value.indexOf(".")<2)
+    {
+     alert("Invalid EMAIL Address");
+     Pform.email.focus();
+    }
+    else if(isEmpty(Pform.message))
+    {
+     alert("Enter Your Message");
+     Pform.message.focus();
+    } 
+     
+    else
+    {
+     valid=true;
+    }
+    return valid;
+ }    
+</SCRIPT>
+<style>
+.ml25				{ margin-left: 20px;}
+	input   {border: 1px solid #3d3d3d !important;}
+	select   {border: 1px solid #3d3d3d !important;}
+@@media only screen and (max-width: 767px) {
+.ml25				{ margin-left: 0px !important;}
+}
+</style>
+<div align="center" style="margin-bottom:10px;"></div>
+<FORM name=Pform onsubmit="return check_form();" action="#" method=post>
+  	<div class="row-fluid">
+		<div class="ml25">
+    	<div class="span12">
+		<input type="text" id="name" name="name" style="color:#2E4463;" value="" placeholder=" Name *">
+		</div>
+		<div class="clearfix" style="clear: both;height:10px;">&nbsp;</div>
+		<div class="span12">
+		<input type="text" id="phone" name="phone" style="color:#2E4463;" value="" placeholder=" Mobile No. *">
+		</div>
+		<div class="clearfix" style="clear: both;height:10px;">&nbsp;</div>
+		<div class="span12">
+		<input type="text" id="email" name="email" style="color:#2E4463;" value="" placeholder=" Email *">
+		</div>
+		<div class="clearfix" style="clear: both;height:10px;">&nbsp;</div>
+        <div class="span12">
+			<textarea name="message" id="message" placeholder=" Message *"></textarea>
+		</div>
+		<div class="clearfix" style="clear: both;height:0px;">&nbsp;</div>
+        <div class="span3"><iframe style="margin:5px 0px 0px 0px;" id=_PAGE frameborder=0 height="45" width="100%" scrolling=no src="frameImage.html"></iframe></div>
+		<div class="span3"><input type="text" id="security_code" name="security_code" size="20" tabindex="3" placeholder="<< Type Code Here"></div>
+     	<div class="clearfix" style="clear: both;height:10px;">&nbsp;</div>
+        <div class="span8" align="center">
+        	<input type="submit" value="Submit" name="Submit" style="cursor:hand;margin-left:0px; background-color: #e22a31; color:#fff;">
+			<input type="reset" value="Reset" name="B4" style="cursor:hand;margin-left:20px;background-color: #e22a31; color:#fff;">
+        </div>
+     </div>
+</form>
+</div>
 
-    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="siteadmin/js/jquery.min.js"></script>
+<!-- jquery latest version --> 
 
-    <script src="siteadmin/js/bootstrap.bundle.min.js"></script>
+<!-- bootstrap js --> 
+<script src="~/templates/collage/js/bootstrap.min.js"></script> 
+<!-- owl.carousel js --> 
+<script src="~/templates/collage/js/owl.carousel.min.js"></script> 
+<!-- Counter js --> 
+<script src="~/templates/collage/js/jquery.counterup.min.js"></script> 
+<!-- waypoint js --> 
+<script src="~/templates/collage/js/waypoints.js"></script> 
+<!-- isotope js --> 
+<script src="~/templates/collage/js/isotope.pkgd.min.js"></script> 
+<!-- stellar js --> 
+<script src="~/templates/collage/js/jquery.stellar.min.js"></script> 
+<!-- magnific js --> 
+<script src="~/templates/collage/js/magnific.min.js"></script> 
+<!-- venobox js --> 
+<script src="~/templates/collage/js/venobox.min.js"></script> 
+<!-- meanmenu js --> 
+<script src="~/templates/collage/js/jquery.meanmenu.js"></script> 
+<!-- Form validator js --> 
+<script src="~/templates/collage/js/form-validator.min.js"></script> 
+<!-- plugins js --> 
+<script src="~/templates/collage/js/plugins.js"></script> 
+<!-- main js -->
+<script src="~/templates/collage/js/jquery.tabSlideOut.js"></script>
+<script src="~/templates/collage/js/slidepanel.js"></script>
+<script src="~/templates/collage/js/main.js"></script>
+<script src="~/templates/collage/js/jquery.mobile-menu.min.js"></script>
+<script>
+	jQuery(document).ready(function($){		
+		$("#mobile-menu").mobileMenu({
+			MenuWidth: 250,
+			SlideSpeed : 300,
+			WindowsMaxWidth : 980,
+			PagePush : true,
+			FromLeft : true,
+			Overlay : true,
+			CollapseMenu : true,
+			ClassName : "mobile-menu"
+		});
+	});        
+</script>
 
-    <script src="siteadmin/js/jquery.meanmenu.js"></script>
-
-    <script src="siteadmin/js/owl.carousel.min.js"></script>
-
-    <script src="siteadmin/js/carousel-thumbs.min.js"></script>
-
-    <script src="siteadmin/js/jquery.magnific-popup.js"></script>
-
-    <script src="siteadmin/js/aos.js"></script>
-
-    <script src="siteadmin/js/odometer.min.js"></script>
-
-    <script src="siteadmin/js/appear.min.js"></script>
-
-    <script src="siteadmin/js/form-validator.min.js"></script>
-
-    <script src="siteadmin/js/contact-form-script.js"></script>
-
-    <script src="siteadmin/js/ajaxchimp.min.js"></script>
-
-    <script src="siteadmin/js/custom.js"></script>
 </body>
 
-<!-- Mirrored from templates.hibootstrap.com/sanu/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Apr 2023 18:42:03 GMT -->
+<!-- Mirrored from www.dpgpolytechnic.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 22 Aug 2023 12:25:52 GMT -->
 </html>

@@ -13,9 +13,9 @@ namespace JLNP_Project.AppCode.DAL
         {
             SqlCommand cmd = new SqlCommand("Proc_GetAdmissionDetails", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@FromDate", admissionModel.FromDate);
-            cmd.Parameters.AddWithValue("@ToDate", admissionModel.ToDate);
-            cmd.Parameters.AddWithValue("@AdmissionNo", admissionModel.RgistrationNo);
+            cmd.Parameters.AddWithValue("@FromDate", admissionModel.FromDate ?? string.Empty);
+            cmd.Parameters.AddWithValue("@ToDate", admissionModel.ToDate ?? string.Empty);
+            cmd.Parameters.AddWithValue("@AdmissionNo", admissionModel.RgistrationNo ?? string.Empty);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);

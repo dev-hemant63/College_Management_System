@@ -44,6 +44,7 @@ namespace JLNP_Project.Controllers
         {
             return View();
         }
+        [HttpGet]
         public IActionResult StudentProfile()
         {
             if (_lr.UserName != null)

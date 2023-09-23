@@ -643,4 +643,8 @@
     <None Include="wwwroot\plugins\uplot\uPlot.iife.min.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\templates\" />
+  </ItemGroup>
+
 </Project>
