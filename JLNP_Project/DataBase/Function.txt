@@ -1,6 +1,15 @@
 ﻿USE [DB_CollageERP]
 GO
-/****** Object:  UserDefinedFunction [dbo].[CustomDate]    Script Date: 9/19/2023 11:09:17 PM ******/
+/****** Object:  UserDefinedFunction [dbo].[GetUserName]    Script Date: 17-10-2023 16:32:20 ******/
+DROP FUNCTION [dbo].[GetUserName]
+GO
+/****** Object:  UserDefinedFunction [dbo].[fn_getgradebyexam]    Script Date: 17-10-2023 16:32:20 ******/
+DROP FUNCTION [dbo].[fn_getgradebyexam]
+GO
+/****** Object:  UserDefinedFunction [dbo].[CustomDate]    Script Date: 17-10-2023 16:32:20 ******/
+DROP FUNCTION [dbo].[CustomDate]
+GO
+/****** Object:  UserDefinedFunction [dbo].[CustomDate]    Script Date: 17-10-2023 16:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19,7 +28,7 @@ BEGIN
     RETURN @customDate;
 END;
 GO
-/****** Object:  UserDefinedFunction [dbo].[fn_getgradebyexam]    Script Date: 9/19/2023 11:09:17 PM ******/
+/****** Object:  UserDefinedFunction [dbo].[fn_getgradebyexam]    Script Date: 17-10-2023 16:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35,7 +44,7 @@ Select @grade = GradeName from tbl_Grade where PrecentFrom >= @Precent and Prece
 return @grade  
 END
 GO
-/****** Object:  UserDefinedFunction [dbo].[GetUserName]    Script Date: 9/19/2023 11:09:17 PM ******/
+/****** Object:  UserDefinedFunction [dbo].[GetUserName]    Script Date: 17-10-2023 16:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
